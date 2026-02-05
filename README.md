@@ -15,8 +15,8 @@ npm run dev
 Asegurate de tener instalado node y las dependencias del proyecto.
 
 
-## Instalar las dependencias:
-Para instalar las dependencias, igualemnte, entra al directorio /Front
+### Instalar las dependencias:
+Para instalar las dependencias, igualmente, entra al directorio /Front
 ```bash
 cd Front
 ```
