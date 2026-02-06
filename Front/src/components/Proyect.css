@@ -1,0 +1,11 @@
+.project-container {
+    padding: .8rem;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    gap: 1rem;
+    background-color: var(--container);
+    border: 1px solid var(--border-container);
+    border-radius: 10px;
+}

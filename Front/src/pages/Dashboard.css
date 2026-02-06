@@ -5,6 +5,7 @@
     flex-direction: column;
     justify-content: center;
     color: black;
+    gap: 2rem;
 }
 
 .panel-header {
@@ -13,4 +14,8 @@
 
 .panel-title {
     font-size: 1.5rem;
+}
+
+.panel-body {
+    width: 100%;
 }

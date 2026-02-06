@@ -6,4 +6,6 @@
 
 :root {
     font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+    --container: #EBEBEB;
+    --border-container: #C5C5C5;
 }
