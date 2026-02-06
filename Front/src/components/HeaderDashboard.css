@@ -1,0 +1,47 @@
+.header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.4rem;
+    border: 1px solid #C5C5C5;
+    border-radius: 10px;
+    background-color: #EBEBEB;
+}
+
+.info-user {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+    gap: .5rem;
+}
+
+.avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: cornsilk;
+    padding: .7rem 1rem;
+    border-radius: 50%;
+}
+
+.letter-name {
+    font-size: 1.4rem;
+    font-weight: 600;
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+}
+
+.option-buttons {
+    display: flex;
+    gap: .1rem
+}
+
+.button-one {
+    padding: .5rem;
+    border-radius: 10px
+}
