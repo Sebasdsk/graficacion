@@ -1,4 +1,4 @@
-import "./Proyect.css"
+import "./Project.css"
 
 interface ProyectoProp {
     id: number;
@@ -7,7 +7,7 @@ interface ProyectoProp {
     colaboradores: number;
 }
 
-export default function Proyect( { id, nombre, descripcion, colaboradores }: ProyectoProp ) {
+export default function Project( { id, nombre, descripcion, colaboradores }: ProyectoProp ) {
     return (
         <article className="project-container">
             <header className="project-header">

@@ -1,5 +1,5 @@
-import Proyect from "./Proyect";
-import "./ProyectList.css"
+import Project from "./Project";
+import "./ProjectList.css"
 
 // Datos de prueba, para la UI
 const proyectos = [
@@ -9,7 +9,7 @@ const proyectos = [
     {id: 4, nombre: "Proyecto 4", descripcion: "", colaboradores: 3}
 ]
 
-export default function ProyectsList() {
+export default function ProjectsList() {
     return (
         <section className="proyect-list">
             <div>
@@ -18,7 +18,7 @@ export default function ProyectsList() {
             <hr />
             <section className="list">
                 {proyectos.map(p => (
-                    <Proyect id={p.id} nombre={p.nombre} descripcion={p.descripcion} colaboradores={p.colaboradores}/>
+                    <Project id={p.id} nombre={p.nombre} descripcion={p.descripcion} colaboradores={p.colaboradores}/>
                 ))}
             </section>
         </section>
