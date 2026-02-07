@@ -19,3 +19,15 @@
 .panel-body {
     width: 100%;
 }
+
+.button-new-project {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    padding: 1rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid;
+}
