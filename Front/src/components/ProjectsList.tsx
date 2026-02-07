@@ -12,9 +12,9 @@ const proyectos = [
 export default function ProjectsList() {
     return (
         <section className="proyect-list">
-            <div>
-                <h3>Lista de proyectos</h3>
-            </div>
+            <header>
+                <h2>Lista de proyectos</h2>
+            </header>
             <hr />
             <section className="list">
                 {proyectos.map(p => (

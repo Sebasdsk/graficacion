@@ -1,0 +1,19 @@
+.projects-resume {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1rem;
+}
+
+.total-projects,
+.in-progress,
+.complete-projects {
+    padding: 1.5rem;
+    border-radius: 10px;
+    background-color: var(--container);
+    border: 1px solid var(--border-container);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
