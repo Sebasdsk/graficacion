@@ -1,0 +1,106 @@
+.projects-page {
+    height: 100dvh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.project-create,
+.project-configuration {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.3rem;
+    background-color: var(--container);
+    border: 1px solid var(--border-container);
+    border-radius: 10px;
+    width: min(100%, 400px);
+}
+
+/* Estilos del contenedor para crear un nuevo proyecto */
+.form-create-project {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    gap: 1rem;
+    width: 100%;
+}
+
+.input-name,
+.input-description,
+.input-problematic {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    gap: .3rem;
+    width: 100%;
+}
+
+.input-name input,
+.input-description textarea,
+.input-problematic textarea {
+    width: 100%;
+    border-radius: 10px;
+    padding: .4rem;
+    resize: none;
+}
+
+/* Estilos del contenedor para configurar un proyecto */
+.header-project-configuration {
+    width: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.return-button {
+    width: 100%;
+    display: flex;
+    align-items: start;
+}
+
+.return-button button {
+    border: none;
+    background-color: transparent;
+    font-size: 1rem;
+}
+
+.body-project-configuration {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.process,
+.stakeholders {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: .4rem;
+}
+
+.process,
+.stakeholders {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.process button,
+.stakeholders button {
+    width: 100%;
+    padding: .4rem;
+    border-radius: 10px;
+}
