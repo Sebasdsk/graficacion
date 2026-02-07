@@ -1,11 +1,51 @@
 .project-container {
-    padding: .8rem;
+    padding: 1.5rem;
     display: flex;
     flex-direction: column;
-    align-items: start;
-    justify-content: center;
+    justify-content: start;
     gap: 1rem;
     background-color: var(--container);
     border: 1px solid var(--border-container);
     border-radius: 10px;
+}
+
+.project-body {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.info-project {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.relations-projects {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.stakeholders-container,
+.process-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.watch-project {
+    width: 100%;
+    padding: .6rem;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid;
+    gap: .4rem;
 }
