@@ -1,5 +1,5 @@
 .panel-control {
-    padding: 1rem;
+    padding: 2rem;
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -28,7 +28,8 @@
     gap: 1rem
 }
 
-.button-new-project {
+.button-new-project,
+.button-cancel-project {
     padding: .6rem;
     border-radius: 10px;
     display: flex;

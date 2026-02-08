@@ -2,10 +2,14 @@ import "./Dashboard.css";
 import HeaderDashboard from "../components/HeaderDashboard"
 import ProjectsList from "../components/ProjectsList";
 import ProjectsResume from "../components/ProjectsResume";
-import { Plus } from "@boxicons/react"; // Icono del "+" se importa el componente ya que en <i> no funciona
-import { useNavigate } from "react-router";
+import ProjectCreate from "./ProjectCreate";
+import { Plus, X } from "@boxicons/react"; // Icono del "+" se importa el componente ya que en <i> no funciona
+import { useState, type SetStateAction } from "react";
 
 export default function Dashboard() {
+    // Este state se utiliza para mostrar o no el componente de ProjectCreate y el botón CreateProject o CancelCreate
+    const [createProject, setCreateProject] = useState<boolean>(false);
+
     return (
         <main className="panel-control">
             <HeaderDashboard/>
@@ -14,22 +18,39 @@ export default function Dashboard() {
                     <h1>Proyectos</h1>
                     <small>Gestiona tus proyectos del análisis de procesos de tu negocio</small>
                 </div>
-                <CreateProject/>
+                {!createProject && <CreateProject setCreateProject={setCreateProject}/>}
+                {createProject && <CancelCreate setCreateProject={setCreateProject}/>}
             </header>
             <section className="panel-body">
                 <ProjectsResume/>
-                <ProjectsList/>
+                {!createProject && <ProjectsList/>}
+                {createProject && <ProjectCreate/>}
             </section>
         </main>
     );
 }
 
-function CreateProject() {
-    const navigate = useNavigate();
+// Interfaz para pasar los prop a los botones con el estado setCreateProject
+interface SetCreateProjectProp {
+    setCreateProject: React.Dispatch<SetStateAction<boolean>>
+}
+
+// Este botón es para agregar un nuevo proyecto y actualiza la UI y muestra el componente "ProjectCreate"
+function CreateProject({ setCreateProject }: SetCreateProjectProp) {
     return (
-        <button onClick={() => navigate("/projects")} className="button-new-project">
+        <button onClick={() => setCreateProject(true)} className="button-new-project">
             <Plus />
             <p>Nuevo Proyecto</p>
+        </button>
+    );
+}
+
+// Este botón es para cancelar la operación de crear un nuevo proyecto y muestra de nuevo el componente "ProjectsList"
+function CancelCreate({ setCreateProject }: SetCreateProjectProp) {
+    return (
+        <button onClick={() => setCreateProject(false)} className="button-cancel-project">
+            <X />
+            <p>Cancelar</p>
         </button>
     );
 }

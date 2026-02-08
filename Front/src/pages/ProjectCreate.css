@@ -1,0 +1,49 @@
+.project-create {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.3rem;
+    background-color: var(--container);
+    border: 1px solid var(--border-container);
+    border-radius: 10px;
+    width: 100%;
+}
+
+.form-create-project {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    gap: 1.4rem;
+    width: 100%;
+}
+
+.input-name,
+.input-description,
+.input-problematic {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    gap: .3rem;
+    width: 100%;
+}
+
+.input-name input,
+.input-description textarea,
+.input-info input {
+    width: 100%;
+    border-radius: 10px;
+    padding: .7rem;
+    resize: none;
+}
+
+.button-create {
+    width: 100%;
+    padding: .8rem;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid;
+}
