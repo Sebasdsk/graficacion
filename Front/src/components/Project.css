@@ -20,9 +20,12 @@
 
 .info-project {
     width: 100%;
+    padding: 1.5rem 1rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    border: 1px solid var(--border-container);
+    border-radius: 10px;
 }
 
 .relations-projects {

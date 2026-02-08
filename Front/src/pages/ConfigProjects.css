@@ -1,0 +1,81 @@
+.configurate-container {
+    padding: 1rem;
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.configurate-header {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: .6rem;
+}
+
+nav a {
+    text-decoration: none;
+}
+
+.data-project {
+    width: 100%;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: .5rem;
+    background-color: var(--container);
+    border: 1px solid var(--border-container);
+    border-radius: 10px;
+}
+
+.configurate-body {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    gap: 1rem;
+    width: 100%;
+    height: 100%;
+}
+
+.sidebar {
+    padding: .6rem;
+    min-width: 260px;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 1rem;
+    background-color: var(--container);
+    border: 1px solid var(--border-container);
+    border-radius: 10px;
+}
+
+.extern-configuration {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    width: 100%;
+    gap: .5rem;
+}
+
+.extern-configuration button {
+    padding: .6rem;
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    border-radius: 8px;
+    border: none;
+    transition: all .1s ease;
+    width: 100%;
+    text-align: left;
+}
+
+.extern-configuration button:hover {
+    background-color: gray;
+}
+
+.config-content {
+    flex: 1;
+    display: flex;
+}
