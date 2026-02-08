@@ -18,13 +18,15 @@ export default function Dashboard() {
                     <h1>Proyectos</h1>
                     <small>Gestiona tus proyectos del análisis de procesos de tu negocio</small>
                 </div>
-                {!createProject && <CreateProject setCreateProject={setCreateProject}/>}
-                {createProject && <CancelCreate setCreateProject={setCreateProject}/>}
+                {createProject
+                    ? <CancelCreate setCreateProject={setCreateProject}/>
+                    : <CreateProject setCreateProject={setCreateProject}/>}
             </header>
             <section className="panel-body">
                 <ProjectsResume/>
-                {!createProject && <ProjectsList/>}
-                {createProject && <ProjectCreate/>}
+                {createProject
+                    ? <ProjectCreate/>
+                    : <ProjectsList/>}
             </section>
         </main>
     );
