@@ -1,4 +1,5 @@
-import { Eye } from "@boxicons/react";
+import { Cog } from "@boxicons/react";
+import { useNavigate } from "react-router";
 import "./Project.css"
 
 interface ProyectoProp {
@@ -11,7 +12,14 @@ interface ProyectoProp {
     procesos: number;
 }
 
-export default function Project( { nombre, descripcion, estatus, fechaCreacion, colaboradores, procesos }: ProyectoProp ) {
+export default function Project( { id, nombre, descripcion, estatus, fechaCreacion, colaboradores, procesos }: ProyectoProp ) {
+    const navigate = useNavigate();
+
+    // Esta función dirige a la página de configuración de proyecto como parámetro el id del proyecto seleccionado
+    const handleNavigation = () => {
+        navigate(`/config-projects/${id}`);
+    }
+
     return (
         <article className="project-container">
             <header className="project-header">
@@ -34,9 +42,9 @@ export default function Project( { nombre, descripcion, estatus, fechaCreacion, 
                         <p>Procesos</p>
                     </div>
                 </div>
-                <button className="watch-project">
-                    <Eye />
-                    <p>Ver</p>
+                <button onClick={handleNavigation} className="watch-project">
+                    <Cog />
+                    <p>Configurar Proyecto</p>
                 </button>
             </div>
         </article>
