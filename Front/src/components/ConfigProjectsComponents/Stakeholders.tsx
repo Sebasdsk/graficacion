@@ -1,5 +1,6 @@
 import { useState } from "react";
-import "./Stakeholder.css"
+import { Plus, X } from "@boxicons/react"; 
+import "./Stakeholders.css"
 
 // Datos de prueba para la UI
 const stakeholders = [
@@ -13,12 +14,26 @@ export default function Stakeholders() {
 
     // Botón para mostrar el formulario de crear un nuevo stakeholder
     const AddStakeholder = () => {
-        return ( <button onClick={() => setCreateStake(true)}>Agregar Stakeholder</button> )
+        return ( 
+            <button
+                onClick={() => setCreateStake(true)}
+                className="button-add-stake"
+            >
+                <Plus /> Agregar Stakeholder
+            </button>
+        )
     }
 
     // Botón que cancela la operación de crear un nuevo stakeholder y muestra la lista
     const CancelAddStakeholder = () => {
-        return ( <button onClick={() => setCreateStake(false)}>Cancelar</button> )
+        return (
+            <button
+                onClick={() => setCreateStake(false)}
+                className="button-cancel-add"
+            >
+                <X /> Cancelar
+            </button>
+        )
     }
 
     return (
@@ -76,20 +91,20 @@ function CreateStakeHolder() {
             <header>
                 <h3>Crear Stakeholder</h3>
             </header>
-            <form action="sumbit">
-                <div>
+            <form action="sumbit" className="form-stakeholder">
+                <div className="input-name">
                     <label htmlFor="name-stake">Nombre</label>
                     <input type="text" placeholder="Ingrese el nombre"/>
                 </div>
-                <div>
+                <div className="input-puesto">
                     <label htmlFor="puesto">Puesto</label>
                     <input type="text" placeholder="Ingrese el puesto o área de trabajo"/>
                 </div>
-                <div>
+                <div className="input-rol">
                     <label htmlFor="Role">Rol</label>
                     <input type="text" placeholder="Ingrese el rol del stakeholder"/>
                 </div>
-                <div>
+                <div className="input-email">
                     <label htmlFor="email">Correo</label>
                     <input type="email" placeholder="Ingrese el correo del stakeholder"/>
                 </div>

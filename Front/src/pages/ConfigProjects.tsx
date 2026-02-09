@@ -3,7 +3,7 @@ import { useState, type SetStateAction } from "react";
 import { Edit, Group, Workflow, Community } from "@boxicons/react";
 import EditProject from "../components/ConfigProjectsComponents/EditProject";
 import Stakeholders from "../components/ConfigProjectsComponents/Stakeholders";
-import Process from "../components/ConfigProjectsComponents/Process";
+import Process from "../components/ProcessesComponents/Processes";
 import Roles from "../components/Roles";
 import "./ConfigProjects.css"
 

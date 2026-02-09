@@ -1,0 +1,13 @@
+.subprocesses-list {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+.subprocess {
+    display: flex;
+    flex-direction: column;
+    gap: .4rem;
+    border: 1px solid var(--border-container);
+    padding: .6rem;
+    border-radius: 8px;
+}
