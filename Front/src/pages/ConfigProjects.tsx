@@ -1,10 +1,13 @@
 import { useParams } from "react-router";
 import { useState, type SetStateAction } from "react";
-import { Edit, Group, Workflow } from "@boxicons/react";
+import { Edit, Group, Workflow, Community } from "@boxicons/react";
 import EditProject from "../components/ConfigProjectsComponents/EditProject";
+import Stakeholders from "../components/ConfigProjectsComponents/Stakeholders";
+import Process from "../components/ConfigProjectsComponents/Process";
+import Roles from "../components/Roles";
 import "./ConfigProjects.css"
 
-type OptionsProjects = "Configuracion" | "Stakeholders" | "Procesos";
+type OptionsProjects = "Configuracion" | "Stakeholders" | "Procesos" | "Roles";
 
 export default function ConfigProjects() {
     const [option, setOption] = useState<OptionsProjects>("Configuracion");
@@ -28,6 +31,9 @@ export default function ConfigProjects() {
                 <ProjectSideBar setOption={setOption}/>
                 <section className="config-content">
                     {option === "Configuracion" && <EditProject/>}
+                    {option === "Stakeholders" && <Stakeholders/>}
+                    {option === "Procesos" && <Process/>}
+                    {option === "Roles" && <Roles/>}
                 </section>
             </section>
         </main>
@@ -53,7 +59,11 @@ function ProjectSideBar({ setOption }: OptionsProjectProp ) {
                 <button onClick={() => setOption("Procesos")}>
                     <Workflow />
                     Procesos
-                    </button>
+                </button>
+                <button onClick={() => setOption("Roles")}>
+                    <Community />
+                    Roles
+                </button>
             </section>
         </aside>
     );
