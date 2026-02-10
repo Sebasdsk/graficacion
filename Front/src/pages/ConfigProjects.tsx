@@ -1,13 +1,13 @@
 import { useParams } from "react-router";
 import { useState, type SetStateAction } from "react";
-import { Edit, Group, Workflow, Community } from "@boxicons/react";
+import { Edit, Group, Workflow, NoteBook } from "@boxicons/react";
 import EditProject from "../components/ConfigProjectsComponents/EditProject";
 import Stakeholders from "../components/ConfigProjectsComponents/Stakeholders";
 import Process from "../components/ProcessesComponents/Processes";
-import Roles from "../components/Roles";
+import Techniques from "../components/Techniques";
 import "./ConfigProjects.css"
 
-type OptionsProjects = "Configuracion" | "Stakeholders" | "Procesos" | "Roles";
+type OptionsProjects = "Configuracion" | "Stakeholders" | "Procesos" | "Tecnicas";
 
 export default function ConfigProjects() {
     const [option, setOption] = useState<OptionsProjects>("Configuracion");
@@ -20,7 +20,7 @@ export default function ConfigProjects() {
         <main className="configurate-container">
             <header className="configurate-header">
                 <nav className="navbar">
-                    <a href="/">Volver al menú</a>
+                    <a href="/dashboard">Volver al menú</a>
                 </nav>
                 <div className="data-project">
                     <h1>"Nombre del Proyecto"</h1>
@@ -33,7 +33,7 @@ export default function ConfigProjects() {
                     {option === "Configuracion" && <EditProject/>}
                     {option === "Stakeholders" && <Stakeholders/>}
                     {option === "Procesos" && <Process/>}
-                    {option === "Roles" && <Roles/>}
+                    {option === "Tecnicas" && <Techniques/>}
                 </section>
             </section>
         </main>
@@ -60,9 +60,9 @@ function ProjectSideBar({ setOption }: OptionsProjectProp ) {
                     <Workflow />
                     Procesos
                 </button>
-                <button onClick={() => setOption("Roles")}>
-                    <Community />
-                    Roles
+                <button onClick={() => setOption("Tecnicas")}>
+                    <NoteBook />
+                    Técnicas de Levantamiento
                 </button>
             </section>
         </aside>
