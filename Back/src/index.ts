@@ -3,12 +3,16 @@ const morgan = require('morgan');
 const cors = require('cors');
 require('dotenv').config();
 
+import login from './auth';
+
 const app = express()
 app.use(morgan('dev'));
 
 // Middlewares
 app.use(cors());
 app.use(express.json()); 
+
+app.use('/api/auth', login);
 
 const PORT = process.env.PORT || 3000;
 
