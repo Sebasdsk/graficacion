@@ -1,26 +1,24 @@
-import express from 'express';
-const morgan = require('morgan');
-const cors = require('cors');
-require('dotenv').config();
+import express, { Request, Response } from 'express';
+import morgan from 'morgan';
+import cors from 'cors';
+import dotenv from 'dotenv';
 
-import login from './auth';
+dotenv.config();
 
-const app = express()
-app.use(morgan('dev'));
+const app = express();
 
 // Middlewares
+app.use(morgan('dev'));
 app.use(cors());
 app.use(express.json()); 
 
-app.use('/api/auth', login);
-
 const PORT = process.env.PORT || 3000;
 
-app.get('/', (req, res) => {
-    res.send('Hello World!')
-})
+app.get('/', (req: Request, res: Response) => {
+    res.send('Hello World!');
+});
 
 app.listen(PORT, () => {
-    console.log(`Servido corriendo en el puerto: ${PORT}`)
-    console.log(` Base de datos: ${process.env.DB_NAME}`);
-})
+    console.log(`Servidor corriendo en el puerto: ${PORT}`);
+    console.log(`Base de datos conectada a: ${process.env.DB_NAME}`);
+});
