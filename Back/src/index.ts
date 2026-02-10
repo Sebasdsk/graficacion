@@ -1,11 +1,22 @@
 import express from 'express';
+const morgan = require('morgan');
+const cors = require('cors');
+require('dotenv').config();
+
 const app = express()
-const port = 3000
+app.use(morgan('dev'));
+
+// Middlewares
+app.use(cors());
+app.use(express.json()); 
+
+const PORT = process.env.PORT || 3000;
 
 app.get('/', (req, res) => {
     res.send('Hello World!')
 })
 
-app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`)
+app.listen(PORT, () => {
+    console.log(`Servido corriendo en el puerto: ${PORT}`)
+    console.log(` Base de datos: ${process.env.DB_NAME}`);
 })
