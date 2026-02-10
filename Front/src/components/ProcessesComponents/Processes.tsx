@@ -1,5 +1,7 @@
 import SubprocessList from "../SubprocessesComponents/Subprocesses";
+import { Plus, X } from "@boxicons/react"; 
 import "./Processes.css"
+import { useState } from "react";
 
 // Datos de prueba
 const procesos = [
@@ -10,10 +12,35 @@ const procesos = [
 
 // Contenedor principal de los procesos
 export default function Processes() {
+    const [createProcess, setCreateProcess] = useState<boolean>(false);
+
+    const ButtonCreateProcess = () => {
+        return (
+            <button
+                onClick={() => setCreateProcess(true)}
+                className="button-create-process"
+            >
+                <Plus/> Crear Proceso
+            </button>
+        )
+    };
+
+    const ButtonCancelCreate = () => {
+        return (
+            <button
+                onClick={() => setCreateProcess(false)}
+                className="button-cancel-create"
+            >
+                <X/> Cancelar
+            </button>
+        )
+    };
+    
     return(
         <section className="processes">
             <header className="processes-header">
                 <h2>Gestionar Procesos</h2>
+                {!createProcess ? <ButtonCreateProcess/> : <ButtonCancelCreate/>}
             </header>
             <ProccessesList/>
         </section>

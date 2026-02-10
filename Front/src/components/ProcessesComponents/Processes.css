@@ -6,6 +6,23 @@
     overflow-y: auto;
 }
 
+.processes-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.button-create-process,
+.button-cancel-create {
+    padding: .4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .4rem;
+    border: 2px solid;
+    border-radius: 10px;
+}
+
 .processes-list {
     display: grid;
     grid-template-columns: auto-fit;
