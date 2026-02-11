@@ -3,11 +3,24 @@
     flex-direction: column;
     gap: .5rem;
 }
+
 .subprocess {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: space-between;
     gap: .4rem;
     border: 1px solid var(--border-container);
     padding: .6rem;
     border-radius: 8px;
+}
+
+.info-subprocess {
+    display: flex;
+    flex-direction: column;
+    gap: .4rem;
+}
+
+.button-add-subprocess {
+    border: none;
+    background-color: transparent;
 }
