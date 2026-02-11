@@ -15,7 +15,7 @@ function FormLogin() {
     const [passw, setPassw] = useState<string>("");
     const navigate = useNavigate();
 
-    // const APIURL = "http://localhost:3000/auth/login" // Esta url no es la del back por ahora
+    const APIURL = "http://localhost:3000/api/auth/login" // Esta url no es la del back por ahora
 
     // Método para iniciar sesión
     const signIn = async (e: FormEvent) => {
@@ -26,32 +26,23 @@ function FormLogin() {
         }
 
         try {
-            /*
             const response = await fetch(APIURL, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
-                    correo: email, // Esto puede cambiar ya que el back esté listo
-                    contrasena: passw // Esto también
+                    email: email, // Esto puede cambiar ya que el back esté listo
+                    password: passw // Esto también
                 })
             });
-            */
 
-            // Es solo de prueba
-            if (email === "admin123@gmail.com" && passw === "admin1234") {
-                navigate('/dashboard');
-                return;
-            }
-
-            /*
             if (!response.ok) {
                 alert("Error al iniciar sesión");
                 return
             }
-            */
-
-            // const data = await response.json();
-            //navigate("/dashboard");
+            
+            const data = await response.json();
+            localStorage.setItem("token", data.token); // Guarda el token en localstorage
+            navigate("/dashboard");
         } catch (error) {
             console.error(error);
         }
