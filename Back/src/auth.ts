@@ -9,13 +9,16 @@ router.post('/login', async (req: Request, res: Response) => {
         const { email, password } = req.body;
 
         // Buscamos si existe el correo
-        const respuesta = await pool.query('SELECT * FROM usuario WHERE email = $1', [email]);
+        const result = await pool.query(
+            'SELECT * FROM usuario WHERE email = $1', 
+            [email]
+        );
         
-        if (respuesta.rows.length === 0) {
-            return res.status(404).json({ message: 'No existe ese usuario' });
+        if (result.rows.length === 0) {
+            return res.status(404).json({ message: 'No hay usuario con ese correo' });
         }
 
-        const usuario = respuesta.rows[0];
+        const usuario = result.rows[0];
 
         // Validamos la contraseña
         if (usuario.password_hash !== password) {
