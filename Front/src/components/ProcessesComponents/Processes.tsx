@@ -1,4 +1,5 @@
 import SubprocessList from "../SubprocessesComponents/Subprocesses";
+import ProcessesCreate from "./ProcessesCreate";
 import { Plus, X } from "@boxicons/react"; 
 import "./Processes.css"
 import { useState } from "react";
@@ -42,7 +43,7 @@ export default function Processes() {
                 <h2>Gestionar Procesos</h2>
                 {!createProcess ? <ButtonCreateProcess/> : <ButtonCancelCreate/>}
             </header>
-            <ProccessesList/>
+            {!createProcess ? <ProccessesList/> : <ProcessesCreate/>}
         </section>
     );
 }
