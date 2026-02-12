@@ -51,9 +51,9 @@ function FormLogin() {
     return (
         <form onSubmit={signIn} className="login-form">
             <header className="login-header">
-                <h3>Iniciar Sesión</h3>
-                <span>Ingresa tus credenciales</span>
+                <h2>Iniciar Sesión</h2>
             </header>
+            <hr className="line-divisor-header" />
 
             <section className="inputs-values">
                 <div className="user-input">
@@ -73,9 +73,21 @@ function FormLogin() {
                         value={passw}
                         onChange={(e) => setPassw(e.target.value)}
                     />
+                    <a href="#">¿Olvidó su contraseña?</a>
                 </div>
                 <button className="login-button">Ingresar</button>
             </section>
+
+            <div className="line-divisor-sign-up">
+                <hr className="line-divisor" />
+                <span>Ó</span>
+                <hr className="line-divisor" />
+            </div>
+
+            <div className="create-account">
+                <span>¿No tienes cuenta?</span>
+                <a href="#">Cree Cuenta</a>
+            </div>
         </form>
     );
 }
