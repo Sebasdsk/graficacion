@@ -1,3 +1,4 @@
+import { User } from "@boxicons/react";
 import "./HeaderDashboard.css"
 
 export default function HeaderDashboard() {
@@ -18,7 +19,7 @@ export default function HeaderDashboard() {
                 </div>
             </section>
             <section className="options-buttons">
-                <button className="button-one">Boton 1</button>
+                <button className="button-one"><User pack="filled" /> Mi Perfil</button>
             </section>
         </header>
     );

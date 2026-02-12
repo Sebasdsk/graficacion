@@ -23,7 +23,7 @@ export default function Project( { id, nombre, descripcion, estatus, fechaCreaci
     return (
         <article className="project-container">
             <header className="project-header">
-                <p>{nombre}</p>
+                <h3>{nombre}</h3>
                 <small>{descripcion}</small>
             </header>
             <hr />
