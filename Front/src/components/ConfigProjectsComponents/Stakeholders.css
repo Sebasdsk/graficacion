@@ -30,7 +30,7 @@
 
 .stakeholders-list {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
     gap: 1rem;
 }
 
@@ -38,11 +38,54 @@
     padding: 1rem;
     display: flex;
     flex-direction: column;
-    align-items: start;
-    gap: .5rem;
+    gap: .8rem;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.140);
     border: none;
     border-radius: 10px;
+}
+
+.stakeholder-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.stake-info {
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+}
+
+.user-icon {
+    padding: .6rem;
+    background: var(--button-green);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.stake-data {
+    display: flex;
+    flex-direction: column;
+    gap: .2rem;
+}
+
+.stake-data span {
+    color: var(--small-color);
+}
+
+.button-edit-stake {
+    border: none;
+    background-color: transparent;
+}
+
+.rol-div,
+.email-div {
+    display: flex;
+    align-items: center;
+    gap: .4rem;
+    color: var(--small-color);
 }
 
 .stakeholder-body {

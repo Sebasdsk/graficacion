@@ -1,5 +1,5 @@
 import "./Subprocesses.css"
-import { Plus } from "@boxicons/react";  
+import { Edit } from "@boxicons/react";  
 
 const subprocess = [
     {id: 1, nombre: "Subproceso 1", descripcion: "Subproceso del proceso X", idProcess: 1},
@@ -45,7 +45,7 @@ function Subprocess({ nombre, descripcion }: SubprocessProp ) {
                 <p>{nombre}</p>
                 <small>{descripcion}</small>
             </div>
-            <button className="button-add-subprocess"><Plus/></button>
+            <button className="button-add-subprocess"><Edit/></button>
         </article>
     );
 }

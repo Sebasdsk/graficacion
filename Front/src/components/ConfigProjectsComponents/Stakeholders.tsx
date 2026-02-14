@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Plus, X } from "@boxicons/react"; 
+import { Plus, X, Apartment, Envelope, UserCircle, Edit } from "@boxicons/react"; 
 import "./Stakeholders.css"
 
 // Datos de prueba para la UI
@@ -74,12 +74,27 @@ function Stakeholder({nombre, puesto, rol, correo} : StakeholdersProp ) {
     return (
         <article className="stakeholder">
             <header className="stakeholder-header">
-                <h3>{nombre}</h3>
-                <span>{puesto}</span>
+                <div className="stake-info">
+                    <div className="user-icon">
+                        <UserCircle />
+                    </div>
+                    <div className="stake-data">
+                        <h3>{nombre}</h3>
+                        <span>{puesto}</span>
+                    </div>
+                </div>
+                <button className="button-edit-stake"><Edit /></button>
             </header>
+            <hr />
             <div className="stakeholder-body">
-                <span>{rol}</span>
-                <span>{correo}</span>
+                <div className="rol-div">
+                    <Apartment />
+                    <span>{rol}</span>
+                </div>
+                <div className="email-div">
+                    <Envelope />
+                    <span>{correo}</span>
+                </div>
             </div>
         </article>
     )
