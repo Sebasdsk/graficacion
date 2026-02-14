@@ -2,7 +2,7 @@ import { useParams } from "react-router";
 import { useState, type SetStateAction } from "react";
 import { Edit, Group, Workflow, NoteBook, ArrowLeftStroke } from "@boxicons/react";
 import EditProject from "../components/ConfigProjectsComponents/EditProject";
-import Stakeholders from "../components/ConfigProjectsComponents/Stakeholders";
+import Stakeholders from "../components/StakeholdersComponents/Stakeholders";
 import Process from "../components/ProcessesComponents/Processes";
 import Techniques from "../components/Techniques";
 import "./ConfigProjects.css"
