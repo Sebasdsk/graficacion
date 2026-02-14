@@ -1,4 +1,7 @@
-import { useState } from "react";
+import React, { useState, type SetStateAction } from "react";
+import Modal from "../../Modals/Modal";
+import StakeholdersCreate from "./StakeholdersCreate";
+import StakeholdersEdit from "./StakeholdersEdit";
 import { Plus, X, Apartment, Envelope, UserCircle, Edit } from "@boxicons/react"; 
 import "./Stakeholders.css"
 
@@ -11,6 +14,7 @@ const stakeholders = [
 
 export default function Stakeholders() {
     const [createStake, setCreateStake] = useState<boolean>(false);
+    const [selectedId, setSelectedId] = useState<number | null>(null);
 
     // Botón para mostrar el formulario de crear un nuevo stakeholder
     const AddStakeholder = () => {
@@ -43,34 +47,43 @@ export default function Stakeholders() {
                 {createStake ? <CancelAddStakeholder/> : <AddStakeholder/>}
             </header>
 
-            {createStake ? <CreateStakeHolder/> : <StakeholdersList/>}
+            {createStake ? <StakeholdersCreate/> : <StakeholdersList setSelectedId={setSelectedId}/>}
+            {selectedId !== null && <Modal children={<StakeholdersEdit selectedId={selectedId}/>} setSelectedId={setSelectedId}/>}
         </section>
     )
 }
 
-function StakeholdersList() {
+// Este prop es para abrir el modal para editar un stakeholder
+interface SelectedIdProp {
+    setSelectedId: React.Dispatch<SetStateAction<number | null>>;
+}
+
+function StakeholdersList({ setSelectedId }: SelectedIdProp) {
     return(
         <div className="stakeholders-list">
             {stakeholders.map(s => (
                 <Stakeholder
                     key={s.id}
+                    id={s.id}
                     nombre={s.nombre}
                     puesto={s.puesto}
                     rol={s.rol}
-                    correo={s.correo}/>
+                    correo={s.correo}
+                    setSelectedId={setSelectedId}/>
             ))}
         </div>
     );
 }
 
 interface StakeholdersProp {
+    id: number;
     nombre: string;
     puesto: string;
     rol: string;
     correo: string;
 }
 
-function Stakeholder({nombre, puesto, rol, correo} : StakeholdersProp ) {
+function Stakeholder({ id, nombre, puesto, rol, correo, setSelectedId } : StakeholdersProp & SelectedIdProp) {
     return (
         <article className="stakeholder">
             <header className="stakeholder-header">
@@ -83,7 +96,12 @@ function Stakeholder({nombre, puesto, rol, correo} : StakeholdersProp ) {
                         <span>{puesto}</span>
                     </div>
                 </div>
-                <button className="button-edit-stake"><Edit /></button>
+                <button
+                    className="button-edit-stake"
+                    onClick={() => setSelectedId(id)}
+                >
+                    <Edit />
+                </button>
             </header>
             <hr />
             <div className="stakeholder-body">
@@ -98,33 +116,4 @@ function Stakeholder({nombre, puesto, rol, correo} : StakeholdersProp ) {
             </div>
         </article>
     )
-}
-
-function CreateStakeHolder() {
-    return (
-        <section className="create-stakeholder">
-            <header>
-                <h3>Crear Stakeholder</h3>
-            </header>
-            <form action="sumbit" className="form-stakeholder">
-                <div className="input-name">
-                    <label htmlFor="name-stake">Nombre</label>
-                    <input type="text" placeholder="Ingrese el nombre"/>
-                </div>
-                <div className="input-puesto">
-                    <label htmlFor="puesto">Puesto</label>
-                    <input type="text" placeholder="Ingrese el puesto o área de trabajo"/>
-                </div>
-                <div className="input-rol">
-                    <label htmlFor="Role">Rol</label>
-                    <input type="text" placeholder="Ingrese el rol del stakeholder"/>
-                </div>
-                <div className="input-email">
-                    <label htmlFor="email">Correo</label>
-                    <input type="email" placeholder="Ingrese el correo del stakeholder"/>
-                </div>
-                <button>Crear Stakeholder</button>
-            </form>
-        </section>
-    );
 }
