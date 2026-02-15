@@ -1,0 +1,21 @@
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, .5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+.modal {
+    background: #ffff;
+    border-radius: 10px;
+    padding: 1.4rem;
+}
+
+.button-close-modal {
+    border: none;
+    background: transparent;
+    padding: .4rem;
+}

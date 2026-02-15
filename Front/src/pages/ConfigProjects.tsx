@@ -1,8 +1,8 @@
 import { useParams } from "react-router";
 import { useState, type SetStateAction } from "react";
-import { Edit, Group, Workflow, NoteBook } from "@boxicons/react";
+import { Edit, Group, Workflow, NoteBook, ArrowLeftStroke } from "@boxicons/react";
 import EditProject from "../components/ConfigProjectsComponents/EditProject";
-import Stakeholders from "../components/ConfigProjectsComponents/Stakeholders";
+import Stakeholders from "../components/StakeholdersComponents/Stakeholders";
 import Process from "../components/ProcessesComponents/Processes";
 import Techniques from "../components/Techniques";
 import "./ConfigProjects.css"
@@ -20,7 +20,7 @@ export default function ConfigProjects() {
         <main className="configurate-container">
             <header className="configurate-header">
                 <nav className="navbar">
-                    <a href="/dashboard">Volver al menú</a>
+                    <a href="/dashboard"><ArrowLeftStroke /> Volver al menú</a>
                 </nav>
                 <div className="data-project">
                     <h1>"Nombre del Proyecto"</h1>

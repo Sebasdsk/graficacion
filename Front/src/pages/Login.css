@@ -6,17 +6,16 @@
 }
 
 .login-form {
-    padding: 2rem;
+    padding: 0 1.5rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 1rem;
-    background-color: var(--container);
-    border: 2px solid var(--border-container);
+    gap: 1.4rem;
+    border: none;
     border-radius: 15px;
-    width: min(250px);
-    height: min(300px);
+    width: min(400px);
+    height: min(400px);
 }
 
 .login-header {
@@ -26,12 +25,29 @@
     justify-content: baseline;
 }
 
+h2 {
+    font-size: 1.8rem;
+}
+
+.line-divisor-header {
+    height: 1px;
+    width: 100%;
+    background-color: #dfdfdf;
+    border-radius: 50%;
+}
+
+.line-divisor {
+    height: 1px;
+    width: 100%;
+    background-color: #dfdfdf;
+}
+
 .inputs-values {
     display: flex;
     flex-direction: column;
     align-items: start;
     justify-content: center;
-    gap: 1rem;
+    gap: 1.5rem;
     width: 100%;
 }
 
@@ -40,18 +56,62 @@
     flex-direction: column;
     align-items: start;
     justify-content: center;
-    gap: .2rem;
+    gap: .6rem;
     width: 100%;
 }
 
-.user-input input, .passw-input input {
+.user-input input,
+.passw-input input {
     width: 100%;
     border-radius: 10px;
-    padding: .4rem;
+    border: 1px solid var(--border-container);
+    padding: .8rem;
+}
+
+.user-input input:hover,
+.passw-input input:hover {
+    box-shadow: var(--shadow-hover);
+}
+
+.passw-input a {
+    width: 100%;
+    text-decoration: none;
+    color: #a163f3;
+    text-align: end;
 }
 
 .login-button {
     width: 100%;
-    padding: .4rem;
+    padding: .8rem;
     border-radius: 10px;
+    border: none;
+    background: var(--button-green);
+    transition: all .2s ease;
+    font-weight: 600;
+}
+
+.login-button:hover {
+    transform: translateY(-5px);
+}
+
+.create-account {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    gap: .2rem;
+    color: #8f8f8f;
+}
+
+.create-account a {
+    text-decoration: none;
+    color: #a163f3;
+}
+
+.line-divisor-sign-up {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    gap: .5rem;
+    color: #8f8f8f;
 }

@@ -1,4 +1,5 @@
 import "./Subprocesses.css"
+import { Edit } from "@boxicons/react";  
 
 const subprocess = [
     {id: 1, nombre: "Subproceso 1", descripcion: "Subproceso del proceso X", idProcess: 1},
@@ -40,8 +41,11 @@ interface SubprocessProp {
 function Subprocess({ nombre, descripcion }: SubprocessProp ) {
     return(
         <article className="subprocess">
-            <p>{nombre}</p>
-            <small>{descripcion}</small>
+            <div className="info-subprocess">
+                <p>{nombre}</p>
+                <small>{descripcion}</small>
+            </div>
+            <button className="button-add-subprocess"><Edit/></button>
         </article>
     );
 }

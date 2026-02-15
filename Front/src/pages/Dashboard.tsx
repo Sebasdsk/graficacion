@@ -1,8 +1,8 @@
 import "./Dashboard.css";
 import HeaderDashboard from "../components/HeaderDashboard"
-import ProjectsList from "../components/ProjectsList";
-import ProjectsResume from "../components/ProjectsResume";
-import ProjectCreate from "./ProjectCreate";
+import ProjectsList from "../components/ProjectsComponents/ProjectsList";
+import ProjectsResume from "../components/ProjectsComponents/ProjectsResume";
+import ProjectCreate from "../components/ProjectsComponents/ProjectCreate";
 import { Plus, X } from "@boxicons/react"; // Icono del "+" se importa el componente ya que en <i> no funciona
 import { useState, type SetStateAction } from "react";
 

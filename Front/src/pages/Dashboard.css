@@ -1,5 +1,5 @@
 .panel-control {
-    padding: 2rem;
+    padding: 1rem;
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -35,5 +35,14 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 2px solid;
+    gap: .3rem;
+    background: linear-gradient(to top, #5DC757, #D1ED53);
+    transition: all .2s ease;
+    border: none;
+    font-weight: 600;
+}
+
+.button-new-project:hover,
+.button-cancel-project:hover {
+    transform: translateY(-5px);
 }

@@ -1,0 +1,46 @@
+.create-stakeholder {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    box-shadow: var(--shadow-container);
+    gap: .5rem;
+    border: none;
+    border-radius: 10px;
+}
+
+.form-stakeholder {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.input-name,
+.input-puesto,
+.input-rol,
+.input-email{
+    display: flex;
+    flex-direction: column;
+    gap: .4rem;
+}
+
+.form-stakeholder input {
+    padding: .6rem;
+    border: 1px solid var(--border-container);
+    border-radius: 10px;
+}
+
+.form-stakeholder input:hover {
+    box-shadow: var(--shadow-hover);
+}
+
+.form-stakeholder button {
+    padding: .8rem;
+    border: none;
+    border-radius: 10px;
+    background: var(--button-green);
+    transition: all .2s ease;
+}
+
+.form-stakeholder button:hover {
+    transform: translateY(-5px);
+}

@@ -10,10 +10,22 @@
 .complete-projects {
     padding: 1.5rem;
     border-radius: 10px;
-    background-color: var(--container);
-    border: 1px solid var(--border-container);
+    border: none;
     display: flex;
     flex-direction: row;
     align-items: center;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.150);
     justify-content: space-between;
+}
+
+.icon-folder,
+.icon-play,
+.icon-check {
+    background: var(--buton-black);
+    padding: .6rem;
+    color: #ffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
 }

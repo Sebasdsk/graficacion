@@ -1,0 +1,45 @@
+.create-process {
+    padding: 1.4rem;
+    display: flex;
+    flex-direction: column;
+    gap: .8rem;
+    box-shadow: var(--shadow-container);
+    border: none;
+    border-radius: 10px;
+}
+
+.body-create-process {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.body-create-process input, textarea {
+    padding: .8rem;
+    border-radius: 10px;
+    resize: none;
+    border: 1px solid var(--border-container);
+}
+
+.body-create-process input:hover, textarea:hover {
+    box-shadow: var(--shadow-hover);
+}
+
+.body-create-process button {
+    padding: .8rem;
+    border-radius: 10px;
+    border: none;
+    background: var(--button-green);
+    transition: all .2s ease;
+}
+
+.body-create-process button:hover {
+    transform: translateY(-5px);
+}
+
+.process-name,
+.process-description {
+    display: flex;
+    flex-direction: column;
+    gap: .4rem;
+}

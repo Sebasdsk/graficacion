@@ -18,7 +18,9 @@ function TotalProjects() {
                 <h3>Total Proyectos</h3>
                 <p>0</p>
             </div>
-            <FolderMinus />
+            <div className="icon-folder">
+                <FolderMinus />
+            </div>
         </article>
     );
 }
@@ -30,7 +32,9 @@ function InProgress() {
                 <h3>En Proceso</h3>
                 <p>0</p>
             </div>
-            <Play />
+            <div className="icon-play">
+                <Play />
+            </div>
         </article>
     );
 }
@@ -42,7 +46,9 @@ function CompleteProjects() {
                 <h3>Completados</h3>
                 <p>0</p>
             </div>
-            <CheckCircle />
+            <div className="icon-check">
+                <CheckCircle />
+            </div>
         </article>
     );
 }
