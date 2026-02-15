@@ -86,6 +86,22 @@ router.post('/crear_proyecto', async (req: Request, res: Response) => {
   }
 });
 
+// Endpoint para ver un proyecto en cuestion
+router.get('/ver/:id', async (req: Request, res: Response): Promise<any> => {
+    try {
+        const { id } = req.params;
+        const result = await pool.query('SELECT * FROM proyecto WHERE id_proyecto = $1', [id]);
+
+        if (result.rows.length === 0) {
+            return res.status(404).json({ message: 'Proyecto no encontrado' });
+        }
+        res.json(result.rows[0]);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Error al ver proyecto');
+    }
+});
+
 // Actualizar un proyecto
 router.put('/actualizar/:id', async (req: Request, res: Response): Promise<any> => {
   try {
@@ -111,6 +127,39 @@ router.put('/actualizar/:id', async (req: Request, res: Response): Promise<any> 
     console.error(err);
     res.status(500).send('Error actualizando proyecto');
   }
+});
+
+// Endpoint para marcar como proyecto "cancelado"
+router.put('/eliminar/:id', async (req: Request, res: Response): Promise<any> => {
+    try {
+        const { id } = req.params;
+        const { id_usuario } = req.body; 
+
+        // Actualizamos el estatus en lugar de hacer el delete
+        const query = `
+            UPDATE proyecto 
+            SET estatus = 'Cancelado' 
+            WHERE id_proyecto = $1 AND id_usuario_creador = $2
+            RETURNING *
+        `;
+        
+        const result = await pool.query(query, [id, id_usuario]);
+
+        if (result.rows.length === 0) {
+            return res.status(404).json({ 
+                message: 'No se pudo cancelar ya que, no existe o no eres dueño de este' 
+            });
+        }
+
+        res.json({ 
+            message: 'Proyecto cancelado', 
+            proyecto: result.rows[0] 
+        });
+
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Error al cancelar proyecto');
+    }
 });
 
 export default router;

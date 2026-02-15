@@ -4,6 +4,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 
 import login from './auth';
+import proyectosRoutes from './routes/proyectos.routes';
 
 dotenv.config();
 
@@ -14,7 +15,9 @@ app.use(morgan('dev'));
 app.use(cors());
 app.use(express.json()); 
 
+// Rutas
 app.use('/api/auth', login);
+app.use('/api/proyectos', proyectosRoutes )
 
 const PORT = process.env.PORT || 3000;
 
