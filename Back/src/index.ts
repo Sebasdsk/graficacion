@@ -5,6 +5,7 @@ import dotenv from 'dotenv';
 
 import login from './auth';
 import proyectosRoutes from './routes/proyectos.routes';
+import procesosRoutes from './routes/procesos.routes';
 
 dotenv.config();
 
@@ -17,7 +18,8 @@ app.use(express.json());
 
 // Rutas
 app.use('/api/auth', login);
-app.use('/api/proyectos', proyectosRoutes )
+app.use('/api/proyectos', proyectosRoutes);
+app.use('/api/procesos', procesosRoutes);
 
 const PORT = process.env.PORT || 3000;
 
