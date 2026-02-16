@@ -1,0 +1,35 @@
+.edit-process-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: clamp(400px, 80vw, 600px);
+}
+
+.body-edit-process {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.body-edit-process input, textarea {
+    padding: .8rem;
+    border-radius: 10px;
+    resize: none;
+    border: 1px solid var(--border-container);
+}
+
+.body-edit-process input:hover, textarea:hover {
+    box-shadow: var(--shadow-hover);
+}
+
+.body-edit-process button {
+    padding: .8rem;
+    border-radius: 10px;
+    border: none;
+    background: var(--button-green);
+    transition: all .2s ease;
+}
+
+.body-create-process button:hover {
+    transform: translateY(-5px);
+}

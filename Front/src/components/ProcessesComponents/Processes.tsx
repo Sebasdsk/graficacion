@@ -1,8 +1,10 @@
 import SubprocessList from "../SubprocessesComponents/Subprocesses";
 import ProcessesCreate from "./ProcessesCreate";
-import { Plus, X } from "@boxicons/react"; 
+import ProcessesEdit from "./ProcessesEdit";
+import Modal from "../../Modals/Modal";
+import { Plus, X, Edit } from "@boxicons/react"; 
 import "./Processes.css"
-import { useState } from "react";
+import { useState, type SetStateAction } from "react";
 
 // Datos de prueba
 const procesos = [
@@ -14,6 +16,8 @@ const procesos = [
 // Contenedor principal de los procesos
 export default function Processes() {
     const [createProcess, setCreateProcess] = useState<boolean>(false);
+    // Este state se usa para abrir el modal para editar el proceso seleccionado
+    const [selectedProcessId, setSelectedProcessId] = useState<number | null>(null);
 
     const ButtonCreateProcess = () => {
         return (
@@ -43,13 +47,22 @@ export default function Processes() {
                 <h2>Gestionar Procesos</h2>
                 {!createProcess ? <ButtonCreateProcess/> : <ButtonCancelCreate/>}
             </header>
-            {!createProcess ? <ProccessesList/> : <ProcessesCreate/>}
+            {!createProcess ? <ProccessesList setSelectedProcessId={setSelectedProcessId}/> : <ProcessesCreate/>}
+
+            {selectedProcessId !== null && <Modal setSelectedId={setSelectedProcessId}>
+                <ProcessesEdit idProcess={selectedProcessId} />
+            </Modal>}
         </section>
     );
 }
 
+// Prop para pasar el setter a el componente "Process" para abrir el modal para edtar el proceso
+export interface SetSelectedProcessId {
+    setSelectedProcessId: React.Dispatch<SetStateAction<number | null>>;
+}
+
 // Lista de los procesos
-function ProccessesList() {
+function ProccessesList({setSelectedProcessId}: SetSelectedProcessId) {
     return (
         <div className="processes-list">
             {procesos.map(p => (
@@ -58,6 +71,7 @@ function ProccessesList() {
                     id={p.id}
                     nombre={p.nombre}
                     descripcion={p.descripcion}
+                    setSelectedProcessId={setSelectedProcessId}
                 />
             ))}
         </div>
@@ -71,12 +85,17 @@ interface ProcessProp {
 }
 
 // Cada proceso por separado
-function Process({ id, nombre, descripcion }: ProcessProp) {
+function Process({ id, nombre, descripcion, setSelectedProcessId }: ProcessProp & SetSelectedProcessId) {
     return (
         <article className="process">
             <header className="process-header">
-                <h3>{nombre}</h3>
-                <small>{descripcion}</small>
+                <div>
+                    <h3>{nombre}</h3>
+                    <small>{descripcion}</small>
+                </div>
+                <button
+                    className="button-edit-process"
+                    onClick={() => setSelectedProcessId(id)}><Edit/></button>
             </header>
             <div className="process-body">
                 <SubprocessList id={id}/>
