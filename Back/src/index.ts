@@ -3,9 +3,11 @@ import morgan from 'morgan';
 import cors from 'cors';
 import dotenv from 'dotenv';
 
+// Importar rutas
 import login from './auth';
 import proyectosRoutes from './routes/proyectos.routes';
 import procesosRoutes from './routes/procesos.routes';
+import interesadosProyectosRoutes from './routes/interesados-proyecto.routes';
 
 dotenv.config();
 
@@ -20,11 +22,12 @@ app.use(express.json());
 app.use('/api/auth', login);
 app.use('/api/proyectos', proyectosRoutes);
 app.use('/api/procesos', procesosRoutes);
+app.use('/api/interesados-proyecto', interesadosProyectosRoutes);
 
 const PORT = process.env.PORT || 3000;
 
 app.get('/', (req: Request, res: Response) => {
-    res.send('Hello World!');
+    res.send('esta jalando');
 });
 
 app.listen(PORT, () => {
