@@ -1,15 +1,15 @@
 import { Router, Request, Response } from 'express';
 import { pool } from '../config/db';
+import { verifyToken } from '../middleware/auth.middleware'; 
 
 const router = Router();
 
-// Obtener procesos de un proyecto 
-router.get('/proyecto/:id_proyecto', async (req: Request, res: Response) => {
+// Obtener procesos de un proyecto
+router.get('/proyecto/:id_proyecto', verifyToken, async (req: any, res: Response) => {
     try {
         const { id_proyecto } = req.params;
 
         // Se usa JSON_AGG para traer los subprocesos tambien y salgan en una sola consulta
-        // La funcion en cuestion e utiliza para combinar mutiples valores en una unica matriz
         const query = `
             SELECT 
                 p.id_proceso,
@@ -44,7 +44,7 @@ router.get('/proyecto/:id_proyecto', async (req: Request, res: Response) => {
 });
 
 // Crear proceso
-router.post('/crear_proceso', async (req: Request, res: Response) => {
+router.post('/crear_proceso', verifyToken, async (req: any, res: Response) => {
     const client = await pool.connect();
     try {
         const { nombre, descripcion, id_proyecto } = req.body;
@@ -53,7 +53,7 @@ router.post('/crear_proceso', async (req: Request, res: Response) => {
 
         const countQuery = 'SELECT COUNT(*) FROM proceso WHERE id_proyecto = $1';
         const countRes = await client.query(countQuery, [id_proyecto]);
-        const nextOrder = parseInt(countRes.rows[0].count) + 1; // Si no hay ninguno entonces el siguiente ser a1
+        const nextOrder = parseInt(countRes.rows[0].count) + 1; 
 
         const insertQuery = `
             INSERT INTO proceso (nombre, descripcion, id_proyecto, codigo_orden) 
@@ -75,20 +75,34 @@ router.post('/crear_proceso', async (req: Request, res: Response) => {
 });
 
 // Crear un subproceso como parte de un proceso
-router.post('/subproceso', async (req: Request, res: Response) => {
+router.post('/subproceso', verifyToken, async (req: any, res: Response) => {
+    const client = await pool.connect();
     try {
         const { nombre, descripcion, id_proceso } = req.body;
 
-        const result = await pool.query(
-            'INSERT INTO subproceso (nombre, descripcion, id_proceso) VALUES ($1, $2, $3) RETURNING *',
-            [nombre, descripcion, id_proceso]
-        );
+        await client.query('BEGIN');
+
+        const countQuery = 'SELECT COUNT(*) FROM subproceso WHERE id_proceso = $1';
+        const countRes = await client.query(countQuery, [id_proceso]);
+        const nextOrder = parseInt(countRes.rows[0].count) + 1; 
+
+        const insertQuery = `
+            INSERT INTO subproceso (nombre, descripcion, id_proceso, codigo_orden) 
+            VALUES ($1, $2, $3, $4) 
+            RETURNING *
+        `;
         
+        const result = await client.query(insertQuery, [nombre, descripcion, id_proceso, nextOrder]);
+        
+        await client.query('COMMIT');
         res.json(result.rows[0]);
 
     } catch (err) {
+        await client.query('ROLLBACK');
         console.error(err);
         res.status(500).send('Error al crear subproceso');
+    } finally {
+        client.release();
     }
 });
 

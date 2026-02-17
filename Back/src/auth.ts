@@ -1,12 +1,16 @@
 import { Router, Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 import { pool } from './config/db';
+import dotenv from 'dotenv'; 
+
+dotenv.config();
 
 const router = Router();
 
 router.post('/login', async (req: Request, res: Response) => {
     try {
         const { email, password } = req.body;
+        const secret = process.env.JWT_SECRET || 'Secret-Object';
 
         // Buscamos si existe el correo
         const result = await pool.query(
@@ -28,7 +32,7 @@ router.post('/login', async (req: Request, res: Response) => {
         // Se crea el token
         const token = jwt.sign(
             { id: usuario.id_usuario }, 
-            'token_prueba',
+            secret,
             { expiresIn: '1h' }
         );
 
