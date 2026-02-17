@@ -1,27 +1,24 @@
 import { Router, Request, Response } from 'express';
 import { pool } from '../config/db'; 
+import { verifyToken } from '../middleware/auth.middleware';
 
 const router = Router();
 
 // Endpoint para las estadisticas de proyectos de usuarios
-router.get('/estadisticas', async (req: Request, res: Response) => {
+router.get('/estadisticas', verifyToken, async (req: any, res: Response) => {
   try {
-    const { id_usuario } = req.query; 
+    const id_usuario = req.usuario.id; 
 
     const query = `
       SELECT 
-        COUNT(*) AS total,
-        COUNT(*) FILTER (WHERE estatus = 'En Progreso') AS en_proceso,
-        COUNT(*) FILTER (WHERE estatus = 'Completado') AS completados
+        COUNT(*)::int AS total,
+        COUNT(*) FILTER (WHERE estatus = 'En Progreso')::int AS en_proceso,
+        COUNT(*) FILTER (WHERE estatus = 'Completado')::int AS completados
       FROM proyecto
       WHERE id_usuario_creador = $1
     `;
     
     const result = await pool.query(query, [id_usuario]);
-
-    if (result.rows.length === 0) {
-        return res.json({ total: 0, en_proceso: 0, completados: 0 });
-    }
 
     res.json(result.rows[0]); 
 
@@ -32,9 +29,9 @@ router.get('/estadisticas', async (req: Request, res: Response) => {
 });
 
 // Endpoint para la lista de proyectos
-router.get('/lista', async (req: Request, res: Response) => {
+router.get('/lista', verifyToken, async (req: any, res: Response) => { 
   try {
-    const { id_usuario } = req.query;
+    const id_usuario = req.usuario.id; 
 
     const query = `
       SELECT 
@@ -43,11 +40,12 @@ router.get('/lista', async (req: Request, res: Response) => {
         p.descripcion,
         p.estatus,
         p.fecha_inicio,
-        (SELECT COUNT(*) FROM proceso WHERE id_proyecto = p.id_proyecto) as num_procesos,
-        (SELECT COUNT(DISTINCT sp.id_stakeholder) 
-         FROM proceso_stakeholder_participacion sp
-         JOIN proceso proc ON sp.id_proceso = proc.id_proceso
-         WHERE proc.id_proyecto = p.id_proyecto) as num_colaboradores
+        (SELECT COUNT(*) FROM proceso WHERE id_proyecto = p.id_proyecto)::int as num_procesos,
+        
+        (SELECT COUNT(*) 
+         FROM proyecto_participante pp
+         WHERE pp.id_proyecto = p.id_proyecto)::int as num_colaboradores
+         
       FROM proyecto p
       WHERE p.id_usuario_creador = $1
       ORDER BY p.id_proyecto DESC
@@ -68,9 +66,10 @@ router.get('/lista', async (req: Request, res: Response) => {
 });
 
 // Endpoint para crear proyecto
-router.post('/crear_proyecto', async (req: Request, res: Response) => {
+router.post('/crear_proyecto', verifyToken, async (req: any, res: Response) => {
   try {
-    const { nombre, descripcion, fecha_inicio, id_usuario } = req.body;
+    const { nombre, descripcion, fecha_inicio } = req.body;
+    const id_usuario = req.usuario.id; 
 
     const query = `
       INSERT INTO proyecto (nombre, descripcion, fecha_inicio, id_usuario_creador, estatus) 
@@ -79,6 +78,7 @@ router.post('/crear_proyecto', async (req: Request, res: Response) => {
     `;
     
     const result = await pool.query(query, [nombre, descripcion, fecha_inicio, id_usuario]);
+
     res.json({ message: 'Proyecto creado con éxito', project: result.rows[0] });
   } catch (err) {
     console.error(err);
@@ -87,13 +87,18 @@ router.post('/crear_proyecto', async (req: Request, res: Response) => {
 });
 
 // Endpoint para ver un proyecto en cuestion
-router.get('/ver/:id', async (req: Request, res: Response): Promise<any> => {
+router.get('/ver/:id', verifyToken, async (req: any, res: Response): Promise<any> => { 
     try {
         const { id } = req.params;
-        const result = await pool.query('SELECT * FROM proyecto WHERE id_proyecto = $1', [id]);
+        const id_usuario = req.usuario.id;
+
+        const result = await pool.query(
+            'SELECT * FROM proyecto WHERE id_proyecto = $1 AND id_usuario_creador = $2', 
+            [id, id_usuario]
+        );
 
         if (result.rows.length === 0) {
-            return res.status(404).json({ message: 'Proyecto no encontrado' });
+            return res.status(404).json({ message: 'Proyecto no encontrado o no tienes permiso' });
         }
         res.json(result.rows[0]);
     } catch (err) {
@@ -103,23 +108,24 @@ router.get('/ver/:id', async (req: Request, res: Response): Promise<any> => {
 });
 
 // Actualizar un proyecto
-router.put('/actualizar/:id', async (req: Request, res: Response): Promise<any> => {
+router.put('/actualizar/:id', verifyToken, async (req: any, res: Response): Promise<any> => { 
   try {
     const { id } = req.params;
+    const id_usuario = req.usuario.id;
     const { nombre, descripcion, fecha_fin, estatus, problema_a_resolver } = req.body;
 
     const query = `
       UPDATE proyecto
       SET nombre = $1, descripcion = $2, fecha_fin = $3, estatus = $4, problema_a_resolver = $5
-      WHERE id_proyecto = $6
+      WHERE id_proyecto = $6 AND id_usuario_creador = $7
       RETURNING *
     `;
-    const values = [nombre, descripcion, fecha_fin, estatus, problema_a_resolver, id];
+    const values = [nombre, descripcion, fecha_fin, estatus, problema_a_resolver, id, id_usuario];
     
     const result = await pool.query(query, values);
     
     if (result.rows.length === 0) {
-        return res.status(404).json({ message: 'Proyecto no encontrado' });
+        return res.status(404).json({ message: 'No se pudo actualizar (No existe o no eres el dueño)' });
     }
     
     res.json(result.rows[0]);
@@ -130,12 +136,11 @@ router.put('/actualizar/:id', async (req: Request, res: Response): Promise<any> 
 });
 
 // Endpoint para marcar como proyecto "cancelado"
-router.put('/eliminar/:id', async (req: Request, res: Response): Promise<any> => {
+router.patch('/:id/cancelar', verifyToken, async (req: any, res: Response): Promise<any> => {
     try {
         const { id } = req.params;
-        const { id_usuario } = req.body; 
+        const id_usuario = req.usuario.id; 
 
-        // Actualizamos el estatus en lugar de hacer el delete
         const query = `
             UPDATE proyecto 
             SET estatus = 'Cancelado' 
@@ -147,7 +152,7 @@ router.put('/eliminar/:id', async (req: Request, res: Response): Promise<any> =>
 
         if (result.rows.length === 0) {
             return res.status(404).json({ 
-                message: 'No se pudo cancelar ya que, no existe o no eres dueño de este' 
+                message: 'No se pudo cancelar ya que no existe o no eres dueño de este' 
             });
         }
 
