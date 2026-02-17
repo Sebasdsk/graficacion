@@ -11,7 +11,7 @@
 .panel-header {
     width: 100%;
     display: flex;
-    align-items: start;
+    align-items: center;
     justify-content: space-between;
     gap: 1rem;
 }
@@ -40,9 +40,28 @@
     transition: all .2s ease;
     border: none;
     font-weight: 600;
+    white-space: nowrap;
 }
 
 .button-new-project:hover,
 .button-cancel-project:hover {
     transform: translateY(-5px);
+}
+
+.loader {
+    display: inline-block;
+    animation: pulsation 1.5s infinite;
+}
+
+@keyframes pulsation {
+    0% {
+        opacity: .4;
+    }
+    50% {
+        opacity: .8;
+        color: #5DC757;
+    }
+    100% {
+        opacity: 1;
+    }
 }

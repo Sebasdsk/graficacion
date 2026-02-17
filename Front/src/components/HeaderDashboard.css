@@ -37,6 +37,14 @@
     flex-direction: column;
 }
 
+.info p {
+    font-size: clamp(14px, 1.2vw, 20px);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: clamp(150px, 40vw, 400px);
+}
+
 .option-buttons {
     display: flex;
     gap: .1rem
@@ -53,6 +61,7 @@
     background: linear-gradient(to top, #000000, #474747);
     transition: all .2s ease;
     color: #ffffff;
+    white-space: nowrap;
 }
 
 .button-one:hover {

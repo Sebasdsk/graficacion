@@ -4,11 +4,51 @@ import ProjectsList from "../components/ProjectsComponents/ProjectsList";
 import ProjectsResume from "../components/ProjectsComponents/ProjectsResume";
 import ProjectCreate from "../components/ProjectsComponents/ProjectCreate";
 import { Plus, X } from "@boxicons/react"; // Icono del "+" se importa el componente ya que en <i> no funciona
-import { useState, type SetStateAction } from "react";
+import { useEffect, useState, type SetStateAction } from "react";
+import { useNavigate } from "react-router";
 
 export default function Dashboard() {
     // Este state se utiliza para mostrar o no el componente de ProjectCreate y el botón CreateProject o CancelCreate
     const [createProject, setCreateProject] = useState<boolean>(false);
+    const [loading, setLoading] = useState<boolean>(false);
+    const navigate = useNavigate();
+
+    const API_URL = "http://localhost:3000/api/proyectos/lista";
+
+    const token = localStorage.getItem("token");
+    if (!token) {
+        navigate("/login");
+    }
+
+    useEffect(() => {
+        const consultListProyects = async () => {
+            try {
+                setLoading(true);
+    
+                const response = await fetch(API_URL, {
+                    method: "GET",
+                    headers: {
+                        'Authorization': `Bearer ${token}`, // Envía el token
+                        'Content-Type': 'application/json'
+                    }
+                });
+    
+                if (!response.ok) {
+                    alert("Error en la espuesta");
+                    return;
+                }
+
+                const data = await response.json();
+                console.log(data); // Para ver si se reciben los datos
+            } catch (err) {
+                console.error("Error en la query: ", err)
+            } finally {
+                setLoading(false);
+            }
+        }
+
+        consultListProyects();
+    }, []);
 
     return (
         <main className="panel-control">
@@ -22,12 +62,12 @@ export default function Dashboard() {
                     ? <CancelCreate setCreateProject={setCreateProject}/>
                     : <CreateProject setCreateProject={setCreateProject}/>}
             </header>
-            <section className="panel-body">
+            {!loading ? <section className="panel-body">
                 <ProjectsResume/>
                 {createProject
                     ? <ProjectCreate/>
                     : <ProjectsList/>}
-            </section>
+            </section> : <span className="loader">Cargando...</span>}
         </main>
     );
 }
