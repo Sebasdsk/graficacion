@@ -5,12 +5,14 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 export const verifyToken = (req: any, res: Response, next: NextFunction) => {
-    
-    const token = req.headers['authorization'];
+    const authHeader = req.headers['authorization'];
 
-    if (!token) {
+    if (!authHeader) {
         return res.status(403).json({ message: 'No se proporciono un token' });
     }
+
+    // Esto separa la palabra Bearer con la jwt_secret y asigna únicamente la jwt_secret
+    const token = authHeader.split(' ')[1];
 
     try {
         const decoded = jwt.verify(token, process.env.JWT_SECRET || 'Secret-Object');

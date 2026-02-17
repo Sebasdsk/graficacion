@@ -35,6 +35,7 @@ export default function Dashboard() {
     
                 if (!response.ok) {
                     alert("Error en la espuesta");
+                    console.error(response);
                     return;
                 }
 
