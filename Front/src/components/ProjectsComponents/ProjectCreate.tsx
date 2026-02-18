@@ -12,11 +12,6 @@ export default function ProjectCreate() {
     const API_URL = "http://localhost:3000/api/proyectos/crear_proyecto";
 
     const createProject = async () => {
-        if (!projectName.trim() || !projectDescription.trim() || !projectDate.trim()) {
-            alert("¡Por favor llene todos los campos!");
-            return;
-        }
-
         const token = localStorage.getItem("token");
         if (!token) {
             navigate("/");
@@ -67,7 +62,8 @@ export default function ProjectCreate() {
                         id="proyect-name"
                         placeholder="Ingrese el nombre"
                         value={projectName}
-                        onChange={(e) => setProjectName(e.target.value)}/>
+                        onChange={(e) => setProjectName(e.target.value)}
+                        required/>
                 </div>
                 <div className="input-description">
                     <label htmlFor="proyect-description">Descripción del proyecto</label>
@@ -76,7 +72,8 @@ export default function ProjectCreate() {
                         id="proyect-description"
                         placeholder="Ingrese la descripción"
                         value={projectDescription}
-                        onChange={(e) => setProjectDescription(e.target.value)}/>
+                        onChange={(e) => setProjectDescription(e.target.value)}
+                        required/>
                 </div>
                 <div className="input-info">
                     <label htmlFor="date-start">Fecha de inicio del proyecto</label>
@@ -84,7 +81,8 @@ export default function ProjectCreate() {
                         type="date"
                         id="date-start"
                         value={projectDate}
-                        onChange={(e) => setProjectDate(e.target.value)}/>
+                        onChange={(e) => setProjectDate(e.target.value)}
+                        required/>
                 </div>
                 <button className={!loading ? "button-create": "button-create-loading"}>{!loading ? "Crear Proyecto" : "En proceso..."}</button>
             </form>
