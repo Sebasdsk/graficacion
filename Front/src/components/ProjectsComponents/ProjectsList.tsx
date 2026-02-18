@@ -1,14 +1,12 @@
 import Project from "./Project";
+import { type Proyecto } from "../../Types/Proyectos";
 import "./ProjectList.css"
 
-// Datos de prueba, para la UI
-const proyectos = [
-    {id: 1, nombre: "Proyecto 1", descripcion: "Descripción del proyecto 1", estatus: "Planificación", fechaCreacion: "1/2/2026", colaboradores: 2, procesos: 2},
-    {id: 2, nombre: "Proyecto 2", descripcion: "Descripción del proyecto 2", estatus: "En Progreso", fechaCreacion: "23/12/2025", colaboradores: 3, procesos: 2},
-    {id: 3, nombre: "Proyecto 3", descripcion: "Descripción del proyecto 3", estatus: "Planificación", fechaCreacion: "4/2/2026", colaboradores: 2, procesos: 2},
-];
+interface ProjectListProp {
+    projects: Array<Proyecto>;
+}
 
-export default function ProjectsList() {
+export default function ProjectsList({ projects }: ProjectListProp) {
     return (
         <section className="proyect-list">
             <header>
@@ -16,10 +14,10 @@ export default function ProjectsList() {
             </header>
             <hr />
             <section className="list">
-                {proyectos.map(p => (
+                {projects?.map(p => (
                     <Project
-                        key={p.id}
-                        id={p.id}
+                        key={p.id_proyecto}
+                        id_proyecto={p.id_proyecto}
                         nombre={p.nombre}
                         descripcion={p.descripcion}
                         estatus={p.estatus}

@@ -1,22 +1,26 @@
 import "./ProjectsResume.css"
 import { FolderMinus, Play, CheckCircle } from "@boxicons/react";
 
-export default function ProjectsResume() {
+interface CounterDashboardProp {
+    totalProjects: number;
+}
+
+export default function ProjectsResume({ totalProjects }: CounterDashboardProp) {
     return (
         <div className="projects-resume">
-            <TotalProjects/>
+            <TotalProjects totalProjects={totalProjects}/>
             <InProgress/>
             <CompleteProjects/>
         </div>
     );
 }
 
-function TotalProjects() {
+function TotalProjects({ totalProjects }: CounterDashboardProp) {
     return(
         <article className="total-projects">
             <div>
                 <h3>Total Proyectos</h3>
-                <p>0</p>
+                <p>{totalProjects}</p>
             </div>
             <div className="icon-folder">
                 <FolderMinus />

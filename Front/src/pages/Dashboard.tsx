@@ -3,9 +3,12 @@ import HeaderDashboard from "../components/HeaderDashboard"
 import ProjectsList from "../components/ProjectsComponents/ProjectsList";
 import ProjectsResume from "../components/ProjectsComponents/ProjectsResume";
 import ProjectCreate from "../components/ProjectsComponents/ProjectCreate";
-import { Plus, X } from "@boxicons/react"; // Icono del "+" se importa el componente ya que en <i> no funciona
+import { Plus, X } from "@boxicons/react";
 import { useEffect, useState, type SetStateAction } from "react";
 import { useNavigate } from "react-router";
+
+let projects: [];
+let totalProjects: number;
 
 export default function Dashboard() {
     // Este state se utiliza para mostrar o no el componente de ProjectCreate y el botón CreateProject o CancelCreate
@@ -40,7 +43,8 @@ export default function Dashboard() {
                 }
 
                 const data = await response.json();
-                console.log(data); // Para ver si se reciben los datos
+                projects = data;
+                totalProjects = projects.length;
             } catch (err) {
                 console.error("Error en la query: ", err)
             } finally {
@@ -50,6 +54,8 @@ export default function Dashboard() {
 
         consultListProyects();
     }, []);
+
+    console.log(totalProjects)
 
     return (
         <main className="panel-control">
@@ -64,10 +70,10 @@ export default function Dashboard() {
                     : <CreateProject setCreateProject={setCreateProject}/>}
             </header>
             {!loading ? <section className="panel-body">
-                <ProjectsResume/>
+                <ProjectsResume totalProjects={totalProjects}/>
                 {createProject
                     ? <ProjectCreate/>
-                    : <ProjectsList/>}
+                    : <ProjectsList projects={projects}/>}
             </section> : <span className="loader">Cargando...</span>}
         </main>
     );
