@@ -3,7 +3,7 @@ export interface Proyecto {
     nombre: string;
     descripcion: string;
     estatus: string;
-    fechaCreacion: string;
+    fecha_inicio: string;
     colaboradores: number;
     procesos: number;
 }

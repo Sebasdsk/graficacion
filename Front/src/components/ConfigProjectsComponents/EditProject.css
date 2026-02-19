@@ -17,18 +17,26 @@
 
 .project-name,
 .project-description,
-.project-info {
+.project-date,
+.project-status {
     display: flex;
     flex-direction: column;
     align-items: start;
     justify-content: center;
     gap: .3rem;
-    width: 100%;
+}
+
+.project-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2rem;
 }
 
 .project-name input,
 .project-description textarea,
-.project-info input {
+.project-date input, 
+.project-status select {
     width: 100%;
     border-radius: 10px;
     padding: .7rem;
@@ -39,7 +47,8 @@
 
 .project-name input:hover,
 .project-description textarea:hover,
-.project-info input:hover {
+.project-date input:hover,
+.project-status select:hover {
     box-shadow: var(--shadow-hover);
 }
 

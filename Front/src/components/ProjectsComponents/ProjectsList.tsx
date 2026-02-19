@@ -21,7 +21,7 @@ export default function ProjectsList({ projects }: ProjectListProp) {
                         nombre={p.nombre}
                         descripcion={p.descripcion}
                         estatus={p.estatus}
-                        fechaCreacion={p.fechaCreacion}
+                        fecha_inicio={p.fecha_inicio}
                         colaboradores={p.colaboradores}
                         procesos={p.procesos}
                     />

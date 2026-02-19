@@ -7,12 +7,12 @@ interface ProyectoProp {
     nombre: string;
     descripcion: string;
     estatus: string;
-    fechaCreacion: string;
+    fecha_inicio: string;
     colaboradores: number;
     procesos: number;
 }
 
-export default function Project( { id_proyecto, nombre, descripcion, estatus, fechaCreacion, colaboradores, procesos }: ProyectoProp ) {
+export default function Project( { id_proyecto, nombre, descripcion, estatus, fecha_inicio, colaboradores, procesos }: ProyectoProp ) {
     const navigate = useNavigate();
 
     // Esta función dirige a la página de configuración de proyecto como parámetro el id del proyecto seleccionado
@@ -30,7 +30,7 @@ export default function Project( { id_proyecto, nombre, descripcion, estatus, fe
             <div className="project-body">
                 <div className="info-project">
                     <span>{estatus}</span>
-                    <span>{fechaCreacion}</span>
+                    <span>{fecha_inicio}</span>
                 </div>
                 <div className="relations-projects">
                     <div className="stakeholders-container">

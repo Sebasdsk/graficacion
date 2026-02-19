@@ -37,8 +37,8 @@ export default function Dashboard() {
                 });
     
                 if (!response.ok) {
-                    alert("Error en la espuesta");
                     console.error(response);
+                    navigate("/");
                     return;
                 }
 
@@ -47,6 +47,7 @@ export default function Dashboard() {
                 totalProjects = projects.length;
             } catch (err) {
                 console.error("Error en la query: ", err)
+                navigate("/");
             } finally {
                 setLoading(false);
             }
@@ -54,8 +55,6 @@ export default function Dashboard() {
 
         consultListProyects();
     }, []);
-
-    console.log(totalProjects)
 
     return (
         <main className="panel-control">
