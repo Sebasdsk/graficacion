@@ -2,14 +2,13 @@ import React, { useState, type SetStateAction } from "react";
 import Modal from "../../Modals/Modal";
 import StakeholdersCreate from "./StakeholdersCreate";
 import StakeholdersEdit from "./StakeholdersEdit";
-import { Plus, X, Apartment, Envelope, UserCircle, Edit } from "@boxicons/react"; 
+import { Plus, X, UserCircle, Edit } from "@boxicons/react"; 
 import "./Stakeholders.css"
 
 // Datos de prueba para la UI
 const stakeholders = [
-    {id: 1, nombre: "Luis Soto", puesto: "Gerente de ventas", rol: "Gerente", correo: "luis@mail.com"},
-    {id: 2, nombre: "Carlos Bojórquez", puesto: "Supervisor de operaciones", rol: "Spervisor", correo: "carlxs@mail.com"},
-    {id: 3, nombre: "Sebastían Villa", puesto: "Financiador de operaciones", rol: "Financiero", correo: "sebas@mail.com"},
+    {id: 1, nombre: "Product Owner", descripcion: "Responsable máximo de maximizar el valor del producto"},
+    {id: 2, nombre: "Tech Leader", descripcion: "Desarrollador de software senior encargado de guiar técnicamente a un equipo de desarrollo"}
 ]
 
 export default function Stakeholders() {
@@ -66,9 +65,7 @@ function StakeholdersList({ setSelectedId }: SelectedIdProp) {
                     key={s.id}
                     id={s.id}
                     nombre={s.nombre}
-                    puesto={s.puesto}
-                    rol={s.rol}
-                    correo={s.correo}
+                    descripcion={s.descripcion}
                     setSelectedId={setSelectedId}/>
             ))}
         </div>
@@ -78,12 +75,10 @@ function StakeholdersList({ setSelectedId }: SelectedIdProp) {
 interface StakeholdersProp {
     id: number;
     nombre: string;
-    puesto: string;
-    rol: string;
-    correo: string;
+    descripcion: string;
 }
 
-function Stakeholder({ id, nombre, puesto, rol, correo, setSelectedId } : StakeholdersProp & SelectedIdProp) {
+function Stakeholder({ id, nombre, descripcion, setSelectedId } : StakeholdersProp & SelectedIdProp) {
     return (
         <article className="stakeholder">
             <header className="stakeholder-header">
@@ -93,7 +88,7 @@ function Stakeholder({ id, nombre, puesto, rol, correo, setSelectedId } : Stakeh
                     </div>
                     <div className="stake-data">
                         <h3>{nombre}</h3>
-                        <span>{puesto}</span>
+                        <span>{descripcion}</span>
                     </div>
                 </div>
                 <button
@@ -104,16 +99,15 @@ function Stakeholder({ id, nombre, puesto, rol, correo, setSelectedId } : Stakeh
                 </button>
             </header>
             <hr />
-            <div className="stakeholder-body">
-                <div className="rol-div">
-                    <Apartment />
-                    <span>{rol}</span>
+            <section className="stakeholder-body">
+                <header className="header-stakeholder-body">
+                    <span>Miembros</span>
+                    <button className="add-person"><Plus/></button>
+                </header>
+                <div className="list-persons">
+                    
                 </div>
-                <div className="email-div">
-                    <Envelope />
-                    <span>{correo}</span>
-                </div>
-            </div>
+            </section>
         </article>
     )
 }

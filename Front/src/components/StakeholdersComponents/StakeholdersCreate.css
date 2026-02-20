@@ -15,21 +15,21 @@
 }
 
 .input-name,
-.input-puesto,
-.input-rol,
-.input-email{
+.input-description,
+.input-status {
     display: flex;
     flex-direction: column;
     gap: .4rem;
 }
 
-.form-stakeholder input {
+.form-stakeholder input, textarea, select {
     padding: .6rem;
     border: 1px solid var(--border-container);
     border-radius: 10px;
+    resize: none;
 }
 
-.form-stakeholder input:hover {
+.form-stakeholder input:hover, textarea:hover, select:hover {
     box-shadow: var(--shadow-hover);
 }
 
