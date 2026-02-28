@@ -3,6 +3,7 @@ import Modal from "../../Modals/Modal";
 import StakeholdersCreate from "./StakeholdersCreate";
 import StakeholdersEdit from "./StakeholdersEdit";
 import { Plus, X, UserCircle, Edit } from "@boxicons/react"; 
+import PersonsList from "../PersonsComponents/PersonsList";
 import "./Stakeholders.css"
 
 // Datos de prueba para la UI
@@ -104,9 +105,7 @@ function Stakeholder({ id, nombre, descripcion, setSelectedId } : StakeholdersPr
                     <span>Miembros</span>
                     <button className="add-person"><Plus/></button>
                 </header>
-                <div className="list-persons">
-                    
-                </div>
+                <PersonsList idStake={id}/>
             </section>
         </article>
     )

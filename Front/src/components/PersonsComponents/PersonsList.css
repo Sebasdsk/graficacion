@@ -1,0 +1,35 @@
+.persons-list {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: .6rem;
+}
+
+.person-info {  
+    padding: .6rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid var(--border-container);
+    border-radius: 10px;
+}
+
+.person-detail {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.buttons-actions{ 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .6rem;
+}
+
+.buttons-actions button {
+    border: none;
+    background: transparent;
+    display: flex;
+    align-items: center;
+}
