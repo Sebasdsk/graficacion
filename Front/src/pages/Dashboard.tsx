@@ -1,19 +1,13 @@
 import "./Dashboard.css";
 import HeaderDashboard from "../components/HeaderDashboard"
-import ProjectsList from "../components/ProjectsComponents/ProjectsList";
-import ProjectsResume from "../components/ProjectsComponents/ProjectsResume";
-import ProjectCreate from "../components/ProjectsComponents/ProjectCreate";
-import { Plus, X } from "@boxicons/react";
+import Projects from "../components/ProjectsComponents/Projects";
 import { useEffect, useState, type SetStateAction } from "react";
 import { useNavigate } from "react-router";
 
-let projects: [];
-let totalProjects: number;
+type OptionsDashboard = "Home" | "Proyectos";
 
 export default function Dashboard() {
-    // Este state se utiliza para mostrar o no el componente de ProjectCreate y el botón CreateProject o CancelCreate
-    const [createProject, setCreateProject] = useState<boolean>(false);
-    const [loading, setLoading] = useState<boolean>(false);
+    const [option, setOption] = useState<OptionsDashboard>("Home");
     const navigate = useNavigate();
 
     const API_URL = "http://localhost:3000/api/proyectos/lista";
@@ -26,7 +20,6 @@ export default function Dashboard() {
     useEffect(() => {
         const consultListProyects = async () => {
             try {
-                setLoading(true);
     
                 const response = await fetch(API_URL, {
                     method: "GET",
@@ -41,15 +34,10 @@ export default function Dashboard() {
                     navigate("/");
                     return;
                 }
-
-                const data = await response.json();
-                projects = data;
-                totalProjects = projects.length;
+                
             } catch (err) {
                 console.error("Error en la query: ", err)
                 navigate("/");
-            } finally {
-                setLoading(false);
             }
         }
 
@@ -58,47 +46,35 @@ export default function Dashboard() {
 
     return (
         <main className="panel-control">
-            <HeaderDashboard/>
-            <header className="panel-header">
-                <div>
-                    <h1>Proyectos</h1>
-                    <small>Gestiona tus proyectos del análisis de procesos de tu negocio</small>
+            <DashboardSidebar setOption={setOption}/>
+            {option === "Home" && 
+                <div className="home">
+                <div className="title-home">
+                    <h1>Home</h1>
                 </div>
-                {createProject
-                    ? <CancelCreate setCreateProject={setCreateProject}/>
-                    : <CreateProject setCreateProject={setCreateProject}/>}
-            </header>
-            {!loading ? <section className="panel-body">
-                <ProjectsResume totalProjects={totalProjects}/>
-                {createProject
-                    ? <ProjectCreate/>
-                    : <ProjectsList projects={projects}/>}
-            </section> : <span className="loader">Cargando...</span>}
+                <HeaderDashboard/>
+                
+            </div>
+            }
+            {option === "Proyectos" && <Projects/>}
         </main>
     );
 }
 
-// Interfaz para pasar los prop a los botones con el estado setCreateProject
-interface SetCreateProjectProp {
-    setCreateProject: React.Dispatch<SetStateAction<boolean>>
+
+interface OptionsDashboardProp {
+    setOption: React.Dispatch<SetStateAction<OptionsDashboard>>;
 }
 
-// Este botón es para agregar un nuevo proyecto y actualiza la UI y muestra el componente "ProjectCreate"
-function CreateProject({ setCreateProject }: SetCreateProjectProp) {
+function DashboardSidebar({ setOption }: OptionsDashboardProp) {
     return (
-        <button onClick={() => setCreateProject(true)} className="button-new-project">
-            <Plus />
-            <p>Nuevo Proyecto</p>
-        </button>
-    );
-}
-
-// Este botón es para cancelar la operación de crear un nuevo proyecto y muestra de nuevo el componente "ProjectsList"
-function CancelCreate({ setCreateProject }: SetCreateProjectProp) {
-    return (
-        <button onClick={() => setCreateProject(false)} className="button-cancel-project">
-            <X />
-            <p>Cancelar</p>
-        </button>
+        <aside className="dashboard-sidebar">
+            <header className="header-sidebar">
+                <h2>FLOWTIC</h2>
+            </header>
+            <button onClick={() => setOption("Home")}>Home</button>
+            <button onClick={() => setOption("Proyectos")}>Proyectos</button>
+            <button>Cerrar Sesión</button>
+        </aside>
     );
 }
