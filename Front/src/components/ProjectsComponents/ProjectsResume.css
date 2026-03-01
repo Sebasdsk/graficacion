@@ -1,31 +1,73 @@
 .projects-resume {
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 1rem;
 }
 
 .total-projects,
-.in-progress,
+.total-roles,
+.total-persons,
 .complete-projects {
     padding: 1.5rem;
     border-radius: 10px;
-    border: none;
+    border: 1px solid var(--border-container);
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.150);
     justify-content: space-between;
+    gap: 1rem;
+}
+
+.header-total-projects,
+.header-total-roles,
+.header-total-persons,
+.header-complete-projects {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header-total-projects h3,
+.header-total-roles h3,
+.header-total-persons h3,
+.header-complete-projects h3 {
+    font-size: .9rem;
+    font-weight: 500;
 }
 
 .icon-folder,
 .icon-play,
 .icon-check {
-    background: var(--buton-black);
-    padding: .6rem;
-    color: #ffff;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 8px;
+}
+
+.body-total-projects,
+.body-total-roles,
+.body-total-persons,
+.body-complete-projects {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: .3rem;
+}
+
+.body-total-projects p,
+.body-total-roles p,
+.body-total-persons p,
+.body-complete-projects p {
+    font-size: 1.4rem;
+    font-weight: 600;
+}
+
+.body-total-projects small,
+.body-total-roles small,
+.body-total-persons small,
+.body-complete-projects small {
+    font-size: .7rem;
+    color: #6c6c6c;
 }

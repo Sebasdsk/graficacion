@@ -3,7 +3,6 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 1rem;
     border-bottom: 1px solid var(--border-container);
 }
 
@@ -13,6 +12,30 @@
     align-items: center;
     justify-content: start;
     gap: .5rem;
+}
+
+.toggle-button {
+    border-right: 1px solid var(--border-container);
+    padding: 1rem;
+}
+
+.toggle-button button {
+    border: none;
+    background-color: transparent;
+    transition: all 200ms ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: .2rem;
+    border-radius: 8px;
+}
+
+.toggle-button button:hover {
+    background-color: var(--border-container);
+}
+
+.toggle-button .button-mobile {
+    display: none;
 }
 
 .avatar {
@@ -43,7 +66,8 @@
     max-width: clamp(150px, 40vw, 400px);
 }
 
-.option-buttons {
+.options-buttons {
+    padding: .6rem;
     display: flex;
     gap: .1rem
 }
@@ -64,4 +88,14 @@
 
 .button-one:hover {
     transform: translateY(-5px);
+}
+
+@media (max-width: 768px) {
+    .toggle-button .button-mobile {
+        display: block;
+    }
+
+    .toggle-button .button-desktop {
+        display: none;
+    }
 }

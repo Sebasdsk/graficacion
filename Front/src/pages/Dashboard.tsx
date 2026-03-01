@@ -1,12 +1,14 @@
 import "./Dashboard.css";
 import HeaderDashboard from "../components/HeaderDashboard"
 import Projects from "../components/ProjectsComponents/Projects";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { DashboardAlt } from "@boxicons/react";  
 
 export default function Dashboard() {
     const navigate = useNavigate();
+    const [collapsed, setCollapsed] = useState<boolean>(false);
+    const [mobileOpen, setMobileOpen] = useState<boolean>(false);
 
     const API_URL = "http://localhost:3000/api/proyectos/lista";
 
@@ -43,16 +45,23 @@ export default function Dashboard() {
     }, []);
 
     return (
-        <main className="panel-control">
+        <main className={`panel-control ${collapsed ? "collapsed" : ""} ${mobileOpen ? "mobile-open" : ""}`}>
             <DashboardSidebar/>
-            <main className="dashboard-main">
-                <HeaderDashboard/>
+            {mobileOpen && <div 
+                    className="backdrop"
+                    onClick={() => setMobileOpen(!mobileOpen)}
+                />}
+            <section className="dashboard-main">
+                <HeaderDashboard
+                    collapsed={collapsed}
+                    setCollapsed={setCollapsed}
+                    mobileOpen={mobileOpen}
+                    setMobileOpen={setMobileOpen}/>
                 <Projects/>
-            </main>
+            </section>
         </main>
     );
 }
-
 
 
 function DashboardSidebar() {
