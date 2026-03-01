@@ -1,13 +1,11 @@
 import "./Dashboard.css";
 import HeaderDashboard from "../components/HeaderDashboard"
 import Projects from "../components/ProjectsComponents/Projects";
-import { useEffect, useState, type SetStateAction } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router";
-
-type OptionsDashboard = "Home" | "Proyectos";
+import { DashboardAlt } from "@boxicons/react";  
 
 export default function Dashboard() {
-    const [option, setOption] = useState<OptionsDashboard>("Home");
     const navigate = useNavigate();
 
     const API_URL = "http://localhost:3000/api/proyectos/lista";
@@ -46,35 +44,63 @@ export default function Dashboard() {
 
     return (
         <main className="panel-control">
-            <DashboardSidebar setOption={setOption}/>
-            {option === "Home" && 
-                <div className="home">
-                <div className="title-home">
-                    <h1>Home</h1>
-                </div>
+            <DashboardSidebar/>
+            <main className="dashboard-main">
                 <HeaderDashboard/>
-                
-            </div>
-            }
-            {option === "Proyectos" && <Projects/>}
+                <Projects/>
+            </main>
         </main>
     );
 }
 
 
-interface OptionsDashboardProp {
-    setOption: React.Dispatch<SetStateAction<OptionsDashboard>>;
-}
 
-function DashboardSidebar({ setOption }: OptionsDashboardProp) {
+function DashboardSidebar() {
+    const totalProyectos = 0;
+    const proyectosPlaneacion = 0;
+    const proyectosProgreso = 0;
+    const proyectosCompletados = 0;
+    const proyectosCancelados = 0;
+    
     return (
         <aside className="dashboard-sidebar">
             <header className="header-sidebar">
                 <h2>FLOWTIC</h2>
             </header>
-            <button onClick={() => setOption("Home")}>Home</button>
-            <button onClick={() => setOption("Proyectos")}>Proyectos</button>
-            <button>Cerrar Sesión</button>
+            <div className="button-container">
+                <button className="button-dashboard"><DashboardAlt /> Dashboard</button>
+            </div>
+            <section className="resume-sidebar">
+                <h3>Resumen</h3>
+                <dl className="resume-list">
+                    <dt className="all-projects">Total Proyectos</dt>
+                    <dd className="count-all-projects">{totalProyectos}</dd>
+
+                    <dt>
+                        <div className="icon-planning"></div>
+                        Planeación
+                    </dt>
+                    <dd>{proyectosPlaneacion}</dd>
+
+                    <dt>
+                        <div className="icon-progress"></div>
+                        En Progreso
+                    </dt>
+                    <dd>{proyectosProgreso}</dd>
+
+                    <dt>
+                        <div className="icon-complete"></div>
+                        Completados
+                    </dt>
+                    <dd>{proyectosCompletados}</dd>
+
+                    <dt>
+                        <div className="icon-cancel"></div>
+                        Cancelados
+                    </dt>
+                    <dd>{proyectosCancelados}</dd>
+                </dl>
+            </section>
         </aside>
     );
 }

@@ -1,24 +1,10 @@
 .panel-control {
-    padding: 1rem;
     display: flex;
     color: black;
 }
 
-.home {
-    width: 100%;
-    padding: 1rem;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    color: black;
-    gap: 1rem;
-}
-
-.title-home {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: start;
+.dashboard-main {
+    flex: 1;
 }
 
 .button-new-project,
@@ -45,27 +31,90 @@
     height: 100dvh;
     display: flex;
     flex-direction: column;
-    align-items: start;
-    background: var(--buton-black);
-    padding: 2rem;
-    border-radius: 10px;
-    gap: 1.2rem;
+    border-right: 1px solid var(--border-container);
     min-width: 30dvh;
 }
 
 .dashboard-sidebar button {
     border: none;
     background-color: transparent;
-    color: #ffff;
     font-size: .8rem;
 }
 
 .header-sidebar {
+    padding: 1.2rem;
     width: 100%;
+    border-bottom: 1px solid var(--border-container);
 }
 
 .header-sidebar h2 {
     font-size: 1rem;
-    color: #ffff;
     text-align: center;
+}
+
+.button-container {
+    padding: 1rem;
+    border-bottom: 1px solid var(--border-container);
+}
+
+.button-dashboard {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    gap: .8rem;
+}
+
+.resume-sidebar {
+    padding: 1rem;
+    gap: 2rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    font-size: .8rem;
+    border-bottom: 1px solid var(--border-container);
+}
+
+.resume-list {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: .4rem;
+}
+
+.resume-list dt {
+    display: flex;
+    align-items: center;
+    gap: .4rem;
+    color: #6c6c6c;
+}
+
+.icon-planning,
+.icon-progress,
+.icon-complete,
+.icon-cancel {
+    border-radius: 50%;
+    height: .5rem;
+    width: .5rem;
+}
+
+.icon-planning {
+    background-color: #a163f3;
+}
+
+.icon-progress {
+    background-color: #fecf00;
+}
+
+.icon-complete {
+    background-color: #5DC757;
+}
+
+.icon-cancel {
+    background-color: #ff0000;
+}
+
+.all-projects,
+.count-all-projects {
+    font-size: .9rem;
 }
