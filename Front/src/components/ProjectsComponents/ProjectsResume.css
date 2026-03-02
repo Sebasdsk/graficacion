@@ -69,5 +69,5 @@
 .body-total-persons small,
 .body-complete-projects small {
     font-size: .7rem;
-    color: #6c6c6c;
+    color: var(--info-text);
 }

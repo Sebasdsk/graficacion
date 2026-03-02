@@ -20,6 +20,7 @@ select {
 :root {
     --container: #f8f8f8;
     --border-container: #d8d8d8;
+    --info-text: #6c6c6c;
     --shadow-container: 0 0 10px rgba(0, 0, 0, 0.200);
     --button-green: linear-gradient(to top, #5DC757, #D1ED53);
     --buton-black: linear-gradient(to top, #000000, #474747);
@@ -30,4 +31,16 @@ select {
 
 button {
     cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    html {
+        font-size: 14px;
+    }
+}
+
+@media (min-width: 2560px) {
+    html {
+        font-size: 26px;
+    }
 }

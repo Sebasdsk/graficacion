@@ -3,17 +3,49 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    gap: 1rem;
+    gap: 1.5rem;
     border-radius: 10px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.150);
+    border: 1px solid var(--border-container);
+    transition: all 100ms;
 }
 
-.project-header p {
-    display: -webkit-box;
-    -webkit-line-clamp: 2; /* Esta propiedad limita los rengolnes máximo dos */
-            line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+.project-container:hover {
+    scale: 101%;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.150);
+}
+
+.project-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.project-header h3 {
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+.status-project {
+    padding: .2rem;
+    font-size: .8rem;
+    border-radius: 8px;
+}
+
+/* Estilos dinámicos para los estados de los proyectos */
+.planificacion {
+    background-color: #a163f377;
+}
+
+.en-progreso {
+    background-color: #fecf0077;
+}
+
+.completado {
+    background-color: #5DC75777;
+}
+
+.cancelado {
+    background-color: #ff000077;
 }
 
 .project-body {
@@ -22,31 +54,50 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 2rem;
+    gap: 1.2rem;
 }
 
-.info-project {
-    width: 100%;
-    padding: 1.5rem 1rem;
-    display: flex;
+.description-project {
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Esta propiedad limita los rengolnes máximo dos */
+            line-clamp: 2;
+    -webkit-box-orient: vertical;
     justify-content: space-between;
     align-items: center;
-    border: 1px solid var(--border-container);
-    border-radius: 10px;
+    overflow: hidden;
+    color: var(--info-text);
 }
 
 .relations-projects {
     width: 100%;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    gap: 1rem;
 }
 
-.stakeholders-container,
-.process-container {
+.persons-container,
+.date-container {
     display: flex;
-    flex-direction: column;
     align-items: center;
+    gap: .4rem;
+    color: var(--info-text);
+    font-size: .8rem;
+}
+
+.persons-container span,
+.date-container span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.roles-project {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    font-size: .8rem;
+    color: var(--info-text);
 }
 
 .watch-project {

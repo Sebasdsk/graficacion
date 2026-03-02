@@ -66,7 +66,7 @@ export default function Dashboard() {
 
 function DashboardSidebar() {
     const totalProyectos = 0;
-    const proyectosPlaneacion = 0;
+    const proyectosPlanificacion = 0;
     const proyectosProgreso = 0;
     const proyectosCompletados = 0;
     const proyectosCancelados = 0;
@@ -87,9 +87,9 @@ function DashboardSidebar() {
 
                     <dt>
                         <div className="icon-planning"></div>
-                        Planeación
+                        Planificación
                     </dt>
-                    <dd>{proyectosPlaneacion}</dd>
+                    <dd>{proyectosPlanificacion}</dd>
 
                     <dt>
                         <div className="icon-progress"></div>
