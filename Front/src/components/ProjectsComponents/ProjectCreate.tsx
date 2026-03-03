@@ -53,7 +53,6 @@ export default function ProjectCreate() {
             <header>
                 <h3> Crear Nuevo Proyecto</h3>
             </header>
-            <hr />
             <form onSubmit={createProject} className="form-create-project">
                 <div className="input-name">
                     <label htmlFor="proyect-name">Nombre del proyecto</label>

@@ -1,12 +1,9 @@
 .project-create {
-    padding: 2rem;
     display: flex;
     flex-direction: column;
     gap: 1.3rem;
     border: none;
-    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.250);
-    border-radius: 10px;
-    width: 100%;
+    min-width: 400px;
 }
 
 .form-create-project {
@@ -20,7 +17,7 @@
 
 .input-name,
 .input-description,
-.input-problematic {
+.input-info {
     display: flex;
     flex-direction: column;
     align-items: start;
@@ -42,11 +39,11 @@
 .input-name input:hover,
 .input-description textarea:hover,
 .input-info input:hover {
-    box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.130);
+    box-shadow: 0px 5px 5px rgba(240, 211, 211, 0.13);
 }
 
 .button-create {
-    width: 100%;
+    width: 50%;
     padding: .8rem;
     border-radius: 10px;
     display: flex;
@@ -55,7 +52,8 @@
     background: linear-gradient(to top, #5DC757, #D1ED53);
     transition: all .2s ease;
     border: none;
-    font-weight: 600;
+    font-size: .9rem;
+    font-weight: 500;
 }
 
 .button-create-loading {
