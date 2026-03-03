@@ -1,0 +1,101 @@
+.header {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--border-container);
+}
+
+.info-user {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+    gap: .5rem;
+}
+
+.toggle-button {
+    border-right: 1px solid var(--border-container);
+    padding: 1rem;
+}
+
+.toggle-button button {
+    border: none;
+    background-color: transparent;
+    transition: all 200ms ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: .2rem;
+    border-radius: 8px;
+}
+
+.toggle-button button:hover {
+    background-color: var(--border-container);
+}
+
+.toggle-button .button-mobile {
+    display: none;
+}
+
+.avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(to top, #5DC757, #D1ED53);
+    padding: .7rem 1rem;
+    border-radius: 50%;
+    color: #000000;
+}
+
+.letter-name {
+    font-size: 1.4rem;
+    font-weight: 600;
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+}
+
+.info p {
+    font-size: clamp(14px, 1.2vw, 20px);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: clamp(150px, 40vw, 400px);
+}
+
+.options-buttons {
+    padding: .6rem;
+    display: flex;
+    gap: .1rem
+}
+
+.button-one {
+    padding: .6rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .2rem;
+    border-radius: 10px;
+    border: none;
+    background: linear-gradient(to top, #000000, #474747);
+    transition: all .2s ease;
+    color: #ffffff;
+    white-space: nowrap;
+}
+
+.button-one:hover {
+    transform: translateY(-5px);
+}
+
+@media (max-width: 768px) {
+    .toggle-button .button-mobile {
+        display: block;
+    }
+
+    .toggle-button .button-desktop {
+        display: none;
+    }
+}

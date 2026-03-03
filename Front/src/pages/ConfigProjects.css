@@ -1,9 +1,6 @@
 .configurate-container {
-    padding: 1rem;
     height: 100dvh;
     display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
 }
 
 .configurate-header {
@@ -31,43 +28,88 @@
     padding: 1.2rem;
     display: flex;
     flex-direction: column;
-    align-items: start;
-    gap: .5rem;
+    gap: 1.2rem;
     border: none;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.150);
-    border-radius: 15px;
+}
+
+.button-go-back {
+    border: none;
+    padding: .4rem;
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all .1s ease;
+    border-radius: 10px;
+}
+
+.button-go-back:hover {
+    background-color: #cdcdcd;
+}
+
+.principal-info {
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+}
+
+.secundary-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.state-project,
+.date-project {
+    display: flex;
+    align-items: center;
+    gap: .4rem;
+    font-size: .8rem;
+}
+
+.state-project dt,
+.date-project dt {
+    display: flex;
+    align-items: center;
+    gap: .2rem;
+    color: var(--info-text);
+}
+
+.date-project dd {
+    color: var(--info-text);
+}
+
+.status-project {
+    padding: .2rem;
+    font-size: .8rem;
+    border-radius: 8px;
 }
 
 .configurate-body {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: stretch;
-    gap: 1rem;
     width: 100%;
     height: 100%;
 }
 
 .sidebar {
-    padding: .6rem;
-    min-width: 260px;
+    height: 100dvh;
     display: flex;
     flex-direction: column;
-    align-items: start;
-    gap: 1rem;
-    border: none;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.200);
-    border-radius: 10px;
+    border-right: 1px solid var(--border-container);
+    width: 30dvh;
+    transition: width 0.3s ease;
+    overflow: hidden;
+    background-color: var(--container);
 }
 
-.extern-configuration {
-    display: flex;
-    flex-direction: column;
-    align-items: start;
+.button-container {
     width: 100%;
-    gap: .5rem;
+    font-size: .8rem;
 }
 
-.extern-configuration button {
+.button-dashboard {
     padding: .6rem;
     background-color: transparent;
     display: flex;
@@ -80,17 +122,70 @@
     text-align: left;
 }
 
-.extern-configuration button:hover {
-    background-color: gray;
+.button-dashboard:hover {
+    background-color: #cdcdcd;
+}
+
+.icon-roles,
+.icon-stakeholders,
+.icon-procesos,
+.icon-subprocesos {
+    border-radius: 50%;
+    height: .5rem;
+    width: .5rem;
+}
+
+.icon-roles {
+    background-color: #a163f3;
+}
+
+.icon-stakeholders {
+    background-color: #5DC757;
+}
+
+.icon-procesos {
+    background-color: #ff0000;
+}
+
+.icon-subprocesos {
+    background-color: #fecf00;
 }
 
 .config-content {
     flex: 1;
     display: flex;
+    flex-direction: column;
+    padding: 0 1rem;
+}
+
+.configurate-container.collapsed .sidebar {
+    width: 0;
 }
 
 @media (max-width: 768px) {
     .configurate-body {
         flex-direction: column;
+    }
+
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 260px;
+        z-index: 1000;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+    }
+
+    .configurate-container.mobile-open .sidebar {
+        transform: translateX(0);
+    }
+
+    .backdrop {
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.4);
+        z-index: 999;
     }
 }

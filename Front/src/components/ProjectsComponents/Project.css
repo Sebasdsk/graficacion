@@ -31,23 +31,6 @@
     border-radius: 8px;
 }
 
-/* Estilos dinámicos para los estados de los proyectos */
-.planificacion {
-    background-color: #a163f377;
-}
-
-.en-progreso {
-    background-color: #fecf0077;
-}
-
-.completado {
-    background-color: #5DC75777;
-}
-
-.cancelado {
-    background-color: #ff000077;
-}
-
 .project-body {
     width: 100%;
     display: flex;

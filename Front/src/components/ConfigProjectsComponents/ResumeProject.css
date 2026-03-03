@@ -1,0 +1,64 @@
+.resume-project {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.total-roles-container,
+.total-stakeholders-container,
+.total-procesos-container,
+.total-subprocesos-container {
+    padding: 1.5rem;
+    border-radius: 10px;
+    border: 1px solid var(--border-container);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.header-total-roles,
+.header-total-stakeholders,
+.header-total-procesos,
+.header-total-subprocesos {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header-total-roles h3,
+.header-total-stakeholders h3,
+.header-total-procesos h3,
+.header-total-subprocesos h3 {
+    font-size: .9rem;
+    font-weight: 500;
+}
+
+.body-total-roles,
+.body-total-stakeholders,
+.body-total-procesos,
+.body-total-subprocesos {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: .3rem;
+}
+
+.body-total-roles p,
+.body-total-stakeholders p,
+.body-total-procesos p,
+.body-total-subprocesos p {
+    font-size: 1.4rem;
+    font-weight: 600;
+}
+
+.body-total-roles small,
+.body-total-stakeholders small,
+.body-total-procesos small,
+.body-total-subprocesos small {
+    font-size: .7rem;
+    color: var(--info-text);
+}

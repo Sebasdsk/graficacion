@@ -1,16 +1,22 @@
-import { useParams } from "react-router";
-import { useEffect, useState, type SetStateAction } from "react";
-import { Edit, Group, Workflow, NoteBook, ArrowLeftStroke } from "@boxicons/react";
+import { useNavigate, useParams } from "react-router";
+import { useEffect, useState } from "react";
+import { DashboardAlt, ArrowLeftStroke, Calendar } from "@boxicons/react";
+import ResumeProject from "../components/ConfigProjectsComponents/ResumeProject";
 import EditProject from "../components/ConfigProjectsComponents/EditProject";
 import Stakeholders from "../components/StakeholdersComponents/Stakeholders";
 import Process from "../components/ProcessesComponents/Processes";
 import Techniques from "../components/Techniques";
+import HeaderConfigProject from "../components/HeaderConfigProject";
 import { type Proyecto } from "../Types/Proyectos";
 import "./ConfigProjects.css"
 
 type OptionsProjects = "Configuracion" | "Stakeholders" | "Procesos" | "Tecnicas";
 
 export default function ConfigProjects() {
+    const navigate = useNavigate();
+    const [collapsed, setCollapsed] = useState<boolean>(false);
+    const [mobileOpen, setMobileOpen] = useState<boolean>(false);
+
     const [option, setOption] = useState<OptionsProjects>("Configuracion");
     const [project, setProject] = useState<Proyecto | null>(null);
     const [projectName, setProjectName] = useState<string>("");
@@ -20,6 +26,21 @@ export default function ConfigProjects() {
     
     // Con el hook "useParams" obtenemos el id pasado en la ruta desde el componente Project
     const idProject = useParams();
+
+    const checkStatus = (estatus: string) => {
+        switch(estatus) {
+            case "Planificación":
+                return "planificacion";
+            case "En Progreso":
+                return "en-progreso";
+            case "Completado":
+                return "completado";
+            case "Cancelado":
+                return "cancelado";
+            default:
+                return "planificacion";
+        }
+    };
 
     const API_URL = `http://localhost:3000/api/proyectos/ver/${idProject.id}`;
 
@@ -43,10 +64,11 @@ export default function ConfigProjects() {
 
                 const data = await repsonse.json();
                 setProject(data);
-                
                 setProjectName(data.nombre);
                 setProjectDescription(data.descripcion);
-                setProjectDate(data.fecha_inicio);
+
+                const dateClean = data.fecha_inicio.split("T")[0];
+                setProjectDate(dateClean);
                 setProjectStatus(data.estatus);
             } catch (err) {
                 console.error(err);
@@ -58,62 +80,103 @@ export default function ConfigProjects() {
     }, []);
 
     return (
-        <main className="configurate-container">
-            <header className="configurate-header">
-                <nav className="navbar">
-                    <a href="/dashboard"><ArrowLeftStroke /> Volver al menú</a>
-                </nav>
-                <div className="data-project">
-                    <h1>{project?.nombre}</h1>
-                    <p>{project?.descripcion}</p>
-                </div>
-            </header>
+        <main className={`configurate-container ${collapsed ? "collapsed" : ""} ${mobileOpen ? "mobile-open" : ""}`}>
+            <ProjectSideBar/>
+            {mobileOpen && <div 
+                    className="backdrop"
+                    onClick={() => setMobileOpen(!mobileOpen)}
+                />}
             <section className="configurate-body">
-                <ProjectSideBar setOption={setOption}/>
+                <header className="configurate-header">
+                    <HeaderConfigProject
+                        collapsed={collapsed}
+                        setCollapsed={setCollapsed}
+                        mobileOpen={mobileOpen}
+                        setMobileOpen={setMobileOpen}
+                    />
+                    <div className="data-project">
+                        <div className="principal-info">
+                            <button
+                                className="button-go-back"
+                                onClick={() => navigate("/dashboard")}
+                            >
+                                <ArrowLeftStroke />
+                            </button>
+                            <div>
+                                <h1>{project?.nombre}</h1>
+                                <p>{project?.descripcion}</p>
+                            </div>
+                        </div>
+                        <dl className="secundary-info">
+                            <div className="state-project">
+                                <dt>Estado:</dt>
+                                <dd className={`status-project ${checkStatus(projectStatus)}`}>{projectStatus}</dd>
+                            </div>
+                            <div className="date-project">
+                                <dt>
+                                    <Calendar size="xs"/>
+                                    Creado el
+                                </dt>
+                                <dd>{projectDate}</dd>
+                            </div>
+                        </dl>
+                    </div>
+                </header>
                 <section className="config-content">
-                    {option === "Configuracion" &&
-                        <EditProject
-                            projectName={projectName}
-                            setProjectName={setProjectName}
-                            projectDescription={projectDescription}
-                            setProjectDescription={setProjectDescription}
-                            projectDate={projectDate.split("T")[0]}
-                            setProjectDate={setProjectDate}
-                            projectStatus={projectStatus}
-                            setProjectStatus={setProjectStatus}/>}
-                    {option === "Stakeholders" && <Stakeholders/>}
-                    {option === "Procesos" && <Process/>}
-                    {option === "Tecnicas" && <Techniques/>}
+                    <ResumeProject/>
+                    <div className="buttons-menu">
+                        <button>Roles y Stakeholders</button>
+                        <button>Procesos</button>
+                    </div>
                 </section>
             </section>
         </main>
     );
 }
 
-interface OptionsProjectProp {
-    setOption: React.Dispatch<SetStateAction<OptionsProjects>>;
-}
+function ProjectSideBar() {
+    const totalRoles = 0;
+    const totalStakeholders = 0;
+    const totalProcesos = 0;
+    const totalSubprocesos = 0;
 
-function ProjectSideBar({ setOption }: OptionsProjectProp ) {
     return (
         <aside className="sidebar">
-            <section className="extern-configuration">
-                <button onClick={() => setOption("Configuracion")}>
-                    <Edit />
-                    Editar Proyectos
+            <header className="header-sidebar">
+                <h2>FLOWTIC</h2>
+            </header>
+            <div className="button-container">
+                <button className="button-dashboard">
+                    <DashboardAlt /> Dashboard
                 </button>
-                <button onClick={() => setOption("Stakeholders")}>
-                    <Group />
-                    Stakeholders
-                    </button>
-                <button onClick={() => setOption("Procesos")}>
-                    <Workflow />
-                    Procesos
-                </button>
-                <button onClick={() => setOption("Tecnicas")}>
-                    <NoteBook />
-                    Técnicas de Levantamiento
-                </button>
+            </div>
+            <section className="resume-sidebar">
+                <h3>Resumen</h3>
+                <dl className="resume-list">
+                    <dt>
+                        <div className="icon-roles"></div>
+                        Roles
+                    </dt>
+                    <dd>{totalRoles}</dd>
+
+                    <dt>
+                        <div className="icon-stakeholders"></div>
+                        Stakeholders
+                    </dt>
+                    <dd>{totalStakeholders}</dd>
+
+                    <dt>
+                        <div className="icon-procesos"></div>
+                        Procesos
+                    </dt>
+                    <dd>{totalProcesos}</dd>
+
+                    <dt>
+                        <div className="icon-subprocesos"></div>
+                        Subprocesos
+                    </dt>
+                    <dd>{totalSubprocesos}</dd>
+                </dl>
             </section>
         </aside>
     );
