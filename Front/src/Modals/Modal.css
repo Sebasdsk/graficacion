@@ -6,16 +6,38 @@
     align-items: center;
     justify-content: center;
     z-index: 9999;
+    animation: fadeIn 0.25s ease forwards;
 }
 
 .modal {
     background: #ffff;
     border-radius: 10px;
     padding: 1.4rem;
+    animation: modalOpen 0.3s ease forwards;
 }
 
 .button-close-modal {
     border: none;
     background: transparent;
     padding: .4rem;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes modalOpen {
+    from {
+        opacity: 0;
+        transform: scale(0.6) translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
 }

@@ -2,8 +2,9 @@ import { useEffect, useState, type SetStateAction } from "react";
 import ProjectsResume from "./ProjectsResume";
 import ProjectsList from "./ProjectsList";
 import ProjectCreate from "./ProjectCreate";
-import { X, Plus } from "@boxicons/react";
+import { Plus } from "@boxicons/react";
 import { useNavigate } from "react-router";
+import ModalCreate from "../../Modals/ModalCreate";
 import "./Projects.css"
 
 let projects: [];
@@ -61,16 +62,15 @@ export default function Projects() {
                     <h1>Proyectos</h1>
                     <small>Gestiona tus proyectos del análisis de procesos de tu negocio</small>
                 </div>
-                {createProject
-                    ? <CancelCreate setCreateProject={setCreateProject}/>
-                    : <CreateProject setCreateProject={setCreateProject}/>}
+                <CreateProject setCreateProject={setCreateProject}/>
             </header>
             {!loading ? <section className="projects-body">
                 <ProjectsResume totalProjects={totalProjects}/>
-                {createProject
-                    ? <ProjectCreate/>
-                    : <ProjectsList projects={projects}/>}
-            </section> : <span className="loader">Cargando...</span>}  
+                <ProjectsList projects={projects}/>
+            </section> : <span className="loader">Cargando...</span>}
+            {createProject && <ModalCreate
+                children={<ProjectCreate/>}
+                setOpen={setCreateProject}/>}
         </section>
     );
 }
@@ -84,18 +84,7 @@ interface SetCreateProjectProp {
 function CreateProject({ setCreateProject }: SetCreateProjectProp) {
     return (
         <button onClick={() => setCreateProject(true)} className="button-new-project">
-            <Plus />
-            <p>Nuevo Proyecto</p>
-        </button>
-    );
-}
-
-// Este botón es para cancelar la operación de crear un nuevo proyecto y muestra de nuevo el componente "ProjectsList"
-function CancelCreate({ setCreateProject }: SetCreateProjectProp) {
-    return (
-        <button onClick={() => setCreateProject(false)} className="button-cancel-project">
-            <X />
-            <p>Cancelar</p>
+            <Plus size="xs"/>Nuevo Proyecto
         </button>
     );
 }

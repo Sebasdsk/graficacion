@@ -7,6 +7,7 @@
     border-radius: 10px;
     border: 1px solid var(--border-container);
     transition: all 100ms;
+    cursor: pointer;
 }
 
 .project-container:hover {
