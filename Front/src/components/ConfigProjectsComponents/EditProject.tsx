@@ -13,7 +13,7 @@ interface ProjectValuesProp {
 }
 
 export default function EditProject({
-    projectName, setProjectName, projectDescription,setProjectDescription,
+    projectName, setProjectName, projectDescription, setProjectDescription,
     projectDate, setProjectDate, projectStatus, setProjectStatus }: ProjectValuesProp) {
     return (
         <section className="edit-project">

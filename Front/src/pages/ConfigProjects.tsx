@@ -1,23 +1,24 @@
 import { useNavigate, useParams } from "react-router";
 import { useEffect, useState } from "react";
-import { DashboardAlt, ArrowLeftStroke, Calendar } from "@boxicons/react";
+import { DashboardAlt, ArrowLeftStroke, Calendar, Pencil } from "@boxicons/react";
 import ResumeProject from "../components/ConfigProjectsComponents/ResumeProject";
 import EditProject from "../components/ConfigProjectsComponents/EditProject";
 import Stakeholders from "../components/StakeholdersComponents/Stakeholders";
 import Process from "../components/ProcessesComponents/Processes";
-import Techniques from "../components/Techniques";
+import ModalCreate from "../Modals/ModalCreate";
 import HeaderConfigProject from "../components/HeaderConfigProject";
 import { type Proyecto } from "../Types/Proyectos";
 import "./ConfigProjects.css"
 
-type OptionsProjects = "Configuracion" | "Stakeholders" | "Procesos" | "Tecnicas";
+type OptionsProjects = "Roles" | "Procesos";
 
 export default function ConfigProjects() {
     const navigate = useNavigate();
     const [collapsed, setCollapsed] = useState<boolean>(false);
     const [mobileOpen, setMobileOpen] = useState<boolean>(false);
-
-    const [option, setOption] = useState<OptionsProjects>("Configuracion");
+    // Estado que maneja la apertura de el modal para editar el proyecto
+    const [openEditModal, setOpenEditModal] = useState<boolean>(false);
+    const [option, setOption] = useState<OptionsProjects>("Roles");
     const [project, setProject] = useState<Proyecto | null>(null);
     const [projectName, setProjectName] = useState<string>("");
     const [projectDescription, setProjectDescription] = useState<string>("");
@@ -94,47 +95,81 @@ export default function ConfigProjects() {
                         mobileOpen={mobileOpen}
                         setMobileOpen={setMobileOpen}
                     />
-                    <div className="data-project">
-                        <div className="principal-info">
-                            <button
-                                className="button-go-back"
-                                onClick={() => navigate("/dashboard")}
-                            >
-                                <ArrowLeftStroke />
-                            </button>
-                            <div>
-                                <h1>{project?.nombre}</h1>
-                                <p>{project?.descripcion}</p>
+                    <div className="section-header">
+                        <div className="data-project">
+                            <div className="principal-info">
+                                <button
+                                    className="button-go-back"
+                                    onClick={() => navigate("/dashboard")}
+                                >
+                                    <ArrowLeftStroke />
+                                </button>
+                                <div>
+                                    <h1>{project?.nombre}</h1>
+                                    <p>{project?.descripcion}</p>
+                                </div>
                             </div>
+                            <dl className="secundary-info">
+                                <div className="state-project">
+                                    <dt>Estado:</dt>
+                                    <dd className={`status-project ${checkStatus(projectStatus)}`}>{projectStatus}</dd>
+                                </div>
+                                <div className="date-project">
+                                    <dt>
+                                        <Calendar size="xs"/>
+                                        Creado el
+                                    </dt>
+                                    <dd>{projectDate}</dd>
+                                </div>
+                            </dl>
                         </div>
-                        <dl className="secundary-info">
-                            <div className="state-project">
-                                <dt>Estado:</dt>
-                                <dd className={`status-project ${checkStatus(projectStatus)}`}>{projectStatus}</dd>
-                            </div>
-                            <div className="date-project">
-                                <dt>
-                                    <Calendar size="xs"/>
-                                    Creado el
-                                </dt>
-                                <dd>{projectDate}</dd>
-                            </div>
-                        </dl>
+                        <button
+                            className="button-edit-project"
+                            onClick={() => setOpenEditModal(true)}
+                        >
+                            <Pencil size="xs"/> Editar
+                        </button>
                     </div>
                 </header>
                 <section className="config-content">
                     <ResumeProject/>
                     <div className="buttons-menu">
-                        <button>Roles y Stakeholders</button>
-                        <button>Procesos</button>
+                        <button 
+                            className={`button-menu ${option === "Roles" ? "selected" : ""}`}
+                            onClick={() => setOption("Roles")}
+                        >
+                            Roles y Stakeholders
+                        </button>
+                        <button
+                        onClick={() => setOption("Procesos")}
+                            className={`button-menu ${option === "Procesos" ? "selected" : ""}`}
+                        >
+                            Procesos
+                        </button>
                     </div>
+                    {option === "Roles" && <Stakeholders/>}
+                    {option === "Procesos" && <Process/>}
                 </section>
             </section>
+            {openEditModal && <ModalCreate
+                children={
+                <EditProject
+                    projectName={projectName}
+                    setProjectName={setProjectName}
+                    projectDescription={projectDescription}
+                    setProjectDescription={setProjectDescription}
+                    projectDate={projectDate}
+                    setProjectDate={setProjectDate}
+                    projectStatus={projectStatus}
+                    setProjectStatus={setProjectStatus}
+                />
+                } setOpen={setOpenEditModal}/>}
         </main>
     );
 }
 
 function ProjectSideBar() {
+    // Mock data
     const totalRoles = 0;
     const totalStakeholders = 0;
     const totalProcesos = 0;
