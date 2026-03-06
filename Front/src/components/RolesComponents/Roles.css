@@ -67,6 +67,11 @@
 .button-edit-role {
     border: none;
     background-color: transparent;
+    transition: color .1s ease;
+}
+
+.button-edit-role:hover {
+    color: var(--hover-icon);
 }
 
 .role-body {

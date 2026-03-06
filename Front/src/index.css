@@ -34,6 +34,7 @@ hr {
     --background-purple: #a163f3;
     --small-color: #505050;
     --shadow-hover: 0px 5px 5px rgba(0, 0, 0, 0.130);
+    --hover-icon: #7e7e7e;
 }
 
 /* Estilos dinámicos para los estados de los proyectos */

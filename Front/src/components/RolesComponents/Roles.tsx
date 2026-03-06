@@ -3,7 +3,7 @@ import Modal from "../../Modals/Modal";
 import StakeholdersCreate from "./RolesCreate";
 import StakeholdersEdit from "./RolesEdit";
 import { Plus, Edit, UserPlus } from "@boxicons/react"; 
-import PersonsList from "../StakeholdersComponents/StakeholdersList";
+import StakeholderList from "../StakeholdersComponents/StakeholdersList";
 import ModalCreate from "../../Modals/ModalCreate";
 import "./Roles.css"
 
@@ -98,7 +98,7 @@ function Role({ id, nombre, descripcion, setSelectedId } : RolesProp & SelectedI
                     <button className="add-person"><UserPlus size="xs"/> Agregar Persona</button>
                 </header>
                 <hr />
-                <PersonsList idStake={id}/>
+                <StakeholderList idRole={id}/>
             </section>
         </article>
     )

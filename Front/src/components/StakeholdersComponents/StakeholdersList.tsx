@@ -2,46 +2,46 @@ import { Trash, Edit, User, Envelope } from "@boxicons/react";
 import "./StakeholdersList.css"
 
 // Mock data
-const persons = [
-    {id: 1, nombre: "Sebastián", email: "sebas@email.com", idStake: 1},
-    {id: 2, nombre: "Carlos", email: "carlos@email.com", idStake: 2},
-    {id: 3, nombre: "Luis", email: "luis@email.com", idStake: 1},
-    {id: 4, nombre: "Mario", email: "mario@email.com", idStake: 1},
-    {id: 5, nombre: "Maria", email: "maria@email.com", idStake: 2},
+const stakeholders = [
+    {id: 1, nombre: "Sebastián", email: "sebas@email.com", idRole: 1},
+    {id: 2, nombre: "Carlos", email: "carlos@email.com", idRole: 2},
+    {id: 3, nombre: "Luis", email: "luis@email.com", idRole: 1},
+    {id: 4, nombre: "Mario", email: "mario@email.com", idRole: 1},
+    {id: 5, nombre: "Maria", email: "maria@email.com", idRole: 2},
 ];
 
 interface StakeholderIdProp {
-    idStake: number;
+    idRole: number;
 }
 
-export default function StakeholdersList({ idStake }: StakeholderIdProp) {
+export default function StakeholdersList({ idRole }: StakeholderIdProp) {
 
-    const personsFilter = persons.filter(p => p.idStake === idStake);
+    const stakeholdersFilter = stakeholders.filter(s => s.idRole === idRole);
 
     return (
-        <div className="persons-list">
-            {personsFilter.map(p => (
-                <Person key={p.id} id={p.id} nombre={p.nombre} email={p.email}/>
+        <div className="stakeholders-list">
+            {stakeholdersFilter.map(s => (
+                <Stakeholder key={s.id} id={s.id} nombre={s.nombre} email={s.email}/>
             ))}
         </div>
     );
 }
 
-interface PerosonInfoProp {
+interface StakeholdersInfoProp {
     id: number;
     nombre: string;
     email: string;
 }
 
-function Person({ nombre, email }: PerosonInfoProp) {
+function Stakeholder({ nombre, email }: StakeholdersInfoProp) {
     return (
-        <article className="person-info">
-            <div className="person-detail">
-                <div className="person-name">
+        <article className="stakeholder-info">
+            <div className="stakeholder-detail">
+                <div className="stakeholder-name">
                     <User size="xs"/>
                     {nombre}
                 </div>
-                <div className="person-email">
+                <div className="stakeholder-email">
                     <Envelope size="xs"/>
                     {email}
                 </div>
