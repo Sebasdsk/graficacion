@@ -17,6 +17,13 @@ select {
     font: inherit;
 }
 
+hr {
+    background-color: var(--border-container);
+    height: 1px;
+    border: none;
+    border-radius: 30%;
+}
+
 :root {
     --container: #f8f8f8;
     --border-container: #d8d8d8;

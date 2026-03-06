@@ -10,21 +10,33 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border: 1px solid var(--border-container);
-    border-radius: 10px;
 }
 
 .person-detail {
     display: flex;
+    flex-direction: column;
+    gap: .3rem;
+    font-size: .8rem;
+}
+
+.person-name,
+.person-email {
+    display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: .4rem;
+}
+
+.person-email {
+    font-size: .7rem;
+    color: var(--info-text);
+    margin-left: .6rem;
 }
 
 .buttons-actions{ 
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: .6rem;
+    gap: 1rem;
 }
 
 .buttons-actions button {

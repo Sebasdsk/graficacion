@@ -35,12 +35,11 @@
 }
 
 .stakeholder {
-    padding: 1rem;
+    padding: 1.4rem;
     display: flex;
     flex-direction: column;
     gap: .8rem;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.140);
-    border: none;
+    border: 1px solid var(--border-container);
     border-radius: 10px;
 }
 
@@ -52,27 +51,19 @@
 
 .stake-info {
     display: flex;
-    align-items: center;
-    gap: .6rem;
-}
-
-.user-icon {
-    padding: .6rem;
-    background: var(--button-green);
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.stake-data {
-    display: flex;
     flex-direction: column;
-    gap: .2rem;
+    gap: .4rem;
 }
 
-.stake-data span {
+.stake-info h3 {
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.stake-info p {
     color: var(--small-color);
+    font-size: .8rem;
+
 }
 
 .button-edit-stake {
@@ -101,10 +92,21 @@
 }
 
 .header-stakeholder-body span {
-    font-weight: 600;
+    font-weight: 500;
+    font-size: .7rem;
+    padding: .1rem .4rem;
+    border: 1px solid var(--border-container);
+    border-radius: 10px;
 }
 
 .add-person {
-    border: none;
+    border: 1px solid var(--border-container);
     background: transparent;
+    padding: .4rem;
+    border-radius: 10px;
+    font-size: .8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .2rem;
 }

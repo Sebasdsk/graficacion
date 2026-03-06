@@ -2,7 +2,7 @@ import React, { useState, type SetStateAction } from "react";
 import Modal from "../../Modals/Modal";
 import StakeholdersCreate from "./StakeholdersCreate";
 import StakeholdersEdit from "./StakeholdersEdit";
-import { Plus, X, UserCircle, Edit } from "@boxicons/react"; 
+import { Plus, X, Edit, UserPlus } from "@boxicons/react"; 
 import PersonsList from "../PersonsComponents/PersonsList";
 import "./Stakeholders.css"
 
@@ -84,13 +84,8 @@ function Stakeholder({ id, nombre, descripcion, setSelectedId } : StakeholdersPr
         <article className="stakeholder">
             <header className="stakeholder-header">
                 <div className="stake-info">
-                    <div className="user-icon">
-                        <UserCircle />
-                    </div>
-                    <div className="stake-data">
-                        <h3>{nombre}</h3>
-                        <span>{descripcion}</span>
-                    </div>
+                    <h3>{nombre}</h3>
+                    <p>{descripcion}</p>
                 </div>
                 <button
                     className="button-edit-stake"
@@ -99,12 +94,12 @@ function Stakeholder({ id, nombre, descripcion, setSelectedId } : StakeholdersPr
                     <Edit />
                 </button>
             </header>
-            <hr />
             <section className="stakeholder-body">
                 <header className="header-stakeholder-body">
-                    <span>Miembros</span>
-                    <button className="add-person"><Plus/></button>
+                    <span>{0} personas</span>
+                    <button className="add-person"><UserPlus size="xs"/> Agregar Persona</button>
                 </header>
+                <hr />
                 <PersonsList idStake={id}/>
             </section>
         </article>
