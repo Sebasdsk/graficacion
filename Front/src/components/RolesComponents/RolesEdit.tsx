@@ -1,11 +1,18 @@
-import "./StakeholdersCreate.css"
+import { Edit } from "@boxicons/react";
+import "./RolesEdit.css"
 
-export default function StakeholdersCreate() {
+interface StakeholderIdProp {
+    selectedId: number | null
+}
+
+export default function RolesEdit ({ selectedId }: StakeholderIdProp) {
+    console.log(selectedId);
     return (
-        <section className="create-stakeholder">
+        <section className="edit-stakeholder">
             <header>
-                <h3>Crear Stakeholder</h3>
+                <h3>Editar Stakeholder</h3>
             </header>
+            <hr />
             <form action="sumbit" className="form-stakeholder">
                 <div className="input-name">
                     <label htmlFor="name-stake">Nombre</label>
@@ -17,9 +24,9 @@ export default function StakeholdersCreate() {
                 <div className="input-description">
                     <label htmlFor="stake-description">Descripción</label>
                     <textarea
-                        name="description"
-                        id="stake-description"
-                        placeholder="Breve descripción de lo que representa"/>
+                    name="description"
+                    id="stake-description"
+                    placeholder="Breve descripción de lo que representa"/>
                 </div>
                 <div className="input-status">
                     <label htmlFor="select-status">Estatus</label>
@@ -27,7 +34,7 @@ export default function StakeholdersCreate() {
                         <option value=""> -Seleccionar estatus- </option>
                     </select>
                 </div>
-                <button>Crear Stakeholder</button>
+                <button className="button-edit"><Edit/> Editar Stakeholder</button>
             </form>
         </section>
     );

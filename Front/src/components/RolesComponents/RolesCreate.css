@@ -1,11 +1,9 @@
 .create-stakeholder {
-    padding: 1rem;
     display: flex;
     flex-direction: column;
-    box-shadow: var(--shadow-container);
     gap: .5rem;
     border: none;
-    border-radius: 10px;
+    width: clamp(350px, 40vw, 50vw);
 }
 
 .form-stakeholder {

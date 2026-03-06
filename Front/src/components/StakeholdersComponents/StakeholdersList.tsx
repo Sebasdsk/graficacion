@@ -1,5 +1,5 @@
 import { Trash, Edit, User, Envelope } from "@boxicons/react";
-import "./PersonsList.css"
+import "./StakeholdersList.css"
 
 // Mock data
 const persons = [
@@ -14,7 +14,7 @@ interface StakeholderIdProp {
     idStake: number;
 }
 
-export default function PersonsList({ idStake }: StakeholderIdProp) {
+export default function StakeholdersList({ idStake }: StakeholderIdProp) {
 
     const personsFilter = persons.filter(p => p.idStake === idStake);
 

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { DashboardAlt, ArrowLeftStroke, Calendar, Pencil } from "@boxicons/react";
 import ResumeProject from "../components/ConfigProjectsComponents/ResumeProject";
 import EditProject from "../components/ConfigProjectsComponents/EditProject";
-import Stakeholders from "../components/StakeholdersComponents/Stakeholders";
+import Stakeholders from "../components/RolesComponents/Roles";
 import Process from "../components/ProcessesComponents/Processes";
 import ModalCreate from "../Modals/ModalCreate";
 import HeaderConfigProject from "../components/HeaderConfigProject";
