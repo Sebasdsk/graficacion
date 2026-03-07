@@ -24,7 +24,7 @@ export default function Roles() {
                 onClick={() => setCreateRole(true)}
                 className="button-add-role"
             >
-                <Plus /> Agregar Stakeholder
+                <Plus /> Agregar Rol
             </button>
         )
     }
@@ -32,7 +32,7 @@ export default function Roles() {
     return (
         <section className="roles">
             <header className="roles-header">
-                <h2>Stakeholders</h2>
+                <h2>Roles y Stakeholders</h2>
                 <AddRole/>
             </header>
 
@@ -94,8 +94,8 @@ function Role({ id, nombre, descripcion, setSelectedId } : RolesProp & SelectedI
             </header>
             <section className="role-body">
                 <header className="header-role-body">
-                    <span>{0} personas</span>
-                    <button className="add-person"><UserPlus size="xs"/> Agregar Persona</button>
+                    <span>{0} stakeholders</span>
+                    <button className="add-stakeholder"><UserPlus size="xs"/> Agregar Stakeholders</button>
                 </header>
                 <hr />
                 <StakeholderList idRole={id}/>

@@ -2,23 +2,23 @@ import "./RolesCreate.css"
 
 export default function RolesCreate() {
     return (
-        <section className="create-stakeholder">
+        <section className="create-role">
             <header>
-                <h3>Crear Stakeholder</h3>
+                <h3>Crear Rol</h3>
             </header>
-            <form action="sumbit" className="form-stakeholder">
+            <form action="sumbit" className="form-role">
                 <div className="input-name">
-                    <label htmlFor="name-stake">Nombre</label>
+                    <label htmlFor="name-role">Nombre</label>
                     <input
                         type="text"
-                        id="name-stake"
+                        id="name-role"
                         placeholder="Ingrese el nombre"/>
                 </div>
                 <div className="input-description">
-                    <label htmlFor="stake-description">Descripción</label>
+                    <label htmlFor="role-description">Descripción</label>
                     <textarea
                         name="description"
-                        id="stake-description"
+                        id="role-description"
                         placeholder="Breve descripción de lo que representa"/>
                 </div>
                 <div className="input-status">
@@ -27,7 +27,7 @@ export default function RolesCreate() {
                         <option value=""> -Seleccionar estatus- </option>
                     </select>
                 </div>
-                <button>Crear Stakeholder</button>
+                <button>Crear Rol</button>
             </form>
         </section>
     );
