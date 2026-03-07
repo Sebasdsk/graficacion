@@ -127,6 +127,10 @@
     font-size: .9rem;
 }
 
+.count-all-projects {
+    font-weight: 600;
+}
+
 .panel-control.collapsed .dashboard-sidebar {
     width: 0;
 }

@@ -3,7 +3,7 @@
     flex-direction: column;
     gap: 1.3rem;
     border: none;
-    min-width: 400px;
+    width: clamp(350px, 40vw, 50vw);
 }
 
 .form-create-project {

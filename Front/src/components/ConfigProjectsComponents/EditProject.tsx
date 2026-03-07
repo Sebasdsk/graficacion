@@ -20,7 +20,7 @@ export default function EditProject({
             <header>
                 <h2>Editar Proyecto</h2>
             </header>
-            <form action="sumbit" className="form-edit-project">
+            <form className="form-edit-project">
                 <div className="project-name">
                     <label htmlFor="proyect-name">Nombre del proyecto</label>
                     <input

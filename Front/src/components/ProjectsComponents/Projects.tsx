@@ -5,18 +5,17 @@ import ProjectCreate from "./ProjectCreate";
 import { Plus } from "@boxicons/react";
 import { useNavigate } from "react-router";
 import ModalCreate from "../../Modals/ModalCreate";
+import consultAllProjects from "../../services/consultAllProjects";
 import "./Projects.css"
-
-let projects: [];
-let totalProjects: number;
+import type { Proyecto } from "../../Types/Proyectos";
 
 export default function Projects() {
-    // Este state se utiliza para mostrar o no el componente de ProjectCreate y el botón CreateProject o CancelCreate
+    // Este state se utiliza para mostrar o no el componente de ProjectCreate
     const [createProject, setCreateProject] = useState<boolean>(false);
     const [loading, setLoading] = useState<boolean>(false);
+    const [projects, setProjects] = useState<Proyecto[]>([]);
+    const [totalProjects, setTotalProjects] = useState<number>(0);
     const navigate = useNavigate();
-
-    const API_URL = "http://localhost:3000/api/proyectos/lista";
 
     const token = localStorage.getItem("token");
     if (!token) {
@@ -24,27 +23,12 @@ export default function Projects() {
     }
 
     useEffect(() => {
-            const consultListProyects = async () => {
+            const getAllProjects = async () => {
                 try {
                     setLoading(true);
-        
-                    const response = await fetch(API_URL, {
-                        method: "GET",
-                        headers: {
-                            'Authorization': `Bearer ${token}`, // Envía el token
-                            'Content-Type': 'application/json'
-                        }
-                    });
-        
-                    if (!response.ok) {
-                        console.error(response);
-                        navigate("/");
-                        return;
-                    }
-    
-                    const data = await response.json();
-                    projects = data;
-                    totalProjects = projects.length;
+                    const data = await consultAllProjects(token);
+                    setProjects(data);
+                    setTotalProjects(data.length);
                 } catch (err) {
                     console.error("Error en la query: ", err)
                     navigate("/");
@@ -53,7 +37,7 @@ export default function Projects() {
                 }
             }
     
-            consultListProyects();
+            getAllProjects();
         }, []);
     return (
         <section className="projects-component">

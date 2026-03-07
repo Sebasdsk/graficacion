@@ -3,14 +3,21 @@ import HeaderDashboard from "../components/HeaderDashboard"
 import Projects from "../components/ProjectsComponents/Projects";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
-import { DashboardAlt } from "@boxicons/react";  
+import { DashboardAlt } from "@boxicons/react";
+import consultAllProjects from "../services/consultAllProjects";
+import { counterStatusProjects } from "../utils/counterStatusProjects";
 
 export default function Dashboard() {
     const navigate = useNavigate();
     const [collapsed, setCollapsed] = useState<boolean>(false);
     const [mobileOpen, setMobileOpen] = useState<boolean>(false);
 
-    const API_URL = "http://localhost:3000/api/proyectos/lista";
+    // Estados para mostrar el conteo de los proyectos por estatus en el sidebar
+    const [totalProyectos, setTotalProyectos] = useState<number>(0);
+    const [planificacion, setPlanificacion] = useState<number>(0);
+    const [progreso, setProgreso] = useState<number>(0);
+    const [completado, setCompletado] = useState<number>(0);
+    const [cancelado, setCancelado] = useState<number>(0);
 
     const token = localStorage.getItem("token");
     if (!token) {
@@ -18,35 +25,35 @@ export default function Dashboard() {
     }
 
     useEffect(() => {
-        const consultListProyects = async () => {
+        const getProjects = async () => {
             try {
-    
-                const response = await fetch(API_URL, {
-                    method: "GET",
-                    headers: {
-                        'Authorization': `Bearer ${token}`, // Envía el token
-                        'Content-Type': 'application/json'
-                    }
-                });
-    
-                if (!response.ok) {
-                    console.error(response);
-                    navigate("/");
-                    return;
-                }
-                
+                const data = await consultAllProjects(token);
+                setTotalProyectos(data.length); // Cuenta el total de proyectos
+
+                const contadorEstatus = counterStatusProjects(data)
+                // Guarda el número de cada estatus de los proyectos
+                setPlanificacion(contadorEstatus["Planificación"] | 0);
+                setProgreso(contadorEstatus["En Progreso"] | 0);
+                setCompletado(contadorEstatus["Completado"] | 0);
+                setCancelado(contadorEstatus["Cancelado"] | 0);
             } catch (err) {
                 console.error("Error en la query: ", err)
                 navigate("/");
             }
         }
 
-        consultListProyects();
+        getProjects();
     }, []);
 
     return (
         <main className={`panel-control ${collapsed ? "collapsed" : ""} ${mobileOpen ? "mobile-open" : ""}`}>
-            <DashboardSidebar/>
+            <DashboardSidebar 
+                totalProyectos={totalProyectos}
+                planificacion={planificacion}
+                progreso={progreso}
+                completado={completado}
+                cancelado={cancelado}
+            />
             {mobileOpen && <div 
                     className="backdrop"
                     onClick={() => setMobileOpen(!mobileOpen)}
@@ -63,14 +70,17 @@ export default function Dashboard() {
     );
 }
 
+// Props para el contador de los estatus de los proyectos
+interface ContadorEstatusProp {
+    totalProyectos: number;
+    planificacion: number;
+    progreso: number;
+    completado: number;
+    cancelado: number;
+}
 
-function DashboardSidebar() {
-    const totalProyectos = 0;
-    const proyectosPlanificacion = 0;
-    const proyectosProgreso = 0;
-    const proyectosCompletados = 0;
-    const proyectosCancelados = 0;
-    
+
+function DashboardSidebar({totalProyectos, planificacion, progreso, completado, cancelado}: ContadorEstatusProp) {
     return (
         <aside className="dashboard-sidebar">
             <header className="header-sidebar">
@@ -89,25 +99,25 @@ function DashboardSidebar() {
                         <div className="icon-planning"></div>
                         Planificación
                     </dt>
-                    <dd>{proyectosPlanificacion}</dd>
+                    <dd>{planificacion}</dd>
 
                     <dt>
                         <div className="icon-progress"></div>
                         En Progreso
                     </dt>
-                    <dd>{proyectosProgreso}</dd>
+                    <dd>{progreso}</dd>
 
                     <dt>
                         <div className="icon-complete"></div>
                         Completados
                     </dt>
-                    <dd>{proyectosCompletados}</dd>
+                    <dd>{completado}</dd>
 
                     <dt>
                         <div className="icon-cancel"></div>
                         Cancelados
                     </dt>
-                    <dd>{proyectosCancelados}</dd>
+                    <dd>{cancelado}</dd>
                 </dl>
             </section>
         </aside>
