@@ -3,14 +3,16 @@ import HeaderDashboard from "../components/HeaderDashboard"
 import Projects from "../components/ProjectsComponents/Projects";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
-import { DashboardAlt } from "@boxicons/react";
+import { DashboardAlt, FolderMinus } from "@boxicons/react";
 import consultAllProjects from "../services/consultAllProjects";
 import { counterStatusProjects } from "../utils/counterStatusProjects";
+import type { Proyecto } from "../Types/Proyectos";
 
 export default function Dashboard() {
     const navigate = useNavigate();
     const [collapsed, setCollapsed] = useState<boolean>(false);
     const [mobileOpen, setMobileOpen] = useState<boolean>(false);
+    const [projects, setProjects] = useState<Proyecto[]>([]);
 
     // Estados para mostrar el conteo de los proyectos por estatus en el sidebar
     const [totalProyectos, setTotalProyectos] = useState<number>(0);
@@ -28,14 +30,15 @@ export default function Dashboard() {
         const getProjects = async () => {
             try {
                 const data = await consultAllProjects(token);
+                setProjects(data); // Guarda los proyectos consultados en el estado
                 setTotalProyectos(data.length); // Cuenta el total de proyectos
 
                 const contadorEstatus = counterStatusProjects(data)
                 // Guarda el número de cada estatus de los proyectos
-                setPlanificacion(contadorEstatus["Planificación"] | 0);
-                setProgreso(contadorEstatus["En Progreso"] | 0);
-                setCompletado(contadorEstatus["Completado"] | 0);
-                setCancelado(contadorEstatus["Cancelado"] | 0);
+                setPlanificacion(contadorEstatus["Planificación"] ?? 0);
+                setProgreso(contadorEstatus["En Progreso"] ?? 0);
+                setCompletado(contadorEstatus["Completado"] ?? 0);
+                setCancelado(contadorEstatus["Cancelado"] ?? 0);
             } catch (err) {
                 console.error("Error en la query: ", err)
                 navigate("/");
@@ -53,6 +56,7 @@ export default function Dashboard() {
                 progreso={progreso}
                 completado={completado}
                 cancelado={cancelado}
+                projects={projects}
             />
             {mobileOpen && <div 
                     className="backdrop"
@@ -79,15 +83,23 @@ interface ContadorEstatusProp {
     cancelado: number;
 }
 
+interface ProjectsListProp {
+    projects: Proyecto[];
+}
 
-function DashboardSidebar({totalProyectos, planificacion, progreso, completado, cancelado}: ContadorEstatusProp) {
+function DashboardSidebar({totalProyectos, planificacion, progreso, completado, cancelado, projects}: ContadorEstatusProp & ProjectsListProp) {
+    const navigate = useNavigate();
+
+    const handleNavigation = (id_proyecto: number) => {
+        navigate(`/config-projects/${id_proyecto}`)
+    }
     return (
         <aside className="dashboard-sidebar">
             <header className="header-sidebar">
                 <h2>FLOWTIC</h2>
             </header>
             <div className="button-container">
-                <button className="button-dashboard"><DashboardAlt /> Dashboard</button>
+                <button className="dashboard-sidebar-button"><DashboardAlt /> Dashboard</button>
             </div>
             <section className="resume-sidebar">
                 <h3>Resumen</h3>
@@ -119,6 +131,15 @@ function DashboardSidebar({totalProyectos, planificacion, progreso, completado, 
                     </dt>
                     <dd>{cancelado}</dd>
                 </dl>
+            </section>
+            <section className="last-projects-list">
+                <h3 className="last-projects-title">Últimos Proyectos</h3>
+                {projects.map(p => (
+                    <button
+                        key={p.id_proyecto}
+                        className="button-last-proyect"
+                        onClick={() => handleNavigation(p.id_proyecto)}><FolderMinus size="xs"/> {p.nombre}</button>
+                ))}
             </section>
         </aside>
     );

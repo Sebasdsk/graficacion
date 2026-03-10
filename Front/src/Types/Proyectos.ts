@@ -4,6 +4,6 @@ export interface Proyecto {
     descripcion: string;
     estatus: string;
     fecha_inicio: string;
-    // colaboradores: number;
-    //vprocesos: number;
+    colaboradores: number;
+    //procesos: number;
 }

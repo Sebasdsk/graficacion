@@ -9,7 +9,6 @@ interface ProyectoProp {
     estatus: string;
     fecha_inicio: string;
     colaboradores: number;
-    procesos: number;
 }
 
 export default function Project( { id_proyecto, nombre, descripcion, estatus, fecha_inicio, colaboradores }: ProyectoProp ) {
