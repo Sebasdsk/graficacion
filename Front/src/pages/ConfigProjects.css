@@ -175,6 +175,36 @@
     background-color: #fecf00;
 }
 
+.sidebar-buttons-menu {
+    width: 100%;
+    font-size: .8rem;
+    padding: .8rem;
+    display: flex;
+    flex-direction: column;
+    gap: .6rem;
+}
+
+.sidebar-button-menu {
+    padding: .6rem;
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    border-radius: 8px;
+    border: none;
+    transition: all .1s ease;
+    width: 100%;
+    text-align: left;
+}
+
+.sidebar-button-menu:hover {
+    background-color: #cdcdcd;
+}
+
+.sidebar-button-menu.option-selected {
+    background-color: #cdcdcd;
+}
+
 .config-content {
     flex: 1;
     display: flex;
@@ -189,7 +219,7 @@
     justify-content: space-around;
     gap: .8rem;
     background-color: #f2f2f2;
-    padding: .2rem .4rem;
+    padding: .2rem;
     border-radius: 20px;
     max-width: 400px;
 }

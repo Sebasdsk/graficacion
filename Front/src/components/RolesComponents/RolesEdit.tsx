@@ -8,12 +8,12 @@ interface StakeholderIdProp {
 export default function RolesEdit ({ selectedId }: StakeholderIdProp) {
     console.log(selectedId);
     return (
-        <section className="edit-stakeholder">
+        <section className="edit-role">
             <header>
-                <h3>Editar Stakeholder</h3>
+                <h3>Editar Rol</h3>
             </header>
             <hr />
-            <form action="sumbit" className="form-stakeholder">
+            <form action="sumbit" className="form-role">
                 <div className="input-name">
                     <label htmlFor="name-stake">Nombre</label>
                     <input
@@ -34,7 +34,7 @@ export default function RolesEdit ({ selectedId }: StakeholderIdProp) {
                         <option value=""> -Seleccionar estatus- </option>
                     </select>
                 </div>
-                <button className="button-edit"><Edit/> Editar Stakeholder</button>
+                <button className="button-edit"><Edit/> Editar Rol</button>
             </form>
         </section>
     );

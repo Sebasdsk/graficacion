@@ -24,7 +24,7 @@ export default function Roles() {
                 onClick={() => setCreateRole(true)}
                 className="button-add-role"
             >
-                <Plus /> Agregar Rol
+                <Plus size="xs"/> Agregar Rol
             </button>
         )
     }
