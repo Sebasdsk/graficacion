@@ -2,7 +2,7 @@ import { useNavigate, useParams } from "react-router";
 import { useEffect, useState, type SetStateAction } from "react";
 import { DashboardAlt, ArrowLeftStroke, Calendar, Pencil, Community, Workflow } from "@boxicons/react";
 import ResumeProject from "../components/ConfigProjectsComponents/ResumeProject";
-import EditProject from "../components/ConfigProjectsComponents/EditProject";
+import EditProject from "../Modals/ModalChildrens/ProjectsModals/EditProject";
 import Process from "../components/ProcessesComponents/Processes";
 import ModalCreate from "../Modals/ModalCreate";
 import HeaderConfigProject from "../components/HeaderConfigProject";

@@ -1,7 +1,7 @@
 import { useEffect, useState, type SetStateAction } from "react";
 import ProjectsResume from "./ProjectsResume";
 import ProjectsList from "./ProjectsList";
-import ProjectCreate from "./ProjectCreate";
+import ProjectCreate from "../../Modals/ModalChildrens/ProjectsModals/ProjectCreate";
 import { Plus } from "@boxicons/react";
 import { useNavigate } from "react-router";
 import ModalCreate from "../../Modals/ModalCreate";

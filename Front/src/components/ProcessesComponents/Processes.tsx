@@ -1,6 +1,6 @@
 import SubprocessList from "../SubprocessesComponents/Subprocesses";
-import ProcessesCreate from "./ProcessesCreate";
-import ProcessesEdit from "./ProcessesEdit";
+import ProcessesCreate from "../../Modals/ModalChildrens/ProcessesModals/ProcessesCreate";
+import ProcessesEdit from "../../Modals/ModalChildrens/ProcessesModals/ProcessesEdit";
 import Modal from "../../Modals/Modal";
 import { Plus, X, Edit } from "@boxicons/react"; 
 import "./Processes.css"
