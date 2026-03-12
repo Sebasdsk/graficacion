@@ -1,14 +1,15 @@
 import { useNavigate, useParams } from "react-router";
-import { useEffect, useState } from "react";
-import { DashboardAlt, ArrowLeftStroke, Calendar, Pencil } from "@boxicons/react";
+import { useEffect, useState, type SetStateAction } from "react";
+import { DashboardAlt, ArrowLeftStroke, Calendar, Pencil, Community, Workflow } from "@boxicons/react";
 import ResumeProject from "../components/ConfigProjectsComponents/ResumeProject";
 import EditProject from "../components/ConfigProjectsComponents/EditProject";
-import Stakeholders from "../components/RolesComponents/Roles";
 import Process from "../components/ProcessesComponents/Processes";
 import ModalCreate from "../Modals/ModalCreate";
 import HeaderConfigProject from "../components/HeaderConfigProject";
+import consultOneProject from "../services/consultOneProject";
 import { type Proyecto } from "../Types/Proyectos";
 import "./ConfigProjects.css"
+import Roles from "../components/RolesComponents/Roles";
 
 type OptionsProjects = "Roles" | "Procesos";
 
@@ -28,49 +29,35 @@ export default function ConfigProjects() {
     // Con el hook "useParams" obtenemos el id pasado en la ruta desde el componente Project
     const idProject = useParams();
 
-    const checkStatus = (estatus: string) => {
-        switch(estatus) {
-            case "Planificación":
-                return "planificacion";
-            case "En Progreso":
-                return "en-progreso";
-            case "Completado":
-                return "completado";
-            case "Cancelado":
-                return "cancelado";
-            default:
-                return "planificacion";
-        }
+    // Objeto que guarda las clases CSS del estatus de los proyectos, para dar estilos en la interfaz
+    const statusClasses: Record<string, string> = {
+        "Planificación": "planificacion",
+        "En Progreso": "en-progreso",
+        "Completado": "completado",
+        "Cancelado": "cancelado"
     };
 
-    const API_URL = `http://localhost:3000/api/proyectos/ver/${idProject.id}`;
+    // Función que asigna la clase de CSS dinámicamente dependiendo del estatus del proyecto
+    const checkStatus = (estatus: string) => {
+        return statusClasses[estatus] || "planificacion"
+    };
 
     useEffect(() => {
         const getProject = async () => {
             const token = localStorage.getItem("token");
 
             try {
-                const repsonse = await fetch(API_URL, {
-                    method: "GET",
-                    headers: {
-                        'Authorization': `Bearer ${token}`, // Envía el token
-                        'Content-Type': 'application/json'
-                    }
-                });
+                if (!idProject.id) throw new Error("No se proporcionó un id de proyecto para la petición.");
+                if (!token) throw new Error("El token no fue proporcionado");
 
-                if (!repsonse.ok) {
-                    alert("Error al obtener el proyecto.");
-                    return;
-                }
-
-                const data = await repsonse.json();
-                setProject(data);
-                setProjectName(data.nombre);
-                setProjectDescription(data.descripcion);
-
-                const dateClean = data.fecha_inicio.split("T")[0];
+                // Obtiene la info del proyecto seleccionado por su id
+                const dataProject = await consultOneProject(idProject.id, token)
+                setProject(dataProject);
+                setProjectName(dataProject.nombre);
+                setProjectDescription(dataProject.descripcion);
+                const dateClean = dataProject.fecha_inicio.split("T")[0];
                 setProjectDate(dateClean);
-                setProjectStatus(data.estatus);
+                setProjectStatus(dataProject.estatus);
             } catch (err) {
                 console.error(err);
                 alert("Error al obtener el proyecto");
@@ -82,7 +69,7 @@ export default function ConfigProjects() {
 
     return (
         <main className={`configurate-container ${collapsed ? "collapsed" : ""} ${mobileOpen ? "mobile-open" : ""}`}>
-            <ProjectSideBar/>
+            <ProjectSideBar option={option} setOption={setOption}/>
             {mobileOpen && <div 
                     className="backdrop"
                     onClick={() => setMobileOpen(!mobileOpen)}
@@ -147,7 +134,7 @@ export default function ConfigProjects() {
                             Procesos
                         </button>
                     </div>
-                    {option === "Roles" && <Stakeholders/>}
+                    {option === "Roles" && <Roles/>}
                     {option === "Procesos" && <Process/>}
                 </section>
             </section>
@@ -168,7 +155,13 @@ export default function ConfigProjects() {
     );
 }
 
-function ProjectSideBar() {
+// Props para pasar el estado de la opción selecionada en la config del proyecto "Roles y Stakeholders" o "Procesos" al sidebar
+interface OptionsProjectsProp {
+    option: OptionsProjects;
+    setOption: React.Dispatch<SetStateAction<OptionsProjects>>
+}
+
+function ProjectSideBar({ option, setOption }: OptionsProjectsProp) {
     // Mock data
     const totalRoles = 0;
     const totalStakeholders = 0;
@@ -212,6 +205,20 @@ function ProjectSideBar() {
                     </dt>
                     <dd>{totalSubprocesos}</dd>
                 </dl>
+            </section>
+            <section className="sidebar-buttons-menu">
+                <button
+                    className={`sidebar-button-menu ${option === "Roles" ? 'option-selected' : ''}`}
+                    onClick={() => setOption("Roles")}
+                >
+                    <Community size="xs"/> Roles y Stakeholders
+                </button>
+                <button
+                    className={`sidebar-button-menu ${option === "Procesos" ? 'option-selected' : ''}`}
+                    onClick={() => setOption("Procesos")}
+                >
+                    <Workflow size="xs"/> Procesos
+                </button>
             </section>
         </aside>
     );
