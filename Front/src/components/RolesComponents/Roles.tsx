@@ -1,6 +1,6 @@
 import React, { useState, type SetStateAction } from "react";
 import Modal from "../../Modals/Modal";
-import StakeholdersCreate from "../StakeholdersComponents/StakeholdersCreate";
+import StakeholdersCreate from "../../Modals/ModalChildrens/StakeholdersModals/StakeholdersCreate";
 import RolesCreate from "../../Modals/ModalChildrens/RolesModals/RolesCreate";
 import StakeholdersEdit from "../../Modals/ModalChildrens/RolesModals/RolesEdit";
 import { Plus, Edit, UserPlus } from "@boxicons/react"; 
