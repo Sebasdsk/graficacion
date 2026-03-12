@@ -12,23 +12,23 @@
     gap: 1rem;
 }
 
-.stakeholder-name,
-.stakeholder-email {
+.stake-name,
+.stake-email {
     display: flex;
     flex-direction: column;
     gap: .4rem;
 }
 
-.stakeholder-name input,
-.stakeholder-email input {
+.stake-name input,
+.stake-email input {
     padding: .6rem;
     border: 1px solid var(--border-container);
     border-radius: 10px;
     resize: none;
 }
 
-.stakeholder-name input:hover,
-.stakeholder-email input:hover {
+.stake-name input:hover,
+.stake-email input:hover {
     box-shadow: var(--shadow-hover);
 }
 

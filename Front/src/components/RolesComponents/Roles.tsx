@@ -1,6 +1,7 @@
 import React, { useState, type SetStateAction } from "react";
 import Modal from "../../Modals/Modal";
-import StakeholdersCreate from "./RolesCreate";
+import StakeholdersCreate from "../StakeholdersComponents/StakeholdersCreate";
+import RolesCreate from "./RolesCreate";
 import StakeholdersEdit from "./RolesEdit";
 import { Plus, Edit, UserPlus } from "@boxicons/react"; 
 import StakeholderList from "../StakeholdersComponents/StakeholdersList";
@@ -16,6 +17,8 @@ const roles = [
 export default function Roles() {
     const [createRole, setCreateRole] = useState<boolean>(false);
     const [selectedId, setSelectedId] = useState<number | null>(null);
+    const [openModal, setOpenModal] = useState<boolean>(false);
+    const [idRol, setIdRol] = useState<number>(0);
 
     // Botón para mostrar el formulario de crear un nuevo stakeholder
     const AddRole = () => {
@@ -38,15 +41,23 @@ export default function Roles() {
 
             {createRole &&
                 <ModalCreate
-                    children={<StakeholdersCreate/>}
-                    setOpen={setCreateRole}
-            />}
-            <RolesList setSelectedId={setSelectedId}/>
+                    children={<RolesCreate/>}
+                    setOpen={setCreateRole}/>
+            }
+            <RolesList
+                setSelectedId={setSelectedId}
+                setOpenModal={setOpenModal}
+                setIdRol={setIdRol}/>
             {selectedId !== null && 
                 <Modal
                     children={<StakeholdersEdit selectedId={selectedId}/>}
-                    setSelectedId={setSelectedId}
-            />}
+                    setSelectedId={setSelectedId}/>
+            }
+            {openModal &&
+                <ModalCreate
+                    children={<StakeholdersCreate idRol={idRol}/>}
+                    setOpen={setOpenModal}/>
+            }
         </section>
     )
 }
@@ -56,7 +67,17 @@ interface SelectedIdProp {
     setSelectedId: React.Dispatch<SetStateAction<number | null>>;
 }
 
-function RolesList({ setSelectedId }: SelectedIdProp) {
+// Prop para pasar el setter del estado para abrir el modal de crear stakeholder
+interface OpenModalCreateStakeholderProp {
+    setOpenModal: React.Dispatch<SetStateAction<boolean>>;
+}
+
+// Prop que pasa el setter para indicar desde que rol se agregará el stakeholder
+interface SetIdRol {
+    setIdRol: React.Dispatch<SetStateAction<number>>;
+}
+
+function RolesList({ setSelectedId, setOpenModal, setIdRol }: SelectedIdProp & OpenModalCreateStakeholderProp & SetIdRol) {
     return(
         <div className="roles-list">
             {roles.map(r => (
@@ -65,7 +86,9 @@ function RolesList({ setSelectedId }: SelectedIdProp) {
                     id={r.id}
                     nombre={r.nombre}
                     descripcion={r.descripcion}
-                    setSelectedId={setSelectedId}/>
+                    setSelectedId={setSelectedId}
+                    setOpenModal={setOpenModal}
+                    setIdRol={setIdRol}/>
             ))}
         </div>
     );
@@ -77,7 +100,13 @@ interface RolesProp {
     descripcion: string;
 }
 
-function Role({ id, nombre, descripcion, setSelectedId } : RolesProp & SelectedIdProp) {
+function Role({ id, nombre, descripcion, setSelectedId, setOpenModal, setIdRol } : RolesProp & SelectedIdProp & OpenModalCreateStakeholderProp & SetIdRol) {
+    // Esta función cambia dos states, para indicar que se debe abrir el modal y para pasar el id del rol con props
+    const handleCreateStakeholder = () => {
+        setOpenModal(true); // Pone en true el estado para abrir el modal de crear un stakeholder
+        setIdRol(id); // Cambia el estado al id del rol actual para pasarlo por props al modal
+    };
+    
     return (
         <article className="role">
             <header className="role-header">
@@ -95,7 +124,13 @@ function Role({ id, nombre, descripcion, setSelectedId } : RolesProp & SelectedI
             <section className="role-body">
                 <header className="header-role-body">
                     <span>{0} stakeholders</span>
-                    <button className="add-stakeholder"><UserPlus size="xs"/> Agregar Stakeholders</button>
+                    <button
+                        className="add-stakeholder"
+                        onClick={handleCreateStakeholder}
+                    >
+                        <UserPlus size="xs"/>
+                        Agregar Stakeholders
+                    </button>
                 </header>
                 <hr />
                 <StakeholderList idRole={id}/>
