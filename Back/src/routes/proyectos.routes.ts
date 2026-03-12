@@ -66,27 +66,53 @@ router.get('/lista', verifyToken, async (req: any, res: Response) => {
 });
 
 // Endpoint para crear proyecto
-router.post('/crear_proyecto', verifyToken, async (req: any, res: Response) => {
+router.post('/crear_proyecto', verifyToken, async (req: any, res: Response): Promise<any> => {
+  const client = await pool.connect();
+  
   try {
-    const { nombre, descripcion, fecha_inicio } = req.body;
-    const id_usuario = req.usuario.id; 
+    // Agregamos id_usuario_po y id_usuario_tl
+    const { nombre, descripcion, fecha_inicio, id_usuario_po, id_usuario_tl } = req.body;
+    const id_usuario_creador = req.usuario.id; 
 
-    const query = `
+    if (!id_usuario_po || !id_usuario_tl) {
+        return res.status(400).json({ message: 'Falta asignar al Product Owner y/o Tech Lead iniciales' });
+    }
+
+    await client.query('BEGIN');
+
+    const queryProyecto = `
       INSERT INTO proyecto (nombre, descripcion, fecha_inicio, id_usuario_creador, estatus) 
       VALUES ($1, $2, $3, $4, 'Planificación') 
       RETURNING *
     `;
-    
-    const result = await pool.query(query, [nombre, descripcion, fecha_inicio, id_usuario]);
+    const resProyecto = await client.query(queryProyecto, [nombre, descripcion, fecha_inicio, id_usuario_creador]);
+    const nuevoProyecto = resProyecto.rows[0];
 
-    res.json({ message: 'Proyecto creado con éxito', project: result.rows[0] });
+    const queryPO = `
+      INSERT INTO proyecto_participante (id_proyecto, id_usuario, id_rol, activo)
+      VALUES ($1, $2, (SELECT id_rol FROM rol WHERE nombre = 'Product Owner' LIMIT 1), true)
+    `;
+    await client.query(queryPO, [nuevoProyecto.id_proyecto, id_usuario_po]);
+
+    const queryTL = `
+      INSERT INTO proyecto_participante (id_proyecto, id_usuario, id_rol, activo)
+      VALUES ($1, $2, (SELECT id_rol FROM rol WHERE nombre = 'Tech Lead' LIMIT 1), true)
+    `;
+    await client.query(queryTL, [nuevoProyecto.id_proyecto, id_usuario_tl]);
+
+    await client.query('COMMIT');
+
+    res.json({ message: 'Proyecto creado y equipo inicial asignado', project: nuevoProyecto });
   } catch (err) {
+    await client.query('ROLLBACK');
     console.error(err);
-    res.status(500).send('Error al crear proyecto');
+    res.status(500).send('Error al crear proyecto. Verifica que los roles existan en la BD.');
+  } finally {
+    client.release();
   }
 });
 
-// Endpoint para ver un proyecto en cuestion
+// Endpoint para ver un proyecto
 router.get('/ver/:id', verifyToken, async (req: any, res: Response): Promise<any> => { 
     try {
         const { id } = req.params;
