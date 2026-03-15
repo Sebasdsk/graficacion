@@ -1,5 +1,8 @@
 import { Trash, Edit, User, Envelope } from "@boxicons/react";
 import "./StakeholdersList.css"
+import StakeholdersEdit from "../../Modals/ModalChildrens/StakeholdersModals/StakeholdersEdit";
+import { useState } from "react";
+import Modal from "../../Modals/Modal";
 
 // Mock data
 const stakeholders = [
@@ -21,7 +24,11 @@ export default function StakeholdersList({ idRole }: StakeholderIdProp) {
     return (
         <div className="stakeholders-list">
             {stakeholdersFilter.map(s => (
-                <Stakeholder key={s.id} id={s.id} nombre={s.nombre} email={s.email}/>
+                <Stakeholder
+                    key={s.id}
+                    id={s.id}
+                    nombre={s.nombre}
+                    email={s.email}/>
             ))}
         </div>
     );
@@ -33,7 +40,9 @@ interface StakeholdersInfoProp {
     email: string;
 }
 
-function Stakeholder({ nombre, email }: StakeholdersInfoProp) {
+function Stakeholder({ id, nombre, email }: StakeholdersInfoProp) {
+    const [selectedId, setSelectedId] = useState<number | null>(null);
+
     return (
         <article className="stakeholder-info">
             <div className="stakeholder-detail">
@@ -47,9 +56,16 @@ function Stakeholder({ nombre, email }: StakeholdersInfoProp) {
                 </div>
             </div>
             <div className="buttons-actions">
-                <button><Edit size="sm" /></button>
+                <button
+                    onClick={() => setSelectedId(id)}>
+                    <Edit size="sm"/>
+                </button>
                 <button><Trash size="sm" /></button>
             </div>
+            {selectedId && <Modal
+                children={<StakeholdersEdit/>}
+                setSelectedId={setSelectedId}/>
+            }
         </article>
     );
 }

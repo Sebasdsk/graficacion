@@ -2,7 +2,7 @@ import React, { useState, type SetStateAction } from "react";
 import Modal from "../../Modals/Modal";
 import StakeholdersCreate from "../../Modals/ModalChildrens/StakeholdersModals/StakeholdersCreate";
 import RolesCreate from "../../Modals/ModalChildrens/RolesModals/RolesCreate";
-import StakeholdersEdit from "../../Modals/ModalChildrens/RolesModals/RolesEdit";
+import RolesEdit from "../../Modals/ModalChildrens/RolesModals/RolesEdit";
 import { Plus, Edit, UserPlus } from "@boxicons/react"; 
 import StakeholderList from "../StakeholdersComponents/StakeholdersList";
 import ModalCreate from "../../Modals/ModalCreate";
@@ -50,7 +50,7 @@ export default function Roles() {
                 setIdRol={setIdRol}/>
             {selectedId !== null && 
                 <Modal
-                    children={<StakeholdersEdit selectedId={selectedId}/>}
+                    children={<RolesEdit selectedId={selectedId}/>}
                     setSelectedId={setSelectedId}/>
             }
             {openModal &&
