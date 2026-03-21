@@ -1,11 +1,9 @@
 .create-process {
-    padding: 1.4rem;
     display: flex;
     flex-direction: column;
     gap: .8rem;
-    box-shadow: var(--shadow-container);
     border: none;
-    border-radius: 10px;
+    width: clamp(350px, 50vw, 60vw);
 }
 
 .body-create-process {

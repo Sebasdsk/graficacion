@@ -4,12 +4,30 @@
     gap: .5rem;
 }
 
+.subprocesses-list header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.btn-add-subprocess {
+    border: 1px solid var(--border-container);
+    background-color: transparent;
+    padding: .4rem;
+    border-radius: 8px;
+    font-size: .8rem;
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+}
+
 .subprocess {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     gap: .4rem;
     border: 1px solid var(--border-container);
+    background-color: var(--container);
     padding: .6rem;
     border-radius: 8px;
 }
@@ -20,7 +38,42 @@
     gap: .4rem;
 }
 
+.info-subprocess div {
+    display: flex;
+    align-items: center;
+    gap: .8rem;
+}
+
+.info-subprocess small {
+    font-size: .8rem;
+    color: var(--info-text);
+}
+
+.list-tecnicas {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.btn-config-tecnicas {
+    border: none;
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    gap: .4rem;
+    transition: all .1s ease;
+    font-size: .8rem;
+    padding: .2rem .4rem;
+    border-radius: 8px;
+}
+
+.btn-config-tecnicas:hover {
+    background-color: var(--border-container);
+}
+
 .button-add-subprocess {
     border: none;
     background-color: transparent;
+    margin-bottom: auto;
+    padding: .6rem;
 }

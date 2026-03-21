@@ -2,9 +2,10 @@ import SubprocessList from "../SubprocessesComponents/Subprocesses";
 import ProcessesCreate from "../../Modals/ModalChildrens/ProcessesModals/ProcessesCreate";
 import ProcessesEdit from "../../Modals/ModalChildrens/ProcessesModals/ProcessesEdit";
 import Modal from "../../Modals/Modal";
-import { Plus, X, Edit } from "@boxicons/react"; 
+import { Plus, Edit, Workflow, Trash } from "@boxicons/react"; 
 import "./Processes.css"
 import { useState, type SetStateAction } from "react";
+import ModalCreate from "../../Modals/ModalCreate";
 
 // Datos de prueba
 const procesos = [
@@ -29,26 +30,16 @@ export default function Processes() {
             </button>
         )
     };
-
-    const ButtonCancelCreate = () => {
-        return (
-            <button
-                onClick={() => setCreateProcess(false)}
-                className="button-cancel-create"
-            >
-                <X/> Cancelar
-            </button>
-        )
-    };
     
     return(
         <section className="processes">
             <header className="processes-header">
                 <h2>Gestionar Procesos</h2>
-                {!createProcess ? <ButtonCreateProcess/> : <ButtonCancelCreate/>}
+                <ButtonCreateProcess/>
             </header>
-            {!createProcess ? <ProccessesList setSelectedProcessId={setSelectedProcessId}/> : <ProcessesCreate/>}
+            <ProccessesList setSelectedProcessId={setSelectedProcessId}/>
 
+            {createProcess && <ModalCreate children={<ProcessesCreate/>} setOpen={setCreateProcess}/>}
             {selectedProcessId !== null && <Modal setSelectedId={setSelectedProcessId}>
                 <ProcessesEdit idProcess={selectedProcessId} />
             </Modal>}
@@ -89,13 +80,29 @@ function Process({ id, nombre, descripcion, setSelectedProcessId }: ProcessProp 
     return (
         <article className="process">
             <header className="process-header">
-                <div>
-                    <h3>{nombre}</h3>
-                    <small>{descripcion}</small>
+                <div className="about-process">
+                    <Workflow />
+                    <div className="info-process">
+                        <h3>{nombre}</h3>
+                        <small>{descripcion}</small>
+                    </div>
                 </div>
-                <button
-                    className="button-edit-process"
-                    onClick={() => setSelectedProcessId(id)}><Edit/></button>
+                <div className="left-header-process">
+                    <div className="subprocess-counter">
+                        {0} subprocesos
+                    </div>
+                    <div className="actions-process-buttons">
+                        <button
+                            className="button-edit-process"
+                            onClick={() => setSelectedProcessId(id)}
+                        >
+                            <Edit size="sm"/>
+                        </button>
+                        <button className="button-delete-process">
+                            <Trash fill="#e21818ff" size="sm"/>
+                        </button>
+                    </div>
+                </div>
             </header>
             <div className="process-body">
                 <SubprocessList id={id}/>

@@ -1,5 +1,5 @@
 import "./Subprocesses.css"
-import { Edit } from "@boxicons/react";  
+import { Edit, WorkflowAlt, Gear } from "@boxicons/react";  
 
 const subprocess = [
     {id: 1, nombre: "Subproceso 1", descripcion: "Subproceso del proceso X", idProcess: 1},
@@ -19,7 +19,13 @@ export default function SubprocessList({ id }: IdSubprocessProp) {
     
     return (
         <section className="subprocesses-list">
-            <span>Subprocesos</span>
+            <header>
+                <span>Subprocesos</span>
+                <button className="btn-add-subprocess">
+                    <WorkflowAlt size="xs"/>
+                    Agregar Subproceso
+                    </button>
+            </header>
             {filterSubprocess.map(sp => (
                 <Subprocess
                     key={sp.id}
@@ -42,10 +48,19 @@ function Subprocess({ nombre, descripcion }: SubprocessProp ) {
     return(
         <article className="subprocess">
             <div className="info-subprocess">
-                <p>{nombre}</p>
+                <div>
+                    <WorkflowAlt size="xs" fill="#6c6c6c"/>
+                    <p>{nombre}</p>
+                </div>
                 <small>{descripcion}</small>
+                <div className="list-tecnicas">
+                    <button className="btn-config-tecnicas">
+                        <Gear size="xs"/>
+                        Gestionar Técnicas
+                    </button>
+                </div>
             </div>
-            <button className="button-add-subprocess"><Edit/></button>
+            <button className="button-add-subprocess"><Edit size="xs"/></button>
         </article>
     );
 }

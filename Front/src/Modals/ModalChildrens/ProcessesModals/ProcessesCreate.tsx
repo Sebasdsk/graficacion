@@ -10,11 +10,11 @@ export default function ProcessesCreate() {
             <div className="body-create-process">
                 <div className="process-name">
                     <label htmlFor="">Nombre</label>
-                    <input type="text"/>
+                    <input type="text" placeholder="Ingrese el nombre del proceso"/>
                 </div>
                 <div className="process-description">
-                    <label htmlFor="">Descripción</label>
-                    <textarea name=""></textarea>
+                    <label htmlFor="description-process">Descripción</label>
+                    <textarea id="description-process" placeholder="Descripción breve del proceso"></textarea>
                 </div>
                 <button>Crear Proceso</button>
             </div>

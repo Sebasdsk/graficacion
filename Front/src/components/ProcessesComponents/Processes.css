@@ -2,7 +2,6 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 1rem;
 }
 
 .processes-header {
@@ -30,6 +29,7 @@
 }
 
 .processes-list {
+    padding: 1rem 0;
     display: grid;
     grid-template-columns: auto-fit;
     gap: 1.2rem;
@@ -38,25 +38,57 @@
 .process {
     display: flex;
     flex-direction: column;
-    box-shadow: var(--shadow-container);
-    border: none;
+    border: 1px solid var(--border-container);
     border-radius: 10px;
     overflow: hidden;
 }
 
 .process-header {
-    padding: 1rem;
+    padding: 1.2rem;
     display: flex;
-    justify-content: space-between;
     gap: .5rem;
-    background-color: #303030;
-    color: #ffffff;
+    background-color: #ffff;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
 }
 
-.button-edit-process {
+.about-process {
+    display: flex;
+    align-items: center;
+    gap: .8rem;
+}
+
+.process-header h3 {
+    font-weight: 500;
+}
+
+.left-header-process {
+    display: flex;
+    align-items: center;
+    gap: .8rem;
+}
+
+.subprocess-counter {
+    font-size: .8rem;
+    border: 1px solid var(--border-container);
+    padding: .2rem .5rem;
+    border-radius: 8px;
+}
+
+.actions-process-buttons {
+    display: flex;
+    align-items: center;
+    gap: .8rem;
+}
+
+.button-edit-process,
+.button-delete-process {
     border: none;
     background: transparent;
-    color: #ffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .process-body {
