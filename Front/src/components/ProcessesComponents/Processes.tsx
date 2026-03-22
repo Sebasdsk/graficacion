@@ -26,7 +26,7 @@ export default function Processes() {
                 onClick={() => setCreateProcess(true)}
                 className="button-create-process"
             >
-                <Plus/> Crear Proceso
+                <Plus size="xs"/> Crear Proceso
             </button>
         )
     };
