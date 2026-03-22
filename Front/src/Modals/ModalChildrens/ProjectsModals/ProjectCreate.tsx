@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, type FormEvent } from "react";
 import "./ProjectCreate.css"
 import { useNavigate } from "react-router";
 
@@ -11,7 +11,8 @@ export default function ProjectCreate() {
 
     const API_URL = "http://localhost:3000/api/proyectos/crear_proyecto";
 
-    const createProject = async () => {
+    const createProject = async (e: FormEvent) => {
+        e.preventDefault();
         const token = localStorage.getItem("token");
         if (!token) {
             navigate("/");
@@ -36,6 +37,7 @@ export default function ProjectCreate() {
 
             if (!response.ok) {
                 alert("Error al crear el proyecto");
+                console.error("Error al crear el proyecto: ", await response.json());
                 return;
             }
 
