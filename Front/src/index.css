@@ -35,6 +35,7 @@ hr {
     --small-color: #505050;
     --shadow-hover: 0px 5px 5px rgba(0, 0, 0, 0.130);
     --hover-icon: #7e7e7e;
+    --highlight-color: linear-gradient(to top, #5DC757, #D1ED53);
 }
 
 /* Estilos dinámicos para los estados de los proyectos */
