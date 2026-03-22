@@ -19,7 +19,7 @@ export default function Projects() {
 
     const token = localStorage.getItem("token");
     if (!token) {
-        navigate("/");
+        navigate("/login");
     }
 
     useEffect(() => {
@@ -31,7 +31,7 @@ export default function Projects() {
                     setTotalProjects(data.length);
                 } catch (err) {
                     console.error("Error en la query: ", err)
-                    navigate("/");
+                    navigate("/login");
                 } finally {
                     setLoading(false);
                 }
