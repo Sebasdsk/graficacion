@@ -11,13 +11,13 @@ export default function HomePage() {
                 <p>Tu plataforma para gestionar proyectos de manera eficiente.</p>
                 <button className="button-start">Comenzar</button>
             </section>
-            <section className="image-section">
+            <section className="image-section" id="product">
                 <div className="image-container">
                     <img src="./public/FLOWTIC_Dashboard_Image.png" alt="Descripción de la imagen" />
                 </div>
             </section>
             <div className="backdrop">
-                <article className="features">
+                <article className="features" id="features">
                     <div className="text-wrapper">
                         <h2>Configura tus Proyectos y Recopila Información</h2>
                         <small>Recopila datos valiosos y prepara la información para la toma de decisiones.</small>
@@ -50,8 +50,9 @@ function HeaderHomePage() {
             <nav className="nav-home">
                 <ul>
                     <li><a href="/"><HomeAlt2 size="sm"/>  Inicio</a></li>
-                    <li><a href="/">Acerca De</a></li>
-                    <li><a href="/">Producto</a></li>
+                    <li><a href="#product">Producto</a></li>
+                    <li><a href="#features">Características</a></li>
+                    <li><a href="#about">Acerca De</a></li>
                 </ul>
             </nav>
             <button className="button-login" onClick={() => navigate("/login")}>Login</button>

@@ -23,7 +23,7 @@
     font-weight: 500;
     margin-bottom: 1rem;
     color: #1a1a1a;
-    animation: fade-in 400ms ease-out;
+    animation: fade-in-transform 400ms ease-out;
 }
 
 .highlight {
@@ -39,7 +39,7 @@
     color: #666;
     max-width: 600px;
     margin: 0 auto;
-    animation: fade-in 600ms ease-out;
+    animation: fade-in-transform 600ms ease-out;
 }
 
 .section-home .button-start {
@@ -50,7 +50,7 @@
     font-size: 1rem;
     transition: all 0.2s ease;
     margin-top: 1rem;
-    animation: fade-in 800ms ease-out;
+    animation: fade-in-transform 800ms ease-out;
 }
 
 .section-home .button-start:hover {
@@ -69,7 +69,7 @@
 
 .header-home {
     width: 100%;
-    padding: 1rem;
+    padding: .5rem 1.5rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -92,6 +92,7 @@
     border-radius: 30px;
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
     border: 1px solid rgba(0, 0, 0, 0.06);
+    animation: fade-in-slow 400ms ease-out;
 }
 
 .header-home .nav-home ul {
@@ -133,6 +134,7 @@
     color: #fff;
     transition: all 0.1s ease;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    animation: fade-in-scale 600ms ease-in-out;
 }
 
 .header-home .button-login:hover {
@@ -147,7 +149,7 @@
 .image-section {
     position: relative;
     width: 100%;
-    padding: 3rem 2rem 6rem;
+    padding: 3rem 2rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -304,7 +306,22 @@
     }
 }
 
-@keyframes fade-in {
+@keyframes fade-in-scale {
+    0% {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    80% {
+        opacity: 0.8;
+        transform: scale(1.1);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes fade-in-transform {
     from {
         opacity: 0;
         transform: translateY(20px) translateX(20px);
@@ -312,5 +329,16 @@
     to {
         opacity: 1;
         transform: translateY(0) translateX(0);
+    }
+}
+
+@keyframes fade-in-slow {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
