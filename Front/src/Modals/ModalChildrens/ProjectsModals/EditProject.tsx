@@ -1,26 +1,79 @@
-import type { SetStateAction } from "react";
+import { useEffect, useState } from "react";
 import "./EditProject.css"
+import type { Proyecto } from "../../../Types/Proyectos";
 
-interface ProjectValuesProp {
-    projectName: string;
-    setProjectName: React.Dispatch<SetStateAction<string>>;
-    projectDescription: string;
-    setProjectDescription: React.Dispatch<SetStateAction<string>>;
-    projectDate: string;
-    setProjectDate: React.Dispatch<SetStateAction<string>>;
-    projectStatus: string;
-    setProjectStatus: React.Dispatch<SetStateAction<string>>;
+interface ProyectosProp {
+    proyecto: Proyecto | null;
+    setProyecto: React.Dispatch<React.SetStateAction<Proyecto | null>>;
 }
 
-export default function EditProject({
-    projectName, setProjectName, projectDescription, setProjectDescription,
-    projectDate, setProjectDate, projectStatus, setProjectStatus }: ProjectValuesProp) {
+interface OpenEditProjectModalProp {
+    setOpenEditModal: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export default function EditProject({proyecto, setProyecto, setOpenEditModal }: ProyectosProp & OpenEditProjectModalProp) {
+    const [projectName, setProjectName] = useState<string>("");
+    const [projectDescription, setProjectDescription] = useState<string>("");
+    const [projectDate, setProjectDate] = useState<string>("");
+    const [projectStatus, setProjectStatus] = useState<string>("");
+
+    const API_URL = `${import.meta.env.VITE_API_URL}/proyectos/actualizar/${proyecto?.id_proyecto}`;
+
+    const editProject = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+
+        const token = localStorage.getItem("token");
+        const response = await fetch(API_URL, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            },
+            body: JSON.stringify({
+                nombre: projectName,
+                descripcion: projectDescription,
+                fecha: projectDate,
+                estatus: projectStatus,
+            }),
+        });
+        if (!response.ok) {
+            throw new Error("Error al editar el proyecto");
+        }
+
+        const data = await response.json();
+        setProjectName(data.nombre);
+        setProjectDescription(data.descripcion);
+        setProjectDate(data.fecha_inicio);
+        setProjectStatus(data.estatus);
+
+        // Actualiza la referencia del proyecto
+        setProyecto({
+            id_proyecto: data.id_proyecto,
+            nombre: data.nombre,
+            descripcion: data.descripcion,
+            fecha_inicio: data.fecha_inicio,
+            estatus: data.estatus,
+        });
+        alert("Proyecto editado correctamente");
+        setOpenEditModal(false); // Cierra el modal
+    }
+
+    // Sincroniza el estado local del formulario con los datos del proyecto cuando se actualiza la prop proyecto
+    useEffect(() => {
+        if (proyecto) {
+            setProjectName(proyecto.nombre);
+            setProjectDescription(proyecto.descripcion);
+            setProjectDate(proyecto.fecha_inicio);
+            setProjectStatus(proyecto.estatus);
+        }
+    }, [proyecto]);
+
     return (
         <section className="edit-project">
             <header>
                 <h2>Editar Proyecto</h2>
             </header>
-            <form className="form-edit-project">
+            <form onSubmit={editProject} className="form-edit-project">
                 <div className="project-name">
                     <label htmlFor="proyect-name">Nombre del proyecto</label>
                     <input
@@ -59,7 +112,6 @@ export default function EditProject({
                         <option value="Planificación">Planificación</option>
                         <option value="En Progreso">En Progreso</option>
                         <option value="Completado">Completado</option>
-                        <option value="Cancelado">Cancelado</option>
                     </select>
                 </div>
                 <button className="button-edit">Editar Proyecto</button>

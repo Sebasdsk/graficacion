@@ -21,9 +21,6 @@ export default function ConfigProjects() {
     const [openEditModal, setOpenEditModal] = useState<boolean>(false);
     const [option, setOption] = useState<OptionsProjects>("Roles");
     const [project, setProject] = useState<Proyecto | null>(null);
-    const [projectName, setProjectName] = useState<string>("");
-    const [projectDescription, setProjectDescription] = useState<string>("");
-    const [projectDate, setProjectDate] = useState<string>("");
     const [projectStatus, setProjectStatus] = useState<string>("")
     
     // Con el hook "useParams" obtenemos el id pasado en la ruta desde el componente Project
@@ -51,12 +48,18 @@ export default function ConfigProjects() {
                 if (!token) throw new Error("El token no fue proporcionado");
 
                 // Obtiene la info del proyecto seleccionado por su id
-                const dataProject = await consultOneProject(idProject.id, token)
-                setProject(dataProject);
-                setProjectName(dataProject.nombre);
-                setProjectDescription(dataProject.descripcion);
+                const dataProject = await consultOneProject(idProject.id, token);
+                if (!dataProject) throw new Error("No se pudo obtener la información del proyecto");
+
                 const dateClean = dataProject.fecha_inicio.split("T")[0];
-                setProjectDate(dateClean);
+                setProject({
+                    id_proyecto: dataProject.id_proyecto,
+                    nombre: dataProject.nombre,
+                    descripcion: dataProject.descripcion,
+                    fecha_inicio: dateClean,
+                    estatus: dataProject.estatus,
+                });
+
                 setProjectStatus(dataProject.estatus);
             } catch (err) {
                 console.error(err);
@@ -99,14 +102,14 @@ export default function ConfigProjects() {
                             <dl className="secundary-info">
                                 <div className="state-project">
                                     <dt>Estado:</dt>
-                                    <dd className={`status-project ${checkStatus(projectStatus)}`}>{projectStatus}</dd>
+                                    <dd className={`status-project ${checkStatus(projectStatus)}`}>{project?.estatus}</dd>
                                 </div>
                                 <div className="date-project">
                                     <dt>
                                         <Calendar size="xs"/>
                                         Creado el
                                     </dt>
-                                    <dd>{projectDate}</dd>
+                                    <dd>{project?.fecha_inicio}</dd>
                                 </div>
                             </dl>
                         </div>
@@ -141,14 +144,9 @@ export default function ConfigProjects() {
             {openEditModal && <ModalCreate
                 children={
                 <EditProject
-                    projectName={projectName}
-                    setProjectName={setProjectName}
-                    projectDescription={projectDescription}
-                    setProjectDescription={setProjectDescription}
-                    projectDate={projectDate}
-                    setProjectDate={setProjectDate}
-                    projectStatus={projectStatus}
-                    setProjectStatus={setProjectStatus}
+                    proyecto={project}
+                    setProyecto={setProject}
+                    setOpenEditModal={setOpenEditModal}
                 />
                 } setOpen={setOpenEditModal}/>}
         </main>
