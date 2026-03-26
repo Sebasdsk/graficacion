@@ -10,8 +10,12 @@ import consultOneProject from "../services/consultOneProject";
 import { type Proyecto } from "../Types/Proyectos";
 import "./ConfigProjects.css"
 import Roles from "../components/RolesComponents/Roles";
+import { createContext } from 'react';
 
 type OptionsProjects = "Roles" | "Procesos";
+
+// Se crea contexto para preservar el id del proyecto en todos los componentes hijos
+export const ProjectIdContext = createContext<number | null>(null);
 
 export default function ConfigProjects() {
     const navigate = useNavigate();
@@ -21,8 +25,10 @@ export default function ConfigProjects() {
     const [openEditModal, setOpenEditModal] = useState<boolean>(false);
     const [option, setOption] = useState<OptionsProjects>("Roles");
     const [project, setProject] = useState<Proyecto | null>(null);
-    const [projectStatus, setProjectStatus] = useState<string>("")
-    
+    const [projectStatus, setProjectStatus] = useState<string>("");
+    // State para cambiar el valor del contexto del id del proyecto
+    const [projectId, setProjectId] = useState<number | null>(null);
+
     // Con el hook "useParams" obtenemos el id pasado en la ruta desde el componente Project
     const idProject = useParams();
 
@@ -60,6 +66,7 @@ export default function ConfigProjects() {
                     estatus: dataProject.estatus,
                 });
 
+                setProjectId(dataProject.id_proyecto);
                 setProjectStatus(dataProject.estatus);
             } catch (err) {
                 console.error(err);
@@ -138,7 +145,11 @@ export default function ConfigProjects() {
                         </button>
                     </div>
                     {option === "Roles" && <Roles/>}
-                    {option === "Procesos" && <Process/>}
+                    {option === "Procesos" &&
+                        <ProjectIdContext value={projectId}>
+                            <Process/>
+                        </ProjectIdContext>
+                    }
                 </section>
             </section>
             {openEditModal && <ModalCreate

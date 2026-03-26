@@ -39,7 +39,7 @@ export default function Processes() {
             </header>
             <ProccessesList setSelectedProcessId={setSelectedProcessId}/>
 
-            {createProcess && <ModalCreate children={<ProcessesCreate/>} setOpen={setCreateProcess}/>}
+            {createProcess && <ModalCreate children={<ProcessesCreate setCreateProcess={setCreateProcess}/>} setOpen={setCreateProcess}/>}
             {selectedProcessId !== null && <Modal setSelectedId={setSelectedProcessId}>
                 <ProcessesEdit idProcess={selectedProcessId} />
             </Modal>}
