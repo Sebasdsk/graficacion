@@ -18,25 +18,10 @@ export { Prisma }
 export * as $Enums from './enums'
 export * from './enums';
 /**
- * Model herramienta
- * 
- */
-export type herramienta = Prisma.herramientaModel
-/**
- * Model metodo_recoleccion
- * 
- */
-export type metodo_recoleccion = Prisma.metodo_recoleccionModel
-/**
  * Model proceso
  * 
  */
 export type proceso = Prisma.procesoModel
-/**
- * Model proceso_stakeholder_participacion
- * 
- */
-export type proceso_stakeholder_participacion = Prisma.proceso_stakeholder_participacionModel
 /**
  * Model proyecto
  * 
@@ -47,11 +32,6 @@ export type proyecto = Prisma.proyectoModel
  * 
  */
 export type proyecto_participante = Prisma.proyecto_participanteModel
-/**
- * Model recoleccion_info
- * 
- */
-export type recoleccion_info = Prisma.recoleccion_infoModel
 /**
  * Model rol
  * 
@@ -72,3 +52,18 @@ export type subproceso = Prisma.subprocesoModel
  * 
  */
 export type usuario = Prisma.usuarioModel
+/**
+ * Model equipo_proyecto
+ * 
+ */
+export type equipo_proyecto = Prisma.equipo_proyectoModel
+/**
+ * Model requerimiento
+ * 
+ */
+export type requerimiento = Prisma.requerimientoModel
+/**
+ * Model tecnica_recoleccion
+ * 
+ */
+export type tecnica_recoleccion = Prisma.tecnica_recoleccionModel

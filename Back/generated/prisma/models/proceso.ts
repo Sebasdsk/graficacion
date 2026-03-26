@@ -29,13 +29,11 @@ export type AggregateProceso = {
 export type ProcesoAvgAggregateOutputType = {
   id_proceso: number | null
   id_proyecto: number | null
-  codigo_orden: number | null
 }
 
 export type ProcesoSumAggregateOutputType = {
   id_proceso: number | null
   id_proyecto: number | null
-  codigo_orden: number | null
 }
 
 export type ProcesoMinAggregateOutputType = {
@@ -43,7 +41,7 @@ export type ProcesoMinAggregateOutputType = {
   nombre: string | null
   descripcion: string | null
   id_proyecto: number | null
-  codigo_orden: number | null
+  codigo_orden: string | null
 }
 
 export type ProcesoMaxAggregateOutputType = {
@@ -51,7 +49,7 @@ export type ProcesoMaxAggregateOutputType = {
   nombre: string | null
   descripcion: string | null
   id_proyecto: number | null
-  codigo_orden: number | null
+  codigo_orden: string | null
 }
 
 export type ProcesoCountAggregateOutputType = {
@@ -67,13 +65,11 @@ export type ProcesoCountAggregateOutputType = {
 export type ProcesoAvgAggregateInputType = {
   id_proceso?: true
   id_proyecto?: true
-  codigo_orden?: true
 }
 
 export type ProcesoSumAggregateInputType = {
   id_proceso?: true
   id_proyecto?: true
-  codigo_orden?: true
 }
 
 export type ProcesoMinAggregateInputType = {
@@ -192,7 +188,7 @@ export type ProcesoGroupByOutputType = {
   nombre: string
   descripcion: string | null
   id_proyecto: number | null
-  codigo_orden: number | null
+  codigo_orden: string | null
   _count: ProcesoCountAggregateOutputType | null
   _avg: ProcesoAvgAggregateOutputType | null
   _sum: ProcesoSumAggregateOutputType | null
@@ -223,7 +219,7 @@ export type procesoWhereInput = {
   nombre?: Prisma.StringFilter<"proceso"> | string
   descripcion?: Prisma.StringNullableFilter<"proceso"> | string | null
   id_proyecto?: Prisma.IntNullableFilter<"proceso"> | number | null
-  codigo_orden?: Prisma.IntNullableFilter<"proceso"> | number | null
+  codigo_orden?: Prisma.StringNullableFilter<"proceso"> | string | null
   proyecto?: Prisma.XOR<Prisma.ProyectoNullableScalarRelationFilter, Prisma.proyectoWhereInput> | null
   subproceso?: Prisma.SubprocesoListRelationFilter
 }
@@ -246,7 +242,7 @@ export type procesoWhereUniqueInput = Prisma.AtLeast<{
   nombre?: Prisma.StringFilter<"proceso"> | string
   descripcion?: Prisma.StringNullableFilter<"proceso"> | string | null
   id_proyecto?: Prisma.IntNullableFilter<"proceso"> | number | null
-  codigo_orden?: Prisma.IntNullableFilter<"proceso"> | number | null
+  codigo_orden?: Prisma.StringNullableFilter<"proceso"> | string | null
   proyecto?: Prisma.XOR<Prisma.ProyectoNullableScalarRelationFilter, Prisma.proyectoWhereInput> | null
   subproceso?: Prisma.SubprocesoListRelationFilter
 }, "id_proceso">
@@ -272,13 +268,13 @@ export type procesoScalarWhereWithAggregatesInput = {
   nombre?: Prisma.StringWithAggregatesFilter<"proceso"> | string
   descripcion?: Prisma.StringNullableWithAggregatesFilter<"proceso"> | string | null
   id_proyecto?: Prisma.IntNullableWithAggregatesFilter<"proceso"> | number | null
-  codigo_orden?: Prisma.IntNullableWithAggregatesFilter<"proceso"> | number | null
+  codigo_orden?: Prisma.StringNullableWithAggregatesFilter<"proceso"> | string | null
 }
 
 export type procesoCreateInput = {
   nombre: string
   descripcion?: string | null
-  codigo_orden?: number | null
+  codigo_orden?: string | null
   proyecto?: Prisma.proyectoCreateNestedOneWithoutProcesoInput
   subproceso?: Prisma.subprocesoCreateNestedManyWithoutProcesoInput
 }
@@ -288,14 +284,14 @@ export type procesoUncheckedCreateInput = {
   nombre: string
   descripcion?: string | null
   id_proyecto?: number | null
-  codigo_orden?: number | null
+  codigo_orden?: string | null
   subproceso?: Prisma.subprocesoUncheckedCreateNestedManyWithoutProcesoInput
 }
 
 export type procesoUpdateInput = {
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
   descripcion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  codigo_orden?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  codigo_orden?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   proyecto?: Prisma.proyectoUpdateOneWithoutProcesoNestedInput
   subproceso?: Prisma.subprocesoUpdateManyWithoutProcesoNestedInput
 }
@@ -305,7 +301,7 @@ export type procesoUncheckedUpdateInput = {
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
   descripcion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   id_proyecto?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  codigo_orden?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  codigo_orden?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   subproceso?: Prisma.subprocesoUncheckedUpdateManyWithoutProcesoNestedInput
 }
 
@@ -314,13 +310,13 @@ export type procesoCreateManyInput = {
   nombre: string
   descripcion?: string | null
   id_proyecto?: number | null
-  codigo_orden?: number | null
+  codigo_orden?: string | null
 }
 
 export type procesoUpdateManyMutationInput = {
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
   descripcion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  codigo_orden?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  codigo_orden?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type procesoUncheckedUpdateManyInput = {
@@ -328,7 +324,7 @@ export type procesoUncheckedUpdateManyInput = {
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
   descripcion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   id_proyecto?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  codigo_orden?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  codigo_orden?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type procesoCountOrderByAggregateInput = {
@@ -342,7 +338,6 @@ export type procesoCountOrderByAggregateInput = {
 export type procesoAvgOrderByAggregateInput = {
   id_proceso?: Prisma.SortOrder
   id_proyecto?: Prisma.SortOrder
-  codigo_orden?: Prisma.SortOrder
 }
 
 export type procesoMaxOrderByAggregateInput = {
@@ -364,7 +359,6 @@ export type procesoMinOrderByAggregateInput = {
 export type procesoSumOrderByAggregateInput = {
   id_proceso?: Prisma.SortOrder
   id_proyecto?: Prisma.SortOrder
-  codigo_orden?: Prisma.SortOrder
 }
 
 export type ProcesoListRelationFilter = {
@@ -377,9 +371,25 @@ export type procesoOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
-export type ProcesoNullableScalarRelationFilter = {
-  is?: Prisma.procesoWhereInput | null
-  isNot?: Prisma.procesoWhereInput | null
+export type ProcesoScalarRelationFilter = {
+  is?: Prisma.procesoWhereInput
+  isNot?: Prisma.procesoWhereInput
+}
+
+export type StringFieldUpdateOperationsInput = {
+  set?: string
+}
+
+export type NullableStringFieldUpdateOperationsInput = {
+  set?: string | null
+}
+
+export type IntFieldUpdateOperationsInput = {
+  set?: number
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
 }
 
 export type NullableIntFieldUpdateOperationsInput = {
@@ -438,12 +448,10 @@ export type procesoCreateNestedOneWithoutSubprocesoInput = {
   connect?: Prisma.procesoWhereUniqueInput
 }
 
-export type procesoUpdateOneWithoutSubprocesoNestedInput = {
+export type procesoUpdateOneRequiredWithoutSubprocesoNestedInput = {
   create?: Prisma.XOR<Prisma.procesoCreateWithoutSubprocesoInput, Prisma.procesoUncheckedCreateWithoutSubprocesoInput>
   connectOrCreate?: Prisma.procesoCreateOrConnectWithoutSubprocesoInput
   upsert?: Prisma.procesoUpsertWithoutSubprocesoInput
-  disconnect?: Prisma.procesoWhereInput | boolean
-  delete?: Prisma.procesoWhereInput | boolean
   connect?: Prisma.procesoWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.procesoUpdateToOneWithWhereWithoutSubprocesoInput, Prisma.procesoUpdateWithoutSubprocesoInput>, Prisma.procesoUncheckedUpdateWithoutSubprocesoInput>
 }
@@ -451,7 +459,7 @@ export type procesoUpdateOneWithoutSubprocesoNestedInput = {
 export type procesoCreateWithoutProyectoInput = {
   nombre: string
   descripcion?: string | null
-  codigo_orden?: number | null
+  codigo_orden?: string | null
   subproceso?: Prisma.subprocesoCreateNestedManyWithoutProcesoInput
 }
 
@@ -459,7 +467,7 @@ export type procesoUncheckedCreateWithoutProyectoInput = {
   id_proceso?: number
   nombre: string
   descripcion?: string | null
-  codigo_orden?: number | null
+  codigo_orden?: string | null
   subproceso?: Prisma.subprocesoUncheckedCreateNestedManyWithoutProcesoInput
 }
 
@@ -497,13 +505,13 @@ export type procesoScalarWhereInput = {
   nombre?: Prisma.StringFilter<"proceso"> | string
   descripcion?: Prisma.StringNullableFilter<"proceso"> | string | null
   id_proyecto?: Prisma.IntNullableFilter<"proceso"> | number | null
-  codigo_orden?: Prisma.IntNullableFilter<"proceso"> | number | null
+  codigo_orden?: Prisma.StringNullableFilter<"proceso"> | string | null
 }
 
 export type procesoCreateWithoutSubprocesoInput = {
   nombre: string
   descripcion?: string | null
-  codigo_orden?: number | null
+  codigo_orden?: string | null
   proyecto?: Prisma.proyectoCreateNestedOneWithoutProcesoInput
 }
 
@@ -512,7 +520,7 @@ export type procesoUncheckedCreateWithoutSubprocesoInput = {
   nombre: string
   descripcion?: string | null
   id_proyecto?: number | null
-  codigo_orden?: number | null
+  codigo_orden?: string | null
 }
 
 export type procesoCreateOrConnectWithoutSubprocesoInput = {
@@ -534,7 +542,7 @@ export type procesoUpdateToOneWithWhereWithoutSubprocesoInput = {
 export type procesoUpdateWithoutSubprocesoInput = {
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
   descripcion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  codigo_orden?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  codigo_orden?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   proyecto?: Prisma.proyectoUpdateOneWithoutProcesoNestedInput
 }
 
@@ -543,20 +551,20 @@ export type procesoUncheckedUpdateWithoutSubprocesoInput = {
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
   descripcion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   id_proyecto?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  codigo_orden?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  codigo_orden?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type procesoCreateManyProyectoInput = {
   id_proceso?: number
   nombre: string
   descripcion?: string | null
-  codigo_orden?: number | null
+  codigo_orden?: string | null
 }
 
 export type procesoUpdateWithoutProyectoInput = {
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
   descripcion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  codigo_orden?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  codigo_orden?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   subproceso?: Prisma.subprocesoUpdateManyWithoutProcesoNestedInput
 }
 
@@ -564,7 +572,7 @@ export type procesoUncheckedUpdateWithoutProyectoInput = {
   id_proceso?: Prisma.IntFieldUpdateOperationsInput | number
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
   descripcion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  codigo_orden?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  codigo_orden?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   subproceso?: Prisma.subprocesoUncheckedUpdateManyWithoutProcesoNestedInput
 }
 
@@ -572,7 +580,7 @@ export type procesoUncheckedUpdateManyWithoutProyectoInput = {
   id_proceso?: Prisma.IntFieldUpdateOperationsInput | number
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
   descripcion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  codigo_orden?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  codigo_orden?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 
@@ -667,7 +675,7 @@ export type $procesoPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     nombre: string
     descripcion: string | null
     id_proyecto: number | null
-    codigo_orden: number | null
+    codigo_orden: string | null
   }, ExtArgs["result"]["proceso"]>
   composites: {}
 }
@@ -1097,7 +1105,7 @@ export interface procesoFieldRefs {
   readonly nombre: Prisma.FieldRef<"proceso", 'String'>
   readonly descripcion: Prisma.FieldRef<"proceso", 'String'>
   readonly id_proyecto: Prisma.FieldRef<"proceso", 'Int'>
-  readonly codigo_orden: Prisma.FieldRef<"proceso", 'Int'>
+  readonly codigo_orden: Prisma.FieldRef<"proceso", 'String'>
 }
     
 

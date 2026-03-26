@@ -8,15 +8,14 @@
  *
  * 🟢 You can import this file directly.
  */
-export type * from './models/herramienta'
-export type * from './models/metodo_recoleccion'
 export type * from './models/proceso'
-export type * from './models/proceso_stakeholder_participacion'
 export type * from './models/proyecto'
 export type * from './models/proyecto_participante'
-export type * from './models/recoleccion_info'
 export type * from './models/rol'
 export type * from './models/stakeholder'
 export type * from './models/subproceso'
 export type * from './models/usuario'
+export type * from './models/equipo_proyecto'
+export type * from './models/requerimiento'
+export type * from './models/tecnica_recoleccion'
 export type * from './commonInputTypes'

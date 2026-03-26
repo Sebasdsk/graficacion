@@ -51,17 +51,16 @@ export const AnyNull = runtime.AnyNull
 
 
 export const ModelName = {
-  herramienta: 'herramienta',
-  metodo_recoleccion: 'metodo_recoleccion',
   proceso: 'proceso',
-  proceso_stakeholder_participacion: 'proceso_stakeholder_participacion',
   proyecto: 'proyecto',
   proyecto_participante: 'proyecto_participante',
-  recoleccion_info: 'recoleccion_info',
   rol: 'rol',
   stakeholder: 'stakeholder',
   subproceso: 'subproceso',
-  usuario: 'usuario'
+  usuario: 'usuario',
+  equipo_proyecto: 'equipo_proyecto',
+  requerimiento: 'requerimiento',
+  tecnica_recoleccion: 'tecnica_recoleccion'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -80,25 +79,6 @@ export const TransactionIsolationLevel = runtime.makeStrictEnum({
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
 
 
-export const HerramientaScalarFieldEnum = {
-  id_herramienta: 'id_herramienta',
-  nombre: 'nombre',
-  descripcion: 'descripcion'
-} as const
-
-export type HerramientaScalarFieldEnum = (typeof HerramientaScalarFieldEnum)[keyof typeof HerramientaScalarFieldEnum]
-
-
-export const Metodo_recoleccionScalarFieldEnum = {
-  id_metodo: 'id_metodo',
-  nombre: 'nombre',
-  descripcion: 'descripcion',
-  tipo_metodologia: 'tipo_metodologia'
-} as const
-
-export type Metodo_recoleccionScalarFieldEnum = (typeof Metodo_recoleccionScalarFieldEnum)[keyof typeof Metodo_recoleccionScalarFieldEnum]
-
-
 export const ProcesoScalarFieldEnum = {
   id_proceso: 'id_proceso',
   nombre: 'nombre',
@@ -108,15 +88,6 @@ export const ProcesoScalarFieldEnum = {
 } as const
 
 export type ProcesoScalarFieldEnum = (typeof ProcesoScalarFieldEnum)[keyof typeof ProcesoScalarFieldEnum]
-
-
-export const Proceso_stakeholder_participacionScalarFieldEnum = {
-  id_proceso: 'id_proceso',
-  id_stakeholder: 'id_stakeholder',
-  id_rol: 'id_rol'
-} as const
-
-export type Proceso_stakeholder_participacionScalarFieldEnum = (typeof Proceso_stakeholder_participacionScalarFieldEnum)[keyof typeof Proceso_stakeholder_participacionScalarFieldEnum]
 
 
 export const ProyectoScalarFieldEnum = {
@@ -146,19 +117,6 @@ export const Proyecto_participanteScalarFieldEnum = {
 export type Proyecto_participanteScalarFieldEnum = (typeof Proyecto_participanteScalarFieldEnum)[keyof typeof Proyecto_participanteScalarFieldEnum]
 
 
-export const Recoleccion_infoScalarFieldEnum = {
-  id_recoleccion: 'id_recoleccion',
-  id_subproceso: 'id_subproceso',
-  id_metodo: 'id_metodo',
-  id_herramienta: 'id_herramienta',
-  fecha_aplicacion: 'fecha_aplicacion',
-  resultado_obtenido: 'resultado_obtenido',
-  archivo_adjunto_url: 'archivo_adjunto_url'
-} as const
-
-export type Recoleccion_infoScalarFieldEnum = (typeof Recoleccion_infoScalarFieldEnum)[keyof typeof Recoleccion_infoScalarFieldEnum]
-
-
 export const RolScalarFieldEnum = {
   id_rol: 'id_rol',
   nombre: 'nombre',
@@ -170,11 +128,12 @@ export type RolScalarFieldEnum = (typeof RolScalarFieldEnum)[keyof typeof RolSca
 
 export const StakeholderScalarFieldEnum = {
   id_stakeholder: 'id_stakeholder',
+  id_proyecto: 'id_proyecto',
   nombre: 'nombre',
-  email: 'email',
-  id_rol: 'id_rol',
-  estatus: 'estatus',
-  id_proyecto: 'id_proyecto'
+  rol: 'rol',
+  area: 'area',
+  contacto_email: 'contacto_email',
+  notas: 'notas'
 } as const
 
 export type StakeholderScalarFieldEnum = (typeof StakeholderScalarFieldEnum)[keyof typeof StakeholderScalarFieldEnum]
@@ -184,8 +143,8 @@ export const SubprocesoScalarFieldEnum = {
   id_subproceso: 'id_subproceso',
   nombre: 'nombre',
   descripcion: 'descripcion',
-  id_proceso: 'id_proceso',
-  codigo_orden: 'codigo_orden'
+  codigo_orden: 'codigo_orden',
+  id_proceso: 'id_proceso'
 } as const
 
 export type SubprocesoScalarFieldEnum = (typeof SubprocesoScalarFieldEnum)[keyof typeof SubprocesoScalarFieldEnum]
@@ -199,10 +158,43 @@ export const UsuarioScalarFieldEnum = {
   telefono: 'telefono',
   email: 'email',
   estatus: 'estatus',
-  password_hash: 'password_hash'
+  contrase_a: 'contrase_a',
+  Nombre_usuario: 'Nombre_usuario'
 } as const
 
 export type UsuarioScalarFieldEnum = (typeof UsuarioScalarFieldEnum)[keyof typeof UsuarioScalarFieldEnum]
+
+
+export const Equipo_proyectoScalarFieldEnum = {
+  id_equipo: 'id_equipo',
+  id_proyecto: 'id_proyecto',
+  id_usuario: 'id_usuario',
+  id_rol: 'id_rol'
+} as const
+
+export type Equipo_proyectoScalarFieldEnum = (typeof Equipo_proyectoScalarFieldEnum)[keyof typeof Equipo_proyectoScalarFieldEnum]
+
+
+export const RequerimientoScalarFieldEnum = {
+  id_requerimiento: 'id_requerimiento',
+  descripcion: 'descripcion',
+  codigo_unico: 'codigo_unico',
+  id_tecnica: 'id_tecnica'
+} as const
+
+export type RequerimientoScalarFieldEnum = (typeof RequerimientoScalarFieldEnum)[keyof typeof RequerimientoScalarFieldEnum]
+
+
+export const Tecnica_recoleccionScalarFieldEnum = {
+  id_tecnica: 'id_tecnica',
+  tipo: 'tipo',
+  detalle: 'detalle',
+  codigo_orden: 'codigo_orden',
+  id_subproceso: 'id_subproceso',
+  id_stakeholder: 'id_stakeholder'
+} as const
+
+export type Tecnica_recoleccionScalarFieldEnum = (typeof Tecnica_recoleccionScalarFieldEnum)[keyof typeof Tecnica_recoleccionScalarFieldEnum]
 
 
 export const SortOrder = {

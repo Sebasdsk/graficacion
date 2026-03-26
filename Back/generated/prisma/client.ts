@@ -29,8 +29,8 @@ export * from "./enums"
  * const prisma = new PrismaClient({
  *   adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL })
  * })
- * // Fetch zero or more Herramientas
- * const herramientas = await prisma.herramienta.findMany()
+ * // Fetch zero or more Procesos
+ * const procesos = await prisma.proceso.findMany()
  * ```
  * 
  * Read more in our [docs](https://pris.ly/d/client).
@@ -40,25 +40,10 @@ export type PrismaClient<LogOpts extends Prisma.LogLevel = never, OmitOpts exten
 export { Prisma }
 
 /**
- * Model herramienta
- * 
- */
-export type herramienta = Prisma.herramientaModel
-/**
- * Model metodo_recoleccion
- * 
- */
-export type metodo_recoleccion = Prisma.metodo_recoleccionModel
-/**
  * Model proceso
  * 
  */
 export type proceso = Prisma.procesoModel
-/**
- * Model proceso_stakeholder_participacion
- * 
- */
-export type proceso_stakeholder_participacion = Prisma.proceso_stakeholder_participacionModel
 /**
  * Model proyecto
  * 
@@ -69,11 +54,6 @@ export type proyecto = Prisma.proyectoModel
  * 
  */
 export type proyecto_participante = Prisma.proyecto_participanteModel
-/**
- * Model recoleccion_info
- * 
- */
-export type recoleccion_info = Prisma.recoleccion_infoModel
 /**
  * Model rol
  * 
@@ -94,3 +74,18 @@ export type subproceso = Prisma.subprocesoModel
  * 
  */
 export type usuario = Prisma.usuarioModel
+/**
+ * Model equipo_proyecto
+ * 
+ */
+export type equipo_proyecto = Prisma.equipo_proyectoModel
+/**
+ * Model requerimiento
+ * 
+ */
+export type requerimiento = Prisma.requerimientoModel
+/**
+ * Model tecnica_recoleccion
+ * 
+ */
+export type tecnica_recoleccion = Prisma.tecnica_recoleccionModel

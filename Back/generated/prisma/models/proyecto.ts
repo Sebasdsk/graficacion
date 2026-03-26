@@ -244,6 +244,7 @@ export type proyectoWhereInput = {
   fecha_fin?: Prisma.DateTimeNullableFilter<"proyecto"> | Date | string | null
   estatus?: Prisma.StringNullableFilter<"proyecto"> | string | null
   id_usuario_creador?: Prisma.IntNullableFilter<"proyecto"> | number | null
+  equipo_proyecto?: Prisma.Equipo_proyectoListRelationFilter
   proceso?: Prisma.ProcesoListRelationFilter
   usuario?: Prisma.XOR<Prisma.UsuarioNullableScalarRelationFilter, Prisma.usuarioWhereInput> | null
   proyecto_participante?: Prisma.Proyecto_participanteListRelationFilter
@@ -259,6 +260,7 @@ export type proyectoOrderByWithRelationInput = {
   fecha_fin?: Prisma.SortOrderInput | Prisma.SortOrder
   estatus?: Prisma.SortOrderInput | Prisma.SortOrder
   id_usuario_creador?: Prisma.SortOrderInput | Prisma.SortOrder
+  equipo_proyecto?: Prisma.equipo_proyectoOrderByRelationAggregateInput
   proceso?: Prisma.procesoOrderByRelationAggregateInput
   usuario?: Prisma.usuarioOrderByWithRelationInput
   proyecto_participante?: Prisma.proyecto_participanteOrderByRelationAggregateInput
@@ -277,6 +279,7 @@ export type proyectoWhereUniqueInput = Prisma.AtLeast<{
   fecha_fin?: Prisma.DateTimeNullableFilter<"proyecto"> | Date | string | null
   estatus?: Prisma.StringNullableFilter<"proyecto"> | string | null
   id_usuario_creador?: Prisma.IntNullableFilter<"proyecto"> | number | null
+  equipo_proyecto?: Prisma.Equipo_proyectoListRelationFilter
   proceso?: Prisma.ProcesoListRelationFilter
   usuario?: Prisma.XOR<Prisma.UsuarioNullableScalarRelationFilter, Prisma.usuarioWhereInput> | null
   proyecto_participante?: Prisma.Proyecto_participanteListRelationFilter
@@ -320,6 +323,7 @@ export type proyectoCreateInput = {
   fecha_inicio?: Date | string | null
   fecha_fin?: Date | string | null
   estatus?: string | null
+  equipo_proyecto?: Prisma.equipo_proyectoCreateNestedManyWithoutProyectoInput
   proceso?: Prisma.procesoCreateNestedManyWithoutProyectoInput
   usuario?: Prisma.usuarioCreateNestedOneWithoutProyectoInput
   proyecto_participante?: Prisma.proyecto_participanteCreateNestedManyWithoutProyectoInput
@@ -335,6 +339,7 @@ export type proyectoUncheckedCreateInput = {
   fecha_fin?: Date | string | null
   estatus?: string | null
   id_usuario_creador?: number | null
+  equipo_proyecto?: Prisma.equipo_proyectoUncheckedCreateNestedManyWithoutProyectoInput
   proceso?: Prisma.procesoUncheckedCreateNestedManyWithoutProyectoInput
   proyecto_participante?: Prisma.proyecto_participanteUncheckedCreateNestedManyWithoutProyectoInput
   stakeholder?: Prisma.stakeholderUncheckedCreateNestedManyWithoutProyectoInput
@@ -347,6 +352,7 @@ export type proyectoUpdateInput = {
   fecha_inicio?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   fecha_fin?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   estatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  equipo_proyecto?: Prisma.equipo_proyectoUpdateManyWithoutProyectoNestedInput
   proceso?: Prisma.procesoUpdateManyWithoutProyectoNestedInput
   usuario?: Prisma.usuarioUpdateOneWithoutProyectoNestedInput
   proyecto_participante?: Prisma.proyecto_participanteUpdateManyWithoutProyectoNestedInput
@@ -362,6 +368,7 @@ export type proyectoUncheckedUpdateInput = {
   fecha_fin?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   estatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   id_usuario_creador?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  equipo_proyecto?: Prisma.equipo_proyectoUncheckedUpdateManyWithoutProyectoNestedInput
   proceso?: Prisma.procesoUncheckedUpdateManyWithoutProyectoNestedInput
   proyecto_participante?: Prisma.proyecto_participanteUncheckedUpdateManyWithoutProyectoNestedInput
   stakeholder?: Prisma.stakeholderUncheckedUpdateManyWithoutProyectoNestedInput
@@ -553,6 +560,22 @@ export type proyectoUncheckedUpdateManyWithoutUsuarioNestedInput = {
   deleteMany?: Prisma.proyectoScalarWhereInput | Prisma.proyectoScalarWhereInput[]
 }
 
+export type proyectoCreateNestedOneWithoutEquipo_proyectoInput = {
+  create?: Prisma.XOR<Prisma.proyectoCreateWithoutEquipo_proyectoInput, Prisma.proyectoUncheckedCreateWithoutEquipo_proyectoInput>
+  connectOrCreate?: Prisma.proyectoCreateOrConnectWithoutEquipo_proyectoInput
+  connect?: Prisma.proyectoWhereUniqueInput
+}
+
+export type proyectoUpdateOneWithoutEquipo_proyectoNestedInput = {
+  create?: Prisma.XOR<Prisma.proyectoCreateWithoutEquipo_proyectoInput, Prisma.proyectoUncheckedCreateWithoutEquipo_proyectoInput>
+  connectOrCreate?: Prisma.proyectoCreateOrConnectWithoutEquipo_proyectoInput
+  upsert?: Prisma.proyectoUpsertWithoutEquipo_proyectoInput
+  disconnect?: Prisma.proyectoWhereInput | boolean
+  delete?: Prisma.proyectoWhereInput | boolean
+  connect?: Prisma.proyectoWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.proyectoUpdateToOneWithWhereWithoutEquipo_proyectoInput, Prisma.proyectoUpdateWithoutEquipo_proyectoInput>, Prisma.proyectoUncheckedUpdateWithoutEquipo_proyectoInput>
+}
+
 export type proyectoCreateWithoutProcesoInput = {
   nombre?: string | null
   descripcion?: string | null
@@ -560,6 +583,7 @@ export type proyectoCreateWithoutProcesoInput = {
   fecha_inicio?: Date | string | null
   fecha_fin?: Date | string | null
   estatus?: string | null
+  equipo_proyecto?: Prisma.equipo_proyectoCreateNestedManyWithoutProyectoInput
   usuario?: Prisma.usuarioCreateNestedOneWithoutProyectoInput
   proyecto_participante?: Prisma.proyecto_participanteCreateNestedManyWithoutProyectoInput
   stakeholder?: Prisma.stakeholderCreateNestedManyWithoutProyectoInput
@@ -574,6 +598,7 @@ export type proyectoUncheckedCreateWithoutProcesoInput = {
   fecha_fin?: Date | string | null
   estatus?: string | null
   id_usuario_creador?: number | null
+  equipo_proyecto?: Prisma.equipo_proyectoUncheckedCreateNestedManyWithoutProyectoInput
   proyecto_participante?: Prisma.proyecto_participanteUncheckedCreateNestedManyWithoutProyectoInput
   stakeholder?: Prisma.stakeholderUncheckedCreateNestedManyWithoutProyectoInput
 }
@@ -601,6 +626,7 @@ export type proyectoUpdateWithoutProcesoInput = {
   fecha_inicio?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   fecha_fin?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   estatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  equipo_proyecto?: Prisma.equipo_proyectoUpdateManyWithoutProyectoNestedInput
   usuario?: Prisma.usuarioUpdateOneWithoutProyectoNestedInput
   proyecto_participante?: Prisma.proyecto_participanteUpdateManyWithoutProyectoNestedInput
   stakeholder?: Prisma.stakeholderUpdateManyWithoutProyectoNestedInput
@@ -615,6 +641,7 @@ export type proyectoUncheckedUpdateWithoutProcesoInput = {
   fecha_fin?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   estatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   id_usuario_creador?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  equipo_proyecto?: Prisma.equipo_proyectoUncheckedUpdateManyWithoutProyectoNestedInput
   proyecto_participante?: Prisma.proyecto_participanteUncheckedUpdateManyWithoutProyectoNestedInput
   stakeholder?: Prisma.stakeholderUncheckedUpdateManyWithoutProyectoNestedInput
 }
@@ -626,6 +653,7 @@ export type proyectoCreateWithoutProyecto_participanteInput = {
   fecha_inicio?: Date | string | null
   fecha_fin?: Date | string | null
   estatus?: string | null
+  equipo_proyecto?: Prisma.equipo_proyectoCreateNestedManyWithoutProyectoInput
   proceso?: Prisma.procesoCreateNestedManyWithoutProyectoInput
   usuario?: Prisma.usuarioCreateNestedOneWithoutProyectoInput
   stakeholder?: Prisma.stakeholderCreateNestedManyWithoutProyectoInput
@@ -640,6 +668,7 @@ export type proyectoUncheckedCreateWithoutProyecto_participanteInput = {
   fecha_fin?: Date | string | null
   estatus?: string | null
   id_usuario_creador?: number | null
+  equipo_proyecto?: Prisma.equipo_proyectoUncheckedCreateNestedManyWithoutProyectoInput
   proceso?: Prisma.procesoUncheckedCreateNestedManyWithoutProyectoInput
   stakeholder?: Prisma.stakeholderUncheckedCreateNestedManyWithoutProyectoInput
 }
@@ -667,6 +696,7 @@ export type proyectoUpdateWithoutProyecto_participanteInput = {
   fecha_inicio?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   fecha_fin?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   estatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  equipo_proyecto?: Prisma.equipo_proyectoUpdateManyWithoutProyectoNestedInput
   proceso?: Prisma.procesoUpdateManyWithoutProyectoNestedInput
   usuario?: Prisma.usuarioUpdateOneWithoutProyectoNestedInput
   stakeholder?: Prisma.stakeholderUpdateManyWithoutProyectoNestedInput
@@ -681,6 +711,7 @@ export type proyectoUncheckedUpdateWithoutProyecto_participanteInput = {
   fecha_fin?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   estatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   id_usuario_creador?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  equipo_proyecto?: Prisma.equipo_proyectoUncheckedUpdateManyWithoutProyectoNestedInput
   proceso?: Prisma.procesoUncheckedUpdateManyWithoutProyectoNestedInput
   stakeholder?: Prisma.stakeholderUncheckedUpdateManyWithoutProyectoNestedInput
 }
@@ -692,6 +723,7 @@ export type proyectoCreateWithoutStakeholderInput = {
   fecha_inicio?: Date | string | null
   fecha_fin?: Date | string | null
   estatus?: string | null
+  equipo_proyecto?: Prisma.equipo_proyectoCreateNestedManyWithoutProyectoInput
   proceso?: Prisma.procesoCreateNestedManyWithoutProyectoInput
   usuario?: Prisma.usuarioCreateNestedOneWithoutProyectoInput
   proyecto_participante?: Prisma.proyecto_participanteCreateNestedManyWithoutProyectoInput
@@ -706,6 +738,7 @@ export type proyectoUncheckedCreateWithoutStakeholderInput = {
   fecha_fin?: Date | string | null
   estatus?: string | null
   id_usuario_creador?: number | null
+  equipo_proyecto?: Prisma.equipo_proyectoUncheckedCreateNestedManyWithoutProyectoInput
   proceso?: Prisma.procesoUncheckedCreateNestedManyWithoutProyectoInput
   proyecto_participante?: Prisma.proyecto_participanteUncheckedCreateNestedManyWithoutProyectoInput
 }
@@ -733,6 +766,7 @@ export type proyectoUpdateWithoutStakeholderInput = {
   fecha_inicio?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   fecha_fin?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   estatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  equipo_proyecto?: Prisma.equipo_proyectoUpdateManyWithoutProyectoNestedInput
   proceso?: Prisma.procesoUpdateManyWithoutProyectoNestedInput
   usuario?: Prisma.usuarioUpdateOneWithoutProyectoNestedInput
   proyecto_participante?: Prisma.proyecto_participanteUpdateManyWithoutProyectoNestedInput
@@ -747,6 +781,7 @@ export type proyectoUncheckedUpdateWithoutStakeholderInput = {
   fecha_fin?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   estatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   id_usuario_creador?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  equipo_proyecto?: Prisma.equipo_proyectoUncheckedUpdateManyWithoutProyectoNestedInput
   proceso?: Prisma.procesoUncheckedUpdateManyWithoutProyectoNestedInput
   proyecto_participante?: Prisma.proyecto_participanteUncheckedUpdateManyWithoutProyectoNestedInput
 }
@@ -758,6 +793,7 @@ export type proyectoCreateWithoutUsuarioInput = {
   fecha_inicio?: Date | string | null
   fecha_fin?: Date | string | null
   estatus?: string | null
+  equipo_proyecto?: Prisma.equipo_proyectoCreateNestedManyWithoutProyectoInput
   proceso?: Prisma.procesoCreateNestedManyWithoutProyectoInput
   proyecto_participante?: Prisma.proyecto_participanteCreateNestedManyWithoutProyectoInput
   stakeholder?: Prisma.stakeholderCreateNestedManyWithoutProyectoInput
@@ -771,6 +807,7 @@ export type proyectoUncheckedCreateWithoutUsuarioInput = {
   fecha_inicio?: Date | string | null
   fecha_fin?: Date | string | null
   estatus?: string | null
+  equipo_proyecto?: Prisma.equipo_proyectoUncheckedCreateNestedManyWithoutProyectoInput
   proceso?: Prisma.procesoUncheckedCreateNestedManyWithoutProyectoInput
   proyecto_participante?: Prisma.proyecto_participanteUncheckedCreateNestedManyWithoutProyectoInput
   stakeholder?: Prisma.stakeholderUncheckedCreateNestedManyWithoutProyectoInput
@@ -816,6 +853,76 @@ export type proyectoScalarWhereInput = {
   id_usuario_creador?: Prisma.IntNullableFilter<"proyecto"> | number | null
 }
 
+export type proyectoCreateWithoutEquipo_proyectoInput = {
+  nombre?: string | null
+  descripcion?: string | null
+  problema_a_resolver?: string | null
+  fecha_inicio?: Date | string | null
+  fecha_fin?: Date | string | null
+  estatus?: string | null
+  proceso?: Prisma.procesoCreateNestedManyWithoutProyectoInput
+  usuario?: Prisma.usuarioCreateNestedOneWithoutProyectoInput
+  proyecto_participante?: Prisma.proyecto_participanteCreateNestedManyWithoutProyectoInput
+  stakeholder?: Prisma.stakeholderCreateNestedManyWithoutProyectoInput
+}
+
+export type proyectoUncheckedCreateWithoutEquipo_proyectoInput = {
+  id_proyecto?: number
+  nombre?: string | null
+  descripcion?: string | null
+  problema_a_resolver?: string | null
+  fecha_inicio?: Date | string | null
+  fecha_fin?: Date | string | null
+  estatus?: string | null
+  id_usuario_creador?: number | null
+  proceso?: Prisma.procesoUncheckedCreateNestedManyWithoutProyectoInput
+  proyecto_participante?: Prisma.proyecto_participanteUncheckedCreateNestedManyWithoutProyectoInput
+  stakeholder?: Prisma.stakeholderUncheckedCreateNestedManyWithoutProyectoInput
+}
+
+export type proyectoCreateOrConnectWithoutEquipo_proyectoInput = {
+  where: Prisma.proyectoWhereUniqueInput
+  create: Prisma.XOR<Prisma.proyectoCreateWithoutEquipo_proyectoInput, Prisma.proyectoUncheckedCreateWithoutEquipo_proyectoInput>
+}
+
+export type proyectoUpsertWithoutEquipo_proyectoInput = {
+  update: Prisma.XOR<Prisma.proyectoUpdateWithoutEquipo_proyectoInput, Prisma.proyectoUncheckedUpdateWithoutEquipo_proyectoInput>
+  create: Prisma.XOR<Prisma.proyectoCreateWithoutEquipo_proyectoInput, Prisma.proyectoUncheckedCreateWithoutEquipo_proyectoInput>
+  where?: Prisma.proyectoWhereInput
+}
+
+export type proyectoUpdateToOneWithWhereWithoutEquipo_proyectoInput = {
+  where?: Prisma.proyectoWhereInput
+  data: Prisma.XOR<Prisma.proyectoUpdateWithoutEquipo_proyectoInput, Prisma.proyectoUncheckedUpdateWithoutEquipo_proyectoInput>
+}
+
+export type proyectoUpdateWithoutEquipo_proyectoInput = {
+  nombre?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  descripcion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  problema_a_resolver?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fecha_inicio?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fecha_fin?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  estatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  proceso?: Prisma.procesoUpdateManyWithoutProyectoNestedInput
+  usuario?: Prisma.usuarioUpdateOneWithoutProyectoNestedInput
+  proyecto_participante?: Prisma.proyecto_participanteUpdateManyWithoutProyectoNestedInput
+  stakeholder?: Prisma.stakeholderUpdateManyWithoutProyectoNestedInput
+}
+
+export type proyectoUncheckedUpdateWithoutEquipo_proyectoInput = {
+  id_proyecto?: Prisma.IntFieldUpdateOperationsInput | number
+  nombre?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  descripcion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  problema_a_resolver?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fecha_inicio?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fecha_fin?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  estatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  id_usuario_creador?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  proceso?: Prisma.procesoUncheckedUpdateManyWithoutProyectoNestedInput
+  proyecto_participante?: Prisma.proyecto_participanteUncheckedUpdateManyWithoutProyectoNestedInput
+  stakeholder?: Prisma.stakeholderUncheckedUpdateManyWithoutProyectoNestedInput
+}
+
 export type proyectoCreateManyUsuarioInput = {
   id_proyecto?: number
   nombre?: string | null
@@ -833,6 +940,7 @@ export type proyectoUpdateWithoutUsuarioInput = {
   fecha_inicio?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   fecha_fin?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   estatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  equipo_proyecto?: Prisma.equipo_proyectoUpdateManyWithoutProyectoNestedInput
   proceso?: Prisma.procesoUpdateManyWithoutProyectoNestedInput
   proyecto_participante?: Prisma.proyecto_participanteUpdateManyWithoutProyectoNestedInput
   stakeholder?: Prisma.stakeholderUpdateManyWithoutProyectoNestedInput
@@ -846,6 +954,7 @@ export type proyectoUncheckedUpdateWithoutUsuarioInput = {
   fecha_inicio?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   fecha_fin?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   estatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  equipo_proyecto?: Prisma.equipo_proyectoUncheckedUpdateManyWithoutProyectoNestedInput
   proceso?: Prisma.procesoUncheckedUpdateManyWithoutProyectoNestedInput
   proyecto_participante?: Prisma.proyecto_participanteUncheckedUpdateManyWithoutProyectoNestedInput
   stakeholder?: Prisma.stakeholderUncheckedUpdateManyWithoutProyectoNestedInput
@@ -867,12 +976,14 @@ export type proyectoUncheckedUpdateManyWithoutUsuarioInput = {
  */
 
 export type ProyectoCountOutputType = {
+  equipo_proyecto: number
   proceso: number
   proyecto_participante: number
   stakeholder: number
 }
 
 export type ProyectoCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  equipo_proyecto?: boolean | ProyectoCountOutputTypeCountEquipo_proyectoArgs
   proceso?: boolean | ProyectoCountOutputTypeCountProcesoArgs
   proyecto_participante?: boolean | ProyectoCountOutputTypeCountProyecto_participanteArgs
   stakeholder?: boolean | ProyectoCountOutputTypeCountStakeholderArgs
@@ -886,6 +997,13 @@ export type ProyectoCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Ext
    * Select specific fields to fetch from the ProyectoCountOutputType
    */
   select?: Prisma.ProyectoCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * ProyectoCountOutputType without action
+ */
+export type ProyectoCountOutputTypeCountEquipo_proyectoArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.equipo_proyectoWhereInput
 }
 
 /**
@@ -919,6 +1037,7 @@ export type proyectoSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   fecha_fin?: boolean
   estatus?: boolean
   id_usuario_creador?: boolean
+  equipo_proyecto?: boolean | Prisma.proyecto$equipo_proyectoArgs<ExtArgs>
   proceso?: boolean | Prisma.proyecto$procesoArgs<ExtArgs>
   usuario?: boolean | Prisma.proyecto$usuarioArgs<ExtArgs>
   proyecto_participante?: boolean | Prisma.proyecto$proyecto_participanteArgs<ExtArgs>
@@ -963,6 +1082,7 @@ export type proyectoSelectScalar = {
 
 export type proyectoOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id_proyecto" | "nombre" | "descripcion" | "problema_a_resolver" | "fecha_inicio" | "fecha_fin" | "estatus" | "id_usuario_creador", ExtArgs["result"]["proyecto"]>
 export type proyectoInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  equipo_proyecto?: boolean | Prisma.proyecto$equipo_proyectoArgs<ExtArgs>
   proceso?: boolean | Prisma.proyecto$procesoArgs<ExtArgs>
   usuario?: boolean | Prisma.proyecto$usuarioArgs<ExtArgs>
   proyecto_participante?: boolean | Prisma.proyecto$proyecto_participanteArgs<ExtArgs>
@@ -979,6 +1099,7 @@ export type proyectoIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Ext
 export type $proyectoPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "proyecto"
   objects: {
+    equipo_proyecto: Prisma.$equipo_proyectoPayload<ExtArgs>[]
     proceso: Prisma.$procesoPayload<ExtArgs>[]
     usuario: Prisma.$usuarioPayload<ExtArgs> | null
     proyecto_participante: Prisma.$proyecto_participantePayload<ExtArgs>[]
@@ -1387,6 +1508,7 @@ readonly fields: proyectoFieldRefs;
  */
 export interface Prisma__proyectoClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  equipo_proyecto<T extends Prisma.proyecto$equipo_proyectoArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.proyecto$equipo_proyectoArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$equipo_proyectoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   proceso<T extends Prisma.proyecto$procesoArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.proyecto$procesoArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$procesoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   usuario<T extends Prisma.proyecto$usuarioArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.proyecto$usuarioArgs<ExtArgs>>): Prisma.Prisma__usuarioClient<runtime.Types.Result.GetResult<Prisma.$usuarioPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   proyecto_participante<T extends Prisma.proyecto$proyecto_participanteArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.proyecto$proyecto_participanteArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$proyecto_participantePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -1826,6 +1948,30 @@ export type proyectoDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Inte
    * Limit how many proyectos to delete.
    */
   limit?: number
+}
+
+/**
+ * proyecto.equipo_proyecto
+ */
+export type proyecto$equipo_proyectoArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the equipo_proyecto
+   */
+  select?: Prisma.equipo_proyectoSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the equipo_proyecto
+   */
+  omit?: Prisma.equipo_proyectoOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.equipo_proyectoInclude<ExtArgs> | null
+  where?: Prisma.equipo_proyectoWhereInput
+  orderBy?: Prisma.equipo_proyectoOrderByWithRelationInput | Prisma.equipo_proyectoOrderByWithRelationInput[]
+  cursor?: Prisma.equipo_proyectoWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.Equipo_proyectoScalarFieldEnum | Prisma.Equipo_proyectoScalarFieldEnum[]
 }
 
 /**

@@ -28,82 +28,84 @@ export type AggregateStakeholder = {
 
 export type StakeholderAvgAggregateOutputType = {
   id_stakeholder: number | null
-  id_rol: number | null
   id_proyecto: number | null
 }
 
 export type StakeholderSumAggregateOutputType = {
   id_stakeholder: number | null
-  id_rol: number | null
   id_proyecto: number | null
 }
 
 export type StakeholderMinAggregateOutputType = {
   id_stakeholder: number | null
-  nombre: string | null
-  email: string | null
-  id_rol: number | null
-  estatus: string | null
   id_proyecto: number | null
+  nombre: string | null
+  rol: string | null
+  area: string | null
+  contacto_email: string | null
+  notas: string | null
 }
 
 export type StakeholderMaxAggregateOutputType = {
   id_stakeholder: number | null
-  nombre: string | null
-  email: string | null
-  id_rol: number | null
-  estatus: string | null
   id_proyecto: number | null
+  nombre: string | null
+  rol: string | null
+  area: string | null
+  contacto_email: string | null
+  notas: string | null
 }
 
 export type StakeholderCountAggregateOutputType = {
   id_stakeholder: number
-  nombre: number
-  email: number
-  id_rol: number
-  estatus: number
   id_proyecto: number
+  nombre: number
+  rol: number
+  area: number
+  contacto_email: number
+  notas: number
   _all: number
 }
 
 
 export type StakeholderAvgAggregateInputType = {
   id_stakeholder?: true
-  id_rol?: true
   id_proyecto?: true
 }
 
 export type StakeholderSumAggregateInputType = {
   id_stakeholder?: true
-  id_rol?: true
   id_proyecto?: true
 }
 
 export type StakeholderMinAggregateInputType = {
   id_stakeholder?: true
-  nombre?: true
-  email?: true
-  id_rol?: true
-  estatus?: true
   id_proyecto?: true
+  nombre?: true
+  rol?: true
+  area?: true
+  contacto_email?: true
+  notas?: true
 }
 
 export type StakeholderMaxAggregateInputType = {
   id_stakeholder?: true
-  nombre?: true
-  email?: true
-  id_rol?: true
-  estatus?: true
   id_proyecto?: true
+  nombre?: true
+  rol?: true
+  area?: true
+  contacto_email?: true
+  notas?: true
 }
 
 export type StakeholderCountAggregateInputType = {
   id_stakeholder?: true
-  nombre?: true
-  email?: true
-  id_rol?: true
-  estatus?: true
   id_proyecto?: true
+  nombre?: true
+  rol?: true
+  area?: true
+  contacto_email?: true
+  notas?: true
   _all?: true
 }
 
@@ -195,11 +197,12 @@ export type stakeholderGroupByArgs<ExtArgs extends runtime.Types.Extensions.Inte
 
 export type StakeholderGroupByOutputType = {
   id_stakeholder: number
-  nombre: string
-  email: string | null
-  id_rol: number | null
-  estatus: string | null
   id_proyecto: number | null
+  nombre: string
+  rol: string
+  area: string | null
+  contacto_email: string | null
+  notas: string | null
   _count: StakeholderCountAggregateOutputType | null
   _avg: StakeholderAvgAggregateOutputType | null
   _sum: StakeholderSumAggregateOutputType | null
@@ -227,24 +230,26 @@ export type stakeholderWhereInput = {
   OR?: Prisma.stakeholderWhereInput[]
   NOT?: Prisma.stakeholderWhereInput | Prisma.stakeholderWhereInput[]
   id_stakeholder?: Prisma.IntFilter<"stakeholder"> | number
-  nombre?: Prisma.StringFilter<"stakeholder"> | string
-  email?: Prisma.StringNullableFilter<"stakeholder"> | string | null
-  id_rol?: Prisma.IntNullableFilter<"stakeholder"> | number | null
-  estatus?: Prisma.StringNullableFilter<"stakeholder"> | string | null
   id_proyecto?: Prisma.IntNullableFilter<"stakeholder"> | number | null
+  nombre?: Prisma.StringFilter<"stakeholder"> | string
+  rol?: Prisma.StringFilter<"stakeholder"> | string
+  area?: Prisma.StringNullableFilter<"stakeholder"> | string | null
+  contacto_email?: Prisma.StringNullableFilter<"stakeholder"> | string | null
+  notas?: Prisma.StringNullableFilter<"stakeholder"> | string | null
   proyecto?: Prisma.XOR<Prisma.ProyectoNullableScalarRelationFilter, Prisma.proyectoWhereInput> | null
-  rol?: Prisma.XOR<Prisma.RolNullableScalarRelationFilter, Prisma.rolWhereInput> | null
+  tecnica_recoleccion?: Prisma.Tecnica_recoleccionListRelationFilter
 }
 
 export type stakeholderOrderByWithRelationInput = {
   id_stakeholder?: Prisma.SortOrder
-  nombre?: Prisma.SortOrder
-  email?: Prisma.SortOrderInput | Prisma.SortOrder
-  id_rol?: Prisma.SortOrderInput | Prisma.SortOrder
-  estatus?: Prisma.SortOrderInput | Prisma.SortOrder
   id_proyecto?: Prisma.SortOrderInput | Prisma.SortOrder
+  nombre?: Prisma.SortOrder
+  rol?: Prisma.SortOrder
+  area?: Prisma.SortOrderInput | Prisma.SortOrder
+  contacto_email?: Prisma.SortOrderInput | Prisma.SortOrder
+  notas?: Prisma.SortOrderInput | Prisma.SortOrder
   proyecto?: Prisma.proyectoOrderByWithRelationInput
-  rol?: Prisma.rolOrderByWithRelationInput
+  tecnica_recoleccion?: Prisma.tecnica_recoleccionOrderByRelationAggregateInput
 }
 
 export type stakeholderWhereUniqueInput = Prisma.AtLeast<{
@@ -252,22 +257,24 @@ export type stakeholderWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.stakeholderWhereInput | Prisma.stakeholderWhereInput[]
   OR?: Prisma.stakeholderWhereInput[]
   NOT?: Prisma.stakeholderWhereInput | Prisma.stakeholderWhereInput[]
-  nombre?: Prisma.StringFilter<"stakeholder"> | string
-  email?: Prisma.StringNullableFilter<"stakeholder"> | string | null
-  id_rol?: Prisma.IntNullableFilter<"stakeholder"> | number | null
-  estatus?: Prisma.StringNullableFilter<"stakeholder"> | string | null
   id_proyecto?: Prisma.IntNullableFilter<"stakeholder"> | number | null
+  nombre?: Prisma.StringFilter<"stakeholder"> | string
+  rol?: Prisma.StringFilter<"stakeholder"> | string
+  area?: Prisma.StringNullableFilter<"stakeholder"> | string | null
+  contacto_email?: Prisma.StringNullableFilter<"stakeholder"> | string | null
+  notas?: Prisma.StringNullableFilter<"stakeholder"> | string | null
   proyecto?: Prisma.XOR<Prisma.ProyectoNullableScalarRelationFilter, Prisma.proyectoWhereInput> | null
-  rol?: Prisma.XOR<Prisma.RolNullableScalarRelationFilter, Prisma.rolWhereInput> | null
+  tecnica_recoleccion?: Prisma.Tecnica_recoleccionListRelationFilter
 }, "id_stakeholder">
 
 export type stakeholderOrderByWithAggregationInput = {
   id_stakeholder?: Prisma.SortOrder
-  nombre?: Prisma.SortOrder
-  email?: Prisma.SortOrderInput | Prisma.SortOrder
-  id_rol?: Prisma.SortOrderInput | Prisma.SortOrder
-  estatus?: Prisma.SortOrderInput | Prisma.SortOrder
   id_proyecto?: Prisma.SortOrderInput | Prisma.SortOrder
+  nombre?: Prisma.SortOrder
+  rol?: Prisma.SortOrder
+  area?: Prisma.SortOrderInput | Prisma.SortOrder
+  contacto_email?: Prisma.SortOrderInput | Prisma.SortOrder
+  notas?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.stakeholderCountOrderByAggregateInput
   _avg?: Prisma.stakeholderAvgOrderByAggregateInput
   _max?: Prisma.stakeholderMaxOrderByAggregateInput
@@ -280,69 +287,82 @@ export type stakeholderScalarWhereWithAggregatesInput = {
   OR?: Prisma.stakeholderScalarWhereWithAggregatesInput[]
   NOT?: Prisma.stakeholderScalarWhereWithAggregatesInput | Prisma.stakeholderScalarWhereWithAggregatesInput[]
   id_stakeholder?: Prisma.IntWithAggregatesFilter<"stakeholder"> | number
-  nombre?: Prisma.StringWithAggregatesFilter<"stakeholder"> | string
-  email?: Prisma.StringNullableWithAggregatesFilter<"stakeholder"> | string | null
-  id_rol?: Prisma.IntNullableWithAggregatesFilter<"stakeholder"> | number | null
-  estatus?: Prisma.StringNullableWithAggregatesFilter<"stakeholder"> | string | null
   id_proyecto?: Prisma.IntNullableWithAggregatesFilter<"stakeholder"> | number | null
+  nombre?: Prisma.StringWithAggregatesFilter<"stakeholder"> | string
+  rol?: Prisma.StringWithAggregatesFilter<"stakeholder"> | string
+  area?: Prisma.StringNullableWithAggregatesFilter<"stakeholder"> | string | null
+  contacto_email?: Prisma.StringNullableWithAggregatesFilter<"stakeholder"> | string | null
+  notas?: Prisma.StringNullableWithAggregatesFilter<"stakeholder"> | string | null
 }
 
 export type stakeholderCreateInput = {
   nombre: string
-  email?: string | null
-  estatus?: string | null
+  rol: string
+  area?: string | null
+  contacto_email?: string | null
+  notas?: string | null
   proyecto?: Prisma.proyectoCreateNestedOneWithoutStakeholderInput
-  rol?: Prisma.rolCreateNestedOneWithoutStakeholderInput
+  tecnica_recoleccion?: Prisma.tecnica_recoleccionCreateNestedManyWithoutStakeholderInput
 }
 
 export type stakeholderUncheckedCreateInput = {
   id_stakeholder?: number
-  nombre: string
-  email?: string | null
-  id_rol?: number | null
-  estatus?: string | null
   id_proyecto?: number | null
+  nombre: string
+  rol: string
+  area?: string | null
+  contacto_email?: string | null
+  notas?: string | null
+  tecnica_recoleccion?: Prisma.tecnica_recoleccionUncheckedCreateNestedManyWithoutStakeholderInput
 }
 
 export type stakeholderUpdateInput = {
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  estatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rol?: Prisma.StringFieldUpdateOperationsInput | string
+  area?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contacto_email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notas?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   proyecto?: Prisma.proyectoUpdateOneWithoutStakeholderNestedInput
-  rol?: Prisma.rolUpdateOneWithoutStakeholderNestedInput
+  tecnica_recoleccion?: Prisma.tecnica_recoleccionUpdateManyWithoutStakeholderNestedInput
 }
 
 export type stakeholderUncheckedUpdateInput = {
   id_stakeholder?: Prisma.IntFieldUpdateOperationsInput | number
-  nombre?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  id_rol?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  estatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   id_proyecto?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  nombre?: Prisma.StringFieldUpdateOperationsInput | string
+  rol?: Prisma.StringFieldUpdateOperationsInput | string
+  area?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contacto_email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notas?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tecnica_recoleccion?: Prisma.tecnica_recoleccionUncheckedUpdateManyWithoutStakeholderNestedInput
 }
 
 export type stakeholderCreateManyInput = {
   id_stakeholder?: number
-  nombre: string
-  email?: string | null
-  id_rol?: number | null
-  estatus?: string | null
   id_proyecto?: number | null
+  nombre: string
+  rol: string
+  area?: string | null
+  contacto_email?: string | null
+  notas?: string | null
 }
 
 export type stakeholderUpdateManyMutationInput = {
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  estatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rol?: Prisma.StringFieldUpdateOperationsInput | string
+  area?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contacto_email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notas?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type stakeholderUncheckedUpdateManyInput = {
   id_stakeholder?: Prisma.IntFieldUpdateOperationsInput | number
-  nombre?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  id_rol?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  estatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   id_proyecto?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  nombre?: Prisma.StringFieldUpdateOperationsInput | string
+  rol?: Prisma.StringFieldUpdateOperationsInput | string
+  area?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contacto_email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notas?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type StakeholderListRelationFilter = {
@@ -357,41 +377,47 @@ export type stakeholderOrderByRelationAggregateInput = {
 
 export type stakeholderCountOrderByAggregateInput = {
   id_stakeholder?: Prisma.SortOrder
-  nombre?: Prisma.SortOrder
-  email?: Prisma.SortOrder
-  id_rol?: Prisma.SortOrder
-  estatus?: Prisma.SortOrder
   id_proyecto?: Prisma.SortOrder
+  nombre?: Prisma.SortOrder
+  rol?: Prisma.SortOrder
+  area?: Prisma.SortOrder
+  contacto_email?: Prisma.SortOrder
+  notas?: Prisma.SortOrder
 }
 
 export type stakeholderAvgOrderByAggregateInput = {
   id_stakeholder?: Prisma.SortOrder
-  id_rol?: Prisma.SortOrder
   id_proyecto?: Prisma.SortOrder
 }
 
 export type stakeholderMaxOrderByAggregateInput = {
   id_stakeholder?: Prisma.SortOrder
-  nombre?: Prisma.SortOrder
-  email?: Prisma.SortOrder
-  id_rol?: Prisma.SortOrder
-  estatus?: Prisma.SortOrder
   id_proyecto?: Prisma.SortOrder
+  nombre?: Prisma.SortOrder
+  rol?: Prisma.SortOrder
+  area?: Prisma.SortOrder
+  contacto_email?: Prisma.SortOrder
+  notas?: Prisma.SortOrder
 }
 
 export type stakeholderMinOrderByAggregateInput = {
   id_stakeholder?: Prisma.SortOrder
-  nombre?: Prisma.SortOrder
-  email?: Prisma.SortOrder
-  id_rol?: Prisma.SortOrder
-  estatus?: Prisma.SortOrder
   id_proyecto?: Prisma.SortOrder
+  nombre?: Prisma.SortOrder
+  rol?: Prisma.SortOrder
+  area?: Prisma.SortOrder
+  contacto_email?: Prisma.SortOrder
+  notas?: Prisma.SortOrder
 }
 
 export type stakeholderSumOrderByAggregateInput = {
   id_stakeholder?: Prisma.SortOrder
-  id_rol?: Prisma.SortOrder
   id_proyecto?: Prisma.SortOrder
+}
+
+export type StakeholderNullableScalarRelationFilter = {
+  is?: Prisma.stakeholderWhereInput | null
+  isNot?: Prisma.stakeholderWhereInput | null
 }
 
 export type stakeholderCreateNestedManyWithoutProyectoInput = {
@@ -436,61 +462,39 @@ export type stakeholderUncheckedUpdateManyWithoutProyectoNestedInput = {
   deleteMany?: Prisma.stakeholderScalarWhereInput | Prisma.stakeholderScalarWhereInput[]
 }
 
-export type stakeholderCreateNestedManyWithoutRolInput = {
-  create?: Prisma.XOR<Prisma.stakeholderCreateWithoutRolInput, Prisma.stakeholderUncheckedCreateWithoutRolInput> | Prisma.stakeholderCreateWithoutRolInput[] | Prisma.stakeholderUncheckedCreateWithoutRolInput[]
-  connectOrCreate?: Prisma.stakeholderCreateOrConnectWithoutRolInput | Prisma.stakeholderCreateOrConnectWithoutRolInput[]
-  createMany?: Prisma.stakeholderCreateManyRolInputEnvelope
-  connect?: Prisma.stakeholderWhereUniqueInput | Prisma.stakeholderWhereUniqueInput[]
+export type stakeholderCreateNestedOneWithoutTecnica_recoleccionInput = {
+  create?: Prisma.XOR<Prisma.stakeholderCreateWithoutTecnica_recoleccionInput, Prisma.stakeholderUncheckedCreateWithoutTecnica_recoleccionInput>
+  connectOrCreate?: Prisma.stakeholderCreateOrConnectWithoutTecnica_recoleccionInput
+  connect?: Prisma.stakeholderWhereUniqueInput
 }
 
-export type stakeholderUncheckedCreateNestedManyWithoutRolInput = {
-  create?: Prisma.XOR<Prisma.stakeholderCreateWithoutRolInput, Prisma.stakeholderUncheckedCreateWithoutRolInput> | Prisma.stakeholderCreateWithoutRolInput[] | Prisma.stakeholderUncheckedCreateWithoutRolInput[]
-  connectOrCreate?: Prisma.stakeholderCreateOrConnectWithoutRolInput | Prisma.stakeholderCreateOrConnectWithoutRolInput[]
-  createMany?: Prisma.stakeholderCreateManyRolInputEnvelope
-  connect?: Prisma.stakeholderWhereUniqueInput | Prisma.stakeholderWhereUniqueInput[]
-}
-
-export type stakeholderUpdateManyWithoutRolNestedInput = {
-  create?: Prisma.XOR<Prisma.stakeholderCreateWithoutRolInput, Prisma.stakeholderUncheckedCreateWithoutRolInput> | Prisma.stakeholderCreateWithoutRolInput[] | Prisma.stakeholderUncheckedCreateWithoutRolInput[]
-  connectOrCreate?: Prisma.stakeholderCreateOrConnectWithoutRolInput | Prisma.stakeholderCreateOrConnectWithoutRolInput[]
-  upsert?: Prisma.stakeholderUpsertWithWhereUniqueWithoutRolInput | Prisma.stakeholderUpsertWithWhereUniqueWithoutRolInput[]
-  createMany?: Prisma.stakeholderCreateManyRolInputEnvelope
-  set?: Prisma.stakeholderWhereUniqueInput | Prisma.stakeholderWhereUniqueInput[]
-  disconnect?: Prisma.stakeholderWhereUniqueInput | Prisma.stakeholderWhereUniqueInput[]
-  delete?: Prisma.stakeholderWhereUniqueInput | Prisma.stakeholderWhereUniqueInput[]
-  connect?: Prisma.stakeholderWhereUniqueInput | Prisma.stakeholderWhereUniqueInput[]
-  update?: Prisma.stakeholderUpdateWithWhereUniqueWithoutRolInput | Prisma.stakeholderUpdateWithWhereUniqueWithoutRolInput[]
-  updateMany?: Prisma.stakeholderUpdateManyWithWhereWithoutRolInput | Prisma.stakeholderUpdateManyWithWhereWithoutRolInput[]
-  deleteMany?: Prisma.stakeholderScalarWhereInput | Prisma.stakeholderScalarWhereInput[]
-}
-
-export type stakeholderUncheckedUpdateManyWithoutRolNestedInput = {
-  create?: Prisma.XOR<Prisma.stakeholderCreateWithoutRolInput, Prisma.stakeholderUncheckedCreateWithoutRolInput> | Prisma.stakeholderCreateWithoutRolInput[] | Prisma.stakeholderUncheckedCreateWithoutRolInput[]
-  connectOrCreate?: Prisma.stakeholderCreateOrConnectWithoutRolInput | Prisma.stakeholderCreateOrConnectWithoutRolInput[]
-  upsert?: Prisma.stakeholderUpsertWithWhereUniqueWithoutRolInput | Prisma.stakeholderUpsertWithWhereUniqueWithoutRolInput[]
-  createMany?: Prisma.stakeholderCreateManyRolInputEnvelope
-  set?: Prisma.stakeholderWhereUniqueInput | Prisma.stakeholderWhereUniqueInput[]
-  disconnect?: Prisma.stakeholderWhereUniqueInput | Prisma.stakeholderWhereUniqueInput[]
-  delete?: Prisma.stakeholderWhereUniqueInput | Prisma.stakeholderWhereUniqueInput[]
-  connect?: Prisma.stakeholderWhereUniqueInput | Prisma.stakeholderWhereUniqueInput[]
-  update?: Prisma.stakeholderUpdateWithWhereUniqueWithoutRolInput | Prisma.stakeholderUpdateWithWhereUniqueWithoutRolInput[]
-  updateMany?: Prisma.stakeholderUpdateManyWithWhereWithoutRolInput | Prisma.stakeholderUpdateManyWithWhereWithoutRolInput[]
-  deleteMany?: Prisma.stakeholderScalarWhereInput | Prisma.stakeholderScalarWhereInput[]
+export type stakeholderUpdateOneWithoutTecnica_recoleccionNestedInput = {
+  create?: Prisma.XOR<Prisma.stakeholderCreateWithoutTecnica_recoleccionInput, Prisma.stakeholderUncheckedCreateWithoutTecnica_recoleccionInput>
+  connectOrCreate?: Prisma.stakeholderCreateOrConnectWithoutTecnica_recoleccionInput
+  upsert?: Prisma.stakeholderUpsertWithoutTecnica_recoleccionInput
+  disconnect?: Prisma.stakeholderWhereInput | boolean
+  delete?: Prisma.stakeholderWhereInput | boolean
+  connect?: Prisma.stakeholderWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.stakeholderUpdateToOneWithWhereWithoutTecnica_recoleccionInput, Prisma.stakeholderUpdateWithoutTecnica_recoleccionInput>, Prisma.stakeholderUncheckedUpdateWithoutTecnica_recoleccionInput>
 }
 
 export type stakeholderCreateWithoutProyectoInput = {
   nombre: string
-  email?: string | null
-  estatus?: string | null
-  rol?: Prisma.rolCreateNestedOneWithoutStakeholderInput
+  rol: string
+  area?: string | null
+  contacto_email?: string | null
+  notas?: string | null
+  tecnica_recoleccion?: Prisma.tecnica_recoleccionCreateNestedManyWithoutStakeholderInput
 }
 
 export type stakeholderUncheckedCreateWithoutProyectoInput = {
   id_stakeholder?: number
   nombre: string
-  email?: string | null
-  id_rol?: number | null
-  estatus?: string | null
+  rol: string
+  area?: string | null
+  contacto_email?: string | null
+  notas?: string | null
+  tecnica_recoleccion?: Prisma.tecnica_recoleccionUncheckedCreateNestedManyWithoutStakeholderInput
 }
 
 export type stakeholderCreateOrConnectWithoutProyectoInput = {
@@ -524,187 +528,208 @@ export type stakeholderScalarWhereInput = {
   OR?: Prisma.stakeholderScalarWhereInput[]
   NOT?: Prisma.stakeholderScalarWhereInput | Prisma.stakeholderScalarWhereInput[]
   id_stakeholder?: Prisma.IntFilter<"stakeholder"> | number
-  nombre?: Prisma.StringFilter<"stakeholder"> | string
-  email?: Prisma.StringNullableFilter<"stakeholder"> | string | null
-  id_rol?: Prisma.IntNullableFilter<"stakeholder"> | number | null
-  estatus?: Prisma.StringNullableFilter<"stakeholder"> | string | null
   id_proyecto?: Prisma.IntNullableFilter<"stakeholder"> | number | null
+  nombre?: Prisma.StringFilter<"stakeholder"> | string
+  rol?: Prisma.StringFilter<"stakeholder"> | string
+  area?: Prisma.StringNullableFilter<"stakeholder"> | string | null
+  contacto_email?: Prisma.StringNullableFilter<"stakeholder"> | string | null
+  notas?: Prisma.StringNullableFilter<"stakeholder"> | string | null
 }
 
-export type stakeholderCreateWithoutRolInput = {
+export type stakeholderCreateWithoutTecnica_recoleccionInput = {
   nombre: string
-  email?: string | null
-  estatus?: string | null
+  rol: string
+  area?: string | null
+  contacto_email?: string | null
+  notas?: string | null
   proyecto?: Prisma.proyectoCreateNestedOneWithoutStakeholderInput
 }
 
-export type stakeholderUncheckedCreateWithoutRolInput = {
+export type stakeholderUncheckedCreateWithoutTecnica_recoleccionInput = {
   id_stakeholder?: number
-  nombre: string
-  email?: string | null
-  estatus?: string | null
   id_proyecto?: number | null
+  nombre: string
+  rol: string
+  area?: string | null
+  contacto_email?: string | null
+  notas?: string | null
 }
 
-export type stakeholderCreateOrConnectWithoutRolInput = {
+export type stakeholderCreateOrConnectWithoutTecnica_recoleccionInput = {
   where: Prisma.stakeholderWhereUniqueInput
-  create: Prisma.XOR<Prisma.stakeholderCreateWithoutRolInput, Prisma.stakeholderUncheckedCreateWithoutRolInput>
+  create: Prisma.XOR<Prisma.stakeholderCreateWithoutTecnica_recoleccionInput, Prisma.stakeholderUncheckedCreateWithoutTecnica_recoleccionInput>
 }
 
-export type stakeholderCreateManyRolInputEnvelope = {
-  data: Prisma.stakeholderCreateManyRolInput | Prisma.stakeholderCreateManyRolInput[]
-  skipDuplicates?: boolean
+export type stakeholderUpsertWithoutTecnica_recoleccionInput = {
+  update: Prisma.XOR<Prisma.stakeholderUpdateWithoutTecnica_recoleccionInput, Prisma.stakeholderUncheckedUpdateWithoutTecnica_recoleccionInput>
+  create: Prisma.XOR<Prisma.stakeholderCreateWithoutTecnica_recoleccionInput, Prisma.stakeholderUncheckedCreateWithoutTecnica_recoleccionInput>
+  where?: Prisma.stakeholderWhereInput
 }
 
-export type stakeholderUpsertWithWhereUniqueWithoutRolInput = {
-  where: Prisma.stakeholderWhereUniqueInput
-  update: Prisma.XOR<Prisma.stakeholderUpdateWithoutRolInput, Prisma.stakeholderUncheckedUpdateWithoutRolInput>
-  create: Prisma.XOR<Prisma.stakeholderCreateWithoutRolInput, Prisma.stakeholderUncheckedCreateWithoutRolInput>
+export type stakeholderUpdateToOneWithWhereWithoutTecnica_recoleccionInput = {
+  where?: Prisma.stakeholderWhereInput
+  data: Prisma.XOR<Prisma.stakeholderUpdateWithoutTecnica_recoleccionInput, Prisma.stakeholderUncheckedUpdateWithoutTecnica_recoleccionInput>
 }
 
-export type stakeholderUpdateWithWhereUniqueWithoutRolInput = {
-  where: Prisma.stakeholderWhereUniqueInput
-  data: Prisma.XOR<Prisma.stakeholderUpdateWithoutRolInput, Prisma.stakeholderUncheckedUpdateWithoutRolInput>
+export type stakeholderUpdateWithoutTecnica_recoleccionInput = {
+  nombre?: Prisma.StringFieldUpdateOperationsInput | string
+  rol?: Prisma.StringFieldUpdateOperationsInput | string
+  area?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contacto_email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notas?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  proyecto?: Prisma.proyectoUpdateOneWithoutStakeholderNestedInput
 }
 
-export type stakeholderUpdateManyWithWhereWithoutRolInput = {
-  where: Prisma.stakeholderScalarWhereInput
-  data: Prisma.XOR<Prisma.stakeholderUpdateManyMutationInput, Prisma.stakeholderUncheckedUpdateManyWithoutRolInput>
+export type stakeholderUncheckedUpdateWithoutTecnica_recoleccionInput = {
+  id_stakeholder?: Prisma.IntFieldUpdateOperationsInput | number
+  id_proyecto?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  nombre?: Prisma.StringFieldUpdateOperationsInput | string
+  rol?: Prisma.StringFieldUpdateOperationsInput | string
+  area?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contacto_email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notas?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type stakeholderCreateManyProyectoInput = {
   id_stakeholder?: number
   nombre: string
-  email?: string | null
-  id_rol?: number | null
-  estatus?: string | null
+  rol: string
+  area?: string | null
+  contacto_email?: string | null
+  notas?: string | null
 }
 
 export type stakeholderUpdateWithoutProyectoInput = {
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  estatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  rol?: Prisma.rolUpdateOneWithoutStakeholderNestedInput
+  rol?: Prisma.StringFieldUpdateOperationsInput | string
+  area?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contacto_email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notas?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tecnica_recoleccion?: Prisma.tecnica_recoleccionUpdateManyWithoutStakeholderNestedInput
 }
 
 export type stakeholderUncheckedUpdateWithoutProyectoInput = {
   id_stakeholder?: Prisma.IntFieldUpdateOperationsInput | number
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  id_rol?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  estatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rol?: Prisma.StringFieldUpdateOperationsInput | string
+  area?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contacto_email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notas?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  tecnica_recoleccion?: Prisma.tecnica_recoleccionUncheckedUpdateManyWithoutStakeholderNestedInput
 }
 
 export type stakeholderUncheckedUpdateManyWithoutProyectoInput = {
   id_stakeholder?: Prisma.IntFieldUpdateOperationsInput | number
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  id_rol?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  estatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rol?: Prisma.StringFieldUpdateOperationsInput | string
+  area?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contacto_email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  notas?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
-export type stakeholderCreateManyRolInput = {
-  id_stakeholder?: number
-  nombre: string
-  email?: string | null
-  estatus?: string | null
-  id_proyecto?: number | null
+
+/**
+ * Count Type StakeholderCountOutputType
+ */
+
+export type StakeholderCountOutputType = {
+  tecnica_recoleccion: number
 }
 
-export type stakeholderUpdateWithoutRolInput = {
-  nombre?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  estatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  proyecto?: Prisma.proyectoUpdateOneWithoutStakeholderNestedInput
+export type StakeholderCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  tecnica_recoleccion?: boolean | StakeholderCountOutputTypeCountTecnica_recoleccionArgs
 }
 
-export type stakeholderUncheckedUpdateWithoutRolInput = {
-  id_stakeholder?: Prisma.IntFieldUpdateOperationsInput | number
-  nombre?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  estatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  id_proyecto?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+/**
+ * StakeholderCountOutputType without action
+ */
+export type StakeholderCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the StakeholderCountOutputType
+   */
+  select?: Prisma.StakeholderCountOutputTypeSelect<ExtArgs> | null
 }
 
-export type stakeholderUncheckedUpdateManyWithoutRolInput = {
-  id_stakeholder?: Prisma.IntFieldUpdateOperationsInput | number
-  nombre?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  estatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  id_proyecto?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+/**
+ * StakeholderCountOutputType without action
+ */
+export type StakeholderCountOutputTypeCountTecnica_recoleccionArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.tecnica_recoleccionWhereInput
 }
-
 
 
 export type stakeholderSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id_stakeholder?: boolean
-  nombre?: boolean
-  email?: boolean
-  id_rol?: boolean
-  estatus?: boolean
   id_proyecto?: boolean
+  nombre?: boolean
+  rol?: boolean
+  area?: boolean
+  contacto_email?: boolean
+  notas?: boolean
   proyecto?: boolean | Prisma.stakeholder$proyectoArgs<ExtArgs>
-  rol?: boolean | Prisma.stakeholder$rolArgs<ExtArgs>
+  tecnica_recoleccion?: boolean | Prisma.stakeholder$tecnica_recoleccionArgs<ExtArgs>
+  _count?: boolean | Prisma.StakeholderCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["stakeholder"]>
 
 export type stakeholderSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id_stakeholder?: boolean
-  nombre?: boolean
-  email?: boolean
-  id_rol?: boolean
-  estatus?: boolean
   id_proyecto?: boolean
+  nombre?: boolean
+  rol?: boolean
+  area?: boolean
+  contacto_email?: boolean
+  notas?: boolean
   proyecto?: boolean | Prisma.stakeholder$proyectoArgs<ExtArgs>
-  rol?: boolean | Prisma.stakeholder$rolArgs<ExtArgs>
 }, ExtArgs["result"]["stakeholder"]>
 
 export type stakeholderSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id_stakeholder?: boolean
-  nombre?: boolean
-  email?: boolean
-  id_rol?: boolean
-  estatus?: boolean
   id_proyecto?: boolean
+  nombre?: boolean
+  rol?: boolean
+  area?: boolean
+  contacto_email?: boolean
+  notas?: boolean
   proyecto?: boolean | Prisma.stakeholder$proyectoArgs<ExtArgs>
-  rol?: boolean | Prisma.stakeholder$rolArgs<ExtArgs>
 }, ExtArgs["result"]["stakeholder"]>
 
 export type stakeholderSelectScalar = {
   id_stakeholder?: boolean
-  nombre?: boolean
-  email?: boolean
-  id_rol?: boolean
-  estatus?: boolean
   id_proyecto?: boolean
+  nombre?: boolean
+  rol?: boolean
+  area?: boolean
+  contacto_email?: boolean
+  notas?: boolean
 }
 
-export type stakeholderOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id_stakeholder" | "nombre" | "email" | "id_rol" | "estatus" | "id_proyecto", ExtArgs["result"]["stakeholder"]>
+export type stakeholderOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id_stakeholder" | "id_proyecto" | "nombre" | "rol" | "area" | "contacto_email" | "notas", ExtArgs["result"]["stakeholder"]>
 export type stakeholderInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   proyecto?: boolean | Prisma.stakeholder$proyectoArgs<ExtArgs>
-  rol?: boolean | Prisma.stakeholder$rolArgs<ExtArgs>
+  tecnica_recoleccion?: boolean | Prisma.stakeholder$tecnica_recoleccionArgs<ExtArgs>
+  _count?: boolean | Prisma.StakeholderCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type stakeholderIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   proyecto?: boolean | Prisma.stakeholder$proyectoArgs<ExtArgs>
-  rol?: boolean | Prisma.stakeholder$rolArgs<ExtArgs>
 }
 export type stakeholderIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   proyecto?: boolean | Prisma.stakeholder$proyectoArgs<ExtArgs>
-  rol?: boolean | Prisma.stakeholder$rolArgs<ExtArgs>
 }
 
 export type $stakeholderPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "stakeholder"
   objects: {
     proyecto: Prisma.$proyectoPayload<ExtArgs> | null
-    rol: Prisma.$rolPayload<ExtArgs> | null
+    tecnica_recoleccion: Prisma.$tecnica_recoleccionPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id_stakeholder: number
-    nombre: string
-    email: string | null
-    id_rol: number | null
-    estatus: string | null
     id_proyecto: number | null
+    nombre: string
+    rol: string
+    area: string | null
+    contacto_email: string | null
+    notas: string | null
   }, ExtArgs["result"]["stakeholder"]>
   composites: {}
 }
@@ -1100,7 +1125,7 @@ readonly fields: stakeholderFieldRefs;
 export interface Prisma__stakeholderClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   proyecto<T extends Prisma.stakeholder$proyectoArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.stakeholder$proyectoArgs<ExtArgs>>): Prisma.Prisma__proyectoClient<runtime.Types.Result.GetResult<Prisma.$proyectoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-  rol<T extends Prisma.stakeholder$rolArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.stakeholder$rolArgs<ExtArgs>>): Prisma.Prisma__rolClient<runtime.Types.Result.GetResult<Prisma.$rolPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  tecnica_recoleccion<T extends Prisma.stakeholder$tecnica_recoleccionArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.stakeholder$tecnica_recoleccionArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$tecnica_recoleccionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1131,11 +1156,12 @@ export interface Prisma__stakeholderClient<T, Null = never, ExtArgs extends runt
  */
 export interface stakeholderFieldRefs {
   readonly id_stakeholder: Prisma.FieldRef<"stakeholder", 'Int'>
-  readonly nombre: Prisma.FieldRef<"stakeholder", 'String'>
-  readonly email: Prisma.FieldRef<"stakeholder", 'String'>
-  readonly id_rol: Prisma.FieldRef<"stakeholder", 'Int'>
-  readonly estatus: Prisma.FieldRef<"stakeholder", 'String'>
   readonly id_proyecto: Prisma.FieldRef<"stakeholder", 'Int'>
+  readonly nombre: Prisma.FieldRef<"stakeholder", 'String'>
+  readonly rol: Prisma.FieldRef<"stakeholder", 'String'>
+  readonly area: Prisma.FieldRef<"stakeholder", 'String'>
+  readonly contacto_email: Prisma.FieldRef<"stakeholder", 'String'>
+  readonly notas: Prisma.FieldRef<"stakeholder", 'String'>
 }
     
 
@@ -1556,22 +1582,27 @@ export type stakeholder$proyectoArgs<ExtArgs extends runtime.Types.Extensions.In
 }
 
 /**
- * stakeholder.rol
+ * stakeholder.tecnica_recoleccion
  */
-export type stakeholder$rolArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type stakeholder$tecnica_recoleccionArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the rol
+   * Select specific fields to fetch from the tecnica_recoleccion
    */
-  select?: Prisma.rolSelect<ExtArgs> | null
+  select?: Prisma.tecnica_recoleccionSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the rol
+   * Omit specific fields from the tecnica_recoleccion
    */
-  omit?: Prisma.rolOmit<ExtArgs> | null
+  omit?: Prisma.tecnica_recoleccionOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.rolInclude<ExtArgs> | null
-  where?: Prisma.rolWhereInput
+  include?: Prisma.tecnica_recoleccionInclude<ExtArgs> | null
+  where?: Prisma.tecnica_recoleccionWhereInput
+  orderBy?: Prisma.tecnica_recoleccionOrderByWithRelationInput | Prisma.tecnica_recoleccionOrderByWithRelationInput[]
+  cursor?: Prisma.tecnica_recoleccionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.Tecnica_recoleccionScalarFieldEnum | Prisma.Tecnica_recoleccionScalarFieldEnum[]
 }
 
 /**
