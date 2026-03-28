@@ -1,39 +1,51 @@
+import { useState } from "react";
 import "./Subprocesses.css"
+import type { Subproceso } from "../../Types/Procesos";
 import { Edit, WorkflowAlt, Gear } from "@boxicons/react";  
+import ModalCreate from "../../Modals/ModalCreate";
+import SubprocessCreate from "../../Modals/ModalChildrens/SubprocessesModals/SubprocessCreate";
 
-const subprocess = [
-    {id: 1, nombre: "Subproceso 1", descripcion: "Subproceso del proceso X", idProcess: 1},
-    {id: 2, nombre: "Subproceso 2", descripcion: "Subproceso del proceso X", idProcess: 1},
-    {id: 3, nombre: "Subproceso 3", descripcion: "Subproceso del proceso X", idProcess: 2},
-    {id: 4, nombre: "Subproceso 4", descripcion: "Subproceso del proceso X", idProcess: 2},
-    {id: 5, nombre: "Subproceso 5", descripcion: "Subproceso del proceso X", idProcess: 3},
-    {id: 6, nombre: "Subproceso 6", descripcion: "Subproceso del proceso X", idProcess: 3},
-];
-
-interface IdSubprocessProp {
-    id: number;
+interface SubprocessListProp {
+    subprocesosList: Subproceso[];
+    setSubprocesosList: React.Dispatch<React.SetStateAction<Subproceso[]>>;
 }
 
-export default function SubprocessList({ id }: IdSubprocessProp) {
-    const filterSubprocess = subprocess.filter(sp => sp.idProcess === id);
-    
+interface IdProcessProp {
+    idProcess: number;
+}
+
+export default function SubprocessList({ subprocesosList, setSubprocesosList, idProcess }: SubprocessListProp & IdProcessProp) {
+    const [modalOpen, setModalOpen] = useState(false);
+
     return (
         <section className="subprocesses-list">
             <header>
                 <span>Subprocesos</span>
-                <button className="btn-add-subprocess">
+                <button
+                    className="btn-add-subprocess"
+                    onClick={() => setModalOpen(true)}
+                >
                     <WorkflowAlt size="xs"/>
                     Agregar Subproceso
-                    </button>
+                </button>
             </header>
-            {filterSubprocess.map(sp => (
+            {!subprocesosList.length && <p className="no-subprocesses">No hay subprocesos para este proceso.</p>}
+            {subprocesosList.map(sp => (
                 <Subprocess
-                    key={sp.id}
-                    id={sp.id}
+                    key={sp.id_subproceso}
+                    id={sp.id_subproceso}
                     nombre={sp.nombre}
                     descripcion={sp.descripcion}
+                    idProcess={sp.id_proceso}
                 />
             ))}
+            {modalOpen && <ModalCreate children={
+                <SubprocessCreate
+                    setSubprocesosList={setSubprocesosList}
+                    idProcess={idProcess}
+                    setModalOpen={setModalOpen}
+                />
+            } setOpen={setModalOpen}/>}
         </section>
     );
 }
@@ -42,9 +54,13 @@ interface SubprocessProp {
     id: number;
     nombre: string;
     descripcion: string;
+    idProcess: number;
 }
 
-function Subprocess({ nombre, descripcion }: SubprocessProp ) {
+function Subprocess({ id, nombre, descripcion, idProcess }: SubprocessProp ) {
+    console.log("Subproceso ID:", id);
+    console.log("ID del Proceso:", idProcess);
+
     return(
         <article className="subprocess">
             <div className="info-subprocess">

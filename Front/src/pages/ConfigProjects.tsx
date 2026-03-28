@@ -55,7 +55,10 @@ export default function ConfigProjects() {
 
                 // Obtiene la info del proyecto seleccionado por su id
                 const dataProject = await consultOneProject(idProject.id, token);
-                if (!dataProject) throw new Error("No se pudo obtener la información del proyecto");
+                if (!dataProject) {
+                    navigate("/login");
+                    throw new Error("No se pudo obtener la información del proyecto");
+                }
 
                 const dateClean = dataProject.fecha_inicio.split("T")[0];
                 setProject({

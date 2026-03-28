@@ -1,13 +1,19 @@
 import { useContext, useState } from "react";
 import "./ProcessesCreate.css";
 import { ProjectIdContext } from "../../../pages/ConfigProjects";
+import type { Proceso } from "../../../Types/Procesos";
 
 // Esta interfaz es para pasar el estado para abrir/cerrar el modal de creación de procesos
 interface OpenCreateProcessModalProp {
     setCreateProcess: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export default function ProcessesCreate({ setCreateProcess }: OpenCreateProcessModalProp) {
+// Pasar el setter de procesos 
+interface SetProcesosProp {
+    setProcesos: React.Dispatch<React.SetStateAction<Proceso[]>>;
+}
+
+export default function ProcessesCreate({ setCreateProcess, setProcesos }: OpenCreateProcessModalProp & SetProcesosProp) {
     const [nombre, setNombre] = useState("");
     const [descripcion, setDescripcion] = useState("");
     const projectId = useContext(ProjectIdContext); // Utiliza el contexto para obtener el ID del proyecto
@@ -35,6 +41,7 @@ export default function ProcessesCreate({ setCreateProcess }: OpenCreateProcessM
             const data = await response.json();
             alert("Proceso creado exitosamente");
             setCreateProcess(false); // Cierra el modal después de crear el proceso
+            setProcesos((prevProcesos) => [...prevProcesos, data]); // Agrega el nuevo proceso a la lista de procesos
             console.log("Proceso creado:", data);
         } catch (error) {
             console.error("Error:", error);
