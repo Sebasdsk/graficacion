@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router";
 import "./HomePage.css"
-import { HomeAlt2 } from "@boxicons/react";
+import { HomeAlt2, GridColumnLeft, Checklist, InfoCircle } from "@boxicons/react";
 
 export default function HomePage() {
     return (
@@ -50,9 +50,9 @@ function HeaderHomePage() {
             <nav className="nav-home">
                 <ul>
                     <li><a href="/"><HomeAlt2 size="sm"/>  Inicio</a></li>
-                    <li><a href="#product">Producto</a></li>
-                    <li><a href="#features">Características</a></li>
-                    <li><a href="#about">Acerca De</a></li>
+                    <li><a href="#product"><GridColumnLeft size="sm"/> Producto</a></li>
+                    <li><a href="#features"><Checklist size="sm"/> Características</a></li>
+                    <li><a href="#about"><InfoCircle size="sm"/> Acerca De</a></li>
                 </ul>
             </nav>
             <button className="button-login" onClick={() => navigate("/login")}>Login</button>

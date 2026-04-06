@@ -16,6 +16,7 @@
     padding: 2rem;
     min-height: 40vh;
     background: linear-gradient(to bottom, #ffffff 0%, #f8f9fa 100%);
+    margin-top: 4rem;
 }
 
 .section-home h1 {
@@ -68,13 +69,16 @@
 }
 
 .header-home {
+    position: fixed;
     width: 100%;
     padding: .5rem 1.5rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: rgba(255, 255, 255, 0.98);
+    background-color: rgba(233, 233, 233, 0.4);
     backdrop-filter: blur(10px);
+    z-index: 1000;
+    animation: fade-in-slow 400ms ease-out;
 }
 
 .header-home .logo {
@@ -84,15 +88,10 @@
 }
 
 .header-home .nav-home {
-    width: clamp(300px, 50%, 700px);
+    width: clamp(200px, 70%, 700px);
     display: flex;
     gap: 1rem;
-    background-color: #f4f4f4;
     padding: .4rem;
-    border-radius: 30px;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-    border: 1px solid rgba(0, 0, 0, 0.06);
-    animation: fade-in-slow 400ms ease-out;
 }
 
 .header-home .nav-home ul {
@@ -111,7 +110,7 @@
     text-decoration: none;
     font-size: 1rem;
     font-weight: 400;
-    padding: 1rem 1.5rem;
+    padding: .5rem 1rem;
     border-radius: 25px;
     transition: all 0.2s ease;
     display: flex;
@@ -121,7 +120,7 @@
 }
 
 .header-home .nav-home a:hover {
-    background-color: #ffffff;
+    background-color: #e8eaed;
 }
 
 .header-home .button-login {
