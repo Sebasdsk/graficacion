@@ -4,6 +4,7 @@ import type { Subproceso } from "../../Types/Procesos";
 import { Edit, WorkflowAlt, Gear } from "@boxicons/react";  
 import ModalCreate from "../../Modals/ModalCreate";
 import SubprocessCreate from "../../Modals/ModalChildrens/SubprocessesModals/SubprocessCreate";
+import { useNavigate } from "react-router";
 
 interface SubprocessListProp {
     subprocesosList: Subproceso[];
@@ -58,6 +59,7 @@ interface SubprocessProp {
 }
 
 function Subprocess({ id, nombre, descripcion, idProcess }: SubprocessProp ) {
+    const navigate = useNavigate();
     console.log("Subproceso ID:", id);
     console.log("ID del Proceso:", idProcess);
 
@@ -70,7 +72,10 @@ function Subprocess({ id, nombre, descripcion, idProcess }: SubprocessProp ) {
                 </div>
                 <small>{descripcion}</small>
                 <div className="list-tecnicas">
-                    <button className="btn-config-tecnicas">
+                    <button
+                        className="btn-config-tecnicas"
+                        onClick={() => navigate(`proccess/subprocess/${id}/techniques-dashboard`)}
+                    >
                         <Gear size="xs"/>
                         Gestionar Técnicas
                     </button>
