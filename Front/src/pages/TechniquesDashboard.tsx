@@ -78,7 +78,7 @@ function TechniquesSidebar({ subprocessName, subprocessDescription }: Subprocess
 
     return (
         <aside className="techniques-sidebar">
-            <header className="header-sidebar">
+            <header className="header-techniques-sidebar">
                 <button
                     onClick={() => navigate(-1)}
                     className="back-button"

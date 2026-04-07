@@ -16,7 +16,7 @@ export default function HomePage() {
                     <img src="./public/FLOWTIC_Dashboard_Image.png" alt="Descripción de la imagen" />
                 </div>
             </section>
-            <div className="backdrop">
+            <div className="backdrop-features">
                 <article className="features" id="features">
                     <div className="text-wrapper">
                         <h2>Configura tus Proyectos y Recopila Información</h2>
