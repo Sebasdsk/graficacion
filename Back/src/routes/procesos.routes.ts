@@ -1,6 +1,7 @@
 import { Router, Request, Response } from 'express';
 import { pool } from '../config/db';
-import { verifyToken } from '../middleware/auth.middleware'; 
+import { verifyToken } from '../middleware/auth.middleware';
+import { prisma } from "../../lib/prisma";
 
 const router = Router();
 
@@ -103,6 +104,28 @@ router.post('/subproceso', verifyToken, async (req: any, res: Response) => {
         res.status(500).send('Error al crear subproceso');
     } finally {
         client.release();
+    }
+});
+
+// Método para obtener un subproceso por ID (Para la pantalla de las técnicas de recolección)
+router.get('/subproceso/:id_subproceso', verifyToken, async (req: any, res: Response) => {
+    const { id_subproceso } = req.params;
+
+    try {
+        const subproceso = await prisma.subproceso.findUnique({
+            where: {
+                id_subproceso: Number(id_subproceso)
+            },
+            include: {
+                proceso: true
+            }
+        });
+
+        res.json(subproceso);
+
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Error al obtener subproceso');
     }
 });
 
