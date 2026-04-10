@@ -2,23 +2,58 @@
     display: flex;
 }
 
+/* Estilos del Sidebar */
 .techniques-sidebar {
     height: 100dvh;
     display: flex;
     flex-direction: column;
     border-right: 1px solid var(--border-container);
-    width: 40dvh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 260px;
+    z-index: 1000;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
     overflow: hidden;
-    background-color: var(--container);
+    background: #ffff;
+}
+
+.backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    z-index: 999;
 }
 
 .header-techniques-sidebar {
     padding: 12px 16px;
-    background: #ffff;
     border-bottom: 1px solid var(--border-container);
     display: flex;
     flex-direction: column;
     gap: .8rem;
+}
+
+.subprocess-info-techniques {
+    display: flex;
+    flex-direction: column;
+    gap: .4rem;
+}
+
+.subprocess-info-techniques  span {
+    color: var(--info-text);
+    font-size: 1rem;
+}
+
+.subprocess-info-techniques  h2 {
+    font-size: 1.2rem;
+    text-align: left;
+}
+
+.subprocess-info-techniques  small {
+    margin: 0;
+    color: var(--info-text);
+    margin-bottom: .6rem;
 }
 
 .back-button {
@@ -37,17 +72,142 @@
     background-color: #cdcdcd;
 }
 
-.techniques-sidebar h2 {
-    font-size: 1.2rem;
-    text-align: left;
+.resume-techniques-sidebar {
+    border-bottom: 1px solid var(--border-container);
+    background-color: var(--container);
+    padding: 1.4rem;
+    display: flex;
+    flex-direction: column;
+    gap: .6rem;
+}
+
+.resume-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.resume-item p {
+    font-size: 1rem;
+    margin: 0;
+    font-weight: 600;
+}
+
+.resume-item small {
+    color: var(--info-text);
+}
+
+.general-view-techniques-sidebar {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: .6rem;
+} 
+
+.general-view-button {
+    padding: .6rem;
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+    border: none;
+    border-radius: 10px;
+    background: transparent;
+    transition: all .2s ease;
+}
+
+.general-view-button .view-selected {
+    background: #dbdbdb;
+}
+
+.general-view-button:hover {
+    background: #cdcdcd;
+}
+
+.techniques-list {
+    display: flex;
+    flex-direction: column;
+    gap: .8rem;
+}
+
+.header-techniques-list {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-techniques-list span {
+    font-size: .8rem;
+    font-weight: 500;
+    color: var(--info-text);
+}
+
+.add-technique-button-sidebar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background-color: transparent;
+    border-radius: 8px;
+    padding: .4rem;
+    transition: all .1s ease;
+}
+
+.add-technique-button-sidebar:hover {
+    background-color: #cdcdcd;
+}
+
+.none-technique {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: .6rem;
+}
+
+.none-technique span {
+    color: var(--info-text);
+    font-size: .9rem;
+}
+
+.add-technique-button-list {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .6rem;
+    border: 1px solid var(--border-container);
+    padding: .4rem .6rem;
+    border-radius: 8px;
+    white-space: nowrap;
+    background: #ffff;
+    transition: all .1s ease;
+    font-size: .8rem;
+    font-weight: 600;
+}
+
+.add-technique-button-list:hover {
+    background: #f0f0f0;
+}
+
+/* Estilos del Contenido Principal */
+.techniques-main-content {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
 }
 
 .techniques-header {
-    padding: 16px;
     display: flex;
     justify-content: space-between;
-    align-items: start;
+    align-items: center;
     gap: .8rem;
+}
+
+.header-info-buttons-container {
+    display: flex;
+    align-items: center;
+    gap: .6rem;
 }
 
 .header-content {
@@ -74,8 +234,115 @@
     padding: .6rem .8rem;
     border-radius: 10px;
     white-space: nowrap;
+    background: var(--button-green);
+    transition: all .2s ease;
 }
 
-.header-sidebar small {
-    color: var(--info-text);
+.add-technique-button:hover {
+    transform: translateY(-5px);
+}
+
+.techniques-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.none-technique-container {
+    height: clamp(200px, 30vh, 400px);
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 2rem;
+    border: 1px solid var(--border-container);
+    border-radius: 15px;
+}
+
+.add-first-technique-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .6rem;
+    border: none;
+    padding: .6rem .8rem;
+    border-radius: 10px;
+    white-space: nowrap;
+    background: #191919;
+    color: #ffff;
+    transition: all .2s ease;
+}
+
+.add-first-technique-button:hover {
+    transform: translateY(-5px);
+    background: #2e2e2e;
+}
+
+.toggle-mobile-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background-color: transparent;
+    padding: .4rem;
+    transition: all .1s ease;
+    border-radius: 10px;
+}
+
+.toggle-mobile-button:hover {
+    background-color: #cdcdcd;
+}
+
+.toggle-sidebar-button {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background-color: transparent;
+    padding: .4rem;
+    transition: all .1s ease;
+    border-radius: 10px;
+}
+
+.toggle-sidebar-button:hover {
+    background-color: #cdcdcd;
+}
+
+.techniques-dashboard-page.mobile-open .techniques-sidebar {
+    transform: translateX(0);
+}
+
+@media (min-width: 769px) {
+    .techniques-sidebar {
+        position: relative;
+        height: 100dvh;
+        display: flex;
+        flex-direction: column;
+        border-right: 1px solid var(--border-container);
+        width: 20dvw;
+        background: #ffff;
+        flex-shrink: 0;
+        transform: translateX(0);
+        transition: width 0.3s ease;
+        overflow: hidden;
+    }
+
+    .techniques-sidebar > * {
+        min-width: 20dvw;
+    }
+
+    .techniques-dashboard-page.collapsed .techniques-sidebar {
+        width: 0;
+    }
+
+    .toggle-mobile-button {
+        display: none;
+    }
+
+    .toggle-sidebar-button {
+        display: flex;
+    }
 }

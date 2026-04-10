@@ -1,10 +1,15 @@
 import { useNavigate, useParams } from "react-router";
 import "./TechniquesDashboard.css";
-import { ArrowLeftStroke, Plus } from "@boxicons/react/index";
+import { ArrowLeftStroke, Plus, BookOpen, Dashboard, FileDetail, DockLeft } from "@boxicons/react/index";
 import { useEffect, useState } from "react";
+
+// Mock Data
+const techniques = [];
 
 export default function TechniquesDashboard() {
     const params = useParams();
+    const [collapsed, setCollapsed] = useState<boolean>(false);
+    const [mobileOpen, setMobileOpen] = useState<boolean>(false);
 
     const [subprocess, setSubprocess] = useState({
         nombre: "",
@@ -43,26 +48,58 @@ export default function TechniquesDashboard() {
     }, []);
 
     return (
-        <main className="techniques-dashboard-page">
+        <main className={`techniques-dashboard-page ${collapsed ? "collapsed" : ""} ${mobileOpen ? "mobile-open" : ""}`}>
             <TechniquesSidebar
                 subprocessName={subprocess.nombre}
                 subprocessDescription={subprocess.descripcion}
             />
-            <header className="techniques-header">
-                <div className="header-content">
-                    <h1>Técnicas de Recolección</h1>
-                    <p>Gestiona todas las técnicas para recolectar requerimientos del subproceso {subprocess.nombre}</p>
-                </div>
-                <button className="add-technique-button">
-                    <Plus size="sm"/>
-                    Agregar Técnica
-                </button>
-            </header>
-            <section className="techniques-content">
-                {/* Aquí agregar el contenido principal */}
-                <div>
-                    
-                </div>
+            {mobileOpen && (
+                <div 
+                    className="backdrop"
+                    onClick={() => setMobileOpen(!mobileOpen)}
+                />
+            )}
+            <section className="techniques-main-content">
+                <header className="techniques-header">
+                    <div className="header-info-buttons-container">
+                        <button
+                            onClick={() => setMobileOpen(!mobileOpen)}
+                            className="toggle-mobile-button"
+                        >
+                            <DockLeft size="md"/>
+                        </button>
+                        <button
+                            onClick={() => setCollapsed(!collapsed)}
+                            className="toggle-sidebar-button"
+                        >
+                            <DockLeft size="md"/>
+                        </button>
+                        <div className="header-content">
+                            <h1>Técnicas de Recolección</h1>
+                            <p>Gestiona todas las técnicas para recolectar requerimientos del subproceso.</p>
+                        </div>
+                    </div>
+                    <button className="add-technique-button">
+                        <Plus size="sm"/>
+                        Nueva Técnica
+                    </button>
+                </header>
+                <section className="techniques-content">
+                    {/* Aquí agregar el contenido principal */}
+                    {techniques.length === 0 && 
+                        <div className="none-technique-container">
+                            <BookOpen size="xl" fill="#6c6c6c"/>
+                            <h2>No hay técnicas registradas</h2>
+                            <p>Comienza agregando una técnica de recolección de requerimientos</p>
+                            <button
+                                className="add-first-technique-button"
+                            >
+                                <Plus size="xs"/>
+                                Agregar Nueva Técnica
+                            </button>
+                        </div>
+                    }
+                </section>
             </section>
         </main>
     );
@@ -76,6 +113,12 @@ interface SubprocessSidebarProps {
 function TechniquesSidebar({ subprocessName, subprocessDescription }: SubprocessSidebarProps) {
     const navigate = useNavigate();
 
+    // Mock data
+    const totalTecnicas = 0;
+    const tecnicasCompletadas = 0;
+    const tecnicasEnProgreso = 0;
+    const tecnicasPlanificadas = 0;
+
     return (
         <aside className="techniques-sidebar">
             <header className="header-techniques-sidebar">
@@ -86,9 +129,54 @@ function TechniquesSidebar({ subprocessName, subprocessDescription }: Subprocess
                     <ArrowLeftStroke />
                     Volver al Proyecto
                 </button>
-                <h2>{subprocessName}</h2>
-                <small>{subprocessDescription}</small>
+                <div className="subprocess-info-techniques">
+                    <span>Subproceso: </span>
+                    <h2>{subprocessName}</h2>
+                    <small>{subprocessDescription}</small>
+                </div>
             </header>
+            <section className="resume-techniques-sidebar">
+                <div className="resume-item">
+                    <small>Técnicas Totales</small>
+                    <p>{totalTecnicas}</p>
+                </div>
+                <div className="resume-item">
+                    <small>Técnicas Completadas</small>
+                    <p>{tecnicasCompletadas}</p>
+                </div>
+                <div className="resume-item">
+                    <small>Técnicas en Progreso</small>
+                    <p>{tecnicasEnProgreso}</p>
+                </div>
+                <div className="resume-item">
+                    <small>Técnicas Planificadas</small>
+                    <p>{tecnicasPlanificadas}</p>
+                </div>
+            </section>
+            <section className="general-view-techniques-sidebar">
+                <button className="general-view-button">
+                    <Dashboard size="xs"/>
+                    Vista General
+                </button>
+                <section className="techniques-list">
+                    <header className="header-techniques-list">
+                        <span>TÉCNICAS ({totalTecnicas})</span>
+                        {techniques.length > 0 && (
+                            <button className="add-technique-button-sidebar"><Plus size="xs"/></button>
+                        )}
+                    </header>
+                    {techniques.length === 0 && (
+                        <div className="none-technique">
+                            <FileDetail size="lg" fill="#cdcdcd"/>
+                            <span>No hay técnicas aún</span>
+                            <button className="add-technique-button-list">
+                                <Plus size="xs"/>
+                                Agregar Técnica
+                            </button>
+                        </div>
+                    )}
+                </section>
+            </section>
         </aside>
     );
 }
