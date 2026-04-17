@@ -1,11 +1,12 @@
 import { useNavigate, useParams } from "react-router";
 import "./TechniquesDashboard.css";
-import { ArrowLeftStroke, Plus, BookOpen, Dashboard, FileDetail } from "@boxicons/react/index";
-import React, { useEffect, useState } from "react";
-import type { TipoTecnica, Tecnica } from "../Types/Techniques";
+import { ArrowLeftStroke, Plus, BookOpen, Dashboard, FileDetail, CheckCircle, Clock, Trash, Calendar } from "@boxicons/react/index";
+import React, { useEffect, useState, type JSX} from "react";
+import type { TipoTecnica, Tecnica, estatusTecnica } from "../Types/Techniques";
 import HeaderTechniqueDashboard from "../components/HeaderTechniqueDashboard";
 import CreateNewTechnique from "../components/TechniquesDashboardComponents/CreateNewTechnique";
 import { filterTechniques } from "../utils/filterTechniques";
+import { asignarIconoTecnica } from "../utils/assingTechniques";
 
 // Mock Data
 const tecnicasCatalogo: TipoTecnica[] = [
@@ -19,11 +20,27 @@ const tecnicasCatalogo: TipoTecnica[] = [
 ]
 
 const techniques: Tecnica[] = [
-    {id: 1, nombre: "Entrevista con Stakeholders", descripcion: "Realizar entrevistas individuales con los principales stakeholders para entender sus necesidades y expectativas.", tipo: tecnicasCatalogo[0], estatus: "en progreso"},
-    {id: 2, nombre: "Cuestionario para Usuarios Finales", descripcion: "Diseñar y distribuir un cuestionario para recopilar información de los usuarios finales sobre sus requerimientos.", tipo: tecnicasCatalogo[1], estatus: "planificada"},
-    {id: 3, nombre: "Focus Group con Usuarios", descripcion: "Organizar un focus group con usuarios para obtener retroalimentación sobre el producto.", tipo: tecnicasCatalogo[2], estatus: "en progreso"},
-    {id: 4, nombre: "Observación de Usuarios", descripcion: "Realizar sesiones de observación con usuarios para identificar áreas de mejora en el producto.", tipo: tecnicasCatalogo[3], estatus: "planificada"}
+    {id: 1, nombre: "Entrevista con Stakeholders", descripcion: "Realizar entrevistas individuales con los principales stakeholders.", tipo: tecnicasCatalogo[0], estatus: "En Progreso"},
+    {id: 2, nombre: "Cuestionario para Usuarios Finales", descripcion: "Diseñar y distribuir un cuestionario para recopilar información de los usuarios.", tipo: tecnicasCatalogo[1], estatus: "Planificada"},
+    {id: 3, nombre: "Focus Group con Usuarios", descripcion: "Organizar un focus group con usuarios para obtener retroalimentación.", tipo: tecnicasCatalogo[2], estatus: "En Progreso"},
+    {id: 4, nombre: "Observación de Usuarios", descripcion: "Realizar sesiones de observación con usuarios.", tipo: tecnicasCatalogo[3], estatus: "Planificada"},
+    {id: 5, nombre: "Entrevista con Gerente", descripcion: "Realizar sesiones de entrevistas con el gerente.", tipo: tecnicasCatalogo[0], estatus: "Completada"},
 ];
+
+// Diccionario para asignar dinámicamente los colores según el estatus
+const statusDictionary: Record<estatusTecnica, string> = {
+    "Completada": "green",
+    "En Progreso": "blue",
+    "Planificada": "gray",
+    "Eliminada": "red"
+};
+
+const iconStatusDictionary: Record<estatusTecnica, JSX.Element> = {
+    "Completada": <CheckCircle fill="#4caf50" />,
+    "En Progreso": <Clock fill="#2196f3" />,
+    "Planificada": <Calendar fill="#9e9e9e" />,
+    "Eliminada": <Trash fill="#f44336" />
+}
 
 export default function TechniquesDashboard() {
     const params = useParams();
@@ -31,6 +48,7 @@ export default function TechniquesDashboard() {
     const [mobileOpen, setMobileOpen] = useState<boolean>(false);
     const [addTechnique, setAddTechnique] = useState<boolean>(false);
     const tecnicasFiltradas = filterTechniques(techniques);
+    const navigate = useNavigate();
 
     const [subprocess, setSubprocess] = useState({
         nombre: "",
@@ -51,6 +69,7 @@ export default function TechniquesDashboard() {
             });
 
             if (!response.ok) {
+                navigate("/login");
                 throw new Error("Error al obtener el subproceso");
             }
 
@@ -67,8 +86,6 @@ export default function TechniquesDashboard() {
     useEffect(() => {
         getSubproceso();
     }, []);
-
-    console.log(tecnicasFiltradas);
 
     return (
         <main className={`techniques-dashboard-page ${collapsed ? "collapsed" : ""} ${mobileOpen ? "mobile-open" : ""}`}>
@@ -125,15 +142,23 @@ export default function TechniquesDashboard() {
                                 </div>
                             )}
                             {Object.entries(tecnicasFiltradas).map(([tipo, tecnicas]) => (
-                                <div key={tipo} className="technique-type">
-                                    <h3>{tipo}</h3>
-                                    {tecnicas.map(technique => (
-                                        <div key={technique.id} className="technique-card">
-                                            <h4>{technique.nombre}</h4>
-                                            <p>{technique.descripcion}</p>
-                                        </div>
-                                    ))}
-                                </div>
+                                <section key={tipo} className="technique-type">
+                                    <header>
+                                        {asignarIconoTecnica(tipo)}
+                                        <h3>{tipo}</h3>
+                                    </header>
+                                    <div className="techniques-list-grid">
+                                        {tecnicas.map(technique => (
+                                            <article key={technique.id} className="technique-card">
+                                                <header className="technique-card-header">
+                                                    <h4>{technique.nombre}</h4>
+                                                    <span>{technique.estatus}</span>
+                                                </header>
+                                                <p>{technique.descripcion}</p>
+                                            </article>
+                                        ))}
+                                    </div>
+                                </section>
                             ))}
                         </section>
                     </section>
@@ -162,6 +187,15 @@ function TechniquesSidebar({ subprocessName, subprocessDescription, addTechnique
     const tecnicasCompletadas = 0;
     const tecnicasEnProgreso = 0;
     const tecnicasPlanificadas = 0;
+
+    // Función para asignar el color según el estatus
+    const asignarColorEstatus = (estatus: estatusTecnica) => {
+        return statusDictionary[estatus];
+    }
+
+    const asignarIconoEstatus = (estatus: estatusTecnica) => {
+        return iconStatusDictionary[estatus];
+    }
 
     return (
         <aside className="techniques-sidebar">
@@ -222,6 +256,24 @@ function TechniquesSidebar({ subprocessName, subprocessDescription, addTechnique
                                     Agregar Técnica
                                 </button>
                             )}
+                        </div>
+                    )}
+                    {techniques.length > 0 && (
+                        <div className="technique-sidebar-list">
+                            {techniques.map(tecnica => (
+                                <div key={tecnica.id} className="technique-item-sidebar">
+                                    <div className="technique-item-content">
+                                        {asignarIconoTecnica(tecnica.tipo.nombre)}
+                                        <div>
+                                            <span>{tecnica.nombre}</span>
+                                            <small>{tecnica.tipo.nombre}</small>
+                                        </div>
+                                    </div>
+                                    <div className={`status-icon ${asignarColorEstatus(tecnica.estatus)}`}>
+                                            {asignarIconoEstatus(tecnica.estatus)}
+                                    </div>
+                                </div>
+                            ))}
                         </div>
                     )}
                 </section>

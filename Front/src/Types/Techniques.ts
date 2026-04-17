@@ -1,4 +1,4 @@
-type estatusTecnica = "completada" | "en progreso" | "planificada" | "eliminada";
+export type estatusTecnica = "Completada" | "En Progreso" | "Planificada" | "Eliminada";
 
 export interface TipoTecnica {
     id: number;
