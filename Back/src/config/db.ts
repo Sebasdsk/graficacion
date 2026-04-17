@@ -1,20 +1,9 @@
-import { Pool } from 'pg';
-import dotenv from 'dotenv';
+import "dotenv/config";
+import { PrismaPg } from "@prisma/adapter-pg";
+import { PrismaClient } from "../generated/prisma/client";
 
-dotenv.config();
+const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL as string });
 
-export const pool = new Pool({
-    user: process.env.DB_USER,
-    host: process.env.DB_HOST,
-    database: process.env.DB_NAME,
-    password: process.env.DB_PASSWORD,
-    port: Number(process.env.DB_PORT) || 5432,
-});
+const prisma = new PrismaClient({ adapter });
 
-pool.on('connect', () => {
-});
-
-pool.on('error', (err: any) => {
-    console.error('Error al conectar a la BD:', err);
-    process.exit(-1);
-});
+export default prisma;
