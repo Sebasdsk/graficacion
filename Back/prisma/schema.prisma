@@ -85,7 +85,7 @@ model usuario {
   apellido_materno      String?                 @db.VarChar(50)
   telefono              Int?
   email                 String                  @db.VarChar(100)
-  estatus               String?                 @db.Char
+  estatus               String?                 @db.VarChar(1)
   password_hash         String?                 @db.VarChar(64)
   Nombre_usuario        String?                 @db.VarChar(32)
   equipo_proyecto       equipo_proyecto[]

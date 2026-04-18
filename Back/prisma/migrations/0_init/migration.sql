@@ -80,7 +80,7 @@ CREATE TABLE "usuario" (
     "apellido_materno" VARCHAR(50),
     "telefono" INTEGER,
     "email" VARCHAR(100) NOT NULL,
-    "estatus" CHAR,
+    "estatus" VARCHAR(1),
     "password_hash" VARCHAR(64),
     "Nombre_usuario" VARCHAR(32),
 
