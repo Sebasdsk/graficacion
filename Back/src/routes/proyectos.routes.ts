@@ -193,4 +193,28 @@ router.patch('/:id/cancelar', verifyToken, async (req: any, res: Response): Prom
     }
 });
 
+// Endpoint para listar usuarios disponibles para asignar roles
+router.get('/lista-usuarios', verifyToken, async (req: Request, res: Response) => {
+    try {
+        // Se pide el id y el nombre para armar la lista
+        const query = `
+            SELECT 
+                id_usuario, 
+                nombre, 
+                apellido_paterno,
+                apellido_materno, 
+                email 
+            FROM usuario 
+            ORDER BY nombre ASC
+        `;
+        
+        const result = await pool.query(query);
+        res.json(result.rows);
+
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Error al obtener el catalogo de usuarios' });
+    }
+});
+
 export default router;
