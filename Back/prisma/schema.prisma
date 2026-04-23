@@ -5,6 +5,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model proceso {
@@ -84,10 +85,10 @@ model usuario {
   apellido_paterno      String                  @db.VarChar(50)
   apellido_materno      String?                 @db.VarChar(50)
   telefono              Int?
-  email                 String                  @db.VarChar(100)
-  estatus               String?                 @db.Char
-  password_hash         String?                 @db.VarChar(64)
+  email                 String                  @unique @db.VarChar(100)
+  estatus               String?                 @db.Char(1)
   Nombre_usuario        String?                 @db.VarChar(32)
+  password_hash         String?                 @db.VarChar(64)
   equipo_proyecto       equipo_proyecto[]
   proyecto              proyecto[]
   proyecto_participante proyecto_participante[]

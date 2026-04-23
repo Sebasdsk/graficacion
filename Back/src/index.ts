@@ -32,5 +32,6 @@ app.get('/', (req: Request, res: Response) => {
 
 app.listen(PORT, () => {
     console.log(`Servidor corriendo en el puerto: ${PORT}`);
-    console.log(`Base de datos conectada a: ${process.env.DB_NAME}`);
+    const dbUrl = new URL(process.env.DATABASE_URL!);
+    console.log(`Base de datos conectada a: ${dbUrl.pathname.replace('/', '')}`);
 });

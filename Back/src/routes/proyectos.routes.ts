@@ -1,5 +1,6 @@
 import { Router, Request, Response } from 'express';
-import { pool } from '../config/db'; 
+import { Prisma } from '@prisma/client';
+import { prisma } from "../../lib/prisma";
 import { verifyToken } from '../middleware/auth.middleware';
 
 const router = Router();
@@ -9,22 +10,29 @@ router.get('/estadisticas', verifyToken, async (req: any, res: Response) => {
   try {
     const id_usuario = req.usuario.id; 
 
-    const query = `
-      SELECT 
-        COUNT(*)::int AS total,
-        COUNT(*) FILTER (WHERE estatus = 'En Progreso')::int AS en_proceso,
-        COUNT(*) FILTER (WHERE estatus = 'Completado')::int AS completados
-      FROM proyecto
-      WHERE id_usuario_creador = $1
-    `;
-    
-    const result = await pool.query(query, [id_usuario]);
+    const [total, en_progreso, completados, planificación, cancelados] = await Promise.all([
+        prisma.proyecto.count({
+            where: { id_usuario_creador: id_usuario }
+        }),
+        prisma.proyecto.count({
+            where: { id_usuario_creador: id_usuario, estatus: 'En Progreso' }
+        }),
+        prisma.proyecto.count({
+            where: { id_usuario_creador: id_usuario, estatus: 'Completado' }
+        }),
+        prisma.proyecto.count({
+            where: { id_usuario_creador: id_usuario, estatus: 'Planificación' }
+        }),
+        prisma.proyecto.count({
+            where: { id_usuario_creador: id_usuario, estatus: 'Cancelado' }
+        })
+    ]);
 
-    res.json(result.rows[0]); 
+    res.json({ total, en_progreso, completados, planificación, cancelados });
 
   } catch (err) {
-    console.error(err);
-    res.status(500).send('Error al obtener estadisticas');
+    console.error("Error en /estadisticas:", err);
+    res.status(500).json('Error al obtener estadisticas');
   }
 });
 
@@ -33,44 +41,44 @@ router.get('/lista', verifyToken, async (req: any, res: Response) => {
   try {
     const id_usuario = req.usuario.id; 
 
-    const query = `
-      SELECT 
-        p.id_proyecto,
-        p.nombre,
-        p.descripcion,
-        p.estatus,
-        p.fecha_inicio,
-        (SELECT COUNT(*) FROM proceso WHERE id_proyecto = p.id_proyecto)::int as num_procesos,
-        
-        (SELECT COUNT(*) 
-         FROM proyecto_participante pp
-         WHERE pp.id_proyecto = p.id_proyecto)::int as num_colaboradores
-         
-      FROM proyecto p
-      WHERE p.id_usuario_creador = $1
-      ORDER BY p.id_proyecto DESC
-    `;
+    const proyectosDb = await prisma.proyecto.findMany({
+        where: {
+            id_usuario_creador: id_usuario
+        },
+        orderBy: {
+            id_proyecto: 'desc'
+        },
+        include: {
+            _count: {
+                select: {
+                    proceso: true,
+                    proyecto_participante: true 
+                }
+            }
+        }
+    });
 
-    const result = await pool.query(query, [id_usuario]);
-
-    const proyectos = result.rows.map((p: any) => ({
-      ...p,
-      fecha_inicio: p.fecha_inicio ? new Date(p.fecha_inicio).toISOString().split('T')[0] : null
+    const proyectos = proyectosDb.map((p: any) => ({
+      id_proyecto: p.id_proyecto,
+      nombre: p.nombre,
+      descripcion: p.descripcion,
+      estatus: p.estatus,
+      fecha_inicio: p.fecha_inicio ? new Date(p.fecha_inicio).toISOString().split('T')[0] : null,
+      num_procesos: p._count.proceso,
+      num_colaboradores: p._count.proyecto_participante
     }));
 
     res.json(proyectos);
+
   } catch (err) {
-    console.error(err);
-    res.status(500).send('Error al obtener proyectos');
+    console.error("Error en /lista:", err);
+    res.status(500).json('Error al obtener proyectos');
   }
 });
 
 // Endpoint para crear proyecto
 router.post('/crear_proyecto', verifyToken, async (req: any, res: Response): Promise<any> => {
-  const client = await pool.connect();
-  
   try {
-    // Agregamos id_usuario_po y id_usuario_tl
     const { nombre, descripcion, fecha_inicio, id_usuario_po, id_usuario_tl } = req.body;
     const id_usuario_creador = req.usuario.id; 
 
@@ -78,38 +86,51 @@ router.post('/crear_proyecto', verifyToken, async (req: any, res: Response): Pro
         return res.status(400).json({ message: 'Falta asignar al Product Owner y/o Tech Lead iniciales' });
     }
 
-    await client.query('BEGIN');
+    const nuevoProyecto = await prisma.$transaction(async (tx: Prisma.TransactionClient) => {
+        const rolPO = await tx.rol.findFirst({ where: { nombre: 'Product Owner' } });
+        const rolTL = await tx.rol.findFirst({ where: { nombre: 'Tech Lead' } });
 
-    const queryProyecto = `
-      INSERT INTO proyecto (nombre, descripcion, fecha_inicio, id_usuario_creador, estatus) 
-      VALUES ($1, $2, $3, $4, 'Planificación') 
-      RETURNING *
-    `;
-    const resProyecto = await client.query(queryProyecto, [nombre, descripcion, fecha_inicio, id_usuario_creador]);
-    const nuevoProyecto = resProyecto.rows[0];
+        if (!rolPO || !rolTL) {
+            throw new Error('Roles no encontrados en la base de datos');
+        }
 
-    const queryPO = `
-      INSERT INTO proyecto_participante (id_proyecto, id_usuario, id_rol, activo)
-      VALUES ($1, $2, (SELECT id_rol FROM rol WHERE nombre = 'Product Owner' LIMIT 1), true)
-    `;
-    await client.query(queryPO, [nuevoProyecto.id_proyecto, id_usuario_po]);
+        // Creamos el proyecto
+        const proyecto = await tx.proyecto.create({
+            data: {
+                nombre,
+                descripcion,
+                fecha_inicio: fecha_inicio ? new Date(fecha_inicio) : null,
+                id_usuario_creador: id_usuario_creador,
+                estatus: 'Planificación'
+            }
+        });
 
-    const queryTL = `
-      INSERT INTO proyecto_participante (id_proyecto, id_usuario, id_rol, activo)
-      VALUES ($1, $2, (SELECT id_rol FROM rol WHERE nombre = 'Tech Lead' LIMIT 1), true)
-    `;
-    await client.query(queryTL, [nuevoProyecto.id_proyecto, id_usuario_tl]);
+        await tx.proyecto_participante.createMany({
+            data: [
+                {
+                    id_proyecto: proyecto.id_proyecto,
+                    id_usuario: id_usuario_po,
+                    id_rol: rolPO.id_rol,
+                    activo: true
+                },
+                {
+                    id_proyecto: proyecto.id_proyecto,
+                    id_usuario: id_usuario_tl,
+                    id_rol: rolTL.id_rol,
+                    activo: true
+                }
+            ]
+        });
 
-    await client.query('COMMIT');
+        return proyecto;
+    });
 
     res.json({ message: 'Proyecto creado y equipo inicial asignado', project: nuevoProyecto });
+
   } catch (err) {
-    await client.query('ROLLBACK');
-    console.error(err);
-    res.status(500).send('Error al crear proyecto. Verifica que los roles existan en la BD.');
-  } finally {
-    client.release();
-  }
+    console.error("Error en /crear_proyecto:", err);
+    res.status(500).json('Error al crear proyecto. Verifica que los roles existan en la BD.');
+  } 
 });
 
 // Endpoint para ver un proyecto
@@ -118,18 +139,21 @@ router.get('/ver/:id', verifyToken, async (req: any, res: Response): Promise<any
         const { id } = req.params;
         const id_usuario = req.usuario.id;
 
-        const result = await pool.query(
-            'SELECT * FROM proyecto WHERE id_proyecto = $1 AND id_usuario_creador = $2', 
-            [id, id_usuario]
-        );
+        const proyecto = await prisma.proyecto.findFirst({
+            where: {
+                id_proyecto: Number(id),
+                id_usuario_creador: id_usuario
+            }
+        });
 
-        if (result.rows.length === 0) {
+        if (!proyecto) {
             return res.status(404).json({ message: 'Proyecto no encontrado o no tienes permiso' });
         }
-        res.json(result.rows[0]);
+        res.json(proyecto);
+
     } catch (err) {
-        console.error(err);
-        res.status(500).send('Error al ver proyecto');
+        console.error("Error en /ver/:id:", err);
+        res.status(500).json('Error al ver proyecto');
     }
 });
 
@@ -140,24 +164,32 @@ router.put('/actualizar/:id', verifyToken, async (req: any, res: Response): Prom
     const id_usuario = req.usuario.id;
     const { nombre, descripcion, fecha_fin, estatus, problema_a_resolver } = req.body;
 
-    const query = `
-      UPDATE proyecto
-      SET nombre = $1, descripcion = $2, fecha_fin = $3, estatus = $4, problema_a_resolver = $5
-      WHERE id_proyecto = $6 AND id_usuario_creador = $7
-      RETURNING *
-    `;
-    const values = [nombre, descripcion, fecha_fin, estatus, problema_a_resolver, id, id_usuario];
-    
-    const result = await pool.query(query, values);
-    
-    if (result.rows.length === 0) {
+    // Se verifica que exista y pertenezca al usuario
+    const proyectoExistente = await prisma.proyecto.findFirst({
+        where: { id_proyecto: Number(id), id_usuario_creador: id_usuario }
+    });
+
+    if (!proyectoExistente) {
         return res.status(404).json({ message: 'No se pudo actualizar (No existe o no eres el dueño)' });
     }
+
+    // Si existe, lo actualizamos usando su ID único
+    const proyectoActualizado = await prisma.proyecto.update({
+        where: { id_proyecto: Number(id) },
+        data: {
+            nombre,
+            descripcion,
+            fecha_fin: fecha_fin ? new Date(fecha_fin) : null,
+            estatus,
+            problema_a_resolver
+        }
+    });
     
-    res.json(result.rows[0]);
+    res.json(proyectoActualizado);
+
   } catch (err) {
-    console.error(err);
-    res.status(500).send('Error actualizando proyecto');
+    console.error("Error en /actualizar/:id:", err);
+    res.status(500).json('Error actualizando proyecto');
   }
 });
 
@@ -167,52 +199,47 @@ router.patch('/:id/cancelar', verifyToken, async (req: any, res: Response): Prom
         const { id } = req.params;
         const id_usuario = req.usuario.id; 
 
-        const query = `
-            UPDATE proyecto 
-            SET estatus = 'Cancelado' 
-            WHERE id_proyecto = $1 AND id_usuario_creador = $2
-            RETURNING *
-        `;
-        
-        const result = await pool.query(query, [id, id_usuario]);
-
-        if (result.rows.length === 0) {
-            return res.status(404).json({ 
-                message: 'No se pudo cancelar ya que no existe o no eres dueño de este' 
-            });
-        }
-
-        res.json({ 
-            message: 'Proyecto cancelado', 
-            proyecto: result.rows[0] 
+        const proyectoExistente = await prisma.proyecto.findFirst({
+            where: { id_proyecto: Number(id), id_usuario_creador: id_usuario }
         });
 
+        if (!proyectoExistente) {
+            return res.status(404).json({ message: 'No se pudo cancelar ya que no existe o no eres dueño de este' });
+        }
+
+        const proyectoCancelado = await prisma.proyecto.update({
+            where: { id_proyecto: Number(id) },
+            data: { estatus: 'Cancelado' }
+        });
+
+        res.json({ message: 'Proyecto cancelado', proyecto: proyectoCancelado });
+
     } catch (err) {
-        console.error(err);
-        res.status(500).send('Error al cancelar proyecto');
+        console.error("Error en /:id/cancelar:", err);
+        res.status(500).json('Error al cancelar proyecto');
     }
 });
 
-// Endpoint para listar usuarios disponibles para asignar roles
+// Endpoint para listar usuarios disponibles
 router.get('/lista-usuarios', verifyToken, async (req: Request, res: Response) => {
     try {
-        // Se pide el id y el nombre para armar la lista
-        const query = `
-            SELECT 
-                id_usuario, 
-                nombre, 
-                apellido_paterno,
-                apellido_materno, 
-                email 
-            FROM usuario 
-            ORDER BY nombre ASC
-        `;
+        const usuarios = await prisma.usuario.findMany({
+            select: {
+                id_usuario: true,
+                nombre: true,
+                apellido_paterno: true,
+                apellido_materno: true,
+                email: true
+            },
+            orderBy: {
+                nombre: 'asc'
+            }
+        });
         
-        const result = await pool.query(query);
-        res.json(result.rows);
+        res.json(usuarios);
 
     } catch (err) {
-        console.error(err);
+        console.error("Error en /lista-usuarios:", err);
         res.status(500).json({ error: 'Error al obtener el catalogo de usuarios' });
     }
 });
