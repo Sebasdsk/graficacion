@@ -1,0 +1,38 @@
+.form-technique {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: .8rem;
+}
+
+.form-header-technique {
+    display: flex;
+    flex-direction: column;
+    gap: .4rem;
+}
+
+.form-header-technique h1 {
+    font-size: 1.6rem;
+    font-weight: 500;
+}
+
+.form-header-technique p {
+    color: var(--info-text);
+}
+
+.principal-info-technique {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+    border: 1px solid var(--border-container);
+    border-radius: 15px;
+}
+
+.technique-type,
+.technique-status,
+.last-update-technique {
+    display: flex;
+    flex-direction: column;
+    gap: .2rem;
+}

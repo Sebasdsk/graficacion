@@ -36,7 +36,7 @@ router.get('/proyecto/:id_proyecto', verifyToken, async (req: Request, res: Resp
         });
 
         // Aplanar el resultado para mantener la misma estructura que antes
-        const result = participantes.map(p => ({
+        const result = participantes.map((p: any) => ({
             id_participacion: p.id_participacion,
             nombre_usuario: p.usuario.nombre,
             nombre_rol: p.rol.nombre,

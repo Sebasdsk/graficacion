@@ -7,9 +7,11 @@ import HeaderTechniqueDashboard from "../components/HeaderTechniqueDashboard";
 import CreateNewTechnique from "../components/TechniquesDashboardComponents/CreateNewTechnique";
 import { filterTechniques } from "../utils/filterTechniques";
 import { asignarIconoTecnica } from "../utils/assingTechniques";
+import FormTechnique from "../components/TechniquesForms/FormTechnique";
+import EntrevistaForm from "../components/TechniquesForms/EntrevistaForm";
 
 // Mock Data
-const tecnicasCatalogo: TipoTecnica[] = [
+export const tecnicasCatalogo: TipoTecnica[] = [
     {id: 1, nombre: "Entrevista"},
     {id: 2, nombre: "Cuestionario"},
     {id: 3, nombre: "Focus Group"},
@@ -27,6 +29,8 @@ const techniques: Tecnica[] = [
     {id: 5, nombre: "Entrevista con Gerente", descripcion: "Realizar sesiones de entrevistas con el gerente.", tipo: tecnicasCatalogo[0], estatus: "Completada"},
 ];
 
+type SelectedTecnique = "Vista General" | "Entrevista" | "Observación" | "Historias Usuario" | "Focus Group" | "Documentos" | "Seguimiento Transaccional";
+
 // Diccionario para asignar dinámicamente los colores según el estatus
 const statusDictionary: Record<estatusTecnica, string> = {
     "Completada": "green",
@@ -42,11 +46,18 @@ const iconStatusDictionary: Record<estatusTecnica, JSX.Element> = {
     "Eliminada": <Trash fill="#f44336" />
 }
 
+// Esta función cambia un tipo string a SelectedTecnique
+const convertStringToTypeTecnique = (type: string) => {
+    const tipo = tecnicasCatalogo.find(t => t.nombre === type)?.nombre ?? "Vista General";
+    return tipo as SelectedTecnique;
+}
+
 export default function TechniquesDashboard() {
     const params = useParams();
     const [collapsed, setCollapsed] = useState<boolean>(false);
     const [mobileOpen, setMobileOpen] = useState<boolean>(false);
     const [addTechnique, setAddTechnique] = useState<boolean>(false);
+    const [selectedTechnique, setSelectedTechnique] = useState<SelectedTecnique>("Vista General");
     const tecnicasFiltradas = filterTechniques(techniques);
     const navigate = useNavigate();
 
@@ -94,6 +105,8 @@ export default function TechniquesDashboard() {
                 subprocessDescription={subprocess.descripcion}
                 addTechnique={addTechnique}
                 setAddTechnique={setAddTechnique}
+                selectedTechnique={selectedTechnique}
+                setSelectedTechnique={setSelectedTechnique}
             />
             {mobileOpen && (
                 <div 
@@ -108,7 +121,7 @@ export default function TechniquesDashboard() {
                     mobileOpen={mobileOpen}
                     setMobileOpen={setMobileOpen}
                 />
-                {!addTechnique && (
+                {!addTechnique && selectedTechnique === "Vista General" && (
                     <section className="techniques-container">
                         <header className="techniques-header">
                             <div className="header-info-buttons-container">
@@ -126,7 +139,7 @@ export default function TechniquesDashboard() {
                             </button>
                         </header>
                         <section className="techniques-content">
-                            {/* Aquí agregar el contenido principal */}
+                            {/* Si no hay técnicas, muestra esto */}
                             {techniques.length === 0 && (
                                 <div className="none-technique-container">
                                     <BookOpen size="xl" fill="#6c6c6c"/>
@@ -141,6 +154,7 @@ export default function TechniquesDashboard() {
                                     </button>
                                 </div>
                             )}
+                            {/* Si hay técnicas, mostrarlas dinámicamente y categorizarlas por tipos */}
                             {Object.entries(tecnicasFiltradas).map(([tipo, tecnicas]) => (
                                 <section key={tipo} className="technique-type">
                                     <header>
@@ -149,7 +163,10 @@ export default function TechniquesDashboard() {
                                     </header>
                                     <div className="techniques-list-grid">
                                         {tecnicas.map(technique => (
-                                            <article key={technique.id} className="technique-card">
+                                            <article
+                                                key={technique.id}
+                                                className="technique-card"
+                                                onClick={() => setSelectedTechnique(convertStringToTypeTecnique(tipo))}>
                                                 <header className="technique-card-header">
                                                     <h4>{technique.nombre}</h4>
                                                     <span>{technique.estatus}</span>
@@ -160,8 +177,14 @@ export default function TechniquesDashboard() {
                                     </div>
                                 </section>
                             ))}
-                        </section>
+                            </section>
                     </section>
+                )}
+                {selectedTechnique === "Entrevista" && (
+                    <FormTechnique
+                        tipoTecnica={tecnicasCatalogo[0]}
+                        children={<EntrevistaForm/>}
+                    />
                 )}
                 {addTechnique && (<CreateNewTechnique onClose={() => setAddTechnique(false)} />)}
             </section>
@@ -179,7 +202,15 @@ interface SetAddTechniqueProp {
     setAddTechnique: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-function TechniquesSidebar({ subprocessName, subprocessDescription, addTechnique, setAddTechnique }: SubprocessSidebarProps & SetAddTechniqueProp) {
+interface SetSelectedTechnoqueProp {
+    selectedTechnique: SelectedTecnique;
+    setSelectedTechnique: React.Dispatch<React.SetStateAction<SelectedTecnique>>;
+}
+
+function TechniquesSidebar({
+    subprocessName, subprocessDescription, 
+    addTechnique, setAddTechnique,
+    setSelectedTechnique }: SubprocessSidebarProps & SetAddTechniqueProp & SetSelectedTechnoqueProp) {
     const navigate = useNavigate();
 
     // Mock data
@@ -232,7 +263,10 @@ function TechniquesSidebar({ subprocessName, subprocessDescription, addTechnique
                 </div>
             </section>
             <section className="general-view-techniques-sidebar">
-                <button className="general-view-button">
+                <button
+                    className="general-view-button"
+                    onClick={() => setSelectedTechnique("Vista General")}
+                >
                     <Dashboard size="xs"/>
                     Vista General
                 </button>
@@ -261,7 +295,10 @@ function TechniquesSidebar({ subprocessName, subprocessDescription, addTechnique
                     {techniques.length > 0 && (
                         <div className="technique-sidebar-list">
                             {techniques.map(tecnica => (
-                                <div key={tecnica.id} className="technique-item-sidebar">
+                                <div
+                                    key={tecnica.id} 
+                                    className="technique-item-sidebar"
+                                    onClick={() => setSelectedTechnique(convertStringToTypeTecnique(tecnica.tipo.nombre))}>
                                     <div className="technique-item-content">
                                         {asignarIconoTecnica(tecnica.tipo.nombre)}
                                         <div>

@@ -1,0 +1,48 @@
+.entrevista-informacion-section {
+    display: flex;
+    flex-direction: column;
+    gap: .8rem;
+    padding: 1.2rem;
+    border: 1px solid var(--border-container);
+    border-radius: 15px;
+}
+
+.header-entrevista-section h2 {
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+.entrevistado-div,
+.info-entrevista-div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+}
+
+.rol-container,
+.entrevistado-container,
+.fecha-container,
+.duracion-container {
+    display: flex;
+    flex-direction: column;
+    gap: .4rem;
+    flex: 1;
+}
+
+.rol-container select,
+.entrevistado-container select,
+.fecha-container input,
+.duracion-container input {
+    padding: .4rem;
+    border-radius: 10px;
+    resize: none;
+    border: 1px solid var(--border-container);
+}
+
+.rol-container select:hover,
+.entrevistado-container select:hover,
+.fecha-container input:hover,
+.duracion-container input:hover {
+    box-shadow: var(--shadow-hover);
+}
