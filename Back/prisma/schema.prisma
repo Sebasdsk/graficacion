@@ -30,7 +30,7 @@ model proyecto {
   proceso               proceso[]
   usuario               usuario?                @relation(fields: [id_usuario_creador], references: [id_usuario], onDelete: NoAction, onUpdate: NoAction)
   proyecto_participante proyecto_participante[]
-  stakeholder           stakeholder[]
+  rol                   rol[]
 }
 
 model proyecto_participante {
@@ -51,20 +51,24 @@ model proyecto_participante {
 model rol {
   id_rol                Int                     @id @default(autoincrement())
   nombre                String                  @db.VarChar(30)
+  descripcion           String?                 @db.Char(200)
   estatus               String?                 @db.Char(1)
+  id_proyecto           Int?
   equipo_proyecto       equipo_proyecto[]
   proyecto_participante proyecto_participante[]
+  proyecto              proyecto?               @relation(fields: [id_proyecto], references: [id_proyecto], onDelete: NoAction, onUpdate: NoAction, map: "fk_rol_proyecto")
+  stakeholder           stakeholder[]
 }
 
 model stakeholder {
   id_stakeholder      Int                   @id @default(autoincrement())
-  id_proyecto         Int?
+  id_rol              Int?
   nombre              String                @db.VarChar(100)
   rol                 String                @db.VarChar(50)
   area                String?               @db.VarChar(50)
   contacto_email      String?               @db.VarChar(60)
   notas               String?
-  proyecto            proyecto?             @relation(fields: [id_proyecto], references: [id_proyecto], onDelete: Cascade, onUpdate: NoAction)
+  rol                 rol?                  @relation(fields: [id_rol], references: [id_rol], onDelete: NoAction, onUpdate: NoAction, map: "fk_stakeholder_rol")
   tecnica_recoleccion tecnica_recoleccion[]
 }
 
