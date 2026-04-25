@@ -44,7 +44,7 @@ router.post('/login', async (req: Request, res: Response) => {
 
     } catch (error) {
         console.log(error);
-        res.status(500).send('Hubo un error al iniciar sesion');
+        res.status(500).json('Hubo un error al iniciar sesion');
     }
 });
 

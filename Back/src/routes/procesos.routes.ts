@@ -1,6 +1,6 @@
 import { Router, Request, Response } from 'express';
-import { Prisma } from '@prisma/client';
-import { prisma } from "../../lib/prisma";
+import { Prisma } from '../generated/prisma/client';
+import prisma from '../config/db';
 import { verifyToken } from '../middleware/auth.middleware';
 
 const router = Router();
@@ -30,7 +30,7 @@ router.get('/proyecto/:id_proyecto', verifyToken, async (req: any, res: Response
 
     } catch (err) {
         console.error("Error en GET /proyecto/:id_proyecto:", err);
-        res.status(500).send('Error al obtener la orden de procesos');
+        res.status(500).json('Error al obtener la orden de procesos');
     }
 });
 
@@ -52,7 +52,7 @@ router.post('/crear_proceso', verifyToken, async (req: any, res: Response) => {
                     nombre,
                     descripcion,
                     id_proyecto: Number(id_proyecto),
-                    codigo_orden: nextOrder
+                    codigo_orden: String(nextOrder)
                 }
             });
         });
@@ -61,7 +61,7 @@ router.post('/crear_proceso', verifyToken, async (req: any, res: Response) => {
 
     } catch (err) {
         console.error("Error en POST /crear_proceso:", err);
-        res.status(500).send('Error al crear proceso');
+        res.status(500).json('Error al crear proceso');
     }
 });
 
@@ -82,7 +82,7 @@ router.post('/subproceso', verifyToken, async (req: any, res: Response) => {
                     nombre,
                     descripcion,
                     id_proceso: Number(id_proceso),
-                    codigo_orden: nextOrder
+                    codigo_orden: String(nextOrder)
                 }
             });
         });
@@ -91,7 +91,7 @@ router.post('/subproceso', verifyToken, async (req: any, res: Response) => {
 
     } catch (err) {
         console.error("Error en POST /subproceso:", err);
-        res.status(500).send('Error al crear subproceso');
+        res.status(500).json('Error al crear subproceso');
     }
 });
 
@@ -117,7 +117,7 @@ router.get('/subproceso/:id_subproceso', verifyToken, async (req: any, res: Resp
 
     } catch (err) {
         console.error("Error en GET /subproceso/:id_subproceso:", err);
-        res.status(500).send('Error al obtener subproceso');
+        res.status(500).json('Error al obtener subproceso');
     }
 });
 
