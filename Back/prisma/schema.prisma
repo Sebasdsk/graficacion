@@ -96,6 +96,7 @@ model usuario {
   proyecto              proyecto[]
   proyecto_participante proyecto_participante[]
   entrevistas entrevista[]
+  observaciones  observacion[]
 }
 
 model equipo_proyecto {
@@ -129,6 +130,7 @@ model tecnica_recoleccion {
   stakeholder    stakeholder?    @relation(fields: [id_stakeholder], references: [id_stakeholder], onDelete: Cascade, onUpdate: NoAction, map: "tecnica_id_stakeholder_fkey")
   subproceso     subproceso      @relation(fields: [id_subproceso], references: [id_subproceso], onDelete: Cascade, onUpdate: NoAction, map: "tecnica_id_subproceso_fkey")
   entrevistas entrevista[]
+  observaciones  observacion[]
 }
 
 model entrevista {
@@ -150,4 +152,17 @@ model pregunta_entrevista {
   pregunta      String     @db.Text
   respuesta     String?    @db.Text
   entrevista entrevista @relation(fields: [id_entrevista], references: [id_entrevista], onDelete: Cascade)
+}
+
+model observacion {
+  id_observacion  Int       @id @default(autoincrement())
+  id_tecnica      Int
+  id_usuario      Int
+  fecha           DateTime? @db.Date
+  nota            String    @db.Text
+  tipo_observacion String   @db.VarChar(30) // puede ser un comentario, un dato importante, alguna sugerencia
+  tipo_hallazgo   String?   @db.VarChar(20) // puede ser un problema, alguna oportunidad o algun riesgo
+  impacto         String?   @db.VarChar(10) 
+  tecnica tecnica_recoleccion @relation(fields: [id_tecnica], references: [id_tecnica], onDelete: Cascade)
+  usuario usuario             @relation(fields: [id_usuario], references: [id_usuario])
 }

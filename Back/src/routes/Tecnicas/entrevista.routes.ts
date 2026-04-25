@@ -5,7 +5,7 @@ const router = Router();
 const prisma = new PrismaClient();
 
 // Obtener todas las entrevistas
-router.get('/entrevistas', async (req: Request, res: Response) => {
+router.get('/', async (req: Request, res: Response) => {
   try {
     const entrevistas = await prisma.entrevista.findMany();
     res.json(entrevistas);
@@ -47,7 +47,7 @@ router.post('/crear_entrevista', async (req: Request, res: Response) => {
 });
 
 // Actualizar entrevista
-router.put('/:id', async (req: Request, res: Response) => {
+router.put('/actualizar_entrevista/:id', async (req: Request, res: Response) => {
   try {
     const { fecha_entrevista, duracion, estatus } = req.body;
     const entrevista = await prisma.entrevista.update({
@@ -65,7 +65,7 @@ router.put('/:id', async (req: Request, res: Response) => {
 });
 
 // Eliminar entrevista
-router.delete('/:id', async (req: Request, res: Response) => {
+router.delete('/eliminar_entrevista/:id', async (req: Request, res: Response) => {
   try {
     await prisma.entrevista.delete({
       where: { id_entrevista: Number(req.params.id) }

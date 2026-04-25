@@ -10,6 +10,7 @@ import procesosRoutes from './routes/procesos.routes';
 import rolesRoutes from './routes/roles.routes';
 import entrevistaRoutes from './routes/Tecnicas/entrevista.routes';
 import preguntasEntrevistaRoutes from './routes/Tecnicas/preguntas-entrevista.routes' ;
+import observacionesRoutes from './routes/Tecnicas/observaciones.routes';
 
 dotenv.config();
 
@@ -27,6 +28,7 @@ app.use('/api/procesos', procesosRoutes);
 app.use('/api/roles', rolesRoutes);
 app.use('/api/entrevista', entrevistaRoutes);
 app.use('/api/preguntasEntrevista', preguntasEntrevistaRoutes);
+app.use('/api/observaciones', observacionesRoutes);
 
 const PORT = process.env.PORT || 3000;
 
