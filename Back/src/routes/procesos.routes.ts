@@ -1,6 +1,5 @@
 import { Router, Request, Response } from 'express';
-import { Prisma } from '../generated/prisma/client';
-import prisma from '../config/db';
+import { prisma } from '../../lib/prisma'; 
 import { verifyToken } from '../middleware/auth.middleware';
 
 const router = Router();
@@ -38,26 +37,17 @@ router.get('/proyecto/:id_proyecto', verifyToken, async (req: any, res: Response
 router.post('/crear_proceso', verifyToken, async (req: any, res: Response) => {
     try {
         const { nombre, descripcion, id_proyecto } = req.body;
-        
-        const nuevoProceso = await prisma.$transaction(async (tx: Prisma.TransactionClient) => {
-        const count = await tx.proceso.count({
-             where: { id_proyecto: Number(id_proyecto) }
-        });
-            
-            const nextOrder = count + 1;
 
-            // Creamos el registro con el nuevo orden
-            return await tx.proceso.create({
-                data: {
-                    nombre,
-                    descripcion,
-                    id_proyecto: Number(id_proyecto),
-                    codigo_orden: String(nextOrder)
-                }
-            });
+        // Creamos el registro con el nuevo orden
+        const proceso = await prisma.proceso.create({
+            data: {
+                nombre,
+                descripcion,
+                id_proyecto: Number(id_proyecto),
+            }
         });
 
-        res.json(nuevoProceso);
+        res.json({ proceso: proceso });
 
     } catch (err) {
         console.error("Error en POST /crear_proceso:", err);
@@ -70,24 +60,16 @@ router.post('/subproceso', verifyToken, async (req: any, res: Response) => {
     try {
         const { nombre, descripcion, id_proceso } = req.body;
 
-        const nuevoSubproceso = await prisma.$transaction(async (tx: Prisma.TransactionClient) => {
-        const count = await tx.proceso.count({
-            where: { id_proceso: Number(id_proceso) }
-        });
-            
-            const nextOrder = count + 1;
-
-            return await tx.subproceso.create({
-                data: {
-                    nombre,
-                    descripcion,
-                    id_proceso: Number(id_proceso),
-                    codigo_orden: String(nextOrder)
-                }
-            });
+        const subproceso = await prisma.subproceso.create({
+            data: {
+                nombre: nombre,
+                descripcion: descripcion,
+                id_proceso: Number(id_proceso),
+                codigo_orden: "",
+            }
         });
 
-        res.json(nuevoSubproceso);
+        res.json({ subproceso: subproceso });
 
     } catch (err) {
         console.error("Error en POST /subproceso:", err);

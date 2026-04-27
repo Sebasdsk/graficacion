@@ -1,5 +1,4 @@
 import { Router, Request, Response } from 'express';
-import { Prisma } from '../generated/prisma/client';
 import { prisma } from "../../lib/prisma";
 import { verifyToken } from '../middleware/auth.middleware';
 
