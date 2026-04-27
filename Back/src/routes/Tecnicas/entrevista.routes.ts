@@ -1,8 +1,7 @@
 import { Router, Request, Response } from 'express';
-import { PrismaClient } from '../../generated/prisma/client';
+import { prisma } from '../../../lib/prisma';
 
 const router = Router();
-const prisma = new PrismaClient();
 
 // Obtener todas las entrevistas
 router.get('/entrevistas', async (req: Request, res: Response) => {
