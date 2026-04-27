@@ -147,12 +147,16 @@ export default function ConfigProjects() {
                             Procesos
                         </button>
                     </div>
-                    {option === "Roles" && <Roles/>}
-                    {option === "Procesos" &&
+                    {option === "Roles" && projectId !== null && (
+                        <ProjectIdContext value={projectId}>
+                            <Roles/>
+                        </ProjectIdContext>
+                    )}
+                    {option === "Procesos" && projectId !== null && (
                         <ProjectIdContext value={projectId}>
                             <Process/>
                         </ProjectIdContext>
-                    }
+                    )}
                 </section>
             </section>
             {openEditModal && <ModalCreate
