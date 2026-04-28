@@ -17,6 +17,9 @@ export default function Roles() {
     const [openModal, setOpenModal] = useState<boolean>(false);
     const [roles, setRoles] = useState<Rol[]>([]); // Guarda los roles obtenidos del back
     const [idRol, setIdRol] = useState<number>(0)
+
+    // Trigger específico por rol (objeto con rolId como key)
+    const [refreshTriggers, setRefreshTriggers] = useState<Record<number, number>>({});
     
     // Esto extrae el rol en base al id seleccionado para pasarlo como prop
     const roleEditar = roles.find(r => r.id_rol === selectedId);
@@ -26,6 +29,14 @@ export default function Roles() {
         setRoles(roles.map(r => 
             r.id_rol === updateRole.id_rol ? updateRole : r
         ));
+    };
+
+    // Función que se llama cuando se crea un stakeholder
+    const handleStakeholderCreated = (rolId: number) => {
+        setRefreshTriggers(prev => ({
+            ...prev,
+            [rolId]: (prev[rolId] || 0) + 1 // Solo incrementa el trigger de ESE rol
+        }));
     };
 
     const getAllRoles = async () => {
@@ -81,12 +92,22 @@ export default function Roles() {
                     children={<RolesCreate/>}
                     setOpen={setCreateRole}/>
             }
-            <RolesList
-                setSelectedId={setSelectedId}
-                setOpenModal={setOpenModal}
-                selectedId={selectedId}
-                setIdRol={setIdRol}
-                roles={roles}/>
+            <div className="roles-list">
+                {roles.map(r => (
+                    <Role
+                        key={r.id_rol}
+                        id={r.id_rol}
+                        nombre={r.nombre}
+                        descripcion={r.descripcion}
+                        estatus={r.estatus}
+                        selectedId={selectedId}
+                        setSelectedId={setSelectedId}
+                        setOpenModal={setOpenModal}
+                        setIdRol={setIdRol}
+                        refreshTrigger={refreshTriggers[r.id_rol] || 0}
+                    />
+                ))}
+            </div>
             {selectedId !== null && 
                 <Modal
                     children={
@@ -102,15 +123,18 @@ export default function Roles() {
             }
             {openModal &&
                 <ModalCreate
-                    children={<StakeholdersCreate idRol={idRol}/>}
-                    setOpen={setOpenModal}/>
+                    children={
+                        <StakeholdersCreate 
+                            idRol={idRol} 
+                            setOpenModal={setOpenModal}
+                            onStakeholderCreated={handleStakeholderCreated}
+                        />
+                    }
+                    setOpen={setOpenModal}
+                />
             }
         </section>
     )
-}
-
-interface RolesStateProp {
-    roles: any[];
 }
 
 // Este prop es para abrir el modal para editar un stakeholder
@@ -129,33 +153,23 @@ interface SetIdRol {
     setIdRol: React.Dispatch<SetStateAction<number>>;
 }
 
-function RolesList({ selectedId, setSelectedId, setOpenModal, setIdRol, roles }: SelectedIdProp & OpenModalCreateStakeholderProp & SetIdRol & RolesStateProp) {
-    return(
-        <div className="roles-list">
-            {roles.map(r => (
-                <Role
-                    key={r.id_rol}
-                    id={r.id_rol}
-                    nombre={r.nombre}
-                    descripcion={r.descripcion}
-                    estatus={r.estatus}
-                    selectedId={selectedId}
-                    setSelectedId={setSelectedId}
-                    setOpenModal={setOpenModal}
-                    setIdRol={setIdRol}/>
-            ))}
-        </div>
-    );
-}
-
 interface RolesProp {
     id: number;
     nombre: string;
     descripcion: string;
     estatus: string;
+    refreshTrigger?: number;
 }
 
-function Role({ id, nombre, descripcion, setSelectedId, setOpenModal, setIdRol } : RolesProp & SelectedIdProp & OpenModalCreateStakeholderProp & SetIdRol) {
+function Role({
+    id,
+    nombre,
+    descripcion, 
+    setSelectedId,
+    setOpenModal,
+    setIdRol,
+    refreshTrigger = 0 
+} : RolesProp & SelectedIdProp & OpenModalCreateStakeholderProp & SetIdRol) {
     // Esta función cambia dos states, para indicar que se debe abrir el modal y para pasar el id del rol con props
     const handleCreateStakeholder = () => {
         setOpenModal(true); // Pone en true el estado para abrir el modal de crear un stakeholder
@@ -191,7 +205,10 @@ function Role({ id, nombre, descripcion, setSelectedId, setOpenModal, setIdRol }
                     </button>
                 </header>
                 <hr />
-                <StakeholderList idRole={id}/>
+                <StakeholderList
+                    idRole={id}
+                    key={`${id}-${refreshTrigger}`} // Solo cambia cuando ESE rol cambia
+                />
             </section>
         </article>
     )

@@ -7,10 +7,18 @@ import type { Stakeholder } from "../../Types/Stakeholders";
 
 interface StakeholderIdProp {
     idRole: number;
+    onStakeholderAdded?: () => void;
 }
 
-export default function StakeholdersList({ idRole }: StakeholderIdProp) {
+export default function StakeholdersList({ idRole, onStakeholderAdded }: StakeholderIdProp) {
     const [stakeholders, setStakeholders] = useState<Stakeholder[]>([]);
+
+    // Esta función actualiza la UI del stakeholder editado dinámicamente sin refresh
+    const handleUpdateStakeholder = (updateStake: Stakeholder) => {
+        setStakeholders(stakeholders.map(s => 
+            s.id_stakeholder === updateStake.id_stakeholder ? updateStake : s
+        ));
+    }
 
     const getStakeholders = async () => {
         const token = localStorage.getItem("token");
@@ -40,6 +48,13 @@ export default function StakeholdersList({ idRole }: StakeholderIdProp) {
         getStakeholders();
     }, []);
 
+    // Refrescar cuando se notifique que se agregó uno nuevo
+    useEffect(() => {
+        if (onStakeholderAdded) {
+            getStakeholders();
+        }
+    }, [onStakeholderAdded]);
+
     return (
         <div className="stakeholders-list">
             {stakeholders.length === 0 && (
@@ -50,7 +65,8 @@ export default function StakeholdersList({ idRole }: StakeholderIdProp) {
                     key={s.id_stakeholder}
                     id={s.id_stakeholder}
                     nombre={s.nombre}
-                    email={s.contacto_email}/>
+                    email={s.contacto_email}
+                    handleUpdateStakeholder={handleUpdateStakeholder}/>
             ))}
         </div>
     );
@@ -60,9 +76,10 @@ interface StakeholdersInfoProp {
     id: number;
     nombre: string;
     email: string;
+    handleUpdateStakeholder?: (updateStake: Stakeholder) => void;
 }
 
-function Stakeholder({ id, nombre, email }: StakeholdersInfoProp) {
+function Stakeholder({ id, nombre, email, handleUpdateStakeholder }: StakeholdersInfoProp) {
     const [selectedId, setSelectedId] = useState<number | null>(null);
 
     return (
@@ -85,7 +102,15 @@ function Stakeholder({ id, nombre, email }: StakeholdersInfoProp) {
                 <button><Trash size="sm" /></button>
             </div>
             {selectedId && <Modal
-                children={<StakeholdersEdit/>}
+                children={
+                    <StakeholdersEdit 
+                        id_stakeholder={id}
+                        nombre={nombre}
+                        contacto_email={email}
+                        setSelectedId={setSelectedId} 
+                        onUpdateStakeholder={handleUpdateStakeholder}
+                    />
+                }
                 setSelectedId={setSelectedId}/>
             }
         </article>

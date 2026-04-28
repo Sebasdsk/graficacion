@@ -1,9 +1,13 @@
 import "./StakeholdersCreate.css";
-import { useState } from "react";
+import { useState, type SetStateAction } from "react";
 
 // Se pasa el id del rol al modal de crear stakeholder para relacionarlo al rol al que pertenecerá
 interface IdRoleProp {
     idRol: number;
+}
+
+interface HandleOpenModalProp {
+    setOpenModal: React.Dispatch<SetStateAction<boolean>>;
 }
 
 interface Form {
@@ -11,7 +15,12 @@ interface Form {
     correo: string;
 }
 
-export default function StakeholdersCreate({ idRol }: IdRoleProp) {
+// Prop con un callback para ejecutar un trigger desde "Roles.tsx"
+interface OnStakeholderCreatedProp {
+    onStakeholderCreated?: (roleId: number) => void;
+}
+
+export default function StakeholdersCreate({ idRol, setOpenModal, onStakeholderCreated }: IdRoleProp & HandleOpenModalProp & OnStakeholderCreatedProp) {
     const [form, setForm] = useState<Form>({
         nombre: "",
         correo: ""
@@ -48,11 +57,18 @@ export default function StakeholdersCreate({ idRol }: IdRoleProp) {
                 body: JSON.stringify(bodyCreate)
             });
 
-            if (!response) {
-                throw new Error("Error al crear el stakeholder: ", response);
+            if (!response.ok) {
+                throw new Error("Error al crear el stakeholder: ");
             }
 
             const data = await response.json();
+            alert("¡¡Stakeholder creado!!");
+            setOpenModal(false); // Cierra el modal
+            
+            // Llamar al callback ANTES de cerrar el modal
+            if (onStakeholderCreated) {
+                onStakeholderCreated(idRol);  // Pasa el idRol específico
+            }
             console.log(data.stakeholder);
         } catch (err) {
             console.error("Error en la query: ", err);
