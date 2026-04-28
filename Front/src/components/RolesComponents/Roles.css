@@ -51,6 +51,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: .4em;
 }
 
 .role-info {
@@ -70,13 +71,15 @@
 
 }
 
-.button-edit-role {
+.button-edit-role,
+.button-delete-role {
     border: none;
     background-color: transparent;
     transition: color .1s ease;
 }
 
-.button-edit-role:hover {
+.button-edit-role:hover,
+.button-delete-role:hover {
     color: var(--hover-icon);
 }
 
