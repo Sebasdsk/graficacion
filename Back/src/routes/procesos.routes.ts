@@ -14,15 +14,8 @@ router.get('/proyecto/:id_proyecto', verifyToken, async (req: any, res: Response
                 id_proyecto: Number(id_proyecto)
             },
             include: {
-                subproceso: { 
-                    orderBy: {
-                        codigo_orden: 'asc'
-                    }
-                }
+                subproceso: true
             },
-            orderBy: {
-                codigo_orden: 'asc'
-            }
         });
 
         res.json(procesos);
