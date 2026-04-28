@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { ProjectIdContext } from "../../../pages/ConfigProjects";
-import "./RolesCreate.css"
+import "./RolesCreate.css";
 
 type estatusRol = "A" | "I" | "E";
 
@@ -49,8 +49,8 @@ export default function RolesCreate() {
                 body: JSON.stringify(bodyCreate)
             });
 
-            if (!response) {
-                throw new Error("No se pudo crear el rol", response);
+            if (!response.ok) {
+                throw new Error("No se pudo crear el rol");
             }
 
             const data = await response.json();

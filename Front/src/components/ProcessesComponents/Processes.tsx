@@ -96,7 +96,6 @@ interface ProcessListProps {
 
 // Lista de los procesos
 function ProccessesList({ procesos, setSelectedProcessId }: ProcessListProps & SetSelectedProcessId) {
-    console.log("Proceso id:", procesos);
     return (
         <div className="processes-list">
             {procesos.map(p => (
@@ -105,7 +104,7 @@ function ProccessesList({ procesos, setSelectedProcessId }: ProcessListProps & S
                     id_proceso={p.id_proceso}
                     nombre={p.nombre}
                     descripcion={p.descripcion}
-                    subprocesos={p.subprocesos}
+                    subprocesos={p.subproceso}
                     setSelectedProcessId={setSelectedProcessId}
                 />
             ))}

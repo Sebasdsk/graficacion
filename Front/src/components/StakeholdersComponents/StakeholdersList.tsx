@@ -1,34 +1,56 @@
 import { Trash, Edit, User, Envelope } from "@boxicons/react";
 import "./StakeholdersList.css"
 import StakeholdersEdit from "../../Modals/ModalChildrens/StakeholdersModals/StakeholdersEdit";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Modal from "../../Modals/Modal";
-
-// Mock data
-const stakeholders = [
-    {id: 1, nombre: "Sebastián", email: "sebas@email.com", idRole: 1},
-    {id: 2, nombre: "Carlos", email: "carlos@email.com", idRole: 2},
-    {id: 3, nombre: "Luis", email: "luis@email.com", idRole: 1},
-    {id: 4, nombre: "Mario", email: "mario@email.com", idRole: 1},
-    {id: 5, nombre: "Maria", email: "maria@email.com", idRole: 2},
-];
+import type { Stakeholder } from "../../Types/Stakeholders";
 
 interface StakeholderIdProp {
     idRole: number;
 }
 
 export default function StakeholdersList({ idRole }: StakeholderIdProp) {
+    const [stakeholders, setStakeholders] = useState<Stakeholder[]>([]);
 
-    const stakeholdersFilter = stakeholders.filter(s => s.idRole === idRole);
+    const getStakeholders = async () => {
+        const token = localStorage.getItem("token");
+        const API_URL = import.meta.env.VITE_API_URL;
+
+        try {
+            const response = await fetch(`${API_URL}/stakeholders/lista-stakeholders/${idRole}`, {
+                method: "GET",
+                headers: {
+                    'Authorization': `Bearer ${token}`, // Envía el token
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if (!response) {
+                throw new Error("Error al obtener los stakeholders del rol", response);
+            }
+
+            const data = await response.json();
+            setStakeholders(data);
+        } catch (err) {
+            console.log("Error en la query: ", err);
+        }
+    };
+
+    useEffect(() => {
+        getStakeholders();
+    }, []);
 
     return (
         <div className="stakeholders-list">
-            {stakeholdersFilter.map(s => (
+            {stakeholders.length === 0 && (
+                <div className="no-stakeholders-list">No hay stakeholders en este rol</div>
+            )}
+            {stakeholders.length > 0 && stakeholders.map(s => (
                 <Stakeholder
-                    key={s.id}
-                    id={s.id}
+                    key={s.id_stakeholder}
+                    id={s.id_stakeholder}
                     nombre={s.nombre}
-                    email={s.email}/>
+                    email={s.contacto_email}/>
             ))}
         </div>
     );
