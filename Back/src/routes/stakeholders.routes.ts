@@ -46,7 +46,30 @@ router.post('/crear-stakeholder', verifyToken, async(req: Request, res: Response
         res.status(200).json({ message: "¡Stakeholder creado correctamente!", stakeholder })
     } catch (err) {
         console.error(err);
-        res.status(500).json({Message: "No dse pudo crear el nuevo stakeholder", err});
+        res.status(500).json({ message: "No dse pudo crear el nuevo stakeholder", err });
+    }
+});
+
+// Método para actualizar los datos de un stakeholder
+router.put('/editar-stakeholder/:id_stakeholder', verifyToken, async(req: Request, res: Response) => {
+    const { id_stakeholder } = req.params;
+    const { nombre, correo } = req.body;
+
+    try {
+        const updateStakeholder = await prisma.stakeholder.update({
+            where: {
+                id_stakeholder: Number(id_stakeholder)
+            },
+            data: {
+                nombre: nombre,
+                contacto_email: correo
+            }
+        });
+
+        res.status(200).json({ message: "¡Stakeholder actualizado correctamente!", updateStakeholder });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: "No dse pudo actualizar el stakeholder", err });
     }
 });
 
