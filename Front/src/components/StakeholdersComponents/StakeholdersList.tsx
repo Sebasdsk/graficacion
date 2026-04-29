@@ -1,6 +1,7 @@
 import { Trash, Edit, User, Envelope } from "@boxicons/react";
 import "./StakeholdersList.css"
 import StakeholdersEdit from "../../Modals/ModalChildrens/StakeholdersModals/StakeholdersEdit";
+import StakeholdersDelete from "../../Modals/ModalChildrens/StakeholdersModals/StakeholdersDelete";
 import { useEffect, useState } from "react";
 import Modal from "../../Modals/Modal";
 import type { Stakeholder } from "../../Types/Stakeholders";
@@ -8,15 +9,23 @@ import type { Stakeholder } from "../../Types/Stakeholders";
 interface StakeholderIdProp {
     idRole: number;
     onStakeholderAdded?: () => void;
+    onStakeholderDeleted?: () => void;
 }
 
-export default function StakeholdersList({ idRole, onStakeholderAdded }: StakeholderIdProp) {
+export default function StakeholdersList({ idRole, onStakeholderAdded, onStakeholderDeleted }: StakeholderIdProp) {
     const [stakeholders, setStakeholders] = useState<Stakeholder[]>([]);
 
     // Esta función actualiza la UI del stakeholder editado dinámicamente sin refresh
     const handleUpdateStakeholder = (updateStake: Stakeholder) => {
         setStakeholders(stakeholders.map(s => 
             s.id_stakeholder === updateStake.id_stakeholder ? updateStake : s
+        ));
+    }
+
+    // Esta función actualiza la lista de stakeholers cuando uno es eliminado
+    const handleDeleteStakeholderList = (idStakeholderDelete: number) => {
+        setStakeholders(stakeholders.filter(s => 
+            s.id_stakeholder !== idStakeholderDelete
         ));
     }
 
@@ -50,10 +59,10 @@ export default function StakeholdersList({ idRole, onStakeholderAdded }: Stakeho
 
     // Refrescar cuando se notifique que se agregó uno nuevo
     useEffect(() => {
-        if (onStakeholderAdded) {
+        if (onStakeholderAdded || onStakeholderDeleted) {
             getStakeholders();
         }
-    }, [onStakeholderAdded]);
+    }, [onStakeholderAdded, onStakeholderDeleted]);
 
     return (
         <div className="stakeholders-list">
@@ -66,7 +75,8 @@ export default function StakeholdersList({ idRole, onStakeholderAdded }: Stakeho
                     id={s.id_stakeholder}
                     nombre={s.nombre}
                     email={s.contacto_email}
-                    handleUpdateStakeholder={handleUpdateStakeholder}/>
+                    handleUpdateStakeholder={handleUpdateStakeholder}
+                    handleDeleteStakeholderList={handleDeleteStakeholderList}/>
             ))}
         </div>
     );
@@ -77,10 +87,12 @@ interface StakeholdersInfoProp {
     nombre: string;
     email: string;
     handleUpdateStakeholder?: (updateStake: Stakeholder) => void;
+    handleDeleteStakeholderList?: (idStakeholderDelete: number) => void;
 }
 
-function Stakeholder({ id, nombre, email, handleUpdateStakeholder }: StakeholdersInfoProp) {
+function Stakeholder({ id, nombre, email, handleUpdateStakeholder, handleDeleteStakeholderList }: StakeholdersInfoProp) {
     const [selectedId, setSelectedId] = useState<number | null>(null);
+    const [selectedDeleteId, setSelectedDeleteId] = useState<number | null>(null);
 
     return (
         <article className="stakeholder-info">
@@ -99,7 +111,11 @@ function Stakeholder({ id, nombre, email, handleUpdateStakeholder }: Stakeholder
                     onClick={() => setSelectedId(id)}>
                     <Edit size="sm"/>
                 </button>
-                <button><Trash size="sm" /></button>
+                <button
+                    onClick={() => setSelectedDeleteId(id)}
+                >
+                    <Trash size="sm" />
+                </button>
             </div>
             {selectedId && <Modal
                 children={
@@ -112,6 +128,17 @@ function Stakeholder({ id, nombre, email, handleUpdateStakeholder }: Stakeholder
                     />
                 }
                 setSelectedId={setSelectedId}/>
+            }
+            {selectedDeleteId &&
+                <Modal
+                    children={
+                        <StakeholdersDelete
+                            idStakeholder={id}
+                            setSelectedDeleteId={setSelectedDeleteId}
+                            onDeleteStakeholder={handleDeleteStakeholderList}/>
+                    }
+                    setSelectedId={setSelectedDeleteId}
+                />
             }
         </article>
     );

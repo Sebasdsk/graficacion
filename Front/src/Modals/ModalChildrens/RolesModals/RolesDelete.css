@@ -1,0 +1,41 @@
+.alert-delete-modal {
+    width: clamp(320px, 35vw, 40vw);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.alert-delete-modal h2 {
+    text-align: center;
+    font-size: 1.2rem;
+}
+
+.buttons-div-delete {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.cancel-button-delete {
+    padding: .8rem;
+    border: 1px solid #000;
+    border-radius: 10px;
+    background-color: #ffff;
+    flex: 1;
+    transition: .2s all ease;
+}
+
+.delete-button-confirm {
+    padding: .8rem;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(to top, #ff0000, #ff5b5b);
+    color: #fff;
+    flex: 1;
+    transition: .2s all ease;
+}
+
+.cancel-button-delete:hover,
+.delete-button-confirm:hover {
+    transform: translateY(-5px);
+}
