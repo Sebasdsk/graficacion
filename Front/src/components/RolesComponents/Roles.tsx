@@ -16,7 +16,7 @@ export default function Roles() {
     const [selectedId, setSelectedId] = useState<number | null>(null);
     const [openModal, setOpenModal] = useState<boolean>(false);
     const [roles, setRoles] = useState<Rol[]>([]); // Guarda los roles obtenidos del back
-    const [idRol, setIdRol] = useState<number>(0)
+    const [idRol, setIdRol] = useState<number>(0);
 
     // Trigger específico por rol (objeto con rolId como key)
     const [refreshTriggers, setRefreshTriggers] = useState<Record<number, number>>({});
@@ -100,6 +100,7 @@ export default function Roles() {
                         nombre={r.nombre}
                         descripcion={r.descripcion}
                         estatus={r.estatus}
+                        totalStakeholders={r.stakeholder?.length !== undefined ? r.stakeholder?.length : 0}
                         selectedId={selectedId}
                         setSelectedId={setSelectedId}
                         setOpenModal={setOpenModal}
@@ -158,13 +159,15 @@ interface RolesProp {
     nombre: string;
     descripcion: string;
     estatus: string;
+    totalStakeholders: number;
     refreshTrigger?: number;
 }
 
 function Role({
     id,
     nombre,
-    descripcion, 
+    descripcion,
+    totalStakeholders,
     setSelectedId,
     setOpenModal,
     setIdRol,
@@ -195,7 +198,7 @@ function Role({
             </header>
             <section className="role-body">
                 <header className="header-role-body">
-                    <span>{0} stakeholders</span>
+                    <span>{`${totalStakeholders} ${totalStakeholders === 1 ? 'stakeholder' : 'stakeholders'}`}</span>
                     <button
                         className="add-stakeholder"
                         onClick={handleCreateStakeholder}
