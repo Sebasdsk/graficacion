@@ -62,7 +62,8 @@ export const ModelName = {
   requerimiento: 'requerimiento',
   tecnica_recoleccion: 'tecnica_recoleccion',
   entrevista: 'entrevista',
-  pregunta_entrevista: 'pregunta_entrevista'
+  pregunta_entrevista: 'pregunta_entrevista',
+  observacion: 'observacion'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -221,6 +222,20 @@ export const Pregunta_entrevistaScalarFieldEnum = {
 } as const
 
 export type Pregunta_entrevistaScalarFieldEnum = (typeof Pregunta_entrevistaScalarFieldEnum)[keyof typeof Pregunta_entrevistaScalarFieldEnum]
+
+
+export const ObservacionScalarFieldEnum = {
+  id_observacion: 'id_observacion',
+  id_tecnica: 'id_tecnica',
+  id_usuario: 'id_usuario',
+  fecha: 'fecha',
+  nota: 'nota',
+  tipo_observacion: 'tipo_observacion',
+  tipo_hallazgo: 'tipo_hallazgo',
+  impacto: 'impacto'
+} as const
+
+export type ObservacionScalarFieldEnum = (typeof ObservacionScalarFieldEnum)[keyof typeof ObservacionScalarFieldEnum]
 
 
 export const SortOrder = {

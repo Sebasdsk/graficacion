@@ -395,7 +395,8 @@ export const ModelName = {
   requerimiento: 'requerimiento',
   tecnica_recoleccion: 'tecnica_recoleccion',
   entrevista: 'entrevista',
-  pregunta_entrevista: 'pregunta_entrevista'
+  pregunta_entrevista: 'pregunta_entrevista',
+  observacion: 'observacion'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -411,7 +412,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "proceso" | "proyecto" | "proyecto_participante" | "rol" | "stakeholder" | "subproceso" | "usuario" | "equipo_proyecto" | "requerimiento" | "tecnica_recoleccion" | "entrevista" | "pregunta_entrevista"
+    modelProps: "proceso" | "proyecto" | "proyecto_participante" | "rol" | "stakeholder" | "subproceso" | "usuario" | "equipo_proyecto" | "requerimiento" | "tecnica_recoleccion" | "entrevista" | "pregunta_entrevista" | "observacion"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1303,6 +1304,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    observacion: {
+      payload: Prisma.$observacionPayload<ExtArgs>
+      fields: Prisma.observacionFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.observacionFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$observacionPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.observacionFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$observacionPayload>
+        }
+        findFirst: {
+          args: Prisma.observacionFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$observacionPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.observacionFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$observacionPayload>
+        }
+        findMany: {
+          args: Prisma.observacionFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$observacionPayload>[]
+        }
+        create: {
+          args: Prisma.observacionCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$observacionPayload>
+        }
+        createMany: {
+          args: Prisma.observacionCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.observacionCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$observacionPayload>[]
+        }
+        delete: {
+          args: Prisma.observacionDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$observacionPayload>
+        }
+        update: {
+          args: Prisma.observacionUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$observacionPayload>
+        }
+        deleteMany: {
+          args: Prisma.observacionDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.observacionUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.observacionUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$observacionPayload>[]
+        }
+        upsert: {
+          args: Prisma.observacionUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$observacionPayload>
+        }
+        aggregate: {
+          args: Prisma.ObservacionAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateObservacion>
+        }
+        groupBy: {
+          args: Prisma.observacionGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ObservacionGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.observacionCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ObservacionCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -1482,6 +1557,20 @@ export const Pregunta_entrevistaScalarFieldEnum = {
 } as const
 
 export type Pregunta_entrevistaScalarFieldEnum = (typeof Pregunta_entrevistaScalarFieldEnum)[keyof typeof Pregunta_entrevistaScalarFieldEnum]
+
+
+export const ObservacionScalarFieldEnum = {
+  id_observacion: 'id_observacion',
+  id_tecnica: 'id_tecnica',
+  id_usuario: 'id_usuario',
+  fecha: 'fecha',
+  nota: 'nota',
+  tipo_observacion: 'tipo_observacion',
+  tipo_hallazgo: 'tipo_hallazgo',
+  impacto: 'impacto'
+} as const
+
+export type ObservacionScalarFieldEnum = (typeof ObservacionScalarFieldEnum)[keyof typeof ObservacionScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -1683,6 +1772,7 @@ export type GlobalOmitConfig = {
   tecnica_recoleccion?: Prisma.tecnica_recoleccionOmit
   entrevista?: Prisma.entrevistaOmit
   pregunta_entrevista?: Prisma.pregunta_entrevistaOmit
+  observacion?: Prisma.observacionOmit
 }
 
 /* Types for Logging */

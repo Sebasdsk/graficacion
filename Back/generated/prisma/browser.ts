@@ -77,3 +77,8 @@ export type entrevista = Prisma.entrevistaModel
  * 
  */
 export type pregunta_entrevista = Prisma.pregunta_entrevistaModel
+/**
+ * Model observacion
+ * 
+ */
+export type observacion = Prisma.observacionModel
