@@ -25,6 +25,9 @@ router.get('/proyecto/:id_proyecto', verifyToken, async (req: Request, res: Resp
             where: {
                 id_proyecto: Number(id_proyecto),
             },
+            include: {
+                stakeholder: true
+            }
         });
 
         res.json(roles);
