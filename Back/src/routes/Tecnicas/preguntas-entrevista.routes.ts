@@ -17,7 +17,7 @@ router.get('/:id_entrevista/preguntas', async (req: Request, res: Response) => {
 });
 
 // Agregar pregunta a una entrevista
-router.post('/:id_entrevista/preguntas', async (req: Request, res: Response) => {
+router.post('/:id_entrevista/agregar_pregunta', async (req: Request, res: Response) => {
   try {
     const { pregunta, orden_pregunta } = req.body;
     const nueva = await prisma.pregunta_entrevista.create({
@@ -35,7 +35,7 @@ router.post('/:id_entrevista/preguntas', async (req: Request, res: Response) => 
 });
 
 // Guardar respuesta de una pregunta
-router.patch('/preguntas/:id_pregunta/respuesta', async (req: Request, res: Response) => {
+router.patch('/preguntas/:id_pregunta/guardar_respuesta', async (req: Request, res: Response) => {
   try {
     const { respuesta } = req.body;
     const actualizada = await prisma.pregunta_entrevista.update({
@@ -49,7 +49,7 @@ router.patch('/preguntas/:id_pregunta/respuesta', async (req: Request, res: Resp
 });
 
 // Editar pregunta
-router.put('/preguntas/:id_pregunta', async (req: Request, res: Response) => {
+router.put('/modificar_pregunta/:id_pregunta', async (req: Request, res: Response) => {
   try {
     const { pregunta, orden_pregunta } = req.body;
     const actualizada = await prisma.pregunta_entrevista.update({
@@ -63,7 +63,7 @@ router.put('/preguntas/:id_pregunta', async (req: Request, res: Response) => {
 });
 
 // Eliminar pregunta
-router.delete('/preguntas/:id_pregunta', async (req: Request, res: Response) => {
+router.delete('/eliminar_pregunta/:id_pregunta', async (req: Request, res: Response) => {
   try {
     await prisma.pregunta_entrevista.delete({
       where: { id_pregunta: Number(req.params.id_pregunta) }
