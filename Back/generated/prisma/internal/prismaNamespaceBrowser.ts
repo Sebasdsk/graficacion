@@ -62,8 +62,8 @@ export const ModelName = {
   requerimiento: 'requerimiento',
   tecnica_recoleccion: 'tecnica_recoleccion',
   entrevista: 'entrevista',
-  pregunta_entrevista: 'pregunta_entrevista',
-  observacion: 'observacion'
+  observacion: 'observacion',
+  pregunta_entrevista: 'pregunta_entrevista'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -213,17 +213,6 @@ export const EntrevistaScalarFieldEnum = {
 export type EntrevistaScalarFieldEnum = (typeof EntrevistaScalarFieldEnum)[keyof typeof EntrevistaScalarFieldEnum]
 
 
-export const Pregunta_entrevistaScalarFieldEnum = {
-  id_pregunta: 'id_pregunta',
-  id_entrevista: 'id_entrevista',
-  orden_pregunta: 'orden_pregunta',
-  pregunta: 'pregunta',
-  respuesta: 'respuesta'
-} as const
-
-export type Pregunta_entrevistaScalarFieldEnum = (typeof Pregunta_entrevistaScalarFieldEnum)[keyof typeof Pregunta_entrevistaScalarFieldEnum]
-
-
 export const ObservacionScalarFieldEnum = {
   id_observacion: 'id_observacion',
   id_tecnica: 'id_tecnica',
@@ -236,6 +225,17 @@ export const ObservacionScalarFieldEnum = {
 } as const
 
 export type ObservacionScalarFieldEnum = (typeof ObservacionScalarFieldEnum)[keyof typeof ObservacionScalarFieldEnum]
+
+
+export const Pregunta_entrevistaScalarFieldEnum = {
+  id_pregunta: 'id_pregunta',
+  id_entrevista: 'id_entrevista',
+  orden_pregunta: 'orden_pregunta',
+  pregunta: 'pregunta',
+  respuesta: 'respuesta'
+} as const
+
+export type Pregunta_entrevistaScalarFieldEnum = (typeof Pregunta_entrevistaScalarFieldEnum)[keyof typeof Pregunta_entrevistaScalarFieldEnum]
 
 
 export const SortOrder = {
