@@ -41,7 +41,7 @@ export default function ProcessesCreate({ setCreateProcess, setProcesos }: OpenC
             const data = await response.json();
             alert("Proceso creado exitosamente");
             setCreateProcess(false); // Cierra el modal después de crear el proceso
-            setProcesos((prevProcesos) => [...prevProcesos, data]); // Agrega el nuevo proceso a la lista de procesos
+            setProcesos((prevProcesos) => [...prevProcesos, data.proceso]); // Agrega el nuevo proceso a la lista de procesos
             console.log("Proceso creado:", data);
         } catch (error) {
             console.error("Error:", error);

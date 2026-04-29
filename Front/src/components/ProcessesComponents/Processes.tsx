@@ -1,8 +1,9 @@
 import SubprocessList from "../SubprocessesComponents/Subprocesses";
 import ProcessesCreate from "../../Modals/ModalChildrens/ProcessesModals/ProcessesCreate";
 import ProcessesEdit from "../../Modals/ModalChildrens/ProcessesModals/ProcessesEdit";
+import ProcessesDelete from "../../Modals/ModalChildrens/ProcessesModals/ProcessesDelete";
 import Modal from "../../Modals/Modal";
-import { Plus, Edit, Workflow, Trash } from "@boxicons/react"; 
+import { Plus, Edit, Workflow, Trash } from "@boxicons/react";
 import "./Processes.css"
 import { useContext, useEffect, useState, type SetStateAction } from "react";
 import ModalCreate from "../../Modals/ModalCreate";
@@ -18,6 +19,8 @@ export default function Processes() {
     const [createProcess, setCreateProcess] = useState<boolean>(false);
     // Este state se usa para abrir el modal para editar el proceso seleccionado
     const [selectedProcessId, setSelectedProcessId] = useState<number | null>(null);
+    // Este state se usa para abrir el modal para eliminar (soft delete) el proceso seleccionado
+    const [selectedDeleteId, setSelectedDeleteId] = useState<number | null>(null);
     const projectId = useContext(ProjectIdContext);
 
     const API_URL = import.meta.env.VITE_API_URL;
@@ -26,7 +29,7 @@ export default function Processes() {
     const getProcess = async () => {
         const response = await fetch(`${API_URL}/procesos/proyecto/${projectId}`, {
             method: "GET",
-            headers: { 
+            headers: {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${token}`,
             },
@@ -51,21 +54,26 @@ export default function Processes() {
                 onClick={() => setCreateProcess(true)}
                 className="button-create-process"
             >
-                <Plus size="xs"/> Crear Proceso
+                <Plus size="xs" /> Crear Proceso
             </button>
         )
     };
-    
-    return(
+
+    // Función que se refresca la lista de procesos cuando se elimina un proceso
+    const handleDeleteProcess = (id: number) => {
+        setProcesos(procesos.filter(p => p.id_proceso !== id));
+    };
+
+    return (
         <section className="processes">
             <header className="processes-header">
                 <h2>Gestionar Procesos</h2>
-                <ButtonCreateProcess/>
+                <ButtonCreateProcess />
             </header>
             {procesos.length === 0 ? (
                 <p className="no-processes">No hay procesos asociados a este proyecto</p>
             ) : (
-                <ProccessesList procesos={procesos} setSelectedProcessId={setSelectedProcessId}/>
+                <ProccessesList procesos={procesos} setSelectedProcessId={setSelectedProcessId} setSelectedDeleteId={setSelectedDeleteId} />
             )}
 
             {createProcess &&
@@ -76,11 +84,33 @@ export default function Processes() {
                             setProcesos={setProcesos}
                         />
                     }
-                    setOpen={setCreateProcess}/>
+                    setOpen={setCreateProcess} />
             }
-            {selectedProcessId !== null && <Modal setSelectedId={setSelectedProcessId}>
-                <ProcessesEdit idProcess={selectedProcessId} />
-            </Modal>}
+            {selectedProcessId !== null && 
+                <Modal
+                    children={
+                        <ProcessesEdit
+                            idProcess={selectedProcessId}
+                            procesos={procesos}
+                            setProcesos={setProcesos} 
+                            setSelectedId={setSelectedProcessId} 
+                        />
+                    }
+                    setSelectedId={setSelectedProcessId}
+                />
+            }
+            {selectedDeleteId !== null &&
+                <Modal
+                    children={
+                        <ProcessesDelete
+                            idProcess={selectedDeleteId}
+                            setSelectedDeleteId={setSelectedDeleteId}
+                            onDeleteProcess={handleDeleteProcess}
+                        />
+                    }
+                    setSelectedId={setSelectedDeleteId}
+                />
+            }
         </section>
     );
 }
@@ -95,7 +125,7 @@ interface ProcessListProps {
 }
 
 // Lista de los procesos
-function ProccessesList({ procesos, setSelectedProcessId }: ProcessListProps & SetSelectedProcessId) {
+function ProccessesList({ procesos, setSelectedProcessId, setSelectedDeleteId }: ProcessListProps & SetSelectedProcessId & { setSelectedDeleteId: React.Dispatch<React.SetStateAction<number | null>> }) {
     return (
         <div className="processes-list">
             {procesos.map(p => (
@@ -106,6 +136,7 @@ function ProccessesList({ procesos, setSelectedProcessId }: ProcessListProps & S
                     descripcion={p.descripcion}
                     subprocesos={p.subproceso}
                     setSelectedProcessId={setSelectedProcessId}
+                    setSelectedDeleteId={setSelectedDeleteId}
                 />
             ))}
         </div>
@@ -117,10 +148,11 @@ interface ProcessProp {
     nombre: string;
     descripcion: string;
     subprocesos?: Subproceso[];
+    setSelectedDeleteId: React.Dispatch<React.SetStateAction<number | null>>;
 }
 
 // Cada proceso por separado
-function Process({ id_proceso, nombre, descripcion, subprocesos, setSelectedProcessId }: ProcessProp & SetSelectedProcessId) {
+function Process({ id_proceso, nombre, descripcion, subprocesos, setSelectedProcessId, setSelectedDeleteId }: ProcessProp & SetSelectedProcessId) {
     // Aqui se evita que haya valor undefined en caso de no haber subprocesos relacionados al proceso
     const safeSubprocesses = subprocesos || [];
     const [subprocessList, setSubprocessList] = useState<Subproceso[]>(safeSubprocesses);
@@ -145,16 +177,20 @@ function Process({ id_proceso, nombre, descripcion, subprocesos, setSelectedProc
                             className="button-edit-process"
                             onClick={() => setSelectedProcessId(id_proceso)}
                         >
-                            <Edit size="sm"/>
+                            <Edit size="sm" />
                         </button>
-                        <button className="button-delete-process">
-                            <Trash fill="#e21818ff" size="sm"/>
+                        <button className="button-delete-process" onClick={() => setSelectedDeleteId(id_proceso)}>
+                            <Trash fill="#e21818ff" size="sm" />
                         </button>
                     </div>
                 </div>
             </header>
             <div className="process-body">
-                <SubprocessList subprocesosList={subprocessList} setSubprocesosList={setSubprocessList} idProcess={id_proceso}/>
+                <SubprocessList
+                    subprocesosList={subprocessList}
+                    setSubprocesosList={setSubprocessList}
+                    idProcess={id_proceso}
+                />
             </div>
         </article>
     );
