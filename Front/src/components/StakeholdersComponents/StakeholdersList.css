@@ -5,6 +5,16 @@
     gap: .6rem;
 }
 
+.no-stakeholders-list {
+    margin-top: .5rem;
+    width: 100%;
+    font-size: .8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--info-text);
+}
+
 .stakeholder-info {  
     padding: .6rem;
     display: flex;

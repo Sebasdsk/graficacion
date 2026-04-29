@@ -20,44 +20,28 @@ router.get('/lista-roles', verifyToken, async (req: Request, res: Response) => {
 // Lista de los roles asignados a un proyecto
 router.get('/proyecto/:id_proyecto', verifyToken, async (req: Request, res: Response) => {
     try {
-        const { id_proyecto: id_proyecto_param } = req.params;
-        const id_proyecto = parseInt(id_proyecto_param as string);
-        const participantes = await prisma.proyecto_participante.findMany({
+        const { id_proyecto } = req.params;
+        const roles = await prisma.rol.findMany({
             where: {
-                id_proyecto,
-                activo: true
+                id_proyecto: Number(id_proyecto),
             },
-            select: {
-                id_participacion: true,
-                fecha_asignacion: true,
-                usuario: { select: { nombre: true } },
-                rol: { select: { nombre: true } }
-            }
         });
 
-        // Aplanar el resultado para mantener la misma estructura que antes
-        const result = participantes.map((p: any) => ({
-            id_participacion: p.id_participacion,
-            nombre_usuario: p.usuario.nombre,
-            nombre_rol: p.rol.nombre,
-            fecha_asignacion: p.fecha_asignacion
-        }));
-
-        res.json(result);
+        res.json(roles);
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: 'Error al obtener lista' });
     }
 });
 
-// Crear nuevo rol 
+// Crear nuevo rol
 router.post('/crear-rol', verifyToken, async (req: Request, res: Response) => {
     try {
-        const { nombre } = req.body;
-        if (!nombre) return res.status(400).json({ error: 'El nombre es obligatorio' });
+        const { nombre, descripcion, estatus, id_proyecto } = req.body;
+        if (!nombre || !descripcion || !estatus) return res.status(400).json({ error: 'Campos incompletos.' });
 
         const rol = await prisma.rol.create({
-            data: { nombre }
+            data: { nombre, descripcion, estatus, id_proyecto }
         });
         res.json(rol);
     } catch (err) {
@@ -65,6 +49,28 @@ router.post('/crear-rol', verifyToken, async (req: Request, res: Response) => {
         res.status(500).json({ error: 'Error al crear rol' });
     }
 });
+
+router.put('/actualizar/:id_rol', verifyToken, async (req: Request, res: Response) => {
+    try {
+        const { id_rol, nombre, descripcion, estatus } = req.body;
+
+        const rolUpdate = await prisma.rol.update({
+            where: {
+                id_rol: Number(id_rol),
+            },
+            data: {
+                nombre: nombre,
+                descripcion: descripcion,
+                estatus: estatus
+            }
+        });
+
+        res.json({ message: "Rol actualizado correctamente", rolUpdate });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Error al actualizar el rol' });
+    }
+})
 
 // Asignar un usuario a un proyecto con un rol específico
 router.post('/asignar', verifyToken, async (req: Request, res: Response): Promise<any> => {
@@ -94,25 +100,21 @@ router.post('/asignar', verifyToken, async (req: Request, res: Response): Promis
     }
 });
 
-// Eliminar interesado del proyecto
-router.patch('/eliminar/:id_participacion', verifyToken, async (req: Request, res: Response) => {
+// Eliminar el rol (soft data)
+router.patch('/eliminar/:id_rol', verifyToken, async (req: Request, res: Response) => {
     try {
-        const { id_participacion: id_participacion_param } = req.params;
-        const id_participacion = parseInt(id_participacion_param as string);
-
-        const participante = await prisma.proyecto_participante.update({
-            where: { id_participacion },
+        const { id_rol } = req.body;
+        
+        await prisma.rol.update({
+            where: {
+                id_rol: Number(id_rol)
+            },
             data: {
-                activo: false,
-                fecha_salida: new Date()
+                estatus: "E"
             }
         });
 
-        res.json({
-            message: 'Interesado marcado como baja',
-            data: participante
-        });
-
+        res.json({ message: 'Rol eliminado correctamente.'});
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: 'Error al dar de baja' });

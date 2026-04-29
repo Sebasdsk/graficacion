@@ -1,7 +1,5 @@
 export interface Stakeholder {
-    id: number;
+    id_stakeholder: number;
     nombre: string;
-    puesto: string;
-    rol: string;
-    correo: string;
+    contacto_email: string;
 }
