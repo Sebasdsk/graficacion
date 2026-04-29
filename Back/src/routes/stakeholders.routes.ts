@@ -5,7 +5,7 @@ import { verifyToken } from '../middleware/auth.middleware';
 const router = Router();
 
 // Método para obtener todos los stakeholders relacionados a un rol
-router.get('/lista-stakeholders/:id_rol', verifyToken, async(req: Request, res: Response) => {
+router.get('/lista-stakeholders/:id_rol', verifyToken, async (req: Request, res: Response) => {
     const { id_rol } = req.params;
 
     if (!id_rol) {
@@ -15,19 +15,20 @@ router.get('/lista-stakeholders/:id_rol', verifyToken, async(req: Request, res: 
     try {
         const stakeholders = await prisma.stakeholder.findMany({
             where: {
-                id_rol: Number(id_rol)
+                id_rol: Number(id_rol),
+                estatus: 'A'
             }
         });
 
         res.json(stakeholders);
     } catch (err) {
         console.error(err);
-        res.status(500).json({Message: "No se pudo obtener el stakeholder", err});
+        res.status(500).json({ Message: "No se pudo obtener el stakeholder", err });
     }
 });
 
 // Método que crea un nuevo stakeholder
-router.post('/crear-stakeholder', verifyToken, async(req: Request, res: Response) => {
+router.post('/crear-stakeholder', verifyToken, async (req: Request, res: Response) => {
     const { nombre, correo, id_rol } = req.body;
 
     if (!nombre || !correo) {
@@ -46,12 +47,12 @@ router.post('/crear-stakeholder', verifyToken, async(req: Request, res: Response
         res.status(200).json({ message: "¡Stakeholder creado correctamente!", stakeholder })
     } catch (err) {
         console.error(err);
-        res.status(500).json({ message: "No dse pudo crear el nuevo stakeholder", err });
+        res.status(500).json({ message: "No se pudo crear el nuevo stakeholder", err });
     }
 });
 
 // Método para actualizar los datos de un stakeholder
-router.put('/editar-stakeholder/:id_stakeholder', verifyToken, async(req: Request, res: Response) => {
+router.put('/editar-stakeholder/:id_stakeholder', verifyToken, async (req: Request, res: Response) => {
     const { id_stakeholder } = req.params;
     const { nombre, correo } = req.body;
 
@@ -69,8 +70,29 @@ router.put('/editar-stakeholder/:id_stakeholder', verifyToken, async(req: Reques
         res.status(200).json({ message: "¡Stakeholder actualizado correctamente!", updateStakeholder });
     } catch (err) {
         console.error(err);
-        res.status(500).json({ message: "No dse pudo actualizar el stakeholder", err });
+        res.status(500).json({ message: "No se pudo actualizar el stakeholder", err });
     }
 });
+
+// Método para eliminar (Soft delete) un stakeholder, solo cambia el estatus.
+router.put('/eliminar/:id_stakeholder', verifyToken, async (req: Request, res: Response) => {
+    const { id_stakeholder } = req.params;
+
+    try {
+        await prisma.stakeholder.update({
+            where: {
+                id_stakeholder: Number(id_stakeholder)
+            },
+            data: {
+                estatus: 'E' // Cambia el estatus a E de Eliminado
+            }
+        });
+
+        res.status(200).json({ message: "¡¡Stakeholder eliminado correctamente!!" });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: "No se pudo eliminar el stakeholder", err });
+    }
+})
 
 export default router;

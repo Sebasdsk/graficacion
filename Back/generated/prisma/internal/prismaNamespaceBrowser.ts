@@ -87,7 +87,7 @@ export const ProcesoScalarFieldEnum = {
   nombre: 'nombre',
   descripcion: 'descripcion',
   id_proyecto: 'id_proyecto',
-  codigo_orden: 'codigo_orden'
+  estatus: 'estatus'
 } as const
 
 export type ProcesoScalarFieldEnum = (typeof ProcesoScalarFieldEnum)[keyof typeof ProcesoScalarFieldEnum]
@@ -123,8 +123,8 @@ export type Proyecto_participanteScalarFieldEnum = (typeof Proyecto_participante
 export const RolScalarFieldEnum = {
   id_rol: 'id_rol',
   nombre: 'nombre',
-  descripcion: 'descripcion',
   estatus: 'estatus',
+  descripcion: 'descripcion',
   id_proyecto: 'id_proyecto'
 } as const
 
@@ -133,11 +133,11 @@ export type RolScalarFieldEnum = (typeof RolScalarFieldEnum)[keyof typeof RolSca
 
 export const StakeholderScalarFieldEnum = {
   id_stakeholder: 'id_stakeholder',
-  id_rol: 'id_rol',
   nombre: 'nombre',
   area: 'area',
   contacto_email: 'contacto_email',
-  notas: 'notas'
+  estatus: 'estatus',
+  id_rol: 'id_rol'
 } as const
 
 export type StakeholderScalarFieldEnum = (typeof StakeholderScalarFieldEnum)[keyof typeof StakeholderScalarFieldEnum]
@@ -147,7 +147,7 @@ export const SubprocesoScalarFieldEnum = {
   id_subproceso: 'id_subproceso',
   nombre: 'nombre',
   descripcion: 'descripcion',
-  codigo_orden: 'codigo_orden',
+  estatus: 'estatus',
   id_proceso: 'id_proceso'
 } as const
 
