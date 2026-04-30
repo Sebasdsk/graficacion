@@ -1,0 +1,303 @@
+.register-page {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow-y: auto;
+}
+
+.register-form {
+    padding: 2rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.4rem;
+    border: none;
+    border-radius: 15px;
+    width: min(450px, 90%);
+    height: clamp(80vh, 90vh, 100vh);
+    position: relative;
+}
+
+.logo-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.back-link {
+    text-decoration: none;
+    color: #191919;
+    font-size: 1.6rem;
+    font-weight: 600;
+}
+
+.highlight-text {
+    background: var(--highlight-color);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 600;
+}
+
+.logo-flowtic {
+    background: linear-gradient(to top, #5dc757d1, #d1ed53d1);
+    backdrop-filter: blur(10px);
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: #191919;
+    padding: 1rem;
+    border-radius: 15px;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+}
+
+.register-header {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .4rem;
+}
+
+.register-header small {
+    font-size: 0.9rem;
+    color: var(--info-text);
+    font-weight: 300;
+}
+
+h2 {
+    font-size: 1.6rem;
+    font-weight: 500;
+}
+
+.line-divisor-header, .line-divisor {
+    height: 1px;
+    width: 100%;
+    background-color: #dfdfdf;
+    border-radius: 50%;
+}
+
+.inputs-values {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    gap: 1.2rem;
+    width: 100%;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    gap: .6rem;
+    width: 100%;
+}
+
+.input-row {
+    display: flex;
+    gap: 1rem;
+    width: 100%;
+}
+
+.input-group input {
+    width: 100%;
+    border-radius: 10px;
+    border: 1px solid var(--border-container);
+    padding: .8rem;
+    box-sizing: border-box;
+}
+
+.input-group input:hover {
+    box-shadow: var(--shadow-hover);
+}
+
+.passw-input-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.passw-input-wrapper input {
+    width: 100%;
+    border-radius: 10px;
+    border: 1px solid var(--border-container);
+    padding: .8rem;
+    box-sizing: border-box;
+}
+
+.passw-input-wrapper input:hover {
+    box-shadow: var(--shadow-hover);
+}
+
+.btn-show-passw {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    right: 1rem;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+}
+
+.eye-icon {
+    animation: scale-up .2s ease;
+}
+
+.register-button {
+    width: 100%;
+    padding: .8rem;
+    border-radius: 10px;
+    border: none;
+    background: var(--button-green);
+    color: #191919;
+    transition: all .2s ease;
+    font-weight: 600;
+    margin-top: 0.5rem;
+    cursor: pointer;
+}
+
+.register-button:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.register-button:not(:disabled):hover {
+    transform: translateY(-5px);
+}
+
+.error-message {
+    width: 100%;
+    color: red;
+    font-size: 0.8rem;
+    text-align: center;
+    animation: error-fade-in .2s ease;
+}
+
+.success-message {
+    width: 100%;
+    color: #5dc757;
+    font-size: 0.9rem;
+    text-align: center;
+    font-weight: 600;
+    animation: error-fade-in .2s ease;
+}
+
+.error-text {
+    color: red;
+    font-size: 0.8rem;
+    animation: error-fade-in .2s ease;
+}
+
+.create-account {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    gap: .4rem;
+    color: #8f8f8f;
+}
+
+.create-account a {
+    text-decoration: none;
+    color: #a163f3;
+}
+
+.line-divisor-sign-up {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    gap: .5rem;
+    color: #8f8f8f;
+}
+
+.banner-register {
+    display: none;
+    height: 100%;
+    width: 50%;
+    text-align: center;
+    padding: 1.5rem 6rem;
+    gap: .8rem;
+    border-radius: 15% 20px 15% 20px;
+    text-align: left;
+    background-image: url("../../public/Bg_banner_register.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+.banner-content {
+    padding: 2rem;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(10px);
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: center;
+    gap: .8rem;
+    border-radius: 15px;
+}
+
+.banner-content h1 {
+    font-size: 1.8rem;
+    font-weight: 500;
+    color: white;
+}
+
+.banner-content p {
+    font-size: 1.2rem;
+    color: #dfdfdf;
+    font-weight: 300;
+    width: 100%;
+}
+
+@keyframes scale-up {
+    0% { opacity: 0.5; scale: 0.8; }
+    60% { opacity: 0.8; scale: 1.1; }
+    100% { opacity: 1; scale: 1; }
+}
+
+@keyframes error-fade-in {
+    0% { opacity: 0; transform: translateY(5px) translateX(5px); }
+    60% { opacity: 0.8; transform: translateX(-5px); }
+    80% { opacity: 0.9; transform: translateX(5px); }
+    100% { opacity: 1; transform: translateY(0) translateX(0); }
+}
+
+@media (min-width: 1440px) {
+    .register-page {
+        gap: 2rem;
+        padding: 1.2rem;
+    }
+
+    .register-form {
+        width: 50%;
+    }
+
+    .inputs-values,
+    .line-divisor-sign-up,
+    .line-divisor-header {
+        width: clamp(300px, 60%, 450px);
+    }
+
+    .logo-container {
+        width: 100%;
+        display: flex;
+        justify-content: start;
+        position: absolute;
+        top: 1rem;
+        left: 1rem;
+    }
+
+    .banner-register {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+    }
+}

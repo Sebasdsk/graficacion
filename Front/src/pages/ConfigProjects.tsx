@@ -82,11 +82,11 @@ export default function ConfigProjects() {
 
     return (
         <main className={`configurate-container ${collapsed ? "collapsed" : ""} ${mobileOpen ? "mobile-open" : ""}`}>
-            <ProjectSideBar option={option} setOption={setOption}/>
-            {mobileOpen && <div 
-                    className="backdrop"
-                    onClick={() => setMobileOpen(!mobileOpen)}
-                />}
+            <ProjectSideBar option={option} setOption={setOption} />
+            {mobileOpen && <div
+                className="backdrop"
+                onClick={() => setMobileOpen(!mobileOpen)}
+            />}
             <section className="configurate-body">
                 <header className="configurate-header">
                     <HeaderConfigProject
@@ -116,7 +116,7 @@ export default function ConfigProjects() {
                                 </div>
                                 <div className="date-project">
                                     <dt>
-                                        <Calendar size="xs"/>
+                                        <Calendar size="xs" />
                                         Creado el
                                     </dt>
                                     <dd>{project?.fecha_inicio}</dd>
@@ -127,21 +127,21 @@ export default function ConfigProjects() {
                             className="button-edit-project"
                             onClick={() => setOpenEditModal(true)}
                         >
-                            <Pencil size="xs"/> Editar
+                            <Pencil size="xs" /> Editar
                         </button>
                     </div>
                 </header>
                 <section className="config-content">
-                    <ResumeProject/>
+                    <ResumeProject />
                     <div className="buttons-menu">
-                        <button 
+                        <button
                             className={`button-menu ${option === "Roles" ? "selected" : ""}`}
                             onClick={() => setOption("Roles")}
                         >
                             Roles y Stakeholders
                         </button>
                         <button
-                        onClick={() => setOption("Procesos")}
+                            onClick={() => setOption("Procesos")}
                             className={`button-menu ${option === "Procesos" ? "selected" : ""}`}
                         >
                             Procesos
@@ -149,24 +149,24 @@ export default function ConfigProjects() {
                     </div>
                     {option === "Roles" && projectId !== null && (
                         <ProjectIdContext value={projectId}>
-                            <Roles/>
+                            <Roles />
                         </ProjectIdContext>
                     )}
                     {option === "Procesos" && projectId !== null && (
                         <ProjectIdContext value={projectId}>
-                            <Process/>
+                            <Process />
                         </ProjectIdContext>
                     )}
                 </section>
             </section>
             {openEditModal && <ModalCreate
                 children={
-                <EditProject
-                    proyecto={project}
-                    setProyecto={setProject}
-                    setOpenEditModal={setOpenEditModal}
-                />
-                } setOpen={setOpenEditModal}/>}
+                    <EditProject
+                        proyecto={project}
+                        setProyecto={setProject}
+                        setOpenEditModal={setOpenEditModal}
+                    />
+                } setOpen={setOpenEditModal} />}
         </main>
     );
 }
@@ -227,13 +227,13 @@ function ProjectSideBar({ option, setOption }: OptionsProjectsProp) {
                     className={`sidebar-button-menu ${option === "Roles" ? 'option-selected' : ''}`}
                     onClick={() => setOption("Roles")}
                 >
-                    <Community size="xs"/> Roles y Stakeholders
+                    <Community size="xs" /> Roles y Stakeholders
                 </button>
                 <button
                     className={`sidebar-button-menu ${option === "Procesos" ? 'option-selected' : ''}`}
                     onClick={() => setOption("Procesos")}
                 >
-                    <Workflow size="xs"/> Procesos
+                    <Workflow size="xs" /> Procesos
                 </button>
             </section>
         </aside>
