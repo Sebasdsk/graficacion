@@ -14,37 +14,30 @@ export default function Dashboard() {
     const [mobileOpen, setMobileOpen] = useState<boolean>(false);
     const [projects, setProjects] = useState<Proyecto[]>([]);
 
-    // Estados para mostrar el conteo de los proyectos por estatus en el sidebar
-    const [totalProyectos, setTotalProyectos] = useState<number>(0);
-    const [planificacion, setPlanificacion] = useState<number>(0);
-    const [progreso, setProgreso] = useState<number>(0);
-    const [completado, setCompletado] = useState<number>(0);
-    const [cancelado, setCancelado] = useState<number>(0);
+    // Valores derivados de projects para mostrar el conteo en el sidebar
+    const totalProyectos = projects.length;
+    const contadorEstatus = counterStatusProjects(projects);
+    const planificacion = contadorEstatus["Planificación"] ?? 0;
+    const progreso = contadorEstatus["En Progreso"] ?? 0;
+    const completado = contadorEstatus["Completado"] ?? 0;
+    const cancelado = contadorEstatus["Cancelado"] ?? 0;
 
     const token = localStorage.getItem("token");
     if (!token) {
         navigate("/");
     }
 
-    useEffect(() => {
-        const getProjects = async () => {
-            try {
-                const data = await consultAllProjects(token);
-                setProjects(data); // Guarda los proyectos consultados en el estado
-                setTotalProyectos(data.length); // Cuenta el total de proyectos
-
-                const contadorEstatus = counterStatusProjects(data)
-                // Guarda el número de cada estatus de los proyectos
-                setPlanificacion(contadorEstatus["Planificación"] ?? 0);
-                setProgreso(contadorEstatus["En Progreso"] ?? 0);
-                setCompletado(contadorEstatus["Completado"] ?? 0);
-                setCancelado(contadorEstatus["Cancelado"] ?? 0);
-            } catch (err) {
-                console.error("Error en la query: ", err)
-                navigate("/");
-            }
+    const getProjects = async () => {
+        try {
+            const data = await consultAllProjects(token);
+            setProjects(data); // Guarda los proyectos consultados en el estado
+        } catch (err) {
+            console.error("Error en la query: ", err)
+            navigate("/");
         }
+    }
 
+    useEffect(() => {
         getProjects();
     }, []);
 
@@ -68,7 +61,7 @@ export default function Dashboard() {
                     setCollapsed={setCollapsed}
                     mobileOpen={mobileOpen}
                     setMobileOpen={setMobileOpen}/>
-                <Projects/>
+                <Projects projects={projects} setProjects={setProjects}/>
             </section>
         </main>
     );

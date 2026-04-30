@@ -1,4 +1,4 @@
-import { Group, Calendar } from "@boxicons/react";
+import { Calendar } from "@boxicons/react";
 import { useNavigate } from "react-router";
 import "./Project.css"
 
@@ -8,10 +8,9 @@ interface ProyectoProp {
     descripcion: string;
     estatus: string;
     fecha_inicio: string;
-    colaboradores: number;
 }
 
-export default function Project( { id_proyecto, nombre, descripcion, estatus, fecha_inicio, colaboradores }: ProyectoProp ) {
+export default function Project( { id_proyecto, nombre, descripcion, estatus, fecha_inicio }: ProyectoProp ) {
     const navigate = useNavigate();
 
     // Esta función dirige a la página de configuración de proyecto como parámetro el id del proyecto seleccionado
@@ -46,8 +45,6 @@ export default function Project( { id_proyecto, nombre, descripcion, estatus, fe
                 </div>
                 <div className="relations-projects">
                     <div className="persons-container">
-                        <span><Group size="xs"/> {colaboradores ? colaboradores : 0 }</span>
-                        <p>Personas</p>
                     </div>
                     <div className="date-container">
                         <span><Calendar size="xs"/> {fecha_inicio}</span>
