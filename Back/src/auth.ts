@@ -15,7 +15,7 @@ router.post('/login', async (req: Request, res: Response) => {
 
         // Buscamos si existe el correo
         const usuario = await prisma.usuario.findFirst({
-          where: { email: email },
+            where: { email: email },
         });
 
         if (!usuario) {
@@ -24,6 +24,7 @@ router.post('/login', async (req: Request, res: Response) => {
             .json({ message: "No hay usuario con ese correo" });
         }
         
+        //compara la contraseña que escribe el usuario con la encriptada que esta en la BD
         const compareHashPassword = await bcrypt.compare(password, usuario.password_hash);
         
         if (!compareHashPassword) {
@@ -56,6 +57,28 @@ router.post('/register', async (req: Request, res: Response) => {
 
         const { nombre, apellido_paterno, apellido_materno, email, password } = req.body;
         
+        //  Array de errores para validacion para contraseña
+        const errorValidaciones: string[] = [];
+        //  Validaciones 
+        if (password && password.length < 8) {
+            errorValidaciones.push("La contraseña debe tener al menos 8 caracteres")
+        }
+        if (password && !/[A-Z]/.test(password)) {
+            errorValidaciones.push("La contraseña debe de contener almenos una mayuscula")
+        }
+        if (password && !/[0-9]/.test(password)) {
+            errorValidaciones.push("La contraseña debe de contener almenos un numero")
+        }
+
+        // Si hay errores regresar los errores de validacion detectados:
+        if (errorValidaciones.length > 0) {
+            return res.status(400).json({
+                message: "Errores en la validacion",
+                errors: errorValidaciones
+            })
+        }
+
+        // una vez ya pasadas las pruebas de validacion encriptar la contraseña para guardarla en la bd 
         const saltRounds = 10;
         const passwordHashed = await bcrypt.hash(password, saltRounds);
 
