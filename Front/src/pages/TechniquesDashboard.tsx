@@ -11,6 +11,7 @@ import FormTechnique from "../components/TechniquesForms/FormTechnique";
 import EntrevistaForm from "../components/TechniquesForms/EntrevistaForm";
 import ObservacionForm from "../components/TechniquesForms/ObservacionForm";
 import HistoriasUsuarioForm from "../components/TechniquesForms/HistoriasUsuarioForm";
+import DocumentoForm from "../components/TechniquesForms/DocumentoForm";
 
 // Mock Data
 export const tecnicasCatalogo: TipoTecnica[] = [
@@ -30,6 +31,7 @@ const techniques: Tecnica[] = [
     { id: 4, nombre: "Observación de Usuarios", descripcion: "Realizar sesiones de observación con usuarios.", tipo: tecnicasCatalogo[3], estatus: "Planificada" },
     { id: 5, nombre: "Entrevista con Gerente", descripcion: "Realizar sesiones de entrevistas con el gerente.", tipo: tecnicasCatalogo[0], estatus: "Completada" },
     { id: 6, nombre: "Cuestionario para Usuarios Finales", descripcion: "Diseñar y distribuir un cuestionario para recopilar información de los usuarios.", tipo: tecnicasCatalogo[1], estatus: "Completada" },
+    { id: 7, nombre: "Documentos", descripcion: "Diseñar y distribuir un cuestionario para recopilar información de los usuarios.", tipo: tecnicasCatalogo[5], estatus: "Completada" }
 ];
 
 type SelectedTecnique = "Vista General" | "Entrevista" | "Observación" | "Historias de Usuario" | "Focus Group" | "Documentos" | "Seguimiento Transaccional";
@@ -196,10 +198,15 @@ export default function TechniquesDashboard() {
                     />
                 )}
                 {selectedTechnique === "Historias de Usuario" && (
-                    console.log("Si es Historia de usuario"),
                     <FormTechnique
                         tipoTecnica={tecnicasCatalogo[4]}
                         children={<HistoriasUsuarioForm />}
+                    />
+                )}
+                {selectedTechnique === "Documentos" && (
+                    <FormTechnique
+                        tipoTecnica={tecnicasCatalogo[5]}
+                        children={<DocumentoForm />}
                     />
                 )}
                 {addTechnique && (<CreateNewTechnique onClose={() => setAddTechnique(false)} />)}

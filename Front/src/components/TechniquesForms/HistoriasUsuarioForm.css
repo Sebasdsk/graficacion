@@ -36,7 +36,7 @@
 .input-container input,
 .input-container select,
 .input-container textarea {
-    padding: .8rem;
+    padding: .6rem;
     border-radius: 10px;
     border: 1px solid var(--border-container);
     background-color: #f9f9f9;
@@ -136,13 +136,17 @@
 
 .contenido-criterio input {
     flex: 1;
-    padding: .8rem;
+    padding: .6rem;
     border-radius: 10px;
     border: 1px solid var(--border-container);
     background-color: #f9f9f9;
     font-family: inherit;
     font-size: 0.95rem;
     color: var(--text-color);
+}
+
+.contenido-criterio input:hover {
+    box-shadow: var(--shadow-hover);
 }
 
 .contenido-criterio input:focus {
@@ -155,7 +159,7 @@
     border: none;
     background-color: transparent;
     cursor: pointer;
-    padding: 0.4rem;
+    padding: .4rem;
     display: flex;
     align-items: center;
     justify-content: center;

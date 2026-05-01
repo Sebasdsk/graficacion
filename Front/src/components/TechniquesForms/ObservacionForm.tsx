@@ -103,16 +103,25 @@ export default function ObservacionForm() {
                 </div>
                 <div className="info-row">
                     <div className="input-container">
-                        <label>Ubicación</label>
-                        <input type="text" placeholder="Ej: Oficina, Departamento de Ventas" />
+                        <label htmlFor="ubicacion">Ubicación</label>
+                        <input
+                            type="text"
+                            placeholder="Ej: Oficina, Departamento de Ventas"
+                            id="ubicacion"
+                        />
                     </div>
                     <div className="input-container">
-                        <label>Fecha</label>
-                        <input type="date" />
+                        <label htmlFor="fecha">Fecha</label>
+                        <input
+                            type="date"
+                            id="fecha"
+                        />
                     </div>
                     <div className="input-container">
-                        <label>Duración</label>
-                        <input type="text" placeholder="Ej: 2 horas" />
+                        <label htmlFor="duracion">Duración</label>
+                        <input
+                            id="duracion"
+                            type="text" placeholder="Ej: 2 horas" />
                     </div>
                 </div>
             </section>
@@ -143,9 +152,9 @@ export default function ObservacionForm() {
                                         placeholder="Hora/Momento"
                                         value={obs.hora}
                                         onChange={(e) => {
-                                            const nuevas = observacionesList.map(item => 
+                                            const nuevas = observacionesList.map(item =>
                                                 item.id_observacion === obs.id_observacion
-                                                    ? { ...item, hora: e.target.value } 
+                                                    ? { ...item, hora: e.target.value }
                                                     : item
                                             );
                                             setObservacionesList(nuevas);
@@ -156,7 +165,7 @@ export default function ObservacionForm() {
                                         placeholder="Categoría"
                                         value={obs.categoria}
                                         onChange={(e) => {
-                                            const nuevas = observacionesList.map(item => 
+                                            const nuevas = observacionesList.map(item =>
                                                 item.id_observacion === obs.id_observacion
                                                     ? { ...item, categoria: e.target.value }
                                                     : item

@@ -14,13 +14,13 @@ export default function EntrevistaForm() {
     const [rolSeleccionado, setRolSeleccionado] = useState<number | null>(null);
 
     // Obtener stakeholders del rol seleccionado
-    const stakeholdersDelRol = rolSeleccionado 
+    const stakeholdersDelRol = rolSeleccionado
         ? roles.find(r => r.id_rol === rolSeleccionado)?.stakeholder || [] : [];
 
     // Función para agregar una pregunta a la lista
     const agregarPreguntaVacia = () => {
         const nuevoId = preguntasEntrevista.length > 0 ? Math.max(...preguntasEntrevista.map(p => p.id_pregunta)) + 1 : 1;
-        
+
         // Body para crear la nueva pregunta vacía
         const nuevaPregunta: PreguntaEntrevista = {
             id_pregunta: nuevoId,
@@ -28,7 +28,7 @@ export default function EntrevistaForm() {
             respuesta: "",
             id_entrevista: 0
         };
-        
+
         setPreguntasEntrevista(prev => [...prev, nuevaPregunta]);
     };
 
@@ -42,7 +42,7 @@ export default function EntrevistaForm() {
     const getRolesAndStakehodlers = async () => {
         const token = localStorage.getItem("token");
         const API_URL = import.meta.env.VITE_API_URL;
-        
+
         try {
             const response = await fetch(`${API_URL}/roles/proyecto/${id_project}`, {
                 method: "GET",
@@ -76,8 +76,8 @@ export default function EntrevistaForm() {
                 <div className="entrevistado-div">
                     <div className="rol-container">
                         <label htmlFor="roles-select">Rol</label>
-                        <select 
-                            name="roles" 
+                        <select
+                            name="roles"
                             id="roles-select"
                             value={rolSeleccionado || ""}
                             onChange={(e) => setRolSeleccionado(Number(e.target.value))}
@@ -101,7 +101,7 @@ export default function EntrevistaForm() {
                                         {s.nombre}
                                     </option>
                                 ))
-                            ) : ( rolSeleccionado && <option value="">--No hay Stakeholders--</option> )}
+                            ) : (rolSeleccionado && <option value="">--No hay Stakeholders--</option>)}
                         </select>
                     </div>
                 </div>
@@ -111,8 +111,8 @@ export default function EntrevistaForm() {
                         <input type="date" id="fechaEntrevista" />
                     </div>
                     <div className="duracion-container">
-                        <label htmlFor="">Duración</label>
-                        <input type="number" />
+                        <label htmlFor="duracion">Duración (minutos)</label>
+                        <input type="number" id="duracion" placeholder="Ej: 45" min={0} />
                     </div>
                 </div>
             </section>
@@ -141,7 +141,7 @@ export default function EntrevistaForm() {
                             <div className="numero-pregunta">{index + 1}</div>
                             <div className="textareas-pregunta">
                                 <label htmlFor="pregunta">Pregunta</label>
-                                <textarea 
+                                <textarea
                                     name="pregunta-entrevista"
                                     id="pregunta"
                                     placeholder="Ingrese la pregunta planteada"
@@ -177,7 +177,7 @@ export default function EntrevistaForm() {
                                 className="button-delete-question"
                                 onClick={() => eliminarPregunta(p.id_pregunta)}
                             >
-                                <Trash fill="#ff1c1cff"/>
+                                <Trash fill="#ff1c1cff" />
                             </button>
                         </article>
                     ))}
@@ -186,9 +186,9 @@ export default function EntrevistaForm() {
             {/* Sección de notas */}
             <section className="notas-entrevista">
                 <h2>Notas Adicionales</h2>
-                <textarea 
+                <textarea
                     name="notas-adicionales"
-                    id="notas-entrevista" 
+                    id="notas-entrevista"
                     placeholder="Agrega observaciones, conclusiones o información relevante"
                 />
             </section>

@@ -36,8 +36,9 @@ export default function HistoriasUsuarioForm() {
                 </header>
 
                 <div className="input-container full-width">
-                    <label>Título de la Historia</label>
+                    <label htmlFor="titulo-historia">Título de la Historia</label>
                     <input
+                        id="titulo-historia"
                         type="text"
                         placeholder="Ingrese el título para esta historia de usuario"
                         value={tituloHistoria}
@@ -46,8 +47,9 @@ export default function HistoriasUsuarioForm() {
                 </div>
 
                 <div className="input-container full-width">
-                    <label>Como...</label>
+                    <label htmlFor="como">Como...</label>
                     <input
+                        id="como"
                         type="text"
                         placeholder="Ingrese el rol para esta historia"
                         value={como}
@@ -56,8 +58,9 @@ export default function HistoriasUsuarioForm() {
                 </div>
 
                 <div className="input-container full-width textarea-container">
-                    <label>Quiero...</label>
+                    <label htmlFor="quiero">Quiero...</label>
                     <textarea
+                        id="quiero"
                         placeholder="Ingrese la necesidad del usuario"
                         value={quiero}
                         onChange={(e) => setQuiero(e.target.value)}
@@ -65,8 +68,9 @@ export default function HistoriasUsuarioForm() {
                 </div>
 
                 <div className="input-container full-width textarea-container">
-                    <label>Para que...</label>
+                    <label htmlFor="para-que">Para que...</label>
                     <textarea
+                        id="para-que"
                         placeholder="Ingrese el beneficio de la historia"
                         value={paraQue}
                         onChange={(e) => setParaQue(e.target.value)}
@@ -75,8 +79,9 @@ export default function HistoriasUsuarioForm() {
 
                 <div className="info-row">
                     <div className="input-container">
-                        <label>Prioridad</label>
+                        <label htmlFor="prioridad">Prioridad</label>
                         <select
+                            id="prioridad"
                             value={prioridad}
                             onChange={(e) => setPrioridad(e.target.value)}
                         >
@@ -86,8 +91,9 @@ export default function HistoriasUsuarioForm() {
                         </select>
                     </div>
                     <div className="input-container">
-                        <label>Story Points (Opcional)</label>
+                        <label htmlFor="story-points">Story Points (Opcional)</label>
                         <input
+                            id="story-points"
                             type="number"
                             placeholder="5"
                             value={storyPoints}

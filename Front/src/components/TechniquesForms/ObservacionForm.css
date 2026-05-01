@@ -33,11 +33,6 @@
     flex: 1;
 }
 
-.input-container label {
-    font-size: 0.9rem;
-    font-weight: 500;
-}
-
 .input-container input,
 .input-container select {
     padding: .6rem;
@@ -148,6 +143,10 @@
     font-family: inherit;
     font-size: 0.9rem;
     color: var(--text-color);
+}
+
+.fila-inputs-observacion input:hover {
+    box-shadow: var(--shadow-hover);
 }
 
 .fila-inputs-observacion input:focus {
