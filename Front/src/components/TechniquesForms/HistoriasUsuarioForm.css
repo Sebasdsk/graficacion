@@ -1,76 +1,79 @@
-.entrevista-informacion-section,
-.preguntas-entrevista-section,
-.notas-entrevista {
+.historia-usuario-section,
+.criterios-aceptacion-section {
     display: flex;
     flex-direction: column;
-    gap: .8rem;
-    padding: 1.2rem;
+    gap: 1.2rem;
+    padding: 1.5rem;
     border: 1px solid var(--border-container);
     background: #ffff;
     border-radius: 15px;
 }
 
-.header-entrevista-section h2,
-.header-preguntas-section h2 {
+.header-historia-section h2,
+.header-criterios-section h2 {
     font-size: 1.2rem;
     font-weight: 500;
 }
 
-.entrevistado-div,
-.info-entrevista-div {
+.info-row {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 2rem;
 }
 
-.rol-container,
-.entrevistado-container,
-.fecha-container,
-.duracion-container {
+.input-container {
     display: flex;
     flex-direction: column;
     gap: .4rem;
     flex: 1;
 }
 
-.rol-container select,
-.entrevistado-container select,
-.fecha-container input,
-.duracion-container input {
-    padding: .6rem;
+.input-container.full-width {
+    width: 100%;
+}
+
+.input-container input,
+.input-container select,
+.input-container textarea {
+    padding: .8rem;
     border-radius: 10px;
     border: 1px solid var(--border-container);
     background-color: #f9f9f9;
     font-family: inherit;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     color: var(--text-color);
+    width: 100%;
+    box-sizing: border-box;
 }
 
-.rol-container select:hover,
-.entrevistado-container select:hover,
-.fecha-container input:hover,
-.duracion-container input:hover {
+.input-container input:hover,
+.input-container select:hover,
+.input-container textarea:hover {
     box-shadow: var(--shadow-hover);
 }
 
-.rol-container select:focus,
-.entrevistado-container select:focus,
-.fecha-container input:focus,
-.duracion-container input:focus {
+.input-container input:focus,
+.input-container select:focus,
+.input-container textarea:focus {
     outline: none;
     border-color: #ccc;
     background-color: #fff;
 }
 
-.header-preguntas-section {
+.input-container.textarea-container textarea {
+    resize: none;
+    min-height: 80px;
+}
+
+.header-criterios-section {
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
-.button-add-question {
+.button-add-criterio {
     background: #ffff;
     border: 1px solid var(--border-container);
     border-radius: 10px;
@@ -85,36 +88,32 @@
     font-size: 0.9rem;
 }
 
-.preguntas-entrevista-list {
+.button-add-criterio:hover {
+    background-color: #f5f5f5;
+    transform: translateY(-2px);
+}
+
+.criterios-items {
     display: flex;
     flex-direction: column;
     gap: 1rem;
 }
 
-.button-add-question:hover {
-    background-color: #f5f5f5;
-    transform: translateY(-2px);
-}
-
-.no-question-added {
+.no-criterios {
     padding: 2rem;
     text-align: center;
     font-size: .9rem;
     color: var(--info-text);
 }
 
-.pregunta-entrevista-card {
+.criterio-card {
     display: flex;
-    align-items: start;
-    justify-content: space-between;
+    align-items: center;
     gap: 1rem;
-    padding: .6rem;
-    border-radius: 10px;
-    resize: none;
-    border: 1px solid var(--border-container);
+    width: 100%;
 }
 
-.numero-pregunta {
+.numero-criterio {
     width: 2rem;
     height: 2rem;
     display: flex;
@@ -123,41 +122,46 @@
     border-radius: 50%;
     background: var(--border-container);
     flex-shrink: 0;
+    font-weight: 600;
+    color: var(--text-color);
+    font-size: 0.9rem;
 }
 
-.textareas-pregunta {
+.contenido-criterio {
     display: flex;
-    flex-direction: column;
+    align-items: center;
     flex: 1;
-    gap: .4rem;
+    gap: 1rem;
 }
 
-.textareas-pregunta textarea,
-.notas-entrevista textarea {
-    resize: none;
+.contenido-criterio input {
+    flex: 1;
     padding: .8rem;
     border-radius: 10px;
     border: 1px solid var(--border-container);
     background-color: #f9f9f9;
     font-family: inherit;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     color: var(--text-color);
-    min-height: 60px;
 }
 
-.textareas-pregunta textarea:focus,
-.notas-entrevista textarea:focus {
+.contenido-criterio input:focus {
     outline: none;
     border-color: #ccc;
     background-color: #fff;
 }
 
-.button-delete-question {
+.button-delete-criterio {
     border: none;
     background-color: transparent;
+    cursor: pointer;
+    padding: 0.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s;
 }
 
-.notas-entrevista h2 {
-    font-size: 1.2rem;
-    font-weight: 500;
+.button-delete-criterio:hover {
+    transform: scale(1.1);
 }

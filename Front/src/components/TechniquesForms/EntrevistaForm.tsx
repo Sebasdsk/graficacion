@@ -17,7 +17,7 @@ export default function EntrevistaForm() {
     const stakeholdersDelRol = rolSeleccionado 
         ? roles.find(r => r.id_rol === rolSeleccionado)?.stakeholder || [] : [];
 
-    // Funcrión para agregar una pregunta a la lista
+    // Función para agregar una pregunta a la lista
     const agregarPreguntaVacia = () => {
         const nuevoId = preguntasEntrevista.length > 0 ? Math.max(...preguntasEntrevista.map(p => p.id_pregunta)) + 1 : 1;
         
@@ -35,10 +35,7 @@ export default function EntrevistaForm() {
     // Función que elimina la pregunta de la lista
     const eliminarPregunta = (idPregunta: number) => {
         // Filtra las preguntas exepto la que se eliminó y con el map, renumera las preguntas
-        const preguntasFiltradas = preguntasEntrevista
-            .filter(p => p.id_pregunta !== idPregunta)
-            .map((p, index) => ({ ...p, id_pregunta: index + 1 }));
-
+        const preguntasFiltradas = preguntasEntrevista.filter(p => p.id_pregunta !== idPregunta);
         setPreguntasEntrevista(preguntasFiltradas);
     };
 
@@ -141,7 +138,7 @@ export default function EntrevistaForm() {
                             key={p.id_pregunta}
                             className="pregunta-entrevista-card"
                         >
-                            <div className="numero-pregunta">{p.id_pregunta}</div>
+                            <div className="numero-pregunta">{index + 1}</div>
                             <div className="textareas-pregunta">
                                 <label htmlFor="pregunta">Pregunta</label>
                                 <textarea 
@@ -150,9 +147,12 @@ export default function EntrevistaForm() {
                                     placeholder="Ingrese la pregunta planteada"
                                     value={p.pregunta}
                                     onChange={(e) => {
-                                        const nuevasPreguntas = [...preguntasEntrevista];
-                                        nuevasPreguntas[index].pregunta = e.target.value;
-                                        setPreguntasEntrevista(nuevasPreguntas);
+                                        const nuevas = preguntasEntrevista.map(item =>
+                                            item.id_pregunta === p.id_pregunta
+                                                ? { ...item, pregunta: e.target.value }
+                                                : item
+                                        );
+                                        setPreguntasEntrevista(nuevas);
                                     }}
                                 />
 
@@ -163,9 +163,12 @@ export default function EntrevistaForm() {
                                     placeholder="Ingrese la respuesta de la pregunta planteada"
                                     value={p.respuesta}
                                     onChange={(e) => {
-                                        const nuevasPreguntas = [...preguntasEntrevista];
-                                        nuevasPreguntas[index].respuesta = e.target.value;
-                                        setPreguntasEntrevista(nuevasPreguntas);
+                                        const nuevas = preguntasEntrevista.map(item =>
+                                            item.id_pregunta === p.id_pregunta
+                                                ? { ...item, respuesta: e.target.value }
+                                                : item
+                                        );
+                                        setPreguntasEntrevista(nuevas);
                                     }}
                                 />
                             </div>
