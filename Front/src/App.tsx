@@ -5,6 +5,7 @@ import Register from "./pages/Register"
 import ConfigProjects from "./pages/ConfigProjects"
 import HomePage from "./pages/HomePage"
 import TechniquesDashboard from "./pages/TechniquesDashboard"
+import UMLs from "./pages/UMLs"
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path='/dashboard' element={<Dashboard />} />
         <Route path="/config-projects/:id" element={<ConfigProjects />} />
         <Route path="/config-projects/:id/proccess/subprocess/:id/techniques-dashboard" element={<TechniquesDashboard />} />
+        <Route path="/diagrams-uml" element={<UMLs/>}/>
       </Routes>
     </>
   )

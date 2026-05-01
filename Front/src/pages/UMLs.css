@@ -1,0 +1,58 @@
+.diagram-container-page {
+    width: 100vw;
+    height: 100vh;
+}
+
+.Reactflow-map {
+    padding: 1rem;
+}
+
+.header-diagram-map {
+    background-color: #fff;
+    padding: .6rem 1rem;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.200);
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    z-index: 10;
+}
+
+.button-add-node {
+    background: var(--button-green);
+    border-radius: 10px;
+    border: none;
+    padding: .6rem .8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .6rem;
+    transition: all .2s ease;
+}
+
+.button-add-node:hover {
+    transform: translatey(-5px);
+}
+
+.logo-flowtic-grafics {
+    display: flex;
+    align-items: center;
+    gap: .4rem;
+}
+
+.flowtic {
+    font-size: 1rem;
+    text-align: center;
+}
+
+.flowtic-graphics {
+    font-weight: 600;
+    font-size: 1rem;
+    text-align: center;
+    background: var(--highlight-color);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
