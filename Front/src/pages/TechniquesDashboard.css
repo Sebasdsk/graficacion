@@ -250,6 +250,7 @@
     width: 100%;
     flex-direction: column;
     height: 100dvh;
+    background-color: #f8f8f8;
 }
 
 .techniques-container {

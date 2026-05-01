@@ -3,6 +3,7 @@
     display: flex;
     flex-direction: column;
     gap: .8rem;
+    overflow-y: auto;
 }
 
 .form-header-technique {
@@ -26,6 +27,7 @@
     justify-content: space-between;
     padding: 1rem;
     border: 1px solid var(--border-container);
+    background: #ffffff;
     border-radius: 15px;
 }
 
@@ -35,4 +37,40 @@
     display: flex;
     flex-direction: column;
     gap: .2rem;
+}
+
+.buttons-techniques-section {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    gap: .8rem;
+}
+
+.button-cancel-changes {
+    border-radius: 10px;
+    border: 1px solid var(--border-container);
+    background: #ffffff;
+    padding: .5rem .6rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .4rem;
+    transition: all .2s ease;
+}
+
+.button-confirm-changes {
+    background: var(--button-green);
+    border-radius: 10px;
+    border: none;
+    padding: .5rem .6rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .4rem;
+    transition: all .2s ease;
+}
+
+.button-cancel-changes:hover, 
+.button-confirm-changes:hover {
+    transform: translateY(-5px);
 }

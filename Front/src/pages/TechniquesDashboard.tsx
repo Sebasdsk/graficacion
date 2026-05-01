@@ -53,7 +53,7 @@ const convertStringToTypeTecnique = (type: string) => {
 }
 
 export default function TechniquesDashboard() {
-    const params = useParams();
+    const { id_subproceso } = useParams();
     const [collapsed, setCollapsed] = useState<boolean>(false);
     const [mobileOpen, setMobileOpen] = useState<boolean>(false);
     const [addTechnique, setAddTechnique] = useState<boolean>(false);
@@ -71,7 +71,7 @@ export default function TechniquesDashboard() {
         const API_URL = import.meta.env.VITE_API_URL;
 
         try {
-            const response = await fetch(`${API_URL}/procesos/subproceso/${params.id}`, {
+            const response = await fetch(`${API_URL}/procesos/subproceso/${id_subproceso}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",

@@ -31,6 +31,10 @@ export default function FormTechnique({ tipoTecnica, children }: TypeTechniquePr
                 </div>
             </section>
             {children}
+            <div className="buttons-techniques-section">
+                <button className="button-cancel-changes">Cancelar Cambios</button>
+                <button className="button-confirm-changes">Guardar Cambios</button>
+            </div>
         </form>
     )
 }

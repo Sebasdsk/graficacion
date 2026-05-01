@@ -15,8 +15,8 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path='/dashboard' element={<Dashboard />} />
-        <Route path="/config-projects/:id" element={<ConfigProjects />} />
-        <Route path="/config-projects/:id/proccess/subprocess/:id/techniques-dashboard" element={<TechniquesDashboard />} />
+        <Route path="/config-projects/:id_project" element={<ConfigProjects />} />
+        <Route path="/config-projects/:id_project/proccess/subprocess/:id_subproceso/techniques-dashboard" element={<TechniquesDashboard />} />
         <Route path="/diagrams-uml" element={<UMLs/>}/>
       </Routes>
     </>

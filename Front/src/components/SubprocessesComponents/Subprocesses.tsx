@@ -6,7 +6,7 @@ import ModalCreate from "../../Modals/ModalCreate";
 import SubprocessCreate from "../../Modals/ModalChildrens/SubprocessesModals/SubprocessCreate";
 import SubprocessEdit from "../../Modals/ModalChildrens/SubprocessesModals/SubprocessEdit";
 import SubprocessesDelete from "../../Modals/ModalChildrens/SubprocessesModals/SubprocessesDelete";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 
 interface SubprocessListProp {
     subprocesosList: Subproceso[];
@@ -50,7 +50,7 @@ export default function SubprocessList({ subprocesosList, setSubprocesosList, id
             {subprocesosList.map(sp => (
                 <Subprocess
                     key={sp.id_subproceso}
-                    id={sp.id_subproceso}
+                    id_subproceso={sp.id_subproceso}
                     nombre={sp.nombre}
                     descripcion={sp.descripcion}
                     onEdit={() => handleEditSubprocess(sp.id_subproceso)}
@@ -84,15 +84,16 @@ export default function SubprocessList({ subprocesosList, setSubprocesosList, id
 }
 
 interface SubprocessProp {
-    id: number;
+    id_subproceso: number;
     nombre: string;
     descripcion: string;
     onEdit: () => void;
     onDelete: () => void;
 }
 
-function Subprocess({ id, nombre, descripcion, onEdit, onDelete }: SubprocessProp) {
+function Subprocess({ id_subproceso, nombre, descripcion, onEdit, onDelete }: SubprocessProp) {
     const navigate = useNavigate();
+    const { id_project } = useParams();
 
     return (
         <article className="subprocess">
@@ -105,7 +106,7 @@ function Subprocess({ id, nombre, descripcion, onEdit, onDelete }: SubprocessPro
                 <div className="list-tecnicas">
                     <button
                         className="btn-config-tecnicas"
-                        onClick={() => navigate(`proccess/subprocess/${id}/techniques-dashboard`)}
+                        onClick={() => navigate(`/config-projects/${id_project}/proccess/subprocess/${id_subproceso}/techniques-dashboard`)}
                     >
                         <Gear size="xs" />
                         Gestionar Técnicas

@@ -30,7 +30,7 @@ export default function ConfigProjects() {
     const [projectId, setProjectId] = useState<number | null>(null);
 
     // Con el hook "useParams" obtenemos el id pasado en la ruta desde el componente Project
-    const idProject = useParams();
+    const { id_project } = useParams();
 
     // Objeto que guarda las clases CSS del estatus de los proyectos, para dar estilos en la interfaz
     const statusClasses: Record<string, string> = {
@@ -50,11 +50,11 @@ export default function ConfigProjects() {
             const token = localStorage.getItem("token");
 
             try {
-                if (!idProject.id) throw new Error("No se proporcionó un id de proyecto para la petición.");
+                if (!id_project) throw new Error("No se proporcionó un id de proyecto para la petición.");
                 if (!token) throw new Error("El token no fue proporcionado");
 
                 // Obtiene la info del proyecto seleccionado por su id
-                const dataProject = await consultOneProject(idProject.id, token);
+                const dataProject = await consultOneProject(id_project, token);
                 if (!dataProject) {
                     navigate("/login");
                     throw new Error("No se pudo obtener la información del proyecto");

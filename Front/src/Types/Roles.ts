@@ -5,5 +5,5 @@ export interface Rol {
     nombre: string;
     descripcion: string;
     estatus: string;
-    stakeholder?: Stakeholder[];
+    stakeholder: Stakeholder[];
 }
