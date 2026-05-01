@@ -17,6 +17,7 @@ import '@xyflow/react/dist/style.css';
 import ActorNode from '../components/UMLsComponents/ActorNode';
 import "./UMLs.css";
 import { Plus } from '@boxicons/react';
+import { useNavigate } from 'react-router';
 
 const nodeTypes = {
     actor: ActorNode, 
@@ -99,8 +100,12 @@ export default function UMLs() {
 }
 
 function FlowticGraficsLogo() {
+    const navigate = useNavigate();
     return (
-        <div className='logo-flowtic-grafics'>
+        <div
+            className='logo-flowtic-grafics'
+            onClick={() => navigate(-1)}
+        >
             <h2 className='flowtic'>FLOWTIC</h2>
             <span className='flowtic-graphics'>Graphics</span>
         </div>

@@ -11,6 +11,7 @@ import { type Proyecto } from "../Types/Proyectos";
 import "./ConfigProjects.css"
 import Roles from "../components/RolesComponents/Roles";
 import { createContext } from 'react';
+import FlowticCard from "../components/ConfigProjectsComponents/FlowticDiagramsCard";
 
 type OptionsProjects = "Roles" | "Procesos";
 
@@ -236,6 +237,7 @@ function ProjectSideBar({ option, setOption }: OptionsProjectsProp) {
                     <Workflow size="xs" /> Procesos
                 </button>
             </section>
+            <FlowticCard />
         </aside>
     );
 }
