@@ -89,50 +89,50 @@ export default function ConfigProjects() {
                 onClick={() => setMobileOpen(!mobileOpen)}
             />}
             <section className="configurate-body">
-                <header className="configurate-header">
-                    <HeaderConfigProject
-                        collapsed={collapsed}
-                        setCollapsed={setCollapsed}
-                        mobileOpen={mobileOpen}
-                        setMobileOpen={setMobileOpen}
-                    />
-                    <div className="section-header">
-                        <div className="data-project">
-                            <div className="principal-info">
-                                <button
-                                    className="button-go-back"
-                                    onClick={() => navigate("/dashboard")}
-                                >
-                                    <ArrowLeftStroke />
-                                </button>
-                                <div>
-                                    <h1>{project?.nombre}</h1>
-                                    <p>{project?.descripcion}</p>
-                                </div>
-                            </div>
-                            <dl className="secundary-info">
-                                <div className="state-project">
-                                    <dt>Estado:</dt>
-                                    <dd className={`status-project ${checkStatus(projectStatus)}`}>{project?.estatus}</dd>
-                                </div>
-                                <div className="date-project">
-                                    <dt>
-                                        <Calendar size="xs" />
-                                        Creado el
-                                    </dt>
-                                    <dd>{project?.fecha_inicio}</dd>
-                                </div>
-                            </dl>
-                        </div>
-                        <button
-                            className="button-edit-project"
-                            onClick={() => setOpenEditModal(true)}
-                        >
-                            <Pencil size="xs" /> Editar
-                        </button>
-                    </div>
-                </header>
+                <HeaderConfigProject
+                    collapsed={collapsed}
+                    setCollapsed={setCollapsed}
+                    mobileOpen={mobileOpen}
+                    setMobileOpen={setMobileOpen}
+                />
                 <section className="config-content">
+                    <header className="configurate-header">
+                        <div className="section-header">
+                            <div className="data-project">
+                                <div className="principal-info">
+                                    <button
+                                        className="button-go-back"
+                                        onClick={() => navigate("/dashboard")}
+                                    >
+                                        <ArrowLeftStroke />
+                                    </button>
+                                    <div>
+                                        <h1>{project?.nombre}</h1>
+                                        <p>{project?.descripcion}</p>
+                                    </div>
+                                </div>
+                                <dl className="secundary-info">
+                                    <div className="state-project">
+                                        <dt>Estado:</dt>
+                                        <dd className={`status-project ${checkStatus(projectStatus)}`}>{project?.estatus}</dd>
+                                    </div>
+                                    <div className="date-project">
+                                        <dt>
+                                            <Calendar size="xs" />
+                                            Creado el
+                                        </dt>
+                                        <dd>{project?.fecha_inicio}</dd>
+                                    </div>
+                                </dl>
+                            </div>
+                            <button
+                                className="button-edit-project"
+                                onClick={() => setOpenEditModal(true)}
+                            >
+                                <Pencil size="xs" /> Editar
+                            </button>
+                        </div>
+                    </header>
                     <ResumeProject />
                     <div className="buttons-menu">
                         <button

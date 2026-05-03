@@ -60,7 +60,8 @@ export default function Dashboard() {
                     collapsed={collapsed}
                     setCollapsed={setCollapsed}
                     mobileOpen={mobileOpen}
-                    setMobileOpen={setMobileOpen}/>
+                    setMobileOpen={setMobileOpen}
+                />
                 <Projects projects={projects} setProjects={setProjects}/>
             </section>
         </main>

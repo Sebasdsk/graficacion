@@ -3,6 +3,8 @@
     padding: 1rem;
     display: flex;
     flex-direction: column;
+    overflow-y: auto;
+    max-height: 90vh;
     gap: 1rem;
 }
 

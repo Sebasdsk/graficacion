@@ -20,7 +20,7 @@ function FormLogin() {
     const [errorMessage, setErrorMessage] = useState<string>("");
     const navigate = useNavigate();
 
-    const APIURL = "http://localhost:3000/api/auth/login" // Esta url no es la del back por ahora
+    const API_URL = import.meta.env.VITE_API_URL;
 
     // Método para iniciar sesión
     const signIn = async () => {
@@ -32,7 +32,7 @@ function FormLogin() {
         }
 
         try {
-            const response = await fetch(APIURL, {
+            const response = await fetch(`${API_URL}/auth/login`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({

@@ -1,7 +1,7 @@
 export default async function consultAllProjects(token: string | null) {
-    const API_URL = "http://localhost:3000/api/proyectos/lista";
+    const API_URL = import.meta.env.VITE_API_URL;
 
-    const response = await fetch(API_URL, {
+    const response = await fetch(`${API_URL}/proyectos/lista`, {
         method: "GET",
         headers: {
             'Authorization': `Bearer ${token}`, // Envía el token
