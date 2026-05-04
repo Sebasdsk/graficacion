@@ -12,6 +12,9 @@ import EntrevistaForm from "../components/TechniquesForms/EntrevistaForm";
 import ObservacionForm from "../components/TechniquesForms/ObservacionForm";
 import HistoriasUsuarioForm from "../components/TechniquesForms/HistoriasUsuarioForm";
 import DocumentoForm from "../components/TechniquesForms/DocumentoForm";
+import CuestionarioForm from "../components/TechniquesForms/CuestionarioForm";
+import SeguimientoForm from "../components/TechniquesForms/SeguimientoForm";
+import FocusGroupForm from "../components/TechniquesForms/FocusGroupForm";
 
 // Mock Data
 export const tecnicasCatalogo: TipoTecnica[] = [
@@ -31,10 +34,11 @@ const techniques: Tecnica[] = [
     { id: 4, nombre: "Observación de Usuarios", descripcion: "Realizar sesiones de observación con usuarios.", tipo: tecnicasCatalogo[3], estatus: "Planificada" },
     { id: 5, nombre: "Entrevista con Gerente", descripcion: "Realizar sesiones de entrevistas con el gerente.", tipo: tecnicasCatalogo[0], estatus: "Completada" },
     { id: 6, nombre: "Cuestionario para Usuarios Finales", descripcion: "Diseñar y distribuir un cuestionario para recopilar información de los usuarios.", tipo: tecnicasCatalogo[1], estatus: "Completada" },
-    { id: 7, nombre: "Documentos", descripcion: "Diseñar y distribuir un cuestionario para recopilar información de los usuarios.", tipo: tecnicasCatalogo[5], estatus: "Completada" }
+    { id: 7, nombre: "Documentos", descripcion: "Diseñar y distribuir un cuestionario para recopilar información de los usuarios.", tipo: tecnicasCatalogo[5], estatus: "Completada" },
+    { id: 8, nombre: "Seguimiento de Transacciones", descripcion: "Realizar seguimiento de transacciones.", tipo: tecnicasCatalogo[6], estatus: "Planificada" }
 ];
 
-type SelectedTecnique = "Vista General" | "Entrevista" | "Observación" | "Historias de Usuario" | "Focus Group" | "Documentos" | "Seguimiento Transaccional";
+type SelectedTecnique = "Vista General" | "Entrevista" | "Observación" | "Historias de Usuario" | "Focus Group" | "Documentos" | "Seguimiento Transaccional" | "Cuestionario";
 
 // Diccionario para asignar dinámicamente los colores según el estatus
 const statusDictionary: Record<estatusTecnica, string> = {
@@ -191,6 +195,12 @@ export default function TechniquesDashboard() {
                         children={<EntrevistaForm />}
                     />
                 )}
+                {selectedTechnique === "Focus Group" && (
+                    <FormTechnique
+                        tipoTecnica={tecnicasCatalogo[2]}
+                        children={<FocusGroupForm />}
+                    />
+                )}
                 {selectedTechnique === "Observación" && (
                     <FormTechnique
                         tipoTecnica={tecnicasCatalogo[3]}
@@ -207,6 +217,18 @@ export default function TechniquesDashboard() {
                     <FormTechnique
                         tipoTecnica={tecnicasCatalogo[5]}
                         children={<DocumentoForm />}
+                    />
+                )}
+                {selectedTechnique === "Cuestionario" && (
+                    <FormTechnique
+                        tipoTecnica={tecnicasCatalogo[1]}
+                        children={<CuestionarioForm />}
+                    />
+                )}
+                {selectedTechnique === "Seguimiento Transaccional" && (
+                    <FormTechnique
+                        tipoTecnica={tecnicasCatalogo[6]}
+                        children={<SeguimientoForm />}
                     />
                 )}
                 {addTechnique && (<CreateNewTechnique onClose={() => setAddTechnique(false)} />)}

@@ -1,0 +1,241 @@
+.cuestionario-informacion-section,
+.preguntas-cuestionario-section {
+    display: flex;
+    flex-direction: column;
+    gap: .8rem;
+    padding: 1.2rem;
+    border: 1px solid var(--border-container);
+    background: #ffff;
+    border-radius: 15px;
+}
+
+.header-cuestionario-section h2,
+.header-preguntas-cuestionario-section h2 {
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+.info-cuestionario-div {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.cuestionario-row {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+}
+
+.input-container-cuestionario {
+    display: flex;
+    flex-direction: column;
+    gap: .4rem;
+    flex: 1;
+}
+
+.input-container-cuestionario label {
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.input-container-cuestionario input,
+.input-container-cuestionario textarea,
+.input-container-cuestionario select {
+    padding: .6rem;
+    border-radius: 10px;
+    border: 1px solid var(--border-container);
+    background-color: #f9f9f9;
+    font-family: inherit;
+    font-size: 0.9rem;
+    color: var(--text-color);
+}
+
+.input-container-cuestionario textarea {
+    resize: none;
+    min-height: 60px;
+}
+
+.input-container-cuestionario input:hover,
+.input-container-cuestionario textarea:hover,
+.input-container-cuestionario select:hover {
+    box-shadow: var(--shadow-hover);
+}
+
+.input-container-cuestionario input:focus,
+.input-container-cuestionario textarea:focus,
+.input-container-cuestionario select:focus {
+    outline: none;
+    border-color: #ccc;
+    background-color: #fff;
+}
+
+.header-preguntas-cuestionario-section {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.button-add-pregunta-cuestionario {
+    background: #0b0f19;
+    color: #fff;
+    border: 1px solid var(--border-container);
+    border-radius: 10px;
+    padding: .5rem .8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .4rem;
+    transition: all .2s ease;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.button-add-pregunta-cuestionario:hover {
+    background-color: #1a2235;
+    transform: translateY(-2px);
+}
+
+.preguntas-cuestionario-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.no-preguntas-cuestionario {
+    padding: 2rem;
+    text-align: center;
+    font-size: .9rem;
+    color: var(--info-text);
+}
+
+.pregunta-cuestionario-card {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1.2rem;
+    border-radius: 10px;
+    border: 1px solid var(--border-container);
+    background-color: #fff;
+}
+
+.pregunta-cuestionario-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.pregunta-header-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.button-collapse-pregunta {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+.button-delete-pregunta-cuestionario {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.button-delete-pregunta-cuestionario:hover {
+    transform: scale(1.1);
+}
+
+.pregunta-cuestionario-body {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.pregunta-opciones-container,
+.pregunta-escala-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    margin-top: 0.5rem;
+}
+
+.header-opciones {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header-opciones span {
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.button-add-opcion {
+    background: #ffff;
+    border: 1px solid var(--border-container);
+    border-radius: 8px;
+    padding: .4rem .8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .4rem;
+    transition: all .2s ease;
+    cursor: pointer;
+    font-size: 0.85rem;
+}
+
+.button-add-opcion:hover {
+    background-color: #f5f5f5;
+}
+
+.opcion-item {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.opcion-item input {
+    flex: 1;
+    padding: .6rem;
+    border-radius: 10px;
+    border: 1px solid var(--border-container);
+    background-color: #f9f9f9;
+    font-family: inherit;
+    font-size: 0.9rem;
+}
+
+.opcion-item input:focus {
+    outline: none;
+    border-color: #ccc;
+    background-color: #fff;
+}
+
+.button-delete-opcion {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.button-delete-opcion:hover {
+    transform: scale(1.1);
+}
+
+.escala-row {
+    display: flex;
+    gap: 1.5rem;
+}
