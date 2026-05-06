@@ -1,0 +1,8 @@
+.limite-sistema-node {
+    border: 1px solid var(--small-color);
+    border-radius: 10px;
+    overflow: hidden;
+    min-width: 1px;
+    min-height: 1px;
+    padding: 1rem 2rem;
+}

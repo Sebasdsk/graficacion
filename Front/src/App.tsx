@@ -6,6 +6,7 @@ import ConfigProjects from "./pages/ConfigProjects"
 import HomePage from "./pages/HomePage"
 import TechniquesDashboard from "./pages/TechniquesDashboard"
 import UMLs from "./pages/UMLs"
+import UMLsDashboard from "./pages/UMLsDashboard"
 
 function App() {
   return (
@@ -17,7 +18,8 @@ function App() {
         <Route path='/dashboard' element={<Dashboard />} />
         <Route path="/config-projects/:id_project" element={<ConfigProjects />} />
         <Route path="/config-projects/:id_project/proccess/subprocess/:id_subproceso/techniques-dashboard" element={<TechniquesDashboard />} />
-        <Route path="/diagrams-uml" element={<UMLs/>}/>
+        <Route path="/uml-editor" element={<UMLs/>}/>
+        <Route path="/uml-dashboard/:id_project" element={<UMLsDashboard />} />
       </Routes>
     </>
   )

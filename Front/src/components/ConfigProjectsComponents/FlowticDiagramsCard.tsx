@@ -2,7 +2,7 @@ import { ReactFlow, Background, Handle, Position} from '@xyflow/react';
 
 import '@xyflow/react/dist/style.css';
 import "./FlowticDiagramsCard.css";
-import { useNavigate } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 
 const nodeTypes = {
     classNode: ClassNode,
@@ -120,6 +120,7 @@ const edges = [
 
 export default function FlowticCard() {
     const navigate = useNavigate();
+    const { id_project } = useParams();
 
     return (
         <article className="flowtic-graphics-card">
@@ -151,7 +152,7 @@ export default function FlowticCard() {
                 <small>Modela la estructura de tu sistema</small>
                 <button
                     className="open-flowtic-graphics"
-                    onClick={() => navigate("/diagrams-uml")}
+                    onClick={() => navigate(`/uml-dashboard/${id_project}`)}
                 >
                     Abrir Editor
                 </button>
