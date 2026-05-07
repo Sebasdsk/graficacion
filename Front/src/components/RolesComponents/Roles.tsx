@@ -209,15 +209,17 @@ function Role({
                     <h3>{nombre}</h3>
                     <p>{descripcion}</p>
                 </div>
-                <button
-                    className="button-edit-role"
-                    onClick={() => setSelectedId(id)}
-                >
-                    <Edit />
-                </button>
-                <button className="button-delete-role" onClick={() => setSelectedDeleteId(id)}>
-                    <Trash fill="#e10303ff" />
-                </button>
+                <div className="role-actions">
+                    <button
+                        className="button-edit-role"
+                        onClick={() => setSelectedId(id)}
+                    >
+                        <Edit />
+                    </button>
+                    <button className="button-delete-role" onClick={() => setSelectedDeleteId(id)}>
+                        <Trash fill="#e10303ff" />
+                    </button>
+                </div>
             </header>
             <section className="role-body">
                 <header className="header-role-body">

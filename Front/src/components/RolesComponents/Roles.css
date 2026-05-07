@@ -16,6 +16,11 @@
     font-weight: 400;
 }
 
+.role-actions {
+    display: flex;
+    gap: 1rem;
+}
+
 .button-add-role {
     padding: .6rem;
     border: none;
