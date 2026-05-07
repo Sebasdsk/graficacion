@@ -1,0 +1,197 @@
+.observacion-informacion-section,
+.observaciones-list-section,
+.hallazgos-section {
+    display: flex;
+    flex-direction: column;
+    gap: .8rem;
+    padding: 1.2rem;
+    border: 1px solid var(--border-container);
+    background: #ffff;
+    border-radius: 15px;
+    margin-bottom: 1.2rem;
+}
+
+.header-observacion-section h2,
+.header-observaciones-list h2,
+.hallazgos-section h2 {
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+.info-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.input-container {
+    display: flex;
+    flex-direction: column;
+    gap: .4rem;
+    flex: 1;
+}
+
+.input-container input,
+.input-container select {
+    padding: .6rem;
+    border-radius: 10px;
+    border: 1px solid var(--border-container);
+    background-color: #f9f9f9;
+    font-family: inherit;
+    font-size: 0.9rem;
+    color: var(--text-color);
+}
+
+.input-container input:hover,
+.input-container select:hover {
+    box-shadow: var(--shadow-hover);
+}
+
+.input-container input:focus,
+.input-container select:focus {
+    outline: none;
+    border-color: #ccc;
+    background-color: #fff;
+}
+
+.header-observaciones-list {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.button-add-observacion {
+    background: #ffff;
+    border: 1px solid var(--border-container);
+    border-radius: 10px;
+    padding: .5rem .8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .4rem;
+    transition: all .2s ease;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.button-add-observacion:hover {
+    background-color: #f5f5f5;
+    transform: translateY(-2px);
+}
+
+.observaciones-items {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.no-observaciones {
+    padding: 2rem;
+    text-align: center;
+    font-size: .9rem;
+    color: var(--info-text);
+}
+
+.observacion-card {
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: .8rem;
+    border-radius: 10px;
+    border: 1px solid var(--border-container);
+    background-color: #fff;
+}
+
+.numero-observacion {
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: var(--border-container);
+    flex-shrink: 0;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.contenido-observacion {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: .8rem;
+}
+
+.fila-inputs-observacion {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+}
+
+.fila-inputs-observacion input {
+    flex: 1;
+    padding: .8rem;
+    border-radius: 10px;
+    border: 1px solid var(--border-container);
+    background-color: #f9f9f9;
+    font-family: inherit;
+    font-size: 0.9rem;
+    color: var(--text-color);
+}
+
+.fila-inputs-observacion input:hover {
+    box-shadow: var(--shadow-hover);
+}
+
+.fila-inputs-observacion input:focus {
+    outline: none;
+    border-color: #ccc;
+    background-color: #fff;
+}
+
+.textarea-observacion {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.textarea-observacion textarea,
+.hallazgos-section textarea {
+    padding: .8rem;
+    border-radius: 10px;
+    border: 1px solid var(--border-container);
+    background-color: #f9f9f9;
+    font-family: inherit;
+    font-size: 0.9rem;
+    resize: none;
+    min-height: 60px;
+    color: var(--text-color);
+}
+
+.textarea-observacion textarea:focus,
+.hallazgos-section textarea:focus {
+    outline: none;
+    border-color: #ccc;
+    background-color: #fff;
+}
+
+.button-delete-observacion {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    padding: 0.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s;
+}
+
+.button-delete-observacion:hover {
+    transform: scale(1.1);
+}

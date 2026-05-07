@@ -73,6 +73,11 @@ export type tecnica_recoleccion = Prisma.tecnica_recoleccionModel
  */
 export type entrevista = Prisma.entrevistaModel
 /**
+ * Model observacion
+ * 
+ */
+export type observacion = Prisma.observacionModel
+/**
  * Model pregunta_entrevista
  * 
  */

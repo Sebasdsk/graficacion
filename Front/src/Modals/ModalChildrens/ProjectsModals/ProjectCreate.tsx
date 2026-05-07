@@ -1,18 +1,24 @@
-import { useState, type FormEvent } from "react";
+import { useState, type SetStateAction } from "react";
 import "./ProjectCreate.css"
 import { useNavigate } from "react-router";
+import type { Proyecto } from "../../../Types/Proyectos";
 
-export default function ProjectCreate() {
+interface SetProjectsProp {
+    projects: Proyecto[];
+    setProjects: React.Dispatch<SetStateAction<Proyecto[]>>;
+    setCreateProject: React.Dispatch<SetStateAction<boolean>>;
+}
+
+export default function ProjectCreate({ projects, setProjects, setCreateProject }: SetProjectsProp) {
     const [projectName, setProjectName] = useState<string>("");
     const [projectDescription, setProjectDescription] = useState<string>("");
     const [projectDate, setProjectDate] = useState<string>("");
     const navigate = useNavigate();
     const [loading, setLoading] = useState<boolean>(false); // Este estaado es un loader para la petición
 
-    const API_URL = "http://localhost:3000/api/proyectos/crear_proyecto";
+    const API_URL = import.meta.env.VITE_API_URL;
 
-    const createProject = async (e: FormEvent) => {
-        e.preventDefault();
+    const createProject = async () => {
         const token = localStorage.getItem("token");
         if (!token) {
             navigate("/");
@@ -26,9 +32,9 @@ export default function ProjectCreate() {
 
         try {
             setLoading(true);
-            const response = await fetch(API_URL, {
+            const response = await fetch(`${API_URL}/proyectos/crear_proyecto`, {
                 method: "POST",
-                headers:{
+                headers: {
                     'Authorization': `Bearer ${token}`,
                     'Content-Type': 'application/json'
                 },
@@ -41,7 +47,14 @@ export default function ProjectCreate() {
                 return;
             }
 
+            const data = await response.json();
+            const fechaFormat = new Date(data.project.fecha_inicio).toISOString().split('T')[0];
+            data.project.fecha_inicio = fechaFormat;
+
+            setProjects([...projects, data.project]);
+
             alert("¡Proyecto creado!");
+            setCreateProject(false);
         } catch (err) {
             console.error("Error al crear el proyecto: ", err);
             alert("Error al crear el proyecto");
@@ -49,13 +62,13 @@ export default function ProjectCreate() {
             setLoading(false);
         }
     }
-    
+
     return (
         <section className="project-create">
             <header>
                 <h3> Crear Nuevo Proyecto</h3>
             </header>
-            <form onSubmit={createProject} className="form-create-project">
+            <form action={createProject} className="form-create-project">
                 <div className="input-name">
                     <label htmlFor="proyect-name">Nombre del proyecto</label>
                     <input
@@ -64,7 +77,7 @@ export default function ProjectCreate() {
                         placeholder="Ingrese el nombre"
                         value={projectName}
                         onChange={(e) => setProjectName(e.target.value)}
-                        required/>
+                        required />
                 </div>
                 <div className="input-description">
                     <label htmlFor="proyect-description">Descripción del proyecto</label>
@@ -74,7 +87,7 @@ export default function ProjectCreate() {
                         placeholder="Ingrese la descripción"
                         value={projectDescription}
                         onChange={(e) => setProjectDescription(e.target.value)}
-                        required/>
+                        required />
                 </div>
                 <div className="input-info">
                     <label htmlFor="date-start">Fecha de inicio del proyecto</label>
@@ -83,9 +96,9 @@ export default function ProjectCreate() {
                         id="date-start"
                         value={projectDate}
                         onChange={(e) => setProjectDate(e.target.value)}
-                        required/>
+                        required />
                 </div>
-                <button className={!loading ? "button-create": "button-create-loading"}>{!loading ? "Crear Proyecto" : "En proceso..."}</button>
+                <button className={!loading ? "button-create" : "button-create-loading"}>{!loading ? "Crear Proyecto" : "En proceso..."}</button>
             </form>
         </section>
     );

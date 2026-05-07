@@ -30,6 +30,7 @@
     padding: .2rem;
     font-size: .8rem;
     border-radius: 8px;
+    white-space: nowrap;
 }
 
 .project-body {

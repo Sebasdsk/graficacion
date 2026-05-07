@@ -62,6 +62,7 @@ export const ModelName = {
   requerimiento: 'requerimiento',
   tecnica_recoleccion: 'tecnica_recoleccion',
   entrevista: 'entrevista',
+  observacion: 'observacion',
   pregunta_entrevista: 'pregunta_entrevista'
 } as const
 
@@ -86,7 +87,7 @@ export const ProcesoScalarFieldEnum = {
   nombre: 'nombre',
   descripcion: 'descripcion',
   id_proyecto: 'id_proyecto',
-  codigo_orden: 'codigo_orden'
+  estatus: 'estatus'
 } as const
 
 export type ProcesoScalarFieldEnum = (typeof ProcesoScalarFieldEnum)[keyof typeof ProcesoScalarFieldEnum]
@@ -122,8 +123,8 @@ export type Proyecto_participanteScalarFieldEnum = (typeof Proyecto_participante
 export const RolScalarFieldEnum = {
   id_rol: 'id_rol',
   nombre: 'nombre',
-  descripcion: 'descripcion',
   estatus: 'estatus',
+  descripcion: 'descripcion',
   id_proyecto: 'id_proyecto'
 } as const
 
@@ -132,11 +133,11 @@ export type RolScalarFieldEnum = (typeof RolScalarFieldEnum)[keyof typeof RolSca
 
 export const StakeholderScalarFieldEnum = {
   id_stakeholder: 'id_stakeholder',
-  id_rol: 'id_rol',
   nombre: 'nombre',
   area: 'area',
   contacto_email: 'contacto_email',
-  notas: 'notas'
+  estatus: 'estatus',
+  id_rol: 'id_rol'
 } as const
 
 export type StakeholderScalarFieldEnum = (typeof StakeholderScalarFieldEnum)[keyof typeof StakeholderScalarFieldEnum]
@@ -146,7 +147,7 @@ export const SubprocesoScalarFieldEnum = {
   id_subproceso: 'id_subproceso',
   nombre: 'nombre',
   descripcion: 'descripcion',
-  codigo_orden: 'codigo_orden',
+  estatus: 'estatus',
   id_proceso: 'id_proceso'
 } as const
 
@@ -210,6 +211,20 @@ export const EntrevistaScalarFieldEnum = {
 } as const
 
 export type EntrevistaScalarFieldEnum = (typeof EntrevistaScalarFieldEnum)[keyof typeof EntrevistaScalarFieldEnum]
+
+
+export const ObservacionScalarFieldEnum = {
+  id_observacion: 'id_observacion',
+  id_tecnica: 'id_tecnica',
+  id_usuario: 'id_usuario',
+  fecha: 'fecha',
+  nota: 'nota',
+  tipo_observacion: 'tipo_observacion',
+  tipo_hallazgo: 'tipo_hallazgo',
+  impacto: 'impacto'
+} as const
+
+export type ObservacionScalarFieldEnum = (typeof ObservacionScalarFieldEnum)[keyof typeof ObservacionScalarFieldEnum]
 
 
 export const Pregunta_entrevistaScalarFieldEnum = {

@@ -8,13 +8,13 @@ datasource db {
 }
 
 model proceso {
-  id_proceso   Int          @id @default(autoincrement())
-  nombre       String       @db.VarChar(50)
-  descripcion  String?
-  id_proyecto  Int?
-  codigo_orden String?      @db.VarChar(10)
-  proyecto     proyecto?    @relation(fields: [id_proyecto], references: [id_proyecto], onDelete: Cascade, onUpdate: NoAction)
-  subproceso   subproceso[]
+  id_proceso  Int          @id @default(autoincrement())
+  nombre      String       @db.VarChar(50)
+  descripcion String?
+  id_proyecto Int?
+  estatus     String?      @default("A") @db.VarChar(1)
+  proyecto    proyecto?    @relation(fields: [id_proyecto], references: [id_proyecto], onDelete: Cascade, onUpdate: NoAction)
+  subproceso  subproceso[]
 }
 
 model proyecto {
@@ -51,8 +51,8 @@ model proyecto_participante {
 model rol {
   id_rol                Int                     @id @default(autoincrement())
   nombre                String                  @db.VarChar(30)
-  descripcion           String?                 @db.Char(200)
   estatus               String?                 @db.Char(1)
+  descripcion           String?                 @db.Char(200)
   id_proyecto           Int?
   equipo_proyecto       equipo_proyecto[]
   proyecto_participante proyecto_participante[]
@@ -62,11 +62,11 @@ model rol {
 
 model stakeholder {
   id_stakeholder      Int                   @id @default(autoincrement())
-  id_rol              Int?
   nombre              String                @db.VarChar(100)
   area                String?               @db.VarChar(50)
   contacto_email      String?               @db.VarChar(60)
-  notas               String?
+  estatus             String?               @default("A") @db.VarChar(1)
+  id_rol              Int?
   rol                 rol?                  @relation(fields: [id_rol], references: [id_rol], onDelete: NoAction, onUpdate: NoAction, map: "fk_stakeholder_rol")
   tecnica_recoleccion tecnica_recoleccion[]
 }
@@ -75,27 +75,27 @@ model subproceso {
   id_subproceso       Int                   @id @default(autoincrement())
   nombre              String                @db.VarChar(100)
   descripcion         String?
-  codigo_orden        String                @db.VarChar(10)
+  estatus             String                @default("A") @db.VarChar(1)
   id_proceso          Int
   proceso             proceso               @relation(fields: [id_proceso], references: [id_proceso], onDelete: Cascade, onUpdate: NoAction)
   tecnica_recoleccion tecnica_recoleccion[]
 }
 
 model usuario {
-  id_usuario            Int                     @id
+  id_usuario            Int                     @id @default(autoincrement())
   nombre                String                  @db.VarChar(50)
   apellido_paterno      String                  @db.VarChar(50)
   apellido_materno      String?                 @db.VarChar(50)
   telefono              Int?
   email                 String                  @db.VarChar(100)
   estatus               String?                 @db.VarChar(1)
-  password_hash         String?                 @db.VarChar(64)
+  password_hash         String                  @db.VarChar(64)
   Nombre_usuario        String?                 @db.VarChar(32)
+  entrevista            entrevista[]
   equipo_proyecto       equipo_proyecto[]
+  observacion           observacion[]
   proyecto              proyecto[]
   proyecto_participante proyecto_participante[]
-  entrevistas entrevista[]
-  observaciones  observacion[]
 }
 
 model equipo_proyecto {
@@ -125,43 +125,43 @@ model tecnica_recoleccion {
   codigo_orden   String          @db.VarChar(10)
   id_subproceso  Int
   id_stakeholder Int?
+  entrevista     entrevista[]
+  observacion    observacion[]
   requerimiento  requerimiento[]
   stakeholder    stakeholder?    @relation(fields: [id_stakeholder], references: [id_stakeholder], onDelete: Cascade, onUpdate: NoAction, map: "tecnica_id_stakeholder_fkey")
   subproceso     subproceso      @relation(fields: [id_subproceso], references: [id_subproceso], onDelete: Cascade, onUpdate: NoAction, map: "tecnica_id_subproceso_fkey")
-  entrevistas entrevista[]
-  observaciones  observacion[]
 }
 
 model entrevista {
-  id_entrevista    Int       @id @default(autoincrement())
-  id_tecnica       Int
-  id_usuario       Int
-  fecha_entrevista DateTime? @db.Date
-  duracion         Int?
-  estatus          String     @db.VarChar(20)
-  tecnica tecnica_recoleccion @relation(fields: [id_tecnica], references: [id_tecnica], onDelete: Cascade)
-  usuario usuario             @relation(fields: [id_usuario], references: [id_usuario])
-  preguntas pregunta_entrevista[]
-}
-
-model pregunta_entrevista {
-  id_pregunta   Int        @id @default(autoincrement())
-  id_entrevista Int
-  orden_pregunta  Int
-  pregunta      String     @db.Text
-  respuesta     String?    @db.Text
-  entrevista entrevista @relation(fields: [id_entrevista], references: [id_entrevista], onDelete: Cascade)
+  id_entrevista       Int                   @id @default(autoincrement())
+  id_tecnica          Int
+  id_usuario          Int
+  fecha_entrevista    DateTime?             @db.Date
+  duracion            Int?
+  estatus             String                @db.VarChar(20)
+  tecnica_recoleccion tecnica_recoleccion   @relation(fields: [id_tecnica], references: [id_tecnica], onDelete: Cascade)
+  usuario             usuario               @relation(fields: [id_usuario], references: [id_usuario])
+  pregunta_entrevista pregunta_entrevista[]
 }
 
 model observacion {
-  id_observacion  Int       @id @default(autoincrement())
-  id_tecnica      Int
-  id_usuario      Int
-  fecha           DateTime? @db.Date
-  nota            String    @db.Text
-  tipo_observacion String   @db.VarChar(30) // puede ser un comentario, un dato importante, alguna sugerencia
-  tipo_hallazgo   String?   @db.VarChar(20) // puede ser un problema, alguna oportunidad o algun riesgo
-  impacto         String?   @db.VarChar(10) 
-  tecnica tecnica_recoleccion @relation(fields: [id_tecnica], references: [id_tecnica], onDelete: Cascade)
-  usuario usuario             @relation(fields: [id_usuario], references: [id_usuario])
+  id_observacion      Int                 @id @default(autoincrement())
+  id_tecnica          Int
+  id_usuario          Int
+  fecha               DateTime?           @db.Date
+  nota                String
+  tipo_observacion    String              @db.VarChar(30)
+  tipo_hallazgo       String?             @db.VarChar(20)
+  impacto             String?             @db.VarChar(10)
+  tecnica_recoleccion tecnica_recoleccion @relation(fields: [id_tecnica], references: [id_tecnica], onDelete: Cascade, onUpdate: NoAction, map: "fk_observacion_tecnica")
+  usuario             usuario             @relation(fields: [id_usuario], references: [id_usuario], onDelete: NoAction, onUpdate: NoAction, map: "fk_observacion_usuario")
+}
+
+model pregunta_entrevista {
+  id_pregunta    Int        @id @default(autoincrement())
+  id_entrevista  Int
+  orden_pregunta Int
+  pregunta       String
+  respuesta      String?
+  entrevista     entrevista @relation(fields: [id_entrevista], references: [id_entrevista], onDelete: Cascade)
 }

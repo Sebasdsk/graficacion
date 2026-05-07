@@ -25,6 +25,13 @@ router.get('/proyecto/:id_proyecto', verifyToken, async (req: Request, res: Resp
             where: {
                 id_proyecto: Number(id_proyecto),
             },
+            include: {
+                stakeholder: {
+                    where: {
+                        estatus: 'A' // Solo los que están A de Activos
+                    }
+                }
+            }
         });
 
         res.json(roles);
@@ -101,7 +108,7 @@ router.post('/asignar', verifyToken, async (req: Request, res: Response): Promis
 });
 
 // Eliminar el rol (soft data)
-router.patch('/eliminar/:id_rol', verifyToken, async (req: Request, res: Response) => {
+router.put('/eliminar/:id_rol', verifyToken, async (req: Request, res: Response) => {
     try {
         const { id_rol } = req.body;
         

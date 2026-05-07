@@ -46,7 +46,7 @@ export default function SubprocessCreate({ idProcess, setSubprocesosList, setMod
             alert("Subproceso creado exitosamente");
             console.log("Subproceso creado:", data);
             // Actualiza la lista de subprocesos y agrega el nuevo subproceso
-            setSubprocesosList(prev => [...prev, data]);
+            setSubprocesosList(prev => [...prev, data.subproceso]);
             setModalOpen(false); // Cierra el modal automáticamente después de crear el subproceso
         } catch (error) {
             console.error("Error:", error);

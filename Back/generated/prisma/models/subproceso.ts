@@ -40,7 +40,7 @@ export type SubprocesoMinAggregateOutputType = {
   id_subproceso: number | null
   nombre: string | null
   descripcion: string | null
-  codigo_orden: string | null
+  estatus: string | null
   id_proceso: number | null
 }
 
@@ -48,7 +48,7 @@ export type SubprocesoMaxAggregateOutputType = {
   id_subproceso: number | null
   nombre: string | null
   descripcion: string | null
-  codigo_orden: string | null
+  estatus: string | null
   id_proceso: number | null
 }
 
@@ -56,7 +56,7 @@ export type SubprocesoCountAggregateOutputType = {
   id_subproceso: number
   nombre: number
   descripcion: number
-  codigo_orden: number
+  estatus: number
   id_proceso: number
   _all: number
 }
@@ -76,7 +76,7 @@ export type SubprocesoMinAggregateInputType = {
   id_subproceso?: true
   nombre?: true
   descripcion?: true
-  codigo_orden?: true
+  estatus?: true
   id_proceso?: true
 }
 
@@ -84,7 +84,7 @@ export type SubprocesoMaxAggregateInputType = {
   id_subproceso?: true
   nombre?: true
   descripcion?: true
-  codigo_orden?: true
+  estatus?: true
   id_proceso?: true
 }
 
@@ -92,7 +92,7 @@ export type SubprocesoCountAggregateInputType = {
   id_subproceso?: true
   nombre?: true
   descripcion?: true
-  codigo_orden?: true
+  estatus?: true
   id_proceso?: true
   _all?: true
 }
@@ -187,7 +187,7 @@ export type SubprocesoGroupByOutputType = {
   id_subproceso: number
   nombre: string
   descripcion: string | null
-  codigo_orden: string
+  estatus: string
   id_proceso: number
   _count: SubprocesoCountAggregateOutputType | null
   _avg: SubprocesoAvgAggregateOutputType | null
@@ -218,7 +218,7 @@ export type subprocesoWhereInput = {
   id_subproceso?: Prisma.IntFilter<"subproceso"> | number
   nombre?: Prisma.StringFilter<"subproceso"> | string
   descripcion?: Prisma.StringNullableFilter<"subproceso"> | string | null
-  codigo_orden?: Prisma.StringFilter<"subproceso"> | string
+  estatus?: Prisma.StringFilter<"subproceso"> | string
   id_proceso?: Prisma.IntFilter<"subproceso"> | number
   proceso?: Prisma.XOR<Prisma.ProcesoScalarRelationFilter, Prisma.procesoWhereInput>
   tecnica_recoleccion?: Prisma.Tecnica_recoleccionListRelationFilter
@@ -228,7 +228,7 @@ export type subprocesoOrderByWithRelationInput = {
   id_subproceso?: Prisma.SortOrder
   nombre?: Prisma.SortOrder
   descripcion?: Prisma.SortOrderInput | Prisma.SortOrder
-  codigo_orden?: Prisma.SortOrder
+  estatus?: Prisma.SortOrder
   id_proceso?: Prisma.SortOrder
   proceso?: Prisma.procesoOrderByWithRelationInput
   tecnica_recoleccion?: Prisma.tecnica_recoleccionOrderByRelationAggregateInput
@@ -241,7 +241,7 @@ export type subprocesoWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.subprocesoWhereInput | Prisma.subprocesoWhereInput[]
   nombre?: Prisma.StringFilter<"subproceso"> | string
   descripcion?: Prisma.StringNullableFilter<"subproceso"> | string | null
-  codigo_orden?: Prisma.StringFilter<"subproceso"> | string
+  estatus?: Prisma.StringFilter<"subproceso"> | string
   id_proceso?: Prisma.IntFilter<"subproceso"> | number
   proceso?: Prisma.XOR<Prisma.ProcesoScalarRelationFilter, Prisma.procesoWhereInput>
   tecnica_recoleccion?: Prisma.Tecnica_recoleccionListRelationFilter
@@ -251,7 +251,7 @@ export type subprocesoOrderByWithAggregationInput = {
   id_subproceso?: Prisma.SortOrder
   nombre?: Prisma.SortOrder
   descripcion?: Prisma.SortOrderInput | Prisma.SortOrder
-  codigo_orden?: Prisma.SortOrder
+  estatus?: Prisma.SortOrder
   id_proceso?: Prisma.SortOrder
   _count?: Prisma.subprocesoCountOrderByAggregateInput
   _avg?: Prisma.subprocesoAvgOrderByAggregateInput
@@ -267,14 +267,14 @@ export type subprocesoScalarWhereWithAggregatesInput = {
   id_subproceso?: Prisma.IntWithAggregatesFilter<"subproceso"> | number
   nombre?: Prisma.StringWithAggregatesFilter<"subproceso"> | string
   descripcion?: Prisma.StringNullableWithAggregatesFilter<"subproceso"> | string | null
-  codigo_orden?: Prisma.StringWithAggregatesFilter<"subproceso"> | string
+  estatus?: Prisma.StringWithAggregatesFilter<"subproceso"> | string
   id_proceso?: Prisma.IntWithAggregatesFilter<"subproceso"> | number
 }
 
 export type subprocesoCreateInput = {
   nombre: string
   descripcion?: string | null
-  codigo_orden: string
+  estatus?: string
   proceso: Prisma.procesoCreateNestedOneWithoutSubprocesoInput
   tecnica_recoleccion?: Prisma.tecnica_recoleccionCreateNestedManyWithoutSubprocesoInput
 }
@@ -283,7 +283,7 @@ export type subprocesoUncheckedCreateInput = {
   id_subproceso?: number
   nombre: string
   descripcion?: string | null
-  codigo_orden: string
+  estatus?: string
   id_proceso: number
   tecnica_recoleccion?: Prisma.tecnica_recoleccionUncheckedCreateNestedManyWithoutSubprocesoInput
 }
@@ -291,7 +291,7 @@ export type subprocesoUncheckedCreateInput = {
 export type subprocesoUpdateInput = {
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
   descripcion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  codigo_orden?: Prisma.StringFieldUpdateOperationsInput | string
+  estatus?: Prisma.StringFieldUpdateOperationsInput | string
   proceso?: Prisma.procesoUpdateOneRequiredWithoutSubprocesoNestedInput
   tecnica_recoleccion?: Prisma.tecnica_recoleccionUpdateManyWithoutSubprocesoNestedInput
 }
@@ -300,7 +300,7 @@ export type subprocesoUncheckedUpdateInput = {
   id_subproceso?: Prisma.IntFieldUpdateOperationsInput | number
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
   descripcion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  codigo_orden?: Prisma.StringFieldUpdateOperationsInput | string
+  estatus?: Prisma.StringFieldUpdateOperationsInput | string
   id_proceso?: Prisma.IntFieldUpdateOperationsInput | number
   tecnica_recoleccion?: Prisma.tecnica_recoleccionUncheckedUpdateManyWithoutSubprocesoNestedInput
 }
@@ -309,21 +309,21 @@ export type subprocesoCreateManyInput = {
   id_subproceso?: number
   nombre: string
   descripcion?: string | null
-  codigo_orden: string
+  estatus?: string
   id_proceso: number
 }
 
 export type subprocesoUpdateManyMutationInput = {
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
   descripcion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  codigo_orden?: Prisma.StringFieldUpdateOperationsInput | string
+  estatus?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type subprocesoUncheckedUpdateManyInput = {
   id_subproceso?: Prisma.IntFieldUpdateOperationsInput | number
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
   descripcion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  codigo_orden?: Prisma.StringFieldUpdateOperationsInput | string
+  estatus?: Prisma.StringFieldUpdateOperationsInput | string
   id_proceso?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
@@ -341,7 +341,7 @@ export type subprocesoCountOrderByAggregateInput = {
   id_subproceso?: Prisma.SortOrder
   nombre?: Prisma.SortOrder
   descripcion?: Prisma.SortOrder
-  codigo_orden?: Prisma.SortOrder
+  estatus?: Prisma.SortOrder
   id_proceso?: Prisma.SortOrder
 }
 
@@ -354,7 +354,7 @@ export type subprocesoMaxOrderByAggregateInput = {
   id_subproceso?: Prisma.SortOrder
   nombre?: Prisma.SortOrder
   descripcion?: Prisma.SortOrder
-  codigo_orden?: Prisma.SortOrder
+  estatus?: Prisma.SortOrder
   id_proceso?: Prisma.SortOrder
 }
 
@@ -362,7 +362,7 @@ export type subprocesoMinOrderByAggregateInput = {
   id_subproceso?: Prisma.SortOrder
   nombre?: Prisma.SortOrder
   descripcion?: Prisma.SortOrder
-  codigo_orden?: Prisma.SortOrder
+  estatus?: Prisma.SortOrder
   id_proceso?: Prisma.SortOrder
 }
 
@@ -435,7 +435,7 @@ export type subprocesoUpdateOneRequiredWithoutTecnica_recoleccionNestedInput = {
 export type subprocesoCreateWithoutProcesoInput = {
   nombre: string
   descripcion?: string | null
-  codigo_orden: string
+  estatus?: string
   tecnica_recoleccion?: Prisma.tecnica_recoleccionCreateNestedManyWithoutSubprocesoInput
 }
 
@@ -443,7 +443,7 @@ export type subprocesoUncheckedCreateWithoutProcesoInput = {
   id_subproceso?: number
   nombre: string
   descripcion?: string | null
-  codigo_orden: string
+  estatus?: string
   tecnica_recoleccion?: Prisma.tecnica_recoleccionUncheckedCreateNestedManyWithoutSubprocesoInput
 }
 
@@ -480,14 +480,14 @@ export type subprocesoScalarWhereInput = {
   id_subproceso?: Prisma.IntFilter<"subproceso"> | number
   nombre?: Prisma.StringFilter<"subproceso"> | string
   descripcion?: Prisma.StringNullableFilter<"subproceso"> | string | null
-  codigo_orden?: Prisma.StringFilter<"subproceso"> | string
+  estatus?: Prisma.StringFilter<"subproceso"> | string
   id_proceso?: Prisma.IntFilter<"subproceso"> | number
 }
 
 export type subprocesoCreateWithoutTecnica_recoleccionInput = {
   nombre: string
   descripcion?: string | null
-  codigo_orden: string
+  estatus?: string
   proceso: Prisma.procesoCreateNestedOneWithoutSubprocesoInput
 }
 
@@ -495,7 +495,7 @@ export type subprocesoUncheckedCreateWithoutTecnica_recoleccionInput = {
   id_subproceso?: number
   nombre: string
   descripcion?: string | null
-  codigo_orden: string
+  estatus?: string
   id_proceso: number
 }
 
@@ -518,7 +518,7 @@ export type subprocesoUpdateToOneWithWhereWithoutTecnica_recoleccionInput = {
 export type subprocesoUpdateWithoutTecnica_recoleccionInput = {
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
   descripcion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  codigo_orden?: Prisma.StringFieldUpdateOperationsInput | string
+  estatus?: Prisma.StringFieldUpdateOperationsInput | string
   proceso?: Prisma.procesoUpdateOneRequiredWithoutSubprocesoNestedInput
 }
 
@@ -526,7 +526,7 @@ export type subprocesoUncheckedUpdateWithoutTecnica_recoleccionInput = {
   id_subproceso?: Prisma.IntFieldUpdateOperationsInput | number
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
   descripcion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  codigo_orden?: Prisma.StringFieldUpdateOperationsInput | string
+  estatus?: Prisma.StringFieldUpdateOperationsInput | string
   id_proceso?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
@@ -534,13 +534,13 @@ export type subprocesoCreateManyProcesoInput = {
   id_subproceso?: number
   nombre: string
   descripcion?: string | null
-  codigo_orden: string
+  estatus?: string
 }
 
 export type subprocesoUpdateWithoutProcesoInput = {
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
   descripcion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  codigo_orden?: Prisma.StringFieldUpdateOperationsInput | string
+  estatus?: Prisma.StringFieldUpdateOperationsInput | string
   tecnica_recoleccion?: Prisma.tecnica_recoleccionUpdateManyWithoutSubprocesoNestedInput
 }
 
@@ -548,7 +548,7 @@ export type subprocesoUncheckedUpdateWithoutProcesoInput = {
   id_subproceso?: Prisma.IntFieldUpdateOperationsInput | number
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
   descripcion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  codigo_orden?: Prisma.StringFieldUpdateOperationsInput | string
+  estatus?: Prisma.StringFieldUpdateOperationsInput | string
   tecnica_recoleccion?: Prisma.tecnica_recoleccionUncheckedUpdateManyWithoutSubprocesoNestedInput
 }
 
@@ -556,7 +556,7 @@ export type subprocesoUncheckedUpdateManyWithoutProcesoInput = {
   id_subproceso?: Prisma.IntFieldUpdateOperationsInput | number
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
   descripcion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  codigo_orden?: Prisma.StringFieldUpdateOperationsInput | string
+  estatus?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 
@@ -594,7 +594,7 @@ export type subprocesoSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   id_subproceso?: boolean
   nombre?: boolean
   descripcion?: boolean
-  codigo_orden?: boolean
+  estatus?: boolean
   id_proceso?: boolean
   proceso?: boolean | Prisma.procesoDefaultArgs<ExtArgs>
   tecnica_recoleccion?: boolean | Prisma.subproceso$tecnica_recoleccionArgs<ExtArgs>
@@ -605,7 +605,7 @@ export type subprocesoSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ex
   id_subproceso?: boolean
   nombre?: boolean
   descripcion?: boolean
-  codigo_orden?: boolean
+  estatus?: boolean
   id_proceso?: boolean
   proceso?: boolean | Prisma.procesoDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["subproceso"]>
@@ -614,7 +614,7 @@ export type subprocesoSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
   id_subproceso?: boolean
   nombre?: boolean
   descripcion?: boolean
-  codigo_orden?: boolean
+  estatus?: boolean
   id_proceso?: boolean
   proceso?: boolean | Prisma.procesoDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["subproceso"]>
@@ -623,11 +623,11 @@ export type subprocesoSelectScalar = {
   id_subproceso?: boolean
   nombre?: boolean
   descripcion?: boolean
-  codigo_orden?: boolean
+  estatus?: boolean
   id_proceso?: boolean
 }
 
-export type subprocesoOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id_subproceso" | "nombre" | "descripcion" | "codigo_orden" | "id_proceso", ExtArgs["result"]["subproceso"]>
+export type subprocesoOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id_subproceso" | "nombre" | "descripcion" | "estatus" | "id_proceso", ExtArgs["result"]["subproceso"]>
 export type subprocesoInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   proceso?: boolean | Prisma.procesoDefaultArgs<ExtArgs>
   tecnica_recoleccion?: boolean | Prisma.subproceso$tecnica_recoleccionArgs<ExtArgs>
@@ -650,7 +650,7 @@ export type $subprocesoPayload<ExtArgs extends runtime.Types.Extensions.Internal
     id_subproceso: number
     nombre: string
     descripcion: string | null
-    codigo_orden: string
+    estatus: string
     id_proceso: number
   }, ExtArgs["result"]["subproceso"]>
   composites: {}
@@ -1080,7 +1080,7 @@ export interface subprocesoFieldRefs {
   readonly id_subproceso: Prisma.FieldRef<"subproceso", 'Int'>
   readonly nombre: Prisma.FieldRef<"subproceso", 'String'>
   readonly descripcion: Prisma.FieldRef<"subproceso", 'String'>
-  readonly codigo_orden: Prisma.FieldRef<"subproceso", 'String'>
+  readonly estatus: Prisma.FieldRef<"subproceso", 'String'>
   readonly id_proceso: Prisma.FieldRef<"subproceso", 'Int'>
 }
     

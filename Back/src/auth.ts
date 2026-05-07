@@ -2,6 +2,7 @@ import { Router, Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv'; 
 import { prisma } from '../lib/prisma';
+import bcrypt from 'bcryptjs';
 
 dotenv.config();
 
@@ -13,19 +14,21 @@ router.post('/login', async (req: Request, res: Response) => {
         const secret = process.env.JWT_SECRET || 'Secret-Object';
 
         // Buscamos si existe el correo
-        const result = await prisma.usuario.findFirst({
-            where: { email: email }
+        const usuario = await prisma.usuario.findFirst({
+            where: { email: email },
         });
 
-        if (!result) {
-            return res.status(404).json({ message: 'No hay usuario con ese correo' });
+        if (!usuario) {
+            return res
+            .status(404)
+            .json({ message: "No hay usuario con ese correo" });
         }
-
-        const usuario = result;
-
-        // Validamos la contraseña
-        if (usuario.password_hash !== password) {
-            return res.status(401).json({ message: 'Contraseña incorrecta' });
+        
+        //compara la contraseña que escribe el usuario con la encriptada que esta en la BD
+        const compareHashPassword = await bcrypt.compare(password, usuario.password_hash);
+        
+        if (!compareHashPassword) {
+            return res.status(401).json({ message: "La contraseña es incorrecta"});
         }
 
         // Se crea el token
@@ -47,5 +50,57 @@ router.post('/login', async (req: Request, res: Response) => {
         res.status(500).json('Hubo un error al iniciar sesion');
     }
 });
+
+//Ruta para registrar usuarios
+router.post('/register', async (req: Request, res: Response) => {
+    try {
+
+        const { nombre, apellido_paterno, apellido_materno, email, password } = req.body;
+        
+        //  Array de errores para validacion para contraseña
+        const errorValidaciones: string[] = [];
+        //  Validaciones 
+        if (password && password.length < 8) {
+            errorValidaciones.push("La contraseña debe tener al menos 8 caracteres")
+        }
+        if (password && !/[A-Z]/.test(password)) {
+            errorValidaciones.push("La contraseña debe de contener almenos una mayuscula")
+        }
+        if (password && !/[0-9]/.test(password)) {
+            errorValidaciones.push("La contraseña debe de contener almenos un numero")
+        }
+
+        // Si hay errores regresar los errores de validacion detectados:
+        if (errorValidaciones.length > 0) {
+            return res.status(400).json({
+                message: "Errores en la validacion",
+                errors: errorValidaciones
+            })
+        }
+
+        // una vez ya pasadas las pruebas de validacion encriptar la contraseña para guardarla en la bd 
+        const saltRounds = 10;
+        const passwordHashed = await bcrypt.hash(password, saltRounds);
+
+        const usuarioNuevo = await prisma.usuario.create({
+            data: {
+                nombre: nombre, 
+                apellido_paterno: apellido_paterno,
+                apellido_materno: apellido_materno,
+                email: email,
+                password_hash: passwordHashed,
+                estatus: "A"
+            }
+        })
+
+        res.status(200).json({
+            Message: "Usuario creado exitosamente", usuarioNuevo
+        });
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).json('Hubo un error al crear el usuario')
+    }
+})
 
 export default router;

@@ -236,9 +236,9 @@ export type entrevistaWhereInput = {
   fecha_entrevista?: Prisma.DateTimeNullableFilter<"entrevista"> | Date | string | null
   duracion?: Prisma.IntNullableFilter<"entrevista"> | number | null
   estatus?: Prisma.StringFilter<"entrevista"> | string
-  tecnica?: Prisma.XOR<Prisma.Tecnica_recoleccionScalarRelationFilter, Prisma.tecnica_recoleccionWhereInput>
+  tecnica_recoleccion?: Prisma.XOR<Prisma.Tecnica_recoleccionScalarRelationFilter, Prisma.tecnica_recoleccionWhereInput>
   usuario?: Prisma.XOR<Prisma.UsuarioScalarRelationFilter, Prisma.usuarioWhereInput>
-  preguntas?: Prisma.Pregunta_entrevistaListRelationFilter
+  pregunta_entrevista?: Prisma.Pregunta_entrevistaListRelationFilter
 }
 
 export type entrevistaOrderByWithRelationInput = {
@@ -248,9 +248,9 @@ export type entrevistaOrderByWithRelationInput = {
   fecha_entrevista?: Prisma.SortOrderInput | Prisma.SortOrder
   duracion?: Prisma.SortOrderInput | Prisma.SortOrder
   estatus?: Prisma.SortOrder
-  tecnica?: Prisma.tecnica_recoleccionOrderByWithRelationInput
+  tecnica_recoleccion?: Prisma.tecnica_recoleccionOrderByWithRelationInput
   usuario?: Prisma.usuarioOrderByWithRelationInput
-  preguntas?: Prisma.pregunta_entrevistaOrderByRelationAggregateInput
+  pregunta_entrevista?: Prisma.pregunta_entrevistaOrderByRelationAggregateInput
 }
 
 export type entrevistaWhereUniqueInput = Prisma.AtLeast<{
@@ -263,9 +263,9 @@ export type entrevistaWhereUniqueInput = Prisma.AtLeast<{
   fecha_entrevista?: Prisma.DateTimeNullableFilter<"entrevista"> | Date | string | null
   duracion?: Prisma.IntNullableFilter<"entrevista"> | number | null
   estatus?: Prisma.StringFilter<"entrevista"> | string
-  tecnica?: Prisma.XOR<Prisma.Tecnica_recoleccionScalarRelationFilter, Prisma.tecnica_recoleccionWhereInput>
+  tecnica_recoleccion?: Prisma.XOR<Prisma.Tecnica_recoleccionScalarRelationFilter, Prisma.tecnica_recoleccionWhereInput>
   usuario?: Prisma.XOR<Prisma.UsuarioScalarRelationFilter, Prisma.usuarioWhereInput>
-  preguntas?: Prisma.Pregunta_entrevistaListRelationFilter
+  pregunta_entrevista?: Prisma.Pregunta_entrevistaListRelationFilter
 }, "id_entrevista">
 
 export type entrevistaOrderByWithAggregationInput = {
@@ -298,9 +298,9 @@ export type entrevistaCreateInput = {
   fecha_entrevista?: Date | string | null
   duracion?: number | null
   estatus: string
-  tecnica: Prisma.tecnica_recoleccionCreateNestedOneWithoutEntrevistasInput
-  usuario: Prisma.usuarioCreateNestedOneWithoutEntrevistasInput
-  preguntas?: Prisma.pregunta_entrevistaCreateNestedManyWithoutEntrevistaInput
+  tecnica_recoleccion: Prisma.tecnica_recoleccionCreateNestedOneWithoutEntrevistaInput
+  usuario: Prisma.usuarioCreateNestedOneWithoutEntrevistaInput
+  pregunta_entrevista?: Prisma.pregunta_entrevistaCreateNestedManyWithoutEntrevistaInput
 }
 
 export type entrevistaUncheckedCreateInput = {
@@ -310,16 +310,16 @@ export type entrevistaUncheckedCreateInput = {
   fecha_entrevista?: Date | string | null
   duracion?: number | null
   estatus: string
-  preguntas?: Prisma.pregunta_entrevistaUncheckedCreateNestedManyWithoutEntrevistaInput
+  pregunta_entrevista?: Prisma.pregunta_entrevistaUncheckedCreateNestedManyWithoutEntrevistaInput
 }
 
 export type entrevistaUpdateInput = {
   fecha_entrevista?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   duracion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   estatus?: Prisma.StringFieldUpdateOperationsInput | string
-  tecnica?: Prisma.tecnica_recoleccionUpdateOneRequiredWithoutEntrevistasNestedInput
-  usuario?: Prisma.usuarioUpdateOneRequiredWithoutEntrevistasNestedInput
-  preguntas?: Prisma.pregunta_entrevistaUpdateManyWithoutEntrevistaNestedInput
+  tecnica_recoleccion?: Prisma.tecnica_recoleccionUpdateOneRequiredWithoutEntrevistaNestedInput
+  usuario?: Prisma.usuarioUpdateOneRequiredWithoutEntrevistaNestedInput
+  pregunta_entrevista?: Prisma.pregunta_entrevistaUpdateManyWithoutEntrevistaNestedInput
 }
 
 export type entrevistaUncheckedUpdateInput = {
@@ -329,7 +329,7 @@ export type entrevistaUncheckedUpdateInput = {
   fecha_entrevista?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   duracion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   estatus?: Prisma.StringFieldUpdateOperationsInput | string
-  preguntas?: Prisma.pregunta_entrevistaUncheckedUpdateManyWithoutEntrevistaNestedInput
+  pregunta_entrevista?: Prisma.pregunta_entrevistaUncheckedUpdateManyWithoutEntrevistaNestedInput
 }
 
 export type entrevistaCreateManyInput = {
@@ -454,68 +454,68 @@ export type entrevistaUncheckedUpdateManyWithoutUsuarioNestedInput = {
   deleteMany?: Prisma.entrevistaScalarWhereInput | Prisma.entrevistaScalarWhereInput[]
 }
 
-export type entrevistaCreateNestedManyWithoutTecnicaInput = {
-  create?: Prisma.XOR<Prisma.entrevistaCreateWithoutTecnicaInput, Prisma.entrevistaUncheckedCreateWithoutTecnicaInput> | Prisma.entrevistaCreateWithoutTecnicaInput[] | Prisma.entrevistaUncheckedCreateWithoutTecnicaInput[]
-  connectOrCreate?: Prisma.entrevistaCreateOrConnectWithoutTecnicaInput | Prisma.entrevistaCreateOrConnectWithoutTecnicaInput[]
-  createMany?: Prisma.entrevistaCreateManyTecnicaInputEnvelope
+export type entrevistaCreateNestedManyWithoutTecnica_recoleccionInput = {
+  create?: Prisma.XOR<Prisma.entrevistaCreateWithoutTecnica_recoleccionInput, Prisma.entrevistaUncheckedCreateWithoutTecnica_recoleccionInput> | Prisma.entrevistaCreateWithoutTecnica_recoleccionInput[] | Prisma.entrevistaUncheckedCreateWithoutTecnica_recoleccionInput[]
+  connectOrCreate?: Prisma.entrevistaCreateOrConnectWithoutTecnica_recoleccionInput | Prisma.entrevistaCreateOrConnectWithoutTecnica_recoleccionInput[]
+  createMany?: Prisma.entrevistaCreateManyTecnica_recoleccionInputEnvelope
   connect?: Prisma.entrevistaWhereUniqueInput | Prisma.entrevistaWhereUniqueInput[]
 }
 
-export type entrevistaUncheckedCreateNestedManyWithoutTecnicaInput = {
-  create?: Prisma.XOR<Prisma.entrevistaCreateWithoutTecnicaInput, Prisma.entrevistaUncheckedCreateWithoutTecnicaInput> | Prisma.entrevistaCreateWithoutTecnicaInput[] | Prisma.entrevistaUncheckedCreateWithoutTecnicaInput[]
-  connectOrCreate?: Prisma.entrevistaCreateOrConnectWithoutTecnicaInput | Prisma.entrevistaCreateOrConnectWithoutTecnicaInput[]
-  createMany?: Prisma.entrevistaCreateManyTecnicaInputEnvelope
+export type entrevistaUncheckedCreateNestedManyWithoutTecnica_recoleccionInput = {
+  create?: Prisma.XOR<Prisma.entrevistaCreateWithoutTecnica_recoleccionInput, Prisma.entrevistaUncheckedCreateWithoutTecnica_recoleccionInput> | Prisma.entrevistaCreateWithoutTecnica_recoleccionInput[] | Prisma.entrevistaUncheckedCreateWithoutTecnica_recoleccionInput[]
+  connectOrCreate?: Prisma.entrevistaCreateOrConnectWithoutTecnica_recoleccionInput | Prisma.entrevistaCreateOrConnectWithoutTecnica_recoleccionInput[]
+  createMany?: Prisma.entrevistaCreateManyTecnica_recoleccionInputEnvelope
   connect?: Prisma.entrevistaWhereUniqueInput | Prisma.entrevistaWhereUniqueInput[]
 }
 
-export type entrevistaUpdateManyWithoutTecnicaNestedInput = {
-  create?: Prisma.XOR<Prisma.entrevistaCreateWithoutTecnicaInput, Prisma.entrevistaUncheckedCreateWithoutTecnicaInput> | Prisma.entrevistaCreateWithoutTecnicaInput[] | Prisma.entrevistaUncheckedCreateWithoutTecnicaInput[]
-  connectOrCreate?: Prisma.entrevistaCreateOrConnectWithoutTecnicaInput | Prisma.entrevistaCreateOrConnectWithoutTecnicaInput[]
-  upsert?: Prisma.entrevistaUpsertWithWhereUniqueWithoutTecnicaInput | Prisma.entrevistaUpsertWithWhereUniqueWithoutTecnicaInput[]
-  createMany?: Prisma.entrevistaCreateManyTecnicaInputEnvelope
+export type entrevistaUpdateManyWithoutTecnica_recoleccionNestedInput = {
+  create?: Prisma.XOR<Prisma.entrevistaCreateWithoutTecnica_recoleccionInput, Prisma.entrevistaUncheckedCreateWithoutTecnica_recoleccionInput> | Prisma.entrevistaCreateWithoutTecnica_recoleccionInput[] | Prisma.entrevistaUncheckedCreateWithoutTecnica_recoleccionInput[]
+  connectOrCreate?: Prisma.entrevistaCreateOrConnectWithoutTecnica_recoleccionInput | Prisma.entrevistaCreateOrConnectWithoutTecnica_recoleccionInput[]
+  upsert?: Prisma.entrevistaUpsertWithWhereUniqueWithoutTecnica_recoleccionInput | Prisma.entrevistaUpsertWithWhereUniqueWithoutTecnica_recoleccionInput[]
+  createMany?: Prisma.entrevistaCreateManyTecnica_recoleccionInputEnvelope
   set?: Prisma.entrevistaWhereUniqueInput | Prisma.entrevistaWhereUniqueInput[]
   disconnect?: Prisma.entrevistaWhereUniqueInput | Prisma.entrevistaWhereUniqueInput[]
   delete?: Prisma.entrevistaWhereUniqueInput | Prisma.entrevistaWhereUniqueInput[]
   connect?: Prisma.entrevistaWhereUniqueInput | Prisma.entrevistaWhereUniqueInput[]
-  update?: Prisma.entrevistaUpdateWithWhereUniqueWithoutTecnicaInput | Prisma.entrevistaUpdateWithWhereUniqueWithoutTecnicaInput[]
-  updateMany?: Prisma.entrevistaUpdateManyWithWhereWithoutTecnicaInput | Prisma.entrevistaUpdateManyWithWhereWithoutTecnicaInput[]
+  update?: Prisma.entrevistaUpdateWithWhereUniqueWithoutTecnica_recoleccionInput | Prisma.entrevistaUpdateWithWhereUniqueWithoutTecnica_recoleccionInput[]
+  updateMany?: Prisma.entrevistaUpdateManyWithWhereWithoutTecnica_recoleccionInput | Prisma.entrevistaUpdateManyWithWhereWithoutTecnica_recoleccionInput[]
   deleteMany?: Prisma.entrevistaScalarWhereInput | Prisma.entrevistaScalarWhereInput[]
 }
 
-export type entrevistaUncheckedUpdateManyWithoutTecnicaNestedInput = {
-  create?: Prisma.XOR<Prisma.entrevistaCreateWithoutTecnicaInput, Prisma.entrevistaUncheckedCreateWithoutTecnicaInput> | Prisma.entrevistaCreateWithoutTecnicaInput[] | Prisma.entrevistaUncheckedCreateWithoutTecnicaInput[]
-  connectOrCreate?: Prisma.entrevistaCreateOrConnectWithoutTecnicaInput | Prisma.entrevistaCreateOrConnectWithoutTecnicaInput[]
-  upsert?: Prisma.entrevistaUpsertWithWhereUniqueWithoutTecnicaInput | Prisma.entrevistaUpsertWithWhereUniqueWithoutTecnicaInput[]
-  createMany?: Prisma.entrevistaCreateManyTecnicaInputEnvelope
+export type entrevistaUncheckedUpdateManyWithoutTecnica_recoleccionNestedInput = {
+  create?: Prisma.XOR<Prisma.entrevistaCreateWithoutTecnica_recoleccionInput, Prisma.entrevistaUncheckedCreateWithoutTecnica_recoleccionInput> | Prisma.entrevistaCreateWithoutTecnica_recoleccionInput[] | Prisma.entrevistaUncheckedCreateWithoutTecnica_recoleccionInput[]
+  connectOrCreate?: Prisma.entrevistaCreateOrConnectWithoutTecnica_recoleccionInput | Prisma.entrevistaCreateOrConnectWithoutTecnica_recoleccionInput[]
+  upsert?: Prisma.entrevistaUpsertWithWhereUniqueWithoutTecnica_recoleccionInput | Prisma.entrevistaUpsertWithWhereUniqueWithoutTecnica_recoleccionInput[]
+  createMany?: Prisma.entrevistaCreateManyTecnica_recoleccionInputEnvelope
   set?: Prisma.entrevistaWhereUniqueInput | Prisma.entrevistaWhereUniqueInput[]
   disconnect?: Prisma.entrevistaWhereUniqueInput | Prisma.entrevistaWhereUniqueInput[]
   delete?: Prisma.entrevistaWhereUniqueInput | Prisma.entrevistaWhereUniqueInput[]
   connect?: Prisma.entrevistaWhereUniqueInput | Prisma.entrevistaWhereUniqueInput[]
-  update?: Prisma.entrevistaUpdateWithWhereUniqueWithoutTecnicaInput | Prisma.entrevistaUpdateWithWhereUniqueWithoutTecnicaInput[]
-  updateMany?: Prisma.entrevistaUpdateManyWithWhereWithoutTecnicaInput | Prisma.entrevistaUpdateManyWithWhereWithoutTecnicaInput[]
+  update?: Prisma.entrevistaUpdateWithWhereUniqueWithoutTecnica_recoleccionInput | Prisma.entrevistaUpdateWithWhereUniqueWithoutTecnica_recoleccionInput[]
+  updateMany?: Prisma.entrevistaUpdateManyWithWhereWithoutTecnica_recoleccionInput | Prisma.entrevistaUpdateManyWithWhereWithoutTecnica_recoleccionInput[]
   deleteMany?: Prisma.entrevistaScalarWhereInput | Prisma.entrevistaScalarWhereInput[]
 }
 
-export type entrevistaCreateNestedOneWithoutPreguntasInput = {
-  create?: Prisma.XOR<Prisma.entrevistaCreateWithoutPreguntasInput, Prisma.entrevistaUncheckedCreateWithoutPreguntasInput>
-  connectOrCreate?: Prisma.entrevistaCreateOrConnectWithoutPreguntasInput
+export type entrevistaCreateNestedOneWithoutPregunta_entrevistaInput = {
+  create?: Prisma.XOR<Prisma.entrevistaCreateWithoutPregunta_entrevistaInput, Prisma.entrevistaUncheckedCreateWithoutPregunta_entrevistaInput>
+  connectOrCreate?: Prisma.entrevistaCreateOrConnectWithoutPregunta_entrevistaInput
   connect?: Prisma.entrevistaWhereUniqueInput
 }
 
-export type entrevistaUpdateOneRequiredWithoutPreguntasNestedInput = {
-  create?: Prisma.XOR<Prisma.entrevistaCreateWithoutPreguntasInput, Prisma.entrevistaUncheckedCreateWithoutPreguntasInput>
-  connectOrCreate?: Prisma.entrevistaCreateOrConnectWithoutPreguntasInput
-  upsert?: Prisma.entrevistaUpsertWithoutPreguntasInput
+export type entrevistaUpdateOneRequiredWithoutPregunta_entrevistaNestedInput = {
+  create?: Prisma.XOR<Prisma.entrevistaCreateWithoutPregunta_entrevistaInput, Prisma.entrevistaUncheckedCreateWithoutPregunta_entrevistaInput>
+  connectOrCreate?: Prisma.entrevistaCreateOrConnectWithoutPregunta_entrevistaInput
+  upsert?: Prisma.entrevistaUpsertWithoutPregunta_entrevistaInput
   connect?: Prisma.entrevistaWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.entrevistaUpdateToOneWithWhereWithoutPreguntasInput, Prisma.entrevistaUpdateWithoutPreguntasInput>, Prisma.entrevistaUncheckedUpdateWithoutPreguntasInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.entrevistaUpdateToOneWithWhereWithoutPregunta_entrevistaInput, Prisma.entrevistaUpdateWithoutPregunta_entrevistaInput>, Prisma.entrevistaUncheckedUpdateWithoutPregunta_entrevistaInput>
 }
 
 export type entrevistaCreateWithoutUsuarioInput = {
   fecha_entrevista?: Date | string | null
   duracion?: number | null
   estatus: string
-  tecnica: Prisma.tecnica_recoleccionCreateNestedOneWithoutEntrevistasInput
-  preguntas?: Prisma.pregunta_entrevistaCreateNestedManyWithoutEntrevistaInput
+  tecnica_recoleccion: Prisma.tecnica_recoleccionCreateNestedOneWithoutEntrevistaInput
+  pregunta_entrevista?: Prisma.pregunta_entrevistaCreateNestedManyWithoutEntrevistaInput
 }
 
 export type entrevistaUncheckedCreateWithoutUsuarioInput = {
@@ -524,7 +524,7 @@ export type entrevistaUncheckedCreateWithoutUsuarioInput = {
   fecha_entrevista?: Date | string | null
   duracion?: number | null
   estatus: string
-  preguntas?: Prisma.pregunta_entrevistaUncheckedCreateNestedManyWithoutEntrevistaInput
+  pregunta_entrevista?: Prisma.pregunta_entrevistaUncheckedCreateNestedManyWithoutEntrevistaInput
 }
 
 export type entrevistaCreateOrConnectWithoutUsuarioInput = {
@@ -565,58 +565,58 @@ export type entrevistaScalarWhereInput = {
   estatus?: Prisma.StringFilter<"entrevista"> | string
 }
 
-export type entrevistaCreateWithoutTecnicaInput = {
+export type entrevistaCreateWithoutTecnica_recoleccionInput = {
   fecha_entrevista?: Date | string | null
   duracion?: number | null
   estatus: string
-  usuario: Prisma.usuarioCreateNestedOneWithoutEntrevistasInput
-  preguntas?: Prisma.pregunta_entrevistaCreateNestedManyWithoutEntrevistaInput
+  usuario: Prisma.usuarioCreateNestedOneWithoutEntrevistaInput
+  pregunta_entrevista?: Prisma.pregunta_entrevistaCreateNestedManyWithoutEntrevistaInput
 }
 
-export type entrevistaUncheckedCreateWithoutTecnicaInput = {
+export type entrevistaUncheckedCreateWithoutTecnica_recoleccionInput = {
   id_entrevista?: number
   id_usuario: number
   fecha_entrevista?: Date | string | null
   duracion?: number | null
   estatus: string
-  preguntas?: Prisma.pregunta_entrevistaUncheckedCreateNestedManyWithoutEntrevistaInput
+  pregunta_entrevista?: Prisma.pregunta_entrevistaUncheckedCreateNestedManyWithoutEntrevistaInput
 }
 
-export type entrevistaCreateOrConnectWithoutTecnicaInput = {
+export type entrevistaCreateOrConnectWithoutTecnica_recoleccionInput = {
   where: Prisma.entrevistaWhereUniqueInput
-  create: Prisma.XOR<Prisma.entrevistaCreateWithoutTecnicaInput, Prisma.entrevistaUncheckedCreateWithoutTecnicaInput>
+  create: Prisma.XOR<Prisma.entrevistaCreateWithoutTecnica_recoleccionInput, Prisma.entrevistaUncheckedCreateWithoutTecnica_recoleccionInput>
 }
 
-export type entrevistaCreateManyTecnicaInputEnvelope = {
-  data: Prisma.entrevistaCreateManyTecnicaInput | Prisma.entrevistaCreateManyTecnicaInput[]
+export type entrevistaCreateManyTecnica_recoleccionInputEnvelope = {
+  data: Prisma.entrevistaCreateManyTecnica_recoleccionInput | Prisma.entrevistaCreateManyTecnica_recoleccionInput[]
   skipDuplicates?: boolean
 }
 
-export type entrevistaUpsertWithWhereUniqueWithoutTecnicaInput = {
+export type entrevistaUpsertWithWhereUniqueWithoutTecnica_recoleccionInput = {
   where: Prisma.entrevistaWhereUniqueInput
-  update: Prisma.XOR<Prisma.entrevistaUpdateWithoutTecnicaInput, Prisma.entrevistaUncheckedUpdateWithoutTecnicaInput>
-  create: Prisma.XOR<Prisma.entrevistaCreateWithoutTecnicaInput, Prisma.entrevistaUncheckedCreateWithoutTecnicaInput>
+  update: Prisma.XOR<Prisma.entrevistaUpdateWithoutTecnica_recoleccionInput, Prisma.entrevistaUncheckedUpdateWithoutTecnica_recoleccionInput>
+  create: Prisma.XOR<Prisma.entrevistaCreateWithoutTecnica_recoleccionInput, Prisma.entrevistaUncheckedCreateWithoutTecnica_recoleccionInput>
 }
 
-export type entrevistaUpdateWithWhereUniqueWithoutTecnicaInput = {
+export type entrevistaUpdateWithWhereUniqueWithoutTecnica_recoleccionInput = {
   where: Prisma.entrevistaWhereUniqueInput
-  data: Prisma.XOR<Prisma.entrevistaUpdateWithoutTecnicaInput, Prisma.entrevistaUncheckedUpdateWithoutTecnicaInput>
+  data: Prisma.XOR<Prisma.entrevistaUpdateWithoutTecnica_recoleccionInput, Prisma.entrevistaUncheckedUpdateWithoutTecnica_recoleccionInput>
 }
 
-export type entrevistaUpdateManyWithWhereWithoutTecnicaInput = {
+export type entrevistaUpdateManyWithWhereWithoutTecnica_recoleccionInput = {
   where: Prisma.entrevistaScalarWhereInput
-  data: Prisma.XOR<Prisma.entrevistaUpdateManyMutationInput, Prisma.entrevistaUncheckedUpdateManyWithoutTecnicaInput>
+  data: Prisma.XOR<Prisma.entrevistaUpdateManyMutationInput, Prisma.entrevistaUncheckedUpdateManyWithoutTecnica_recoleccionInput>
 }
 
-export type entrevistaCreateWithoutPreguntasInput = {
+export type entrevistaCreateWithoutPregunta_entrevistaInput = {
   fecha_entrevista?: Date | string | null
   duracion?: number | null
   estatus: string
-  tecnica: Prisma.tecnica_recoleccionCreateNestedOneWithoutEntrevistasInput
-  usuario: Prisma.usuarioCreateNestedOneWithoutEntrevistasInput
+  tecnica_recoleccion: Prisma.tecnica_recoleccionCreateNestedOneWithoutEntrevistaInput
+  usuario: Prisma.usuarioCreateNestedOneWithoutEntrevistaInput
 }
 
-export type entrevistaUncheckedCreateWithoutPreguntasInput = {
+export type entrevistaUncheckedCreateWithoutPregunta_entrevistaInput = {
   id_entrevista?: number
   id_tecnica: number
   id_usuario: number
@@ -625,31 +625,31 @@ export type entrevistaUncheckedCreateWithoutPreguntasInput = {
   estatus: string
 }
 
-export type entrevistaCreateOrConnectWithoutPreguntasInput = {
+export type entrevistaCreateOrConnectWithoutPregunta_entrevistaInput = {
   where: Prisma.entrevistaWhereUniqueInput
-  create: Prisma.XOR<Prisma.entrevistaCreateWithoutPreguntasInput, Prisma.entrevistaUncheckedCreateWithoutPreguntasInput>
+  create: Prisma.XOR<Prisma.entrevistaCreateWithoutPregunta_entrevistaInput, Prisma.entrevistaUncheckedCreateWithoutPregunta_entrevistaInput>
 }
 
-export type entrevistaUpsertWithoutPreguntasInput = {
-  update: Prisma.XOR<Prisma.entrevistaUpdateWithoutPreguntasInput, Prisma.entrevistaUncheckedUpdateWithoutPreguntasInput>
-  create: Prisma.XOR<Prisma.entrevistaCreateWithoutPreguntasInput, Prisma.entrevistaUncheckedCreateWithoutPreguntasInput>
+export type entrevistaUpsertWithoutPregunta_entrevistaInput = {
+  update: Prisma.XOR<Prisma.entrevistaUpdateWithoutPregunta_entrevistaInput, Prisma.entrevistaUncheckedUpdateWithoutPregunta_entrevistaInput>
+  create: Prisma.XOR<Prisma.entrevistaCreateWithoutPregunta_entrevistaInput, Prisma.entrevistaUncheckedCreateWithoutPregunta_entrevistaInput>
   where?: Prisma.entrevistaWhereInput
 }
 
-export type entrevistaUpdateToOneWithWhereWithoutPreguntasInput = {
+export type entrevistaUpdateToOneWithWhereWithoutPregunta_entrevistaInput = {
   where?: Prisma.entrevistaWhereInput
-  data: Prisma.XOR<Prisma.entrevistaUpdateWithoutPreguntasInput, Prisma.entrevistaUncheckedUpdateWithoutPreguntasInput>
+  data: Prisma.XOR<Prisma.entrevistaUpdateWithoutPregunta_entrevistaInput, Prisma.entrevistaUncheckedUpdateWithoutPregunta_entrevistaInput>
 }
 
-export type entrevistaUpdateWithoutPreguntasInput = {
+export type entrevistaUpdateWithoutPregunta_entrevistaInput = {
   fecha_entrevista?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   duracion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   estatus?: Prisma.StringFieldUpdateOperationsInput | string
-  tecnica?: Prisma.tecnica_recoleccionUpdateOneRequiredWithoutEntrevistasNestedInput
-  usuario?: Prisma.usuarioUpdateOneRequiredWithoutEntrevistasNestedInput
+  tecnica_recoleccion?: Prisma.tecnica_recoleccionUpdateOneRequiredWithoutEntrevistaNestedInput
+  usuario?: Prisma.usuarioUpdateOneRequiredWithoutEntrevistaNestedInput
 }
 
-export type entrevistaUncheckedUpdateWithoutPreguntasInput = {
+export type entrevistaUncheckedUpdateWithoutPregunta_entrevistaInput = {
   id_entrevista?: Prisma.IntFieldUpdateOperationsInput | number
   id_tecnica?: Prisma.IntFieldUpdateOperationsInput | number
   id_usuario?: Prisma.IntFieldUpdateOperationsInput | number
@@ -670,8 +670,8 @@ export type entrevistaUpdateWithoutUsuarioInput = {
   fecha_entrevista?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   duracion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   estatus?: Prisma.StringFieldUpdateOperationsInput | string
-  tecnica?: Prisma.tecnica_recoleccionUpdateOneRequiredWithoutEntrevistasNestedInput
-  preguntas?: Prisma.pregunta_entrevistaUpdateManyWithoutEntrevistaNestedInput
+  tecnica_recoleccion?: Prisma.tecnica_recoleccionUpdateOneRequiredWithoutEntrevistaNestedInput
+  pregunta_entrevista?: Prisma.pregunta_entrevistaUpdateManyWithoutEntrevistaNestedInput
 }
 
 export type entrevistaUncheckedUpdateWithoutUsuarioInput = {
@@ -680,7 +680,7 @@ export type entrevistaUncheckedUpdateWithoutUsuarioInput = {
   fecha_entrevista?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   duracion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   estatus?: Prisma.StringFieldUpdateOperationsInput | string
-  preguntas?: Prisma.pregunta_entrevistaUncheckedUpdateManyWithoutEntrevistaNestedInput
+  pregunta_entrevista?: Prisma.pregunta_entrevistaUncheckedUpdateManyWithoutEntrevistaNestedInput
 }
 
 export type entrevistaUncheckedUpdateManyWithoutUsuarioInput = {
@@ -691,7 +691,7 @@ export type entrevistaUncheckedUpdateManyWithoutUsuarioInput = {
   estatus?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
-export type entrevistaCreateManyTecnicaInput = {
+export type entrevistaCreateManyTecnica_recoleccionInput = {
   id_entrevista?: number
   id_usuario: number
   fecha_entrevista?: Date | string | null
@@ -699,24 +699,24 @@ export type entrevistaCreateManyTecnicaInput = {
   estatus: string
 }
 
-export type entrevistaUpdateWithoutTecnicaInput = {
+export type entrevistaUpdateWithoutTecnica_recoleccionInput = {
   fecha_entrevista?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   duracion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   estatus?: Prisma.StringFieldUpdateOperationsInput | string
-  usuario?: Prisma.usuarioUpdateOneRequiredWithoutEntrevistasNestedInput
-  preguntas?: Prisma.pregunta_entrevistaUpdateManyWithoutEntrevistaNestedInput
+  usuario?: Prisma.usuarioUpdateOneRequiredWithoutEntrevistaNestedInput
+  pregunta_entrevista?: Prisma.pregunta_entrevistaUpdateManyWithoutEntrevistaNestedInput
 }
 
-export type entrevistaUncheckedUpdateWithoutTecnicaInput = {
+export type entrevistaUncheckedUpdateWithoutTecnica_recoleccionInput = {
   id_entrevista?: Prisma.IntFieldUpdateOperationsInput | number
   id_usuario?: Prisma.IntFieldUpdateOperationsInput | number
   fecha_entrevista?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   duracion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   estatus?: Prisma.StringFieldUpdateOperationsInput | string
-  preguntas?: Prisma.pregunta_entrevistaUncheckedUpdateManyWithoutEntrevistaNestedInput
+  pregunta_entrevista?: Prisma.pregunta_entrevistaUncheckedUpdateManyWithoutEntrevistaNestedInput
 }
 
-export type entrevistaUncheckedUpdateManyWithoutTecnicaInput = {
+export type entrevistaUncheckedUpdateManyWithoutTecnica_recoleccionInput = {
   id_entrevista?: Prisma.IntFieldUpdateOperationsInput | number
   id_usuario?: Prisma.IntFieldUpdateOperationsInput | number
   fecha_entrevista?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -730,11 +730,11 @@ export type entrevistaUncheckedUpdateManyWithoutTecnicaInput = {
  */
 
 export type EntrevistaCountOutputType = {
-  preguntas: number
+  pregunta_entrevista: number
 }
 
 export type EntrevistaCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  preguntas?: boolean | EntrevistaCountOutputTypeCountPreguntasArgs
+  pregunta_entrevista?: boolean | EntrevistaCountOutputTypeCountPregunta_entrevistaArgs
 }
 
 /**
@@ -750,7 +750,7 @@ export type EntrevistaCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.E
 /**
  * EntrevistaCountOutputType without action
  */
-export type EntrevistaCountOutputTypeCountPreguntasArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type EntrevistaCountOutputTypeCountPregunta_entrevistaArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.pregunta_entrevistaWhereInput
 }
 
@@ -762,9 +762,9 @@ export type entrevistaSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   fecha_entrevista?: boolean
   duracion?: boolean
   estatus?: boolean
-  tecnica?: boolean | Prisma.tecnica_recoleccionDefaultArgs<ExtArgs>
+  tecnica_recoleccion?: boolean | Prisma.tecnica_recoleccionDefaultArgs<ExtArgs>
   usuario?: boolean | Prisma.usuarioDefaultArgs<ExtArgs>
-  preguntas?: boolean | Prisma.entrevista$preguntasArgs<ExtArgs>
+  pregunta_entrevista?: boolean | Prisma.entrevista$pregunta_entrevistaArgs<ExtArgs>
   _count?: boolean | Prisma.EntrevistaCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["entrevista"]>
 
@@ -775,7 +775,7 @@ export type entrevistaSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ex
   fecha_entrevista?: boolean
   duracion?: boolean
   estatus?: boolean
-  tecnica?: boolean | Prisma.tecnica_recoleccionDefaultArgs<ExtArgs>
+  tecnica_recoleccion?: boolean | Prisma.tecnica_recoleccionDefaultArgs<ExtArgs>
   usuario?: boolean | Prisma.usuarioDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["entrevista"]>
 
@@ -786,7 +786,7 @@ export type entrevistaSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
   fecha_entrevista?: boolean
   duracion?: boolean
   estatus?: boolean
-  tecnica?: boolean | Prisma.tecnica_recoleccionDefaultArgs<ExtArgs>
+  tecnica_recoleccion?: boolean | Prisma.tecnica_recoleccionDefaultArgs<ExtArgs>
   usuario?: boolean | Prisma.usuarioDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["entrevista"]>
 
@@ -801,26 +801,26 @@ export type entrevistaSelectScalar = {
 
 export type entrevistaOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id_entrevista" | "id_tecnica" | "id_usuario" | "fecha_entrevista" | "duracion" | "estatus", ExtArgs["result"]["entrevista"]>
 export type entrevistaInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  tecnica?: boolean | Prisma.tecnica_recoleccionDefaultArgs<ExtArgs>
+  tecnica_recoleccion?: boolean | Prisma.tecnica_recoleccionDefaultArgs<ExtArgs>
   usuario?: boolean | Prisma.usuarioDefaultArgs<ExtArgs>
-  preguntas?: boolean | Prisma.entrevista$preguntasArgs<ExtArgs>
+  pregunta_entrevista?: boolean | Prisma.entrevista$pregunta_entrevistaArgs<ExtArgs>
   _count?: boolean | Prisma.EntrevistaCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type entrevistaIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  tecnica?: boolean | Prisma.tecnica_recoleccionDefaultArgs<ExtArgs>
+  tecnica_recoleccion?: boolean | Prisma.tecnica_recoleccionDefaultArgs<ExtArgs>
   usuario?: boolean | Prisma.usuarioDefaultArgs<ExtArgs>
 }
 export type entrevistaIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  tecnica?: boolean | Prisma.tecnica_recoleccionDefaultArgs<ExtArgs>
+  tecnica_recoleccion?: boolean | Prisma.tecnica_recoleccionDefaultArgs<ExtArgs>
   usuario?: boolean | Prisma.usuarioDefaultArgs<ExtArgs>
 }
 
 export type $entrevistaPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "entrevista"
   objects: {
-    tecnica: Prisma.$tecnica_recoleccionPayload<ExtArgs>
+    tecnica_recoleccion: Prisma.$tecnica_recoleccionPayload<ExtArgs>
     usuario: Prisma.$usuarioPayload<ExtArgs>
-    preguntas: Prisma.$pregunta_entrevistaPayload<ExtArgs>[]
+    pregunta_entrevista: Prisma.$pregunta_entrevistaPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id_entrevista: number
@@ -1223,9 +1223,9 @@ readonly fields: entrevistaFieldRefs;
  */
 export interface Prisma__entrevistaClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  tecnica<T extends Prisma.tecnica_recoleccionDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.tecnica_recoleccionDefaultArgs<ExtArgs>>): Prisma.Prisma__tecnica_recoleccionClient<runtime.Types.Result.GetResult<Prisma.$tecnica_recoleccionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  tecnica_recoleccion<T extends Prisma.tecnica_recoleccionDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.tecnica_recoleccionDefaultArgs<ExtArgs>>): Prisma.Prisma__tecnica_recoleccionClient<runtime.Types.Result.GetResult<Prisma.$tecnica_recoleccionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   usuario<T extends Prisma.usuarioDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.usuarioDefaultArgs<ExtArgs>>): Prisma.Prisma__usuarioClient<runtime.Types.Result.GetResult<Prisma.$usuarioPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  preguntas<T extends Prisma.entrevista$preguntasArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.entrevista$preguntasArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$pregunta_entrevistaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  pregunta_entrevista<T extends Prisma.entrevista$pregunta_entrevistaArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.entrevista$pregunta_entrevistaArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$pregunta_entrevistaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1662,9 +1662,9 @@ export type entrevistaDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.In
 }
 
 /**
- * entrevista.preguntas
+ * entrevista.pregunta_entrevista
  */
-export type entrevista$preguntasArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type entrevista$pregunta_entrevistaArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the pregunta_entrevista
    */

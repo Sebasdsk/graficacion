@@ -2,7 +2,7 @@ export interface Proceso {
     id_proceso: number;
     nombre: string;
     descripcion: string;
-    subprocesos: Subproceso[];
+    subproceso: Subproceso[];
 }
 
 export interface Subproceso {

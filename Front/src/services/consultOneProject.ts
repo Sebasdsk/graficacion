@@ -1,9 +1,9 @@
 import type { Proyecto } from "../Types/Proyectos";
 
 export default async function consultOneProject(idProject: string, token: string): Promise<Proyecto | null> {
-    const API_URL = `http://localhost:3000/api/proyectos/ver/${idProject}`;
+    const API_URL = import.meta.env.VITE_API_URL;
 
-    const response = await fetch(API_URL, {
+    const response = await fetch(`${API_URL}/proyectos/ver/${idProject}`, {
         method: "GET",
         headers: {
             'Authorization': `Bearer ${token}`, // Envía el token

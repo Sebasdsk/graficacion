@@ -1,10 +1,12 @@
 import { useState } from "react";
 import "./Subprocesses.css"
 import type { Subproceso } from "../../Types/Procesos";
-import { Edit, WorkflowAlt, Gear } from "@boxicons/react";  
+import { Edit, WorkflowAlt, Gear, Trash } from "@boxicons/react";
 import ModalCreate from "../../Modals/ModalCreate";
 import SubprocessCreate from "../../Modals/ModalChildrens/SubprocessesModals/SubprocessCreate";
-import { useNavigate } from "react-router";
+import SubprocessEdit from "../../Modals/ModalChildrens/SubprocessesModals/SubprocessEdit";
+import SubprocessesDelete from "../../Modals/ModalChildrens/SubprocessesModals/SubprocessesDelete";
+import { useNavigate, useParams } from "react-router";
 
 interface SubprocessListProp {
     subprocesosList: Subproceso[];
@@ -17,6 +19,20 @@ interface IdProcessProp {
 
 export default function SubprocessList({ subprocesosList, setSubprocesosList, idProcess }: SubprocessListProp & IdProcessProp) {
     const [modalOpen, setModalOpen] = useState(false);
+    const [editModalOpen, setEditModalOpen] = useState(false);
+    const [selectedSubprocessId, setSelectedSubprocessId] = useState<number | null>(null);
+    const [selectedDeleteId, setSelectedDeleteId] = useState<number | null>(null);
+
+    // Función que actualiza la lista de subprocesos cuando se elimina uno
+    const handleDeleteSubprocess = (id: number) => {
+        setSubprocesosList(subprocesosList.filter(sp => sp.id_subproceso !== id));
+    };
+
+    // Functión que abre el modal de editar el subproceso
+    const handleEditSubprocess = (id: number) => {
+        setSelectedSubprocessId(id);
+        setEditModalOpen(true);
+    };
 
     return (
         <section className="subprocesses-list">
@@ -26,7 +42,7 @@ export default function SubprocessList({ subprocesosList, setSubprocesosList, id
                     className="btn-add-subprocess"
                     onClick={() => setModalOpen(true)}
                 >
-                    <WorkflowAlt size="xs"/>
+                    <WorkflowAlt size="xs" />
                     Agregar Subproceso
                 </button>
             </header>
@@ -34,10 +50,11 @@ export default function SubprocessList({ subprocesosList, setSubprocesosList, id
             {subprocesosList.map(sp => (
                 <Subprocess
                     key={sp.id_subproceso}
-                    id={sp.id_subproceso}
+                    id_subproceso={sp.id_subproceso}
                     nombre={sp.nombre}
                     descripcion={sp.descripcion}
-                    idProcess={sp.id_proceso}
+                    onEdit={() => handleEditSubprocess(sp.id_subproceso)}
+                    onDelete={() => setSelectedDeleteId(sp.id_subproceso)}
                 />
             ))}
             {modalOpen && <ModalCreate children={
@@ -46,42 +63,60 @@ export default function SubprocessList({ subprocesosList, setSubprocesosList, id
                     idProcess={idProcess}
                     setModalOpen={setModalOpen}
                 />
-            } setOpen={setModalOpen}/>}
+            } setOpen={setModalOpen} />}
+            {editModalOpen && selectedSubprocessId !== null && <ModalCreate children={
+                <SubprocessEdit
+                    idSubprocess={selectedSubprocessId}
+                    subprocesosList={subprocesosList}
+                    setSubprocesosList={setSubprocesosList}
+                    setModalEditOpen={setEditModalOpen}
+                />
+            } setOpen={setEditModalOpen} />}
+            {selectedDeleteId !== null && <ModalCreate children={
+                <SubprocessesDelete
+                    idSubprocess={selectedDeleteId}
+                    setSelectedDeleteId={setSelectedDeleteId}
+                    onDeleteSubprocess={handleDeleteSubprocess}
+                />
+            } setOpen={() => setSelectedDeleteId(null)} />}
         </section>
     );
 }
 
 interface SubprocessProp {
-    id: number;
+    id_subproceso: number;
     nombre: string;
     descripcion: string;
-    idProcess: number;
+    onEdit: () => void;
+    onDelete: () => void;
 }
 
-function Subprocess({ id, nombre, descripcion, idProcess }: SubprocessProp ) {
+function Subprocess({ id_subproceso, nombre, descripcion, onEdit, onDelete }: SubprocessProp) {
     const navigate = useNavigate();
-    console.log("Subproceso ID:", id);
-    console.log("ID del Proceso:", idProcess);
+    const { id_project } = useParams();
 
-    return(
+    return (
         <article className="subprocess">
             <div className="info-subprocess">
                 <div>
-                    <WorkflowAlt size="xs" fill="#6c6c6c"/>
+                    <WorkflowAlt size="xs" fill="#6c6c6c" />
                     <p>{nombre}</p>
                 </div>
                 <small>{descripcion}</small>
                 <div className="list-tecnicas">
                     <button
                         className="btn-config-tecnicas"
-                        onClick={() => navigate(`proccess/subprocess/${id}/techniques-dashboard`)}
+                        onClick={() => navigate(`/config-projects/${id_project}/proccess/subprocess/${id_subproceso}/techniques-dashboard`)}
                     >
-                        <Gear size="xs"/>
+                        <Gear size="xs" />
                         Gestionar Técnicas
                     </button>
                 </div>
             </div>
-            <button className="button-add-subprocess"><Edit size="xs"/></button>
+            <div className="actions-subprocess">
+                <button className="button-add-subprocess" onClick={onEdit}><Edit size="xs" /></button>
+                <button className="button-add-subprocess" onClick={onDelete}><Trash size="xs" fill="#e21818ff" /></button>
+            </div>
         </article>
     );
 }

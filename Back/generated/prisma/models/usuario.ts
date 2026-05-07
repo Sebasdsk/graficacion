@@ -215,7 +215,7 @@ export type UsuarioGroupByOutputType = {
   telefono: number | null
   email: string
   estatus: string | null
-  password_hash: string | null
+  password_hash: string
   Nombre_usuario: string | null
   _count: UsuarioCountAggregateOutputType | null
   _avg: UsuarioAvgAggregateOutputType | null
@@ -250,12 +250,13 @@ export type usuarioWhereInput = {
   telefono?: Prisma.IntNullableFilter<"usuario"> | number | null
   email?: Prisma.StringFilter<"usuario"> | string
   estatus?: Prisma.StringNullableFilter<"usuario"> | string | null
-  password_hash?: Prisma.StringNullableFilter<"usuario"> | string | null
+  password_hash?: Prisma.StringFilter<"usuario"> | string
   Nombre_usuario?: Prisma.StringNullableFilter<"usuario"> | string | null
+  entrevista?: Prisma.EntrevistaListRelationFilter
   equipo_proyecto?: Prisma.Equipo_proyectoListRelationFilter
+  observacion?: Prisma.ObservacionListRelationFilter
   proyecto?: Prisma.ProyectoListRelationFilter
   proyecto_participante?: Prisma.Proyecto_participanteListRelationFilter
-  entrevistas?: Prisma.EntrevistaListRelationFilter
 }
 
 export type usuarioOrderByWithRelationInput = {
@@ -266,12 +267,13 @@ export type usuarioOrderByWithRelationInput = {
   telefono?: Prisma.SortOrderInput | Prisma.SortOrder
   email?: Prisma.SortOrder
   estatus?: Prisma.SortOrderInput | Prisma.SortOrder
-  password_hash?: Prisma.SortOrderInput | Prisma.SortOrder
+  password_hash?: Prisma.SortOrder
   Nombre_usuario?: Prisma.SortOrderInput | Prisma.SortOrder
+  entrevista?: Prisma.entrevistaOrderByRelationAggregateInput
   equipo_proyecto?: Prisma.equipo_proyectoOrderByRelationAggregateInput
+  observacion?: Prisma.observacionOrderByRelationAggregateInput
   proyecto?: Prisma.proyectoOrderByRelationAggregateInput
   proyecto_participante?: Prisma.proyecto_participanteOrderByRelationAggregateInput
-  entrevistas?: Prisma.entrevistaOrderByRelationAggregateInput
 }
 
 export type usuarioWhereUniqueInput = Prisma.AtLeast<{
@@ -285,12 +287,13 @@ export type usuarioWhereUniqueInput = Prisma.AtLeast<{
   telefono?: Prisma.IntNullableFilter<"usuario"> | number | null
   email?: Prisma.StringFilter<"usuario"> | string
   estatus?: Prisma.StringNullableFilter<"usuario"> | string | null
-  password_hash?: Prisma.StringNullableFilter<"usuario"> | string | null
+  password_hash?: Prisma.StringFilter<"usuario"> | string
   Nombre_usuario?: Prisma.StringNullableFilter<"usuario"> | string | null
+  entrevista?: Prisma.EntrevistaListRelationFilter
   equipo_proyecto?: Prisma.Equipo_proyectoListRelationFilter
+  observacion?: Prisma.ObservacionListRelationFilter
   proyecto?: Prisma.ProyectoListRelationFilter
   proyecto_participante?: Prisma.Proyecto_participanteListRelationFilter
-  entrevistas?: Prisma.EntrevistaListRelationFilter
 }, "id_usuario">
 
 export type usuarioOrderByWithAggregationInput = {
@@ -301,7 +304,7 @@ export type usuarioOrderByWithAggregationInput = {
   telefono?: Prisma.SortOrderInput | Prisma.SortOrder
   email?: Prisma.SortOrder
   estatus?: Prisma.SortOrderInput | Prisma.SortOrder
-  password_hash?: Prisma.SortOrderInput | Prisma.SortOrder
+  password_hash?: Prisma.SortOrder
   Nombre_usuario?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.usuarioCountOrderByAggregateInput
   _avg?: Prisma.usuarioAvgOrderByAggregateInput
@@ -321,56 +324,57 @@ export type usuarioScalarWhereWithAggregatesInput = {
   telefono?: Prisma.IntNullableWithAggregatesFilter<"usuario"> | number | null
   email?: Prisma.StringWithAggregatesFilter<"usuario"> | string
   estatus?: Prisma.StringNullableWithAggregatesFilter<"usuario"> | string | null
-  password_hash?: Prisma.StringNullableWithAggregatesFilter<"usuario"> | string | null
+  password_hash?: Prisma.StringWithAggregatesFilter<"usuario"> | string
   Nombre_usuario?: Prisma.StringNullableWithAggregatesFilter<"usuario"> | string | null
 }
 
 export type usuarioCreateInput = {
-  id_usuario: number
   nombre: string
   apellido_paterno: string
   apellido_materno?: string | null
   telefono?: number | null
   email: string
   estatus?: string | null
-  password_hash?: string | null
+  password_hash: string
   Nombre_usuario?: string | null
+  entrevista?: Prisma.entrevistaCreateNestedManyWithoutUsuarioInput
   equipo_proyecto?: Prisma.equipo_proyectoCreateNestedManyWithoutUsuarioInput
+  observacion?: Prisma.observacionCreateNestedManyWithoutUsuarioInput
   proyecto?: Prisma.proyectoCreateNestedManyWithoutUsuarioInput
   proyecto_participante?: Prisma.proyecto_participanteCreateNestedManyWithoutUsuarioInput
-  entrevistas?: Prisma.entrevistaCreateNestedManyWithoutUsuarioInput
 }
 
 export type usuarioUncheckedCreateInput = {
-  id_usuario: number
+  id_usuario?: number
   nombre: string
   apellido_paterno: string
   apellido_materno?: string | null
   telefono?: number | null
   email: string
   estatus?: string | null
-  password_hash?: string | null
+  password_hash: string
   Nombre_usuario?: string | null
+  entrevista?: Prisma.entrevistaUncheckedCreateNestedManyWithoutUsuarioInput
   equipo_proyecto?: Prisma.equipo_proyectoUncheckedCreateNestedManyWithoutUsuarioInput
+  observacion?: Prisma.observacionUncheckedCreateNestedManyWithoutUsuarioInput
   proyecto?: Prisma.proyectoUncheckedCreateNestedManyWithoutUsuarioInput
   proyecto_participante?: Prisma.proyecto_participanteUncheckedCreateNestedManyWithoutUsuarioInput
-  entrevistas?: Prisma.entrevistaUncheckedCreateNestedManyWithoutUsuarioInput
 }
 
 export type usuarioUpdateInput = {
-  id_usuario?: Prisma.IntFieldUpdateOperationsInput | number
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
   apellido_paterno?: Prisma.StringFieldUpdateOperationsInput | string
   apellido_materno?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   telefono?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
   estatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  password_hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
   Nombre_usuario?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  entrevista?: Prisma.entrevistaUpdateManyWithoutUsuarioNestedInput
   equipo_proyecto?: Prisma.equipo_proyectoUpdateManyWithoutUsuarioNestedInput
+  observacion?: Prisma.observacionUpdateManyWithoutUsuarioNestedInput
   proyecto?: Prisma.proyectoUpdateManyWithoutUsuarioNestedInput
   proyecto_participante?: Prisma.proyecto_participanteUpdateManyWithoutUsuarioNestedInput
-  entrevistas?: Prisma.entrevistaUpdateManyWithoutUsuarioNestedInput
 }
 
 export type usuarioUncheckedUpdateInput = {
@@ -381,35 +385,35 @@ export type usuarioUncheckedUpdateInput = {
   telefono?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
   estatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  password_hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
   Nombre_usuario?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  entrevista?: Prisma.entrevistaUncheckedUpdateManyWithoutUsuarioNestedInput
   equipo_proyecto?: Prisma.equipo_proyectoUncheckedUpdateManyWithoutUsuarioNestedInput
+  observacion?: Prisma.observacionUncheckedUpdateManyWithoutUsuarioNestedInput
   proyecto?: Prisma.proyectoUncheckedUpdateManyWithoutUsuarioNestedInput
   proyecto_participante?: Prisma.proyecto_participanteUncheckedUpdateManyWithoutUsuarioNestedInput
-  entrevistas?: Prisma.entrevistaUncheckedUpdateManyWithoutUsuarioNestedInput
 }
 
 export type usuarioCreateManyInput = {
-  id_usuario: number
+  id_usuario?: number
   nombre: string
   apellido_paterno: string
   apellido_materno?: string | null
   telefono?: number | null
   email: string
   estatus?: string | null
-  password_hash?: string | null
+  password_hash: string
   Nombre_usuario?: string | null
 }
 
 export type usuarioUpdateManyMutationInput = {
-  id_usuario?: Prisma.IntFieldUpdateOperationsInput | number
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
   apellido_paterno?: Prisma.StringFieldUpdateOperationsInput | string
   apellido_materno?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   telefono?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
   estatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  password_hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
   Nombre_usuario?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
@@ -421,7 +425,7 @@ export type usuarioUncheckedUpdateManyInput = {
   telefono?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
   estatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  password_hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
   Nombre_usuario?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
@@ -527,48 +531,63 @@ export type usuarioUpdateOneWithoutEquipo_proyectoNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.usuarioUpdateToOneWithWhereWithoutEquipo_proyectoInput, Prisma.usuarioUpdateWithoutEquipo_proyectoInput>, Prisma.usuarioUncheckedUpdateWithoutEquipo_proyectoInput>
 }
 
-export type usuarioCreateNestedOneWithoutEntrevistasInput = {
-  create?: Prisma.XOR<Prisma.usuarioCreateWithoutEntrevistasInput, Prisma.usuarioUncheckedCreateWithoutEntrevistasInput>
-  connectOrCreate?: Prisma.usuarioCreateOrConnectWithoutEntrevistasInput
+export type usuarioCreateNestedOneWithoutEntrevistaInput = {
+  create?: Prisma.XOR<Prisma.usuarioCreateWithoutEntrevistaInput, Prisma.usuarioUncheckedCreateWithoutEntrevistaInput>
+  connectOrCreate?: Prisma.usuarioCreateOrConnectWithoutEntrevistaInput
   connect?: Prisma.usuarioWhereUniqueInput
 }
 
-export type usuarioUpdateOneRequiredWithoutEntrevistasNestedInput = {
-  create?: Prisma.XOR<Prisma.usuarioCreateWithoutEntrevistasInput, Prisma.usuarioUncheckedCreateWithoutEntrevistasInput>
-  connectOrCreate?: Prisma.usuarioCreateOrConnectWithoutEntrevistasInput
-  upsert?: Prisma.usuarioUpsertWithoutEntrevistasInput
+export type usuarioUpdateOneRequiredWithoutEntrevistaNestedInput = {
+  create?: Prisma.XOR<Prisma.usuarioCreateWithoutEntrevistaInput, Prisma.usuarioUncheckedCreateWithoutEntrevistaInput>
+  connectOrCreate?: Prisma.usuarioCreateOrConnectWithoutEntrevistaInput
+  upsert?: Prisma.usuarioUpsertWithoutEntrevistaInput
   connect?: Prisma.usuarioWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.usuarioUpdateToOneWithWhereWithoutEntrevistasInput, Prisma.usuarioUpdateWithoutEntrevistasInput>, Prisma.usuarioUncheckedUpdateWithoutEntrevistasInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.usuarioUpdateToOneWithWhereWithoutEntrevistaInput, Prisma.usuarioUpdateWithoutEntrevistaInput>, Prisma.usuarioUncheckedUpdateWithoutEntrevistaInput>
+}
+
+export type usuarioCreateNestedOneWithoutObservacionInput = {
+  create?: Prisma.XOR<Prisma.usuarioCreateWithoutObservacionInput, Prisma.usuarioUncheckedCreateWithoutObservacionInput>
+  connectOrCreate?: Prisma.usuarioCreateOrConnectWithoutObservacionInput
+  connect?: Prisma.usuarioWhereUniqueInput
+}
+
+export type usuarioUpdateOneRequiredWithoutObservacionNestedInput = {
+  create?: Prisma.XOR<Prisma.usuarioCreateWithoutObservacionInput, Prisma.usuarioUncheckedCreateWithoutObservacionInput>
+  connectOrCreate?: Prisma.usuarioCreateOrConnectWithoutObservacionInput
+  upsert?: Prisma.usuarioUpsertWithoutObservacionInput
+  connect?: Prisma.usuarioWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.usuarioUpdateToOneWithWhereWithoutObservacionInput, Prisma.usuarioUpdateWithoutObservacionInput>, Prisma.usuarioUncheckedUpdateWithoutObservacionInput>
 }
 
 export type usuarioCreateWithoutProyectoInput = {
-  id_usuario: number
   nombre: string
   apellido_paterno: string
   apellido_materno?: string | null
   telefono?: number | null
   email: string
   estatus?: string | null
-  password_hash?: string | null
+  password_hash: string
   Nombre_usuario?: string | null
+  entrevista?: Prisma.entrevistaCreateNestedManyWithoutUsuarioInput
   equipo_proyecto?: Prisma.equipo_proyectoCreateNestedManyWithoutUsuarioInput
+  observacion?: Prisma.observacionCreateNestedManyWithoutUsuarioInput
   proyecto_participante?: Prisma.proyecto_participanteCreateNestedManyWithoutUsuarioInput
-  entrevistas?: Prisma.entrevistaCreateNestedManyWithoutUsuarioInput
 }
 
 export type usuarioUncheckedCreateWithoutProyectoInput = {
-  id_usuario: number
+  id_usuario?: number
   nombre: string
   apellido_paterno: string
   apellido_materno?: string | null
   telefono?: number | null
   email: string
   estatus?: string | null
-  password_hash?: string | null
+  password_hash: string
   Nombre_usuario?: string | null
+  entrevista?: Prisma.entrevistaUncheckedCreateNestedManyWithoutUsuarioInput
   equipo_proyecto?: Prisma.equipo_proyectoUncheckedCreateNestedManyWithoutUsuarioInput
+  observacion?: Prisma.observacionUncheckedCreateNestedManyWithoutUsuarioInput
   proyecto_participante?: Prisma.proyecto_participanteUncheckedCreateNestedManyWithoutUsuarioInput
-  entrevistas?: Prisma.entrevistaUncheckedCreateNestedManyWithoutUsuarioInput
 }
 
 export type usuarioCreateOrConnectWithoutProyectoInput = {
@@ -588,18 +607,18 @@ export type usuarioUpdateToOneWithWhereWithoutProyectoInput = {
 }
 
 export type usuarioUpdateWithoutProyectoInput = {
-  id_usuario?: Prisma.IntFieldUpdateOperationsInput | number
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
   apellido_paterno?: Prisma.StringFieldUpdateOperationsInput | string
   apellido_materno?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   telefono?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
   estatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  password_hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
   Nombre_usuario?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  entrevista?: Prisma.entrevistaUpdateManyWithoutUsuarioNestedInput
   equipo_proyecto?: Prisma.equipo_proyectoUpdateManyWithoutUsuarioNestedInput
+  observacion?: Prisma.observacionUpdateManyWithoutUsuarioNestedInput
   proyecto_participante?: Prisma.proyecto_participanteUpdateManyWithoutUsuarioNestedInput
-  entrevistas?: Prisma.entrevistaUpdateManyWithoutUsuarioNestedInput
 }
 
 export type usuarioUncheckedUpdateWithoutProyectoInput = {
@@ -610,41 +629,43 @@ export type usuarioUncheckedUpdateWithoutProyectoInput = {
   telefono?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
   estatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  password_hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
   Nombre_usuario?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  entrevista?: Prisma.entrevistaUncheckedUpdateManyWithoutUsuarioNestedInput
   equipo_proyecto?: Prisma.equipo_proyectoUncheckedUpdateManyWithoutUsuarioNestedInput
+  observacion?: Prisma.observacionUncheckedUpdateManyWithoutUsuarioNestedInput
   proyecto_participante?: Prisma.proyecto_participanteUncheckedUpdateManyWithoutUsuarioNestedInput
-  entrevistas?: Prisma.entrevistaUncheckedUpdateManyWithoutUsuarioNestedInput
 }
 
 export type usuarioCreateWithoutProyecto_participanteInput = {
-  id_usuario: number
   nombre: string
   apellido_paterno: string
   apellido_materno?: string | null
   telefono?: number | null
   email: string
   estatus?: string | null
-  password_hash?: string | null
+  password_hash: string
   Nombre_usuario?: string | null
+  entrevista?: Prisma.entrevistaCreateNestedManyWithoutUsuarioInput
   equipo_proyecto?: Prisma.equipo_proyectoCreateNestedManyWithoutUsuarioInput
+  observacion?: Prisma.observacionCreateNestedManyWithoutUsuarioInput
   proyecto?: Prisma.proyectoCreateNestedManyWithoutUsuarioInput
-  entrevistas?: Prisma.entrevistaCreateNestedManyWithoutUsuarioInput
 }
 
 export type usuarioUncheckedCreateWithoutProyecto_participanteInput = {
-  id_usuario: number
+  id_usuario?: number
   nombre: string
   apellido_paterno: string
   apellido_materno?: string | null
   telefono?: number | null
   email: string
   estatus?: string | null
-  password_hash?: string | null
+  password_hash: string
   Nombre_usuario?: string | null
+  entrevista?: Prisma.entrevistaUncheckedCreateNestedManyWithoutUsuarioInput
   equipo_proyecto?: Prisma.equipo_proyectoUncheckedCreateNestedManyWithoutUsuarioInput
+  observacion?: Prisma.observacionUncheckedCreateNestedManyWithoutUsuarioInput
   proyecto?: Prisma.proyectoUncheckedCreateNestedManyWithoutUsuarioInput
-  entrevistas?: Prisma.entrevistaUncheckedCreateNestedManyWithoutUsuarioInput
 }
 
 export type usuarioCreateOrConnectWithoutProyecto_participanteInput = {
@@ -664,18 +685,18 @@ export type usuarioUpdateToOneWithWhereWithoutProyecto_participanteInput = {
 }
 
 export type usuarioUpdateWithoutProyecto_participanteInput = {
-  id_usuario?: Prisma.IntFieldUpdateOperationsInput | number
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
   apellido_paterno?: Prisma.StringFieldUpdateOperationsInput | string
   apellido_materno?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   telefono?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
   estatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  password_hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
   Nombre_usuario?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  entrevista?: Prisma.entrevistaUpdateManyWithoutUsuarioNestedInput
   equipo_proyecto?: Prisma.equipo_proyectoUpdateManyWithoutUsuarioNestedInput
+  observacion?: Prisma.observacionUpdateManyWithoutUsuarioNestedInput
   proyecto?: Prisma.proyectoUpdateManyWithoutUsuarioNestedInput
-  entrevistas?: Prisma.entrevistaUpdateManyWithoutUsuarioNestedInput
 }
 
 export type usuarioUncheckedUpdateWithoutProyecto_participanteInput = {
@@ -686,41 +707,43 @@ export type usuarioUncheckedUpdateWithoutProyecto_participanteInput = {
   telefono?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
   estatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  password_hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
   Nombre_usuario?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  entrevista?: Prisma.entrevistaUncheckedUpdateManyWithoutUsuarioNestedInput
   equipo_proyecto?: Prisma.equipo_proyectoUncheckedUpdateManyWithoutUsuarioNestedInput
+  observacion?: Prisma.observacionUncheckedUpdateManyWithoutUsuarioNestedInput
   proyecto?: Prisma.proyectoUncheckedUpdateManyWithoutUsuarioNestedInput
-  entrevistas?: Prisma.entrevistaUncheckedUpdateManyWithoutUsuarioNestedInput
 }
 
 export type usuarioCreateWithoutEquipo_proyectoInput = {
-  id_usuario: number
   nombre: string
   apellido_paterno: string
   apellido_materno?: string | null
   telefono?: number | null
   email: string
   estatus?: string | null
-  password_hash?: string | null
+  password_hash: string
   Nombre_usuario?: string | null
+  entrevista?: Prisma.entrevistaCreateNestedManyWithoutUsuarioInput
+  observacion?: Prisma.observacionCreateNestedManyWithoutUsuarioInput
   proyecto?: Prisma.proyectoCreateNestedManyWithoutUsuarioInput
   proyecto_participante?: Prisma.proyecto_participanteCreateNestedManyWithoutUsuarioInput
-  entrevistas?: Prisma.entrevistaCreateNestedManyWithoutUsuarioInput
 }
 
 export type usuarioUncheckedCreateWithoutEquipo_proyectoInput = {
-  id_usuario: number
+  id_usuario?: number
   nombre: string
   apellido_paterno: string
   apellido_materno?: string | null
   telefono?: number | null
   email: string
   estatus?: string | null
-  password_hash?: string | null
+  password_hash: string
   Nombre_usuario?: string | null
+  entrevista?: Prisma.entrevistaUncheckedCreateNestedManyWithoutUsuarioInput
+  observacion?: Prisma.observacionUncheckedCreateNestedManyWithoutUsuarioInput
   proyecto?: Prisma.proyectoUncheckedCreateNestedManyWithoutUsuarioInput
   proyecto_participante?: Prisma.proyecto_participanteUncheckedCreateNestedManyWithoutUsuarioInput
-  entrevistas?: Prisma.entrevistaUncheckedCreateNestedManyWithoutUsuarioInput
 }
 
 export type usuarioCreateOrConnectWithoutEquipo_proyectoInput = {
@@ -740,18 +763,18 @@ export type usuarioUpdateToOneWithWhereWithoutEquipo_proyectoInput = {
 }
 
 export type usuarioUpdateWithoutEquipo_proyectoInput = {
-  id_usuario?: Prisma.IntFieldUpdateOperationsInput | number
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
   apellido_paterno?: Prisma.StringFieldUpdateOperationsInput | string
   apellido_materno?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   telefono?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
   estatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  password_hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
   Nombre_usuario?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  entrevista?: Prisma.entrevistaUpdateManyWithoutUsuarioNestedInput
+  observacion?: Prisma.observacionUpdateManyWithoutUsuarioNestedInput
   proyecto?: Prisma.proyectoUpdateManyWithoutUsuarioNestedInput
   proyecto_participante?: Prisma.proyecto_participanteUpdateManyWithoutUsuarioNestedInput
-  entrevistas?: Prisma.entrevistaUpdateManyWithoutUsuarioNestedInput
 }
 
 export type usuarioUncheckedUpdateWithoutEquipo_proyectoInput = {
@@ -762,75 +785,155 @@ export type usuarioUncheckedUpdateWithoutEquipo_proyectoInput = {
   telefono?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
   estatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  password_hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
   Nombre_usuario?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  entrevista?: Prisma.entrevistaUncheckedUpdateManyWithoutUsuarioNestedInput
+  observacion?: Prisma.observacionUncheckedUpdateManyWithoutUsuarioNestedInput
   proyecto?: Prisma.proyectoUncheckedUpdateManyWithoutUsuarioNestedInput
   proyecto_participante?: Prisma.proyecto_participanteUncheckedUpdateManyWithoutUsuarioNestedInput
-  entrevistas?: Prisma.entrevistaUncheckedUpdateManyWithoutUsuarioNestedInput
 }
 
-export type usuarioCreateWithoutEntrevistasInput = {
-  id_usuario: number
+export type usuarioCreateWithoutEntrevistaInput = {
   nombre: string
   apellido_paterno: string
   apellido_materno?: string | null
   telefono?: number | null
   email: string
   estatus?: string | null
-  password_hash?: string | null
+  password_hash: string
   Nombre_usuario?: string | null
+  equipo_proyecto?: Prisma.equipo_proyectoCreateNestedManyWithoutUsuarioInput
+  observacion?: Prisma.observacionCreateNestedManyWithoutUsuarioInput
+  proyecto?: Prisma.proyectoCreateNestedManyWithoutUsuarioInput
+  proyecto_participante?: Prisma.proyecto_participanteCreateNestedManyWithoutUsuarioInput
+}
+
+export type usuarioUncheckedCreateWithoutEntrevistaInput = {
+  id_usuario?: number
+  nombre: string
+  apellido_paterno: string
+  apellido_materno?: string | null
+  telefono?: number | null
+  email: string
+  estatus?: string | null
+  password_hash: string
+  Nombre_usuario?: string | null
+  equipo_proyecto?: Prisma.equipo_proyectoUncheckedCreateNestedManyWithoutUsuarioInput
+  observacion?: Prisma.observacionUncheckedCreateNestedManyWithoutUsuarioInput
+  proyecto?: Prisma.proyectoUncheckedCreateNestedManyWithoutUsuarioInput
+  proyecto_participante?: Prisma.proyecto_participanteUncheckedCreateNestedManyWithoutUsuarioInput
+}
+
+export type usuarioCreateOrConnectWithoutEntrevistaInput = {
+  where: Prisma.usuarioWhereUniqueInput
+  create: Prisma.XOR<Prisma.usuarioCreateWithoutEntrevistaInput, Prisma.usuarioUncheckedCreateWithoutEntrevistaInput>
+}
+
+export type usuarioUpsertWithoutEntrevistaInput = {
+  update: Prisma.XOR<Prisma.usuarioUpdateWithoutEntrevistaInput, Prisma.usuarioUncheckedUpdateWithoutEntrevistaInput>
+  create: Prisma.XOR<Prisma.usuarioCreateWithoutEntrevistaInput, Prisma.usuarioUncheckedCreateWithoutEntrevistaInput>
+  where?: Prisma.usuarioWhereInput
+}
+
+export type usuarioUpdateToOneWithWhereWithoutEntrevistaInput = {
+  where?: Prisma.usuarioWhereInput
+  data: Prisma.XOR<Prisma.usuarioUpdateWithoutEntrevistaInput, Prisma.usuarioUncheckedUpdateWithoutEntrevistaInput>
+}
+
+export type usuarioUpdateWithoutEntrevistaInput = {
+  nombre?: Prisma.StringFieldUpdateOperationsInput | string
+  apellido_paterno?: Prisma.StringFieldUpdateOperationsInput | string
+  apellido_materno?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  telefono?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  estatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
+  Nombre_usuario?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  equipo_proyecto?: Prisma.equipo_proyectoUpdateManyWithoutUsuarioNestedInput
+  observacion?: Prisma.observacionUpdateManyWithoutUsuarioNestedInput
+  proyecto?: Prisma.proyectoUpdateManyWithoutUsuarioNestedInput
+  proyecto_participante?: Prisma.proyecto_participanteUpdateManyWithoutUsuarioNestedInput
+}
+
+export type usuarioUncheckedUpdateWithoutEntrevistaInput = {
+  id_usuario?: Prisma.IntFieldUpdateOperationsInput | number
+  nombre?: Prisma.StringFieldUpdateOperationsInput | string
+  apellido_paterno?: Prisma.StringFieldUpdateOperationsInput | string
+  apellido_materno?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  telefono?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  estatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
+  Nombre_usuario?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  equipo_proyecto?: Prisma.equipo_proyectoUncheckedUpdateManyWithoutUsuarioNestedInput
+  observacion?: Prisma.observacionUncheckedUpdateManyWithoutUsuarioNestedInput
+  proyecto?: Prisma.proyectoUncheckedUpdateManyWithoutUsuarioNestedInput
+  proyecto_participante?: Prisma.proyecto_participanteUncheckedUpdateManyWithoutUsuarioNestedInput
+}
+
+export type usuarioCreateWithoutObservacionInput = {
+  nombre: string
+  apellido_paterno: string
+  apellido_materno?: string | null
+  telefono?: number | null
+  email: string
+  estatus?: string | null
+  password_hash: string
+  Nombre_usuario?: string | null
+  entrevista?: Prisma.entrevistaCreateNestedManyWithoutUsuarioInput
   equipo_proyecto?: Prisma.equipo_proyectoCreateNestedManyWithoutUsuarioInput
   proyecto?: Prisma.proyectoCreateNestedManyWithoutUsuarioInput
   proyecto_participante?: Prisma.proyecto_participanteCreateNestedManyWithoutUsuarioInput
 }
 
-export type usuarioUncheckedCreateWithoutEntrevistasInput = {
-  id_usuario: number
+export type usuarioUncheckedCreateWithoutObservacionInput = {
+  id_usuario?: number
   nombre: string
   apellido_paterno: string
   apellido_materno?: string | null
   telefono?: number | null
   email: string
   estatus?: string | null
-  password_hash?: string | null
+  password_hash: string
   Nombre_usuario?: string | null
+  entrevista?: Prisma.entrevistaUncheckedCreateNestedManyWithoutUsuarioInput
   equipo_proyecto?: Prisma.equipo_proyectoUncheckedCreateNestedManyWithoutUsuarioInput
   proyecto?: Prisma.proyectoUncheckedCreateNestedManyWithoutUsuarioInput
   proyecto_participante?: Prisma.proyecto_participanteUncheckedCreateNestedManyWithoutUsuarioInput
 }
 
-export type usuarioCreateOrConnectWithoutEntrevistasInput = {
+export type usuarioCreateOrConnectWithoutObservacionInput = {
   where: Prisma.usuarioWhereUniqueInput
-  create: Prisma.XOR<Prisma.usuarioCreateWithoutEntrevistasInput, Prisma.usuarioUncheckedCreateWithoutEntrevistasInput>
+  create: Prisma.XOR<Prisma.usuarioCreateWithoutObservacionInput, Prisma.usuarioUncheckedCreateWithoutObservacionInput>
 }
 
-export type usuarioUpsertWithoutEntrevistasInput = {
-  update: Prisma.XOR<Prisma.usuarioUpdateWithoutEntrevistasInput, Prisma.usuarioUncheckedUpdateWithoutEntrevistasInput>
-  create: Prisma.XOR<Prisma.usuarioCreateWithoutEntrevistasInput, Prisma.usuarioUncheckedCreateWithoutEntrevistasInput>
+export type usuarioUpsertWithoutObservacionInput = {
+  update: Prisma.XOR<Prisma.usuarioUpdateWithoutObservacionInput, Prisma.usuarioUncheckedUpdateWithoutObservacionInput>
+  create: Prisma.XOR<Prisma.usuarioCreateWithoutObservacionInput, Prisma.usuarioUncheckedCreateWithoutObservacionInput>
   where?: Prisma.usuarioWhereInput
 }
 
-export type usuarioUpdateToOneWithWhereWithoutEntrevistasInput = {
+export type usuarioUpdateToOneWithWhereWithoutObservacionInput = {
   where?: Prisma.usuarioWhereInput
-  data: Prisma.XOR<Prisma.usuarioUpdateWithoutEntrevistasInput, Prisma.usuarioUncheckedUpdateWithoutEntrevistasInput>
+  data: Prisma.XOR<Prisma.usuarioUpdateWithoutObservacionInput, Prisma.usuarioUncheckedUpdateWithoutObservacionInput>
 }
 
-export type usuarioUpdateWithoutEntrevistasInput = {
-  id_usuario?: Prisma.IntFieldUpdateOperationsInput | number
+export type usuarioUpdateWithoutObservacionInput = {
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
   apellido_paterno?: Prisma.StringFieldUpdateOperationsInput | string
   apellido_materno?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   telefono?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
   estatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  password_hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
   Nombre_usuario?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  entrevista?: Prisma.entrevistaUpdateManyWithoutUsuarioNestedInput
   equipo_proyecto?: Prisma.equipo_proyectoUpdateManyWithoutUsuarioNestedInput
   proyecto?: Prisma.proyectoUpdateManyWithoutUsuarioNestedInput
   proyecto_participante?: Prisma.proyecto_participanteUpdateManyWithoutUsuarioNestedInput
 }
 
-export type usuarioUncheckedUpdateWithoutEntrevistasInput = {
+export type usuarioUncheckedUpdateWithoutObservacionInput = {
   id_usuario?: Prisma.IntFieldUpdateOperationsInput | number
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
   apellido_paterno?: Prisma.StringFieldUpdateOperationsInput | string
@@ -838,8 +941,9 @@ export type usuarioUncheckedUpdateWithoutEntrevistasInput = {
   telefono?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   email?: Prisma.StringFieldUpdateOperationsInput | string
   estatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  password_hash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
   Nombre_usuario?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  entrevista?: Prisma.entrevistaUncheckedUpdateManyWithoutUsuarioNestedInput
   equipo_proyecto?: Prisma.equipo_proyectoUncheckedUpdateManyWithoutUsuarioNestedInput
   proyecto?: Prisma.proyectoUncheckedUpdateManyWithoutUsuarioNestedInput
   proyecto_participante?: Prisma.proyecto_participanteUncheckedUpdateManyWithoutUsuarioNestedInput
@@ -851,17 +955,19 @@ export type usuarioUncheckedUpdateWithoutEntrevistasInput = {
  */
 
 export type UsuarioCountOutputType = {
+  entrevista: number
   equipo_proyecto: number
+  observacion: number
   proyecto: number
   proyecto_participante: number
-  entrevistas: number
 }
 
 export type UsuarioCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  entrevista?: boolean | UsuarioCountOutputTypeCountEntrevistaArgs
   equipo_proyecto?: boolean | UsuarioCountOutputTypeCountEquipo_proyectoArgs
+  observacion?: boolean | UsuarioCountOutputTypeCountObservacionArgs
   proyecto?: boolean | UsuarioCountOutputTypeCountProyectoArgs
   proyecto_participante?: boolean | UsuarioCountOutputTypeCountProyecto_participanteArgs
-  entrevistas?: boolean | UsuarioCountOutputTypeCountEntrevistasArgs
 }
 
 /**
@@ -877,8 +983,22 @@ export type UsuarioCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Exte
 /**
  * UsuarioCountOutputType without action
  */
+export type UsuarioCountOutputTypeCountEntrevistaArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.entrevistaWhereInput
+}
+
+/**
+ * UsuarioCountOutputType without action
+ */
 export type UsuarioCountOutputTypeCountEquipo_proyectoArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.equipo_proyectoWhereInput
+}
+
+/**
+ * UsuarioCountOutputType without action
+ */
+export type UsuarioCountOutputTypeCountObservacionArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.observacionWhereInput
 }
 
 /**
@@ -895,13 +1015,6 @@ export type UsuarioCountOutputTypeCountProyecto_participanteArgs<ExtArgs extends
   where?: Prisma.proyecto_participanteWhereInput
 }
 
-/**
- * UsuarioCountOutputType without action
- */
-export type UsuarioCountOutputTypeCountEntrevistasArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.entrevistaWhereInput
-}
-
 
 export type usuarioSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id_usuario?: boolean
@@ -913,10 +1026,11 @@ export type usuarioSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   estatus?: boolean
   password_hash?: boolean
   Nombre_usuario?: boolean
+  entrevista?: boolean | Prisma.usuario$entrevistaArgs<ExtArgs>
   equipo_proyecto?: boolean | Prisma.usuario$equipo_proyectoArgs<ExtArgs>
+  observacion?: boolean | Prisma.usuario$observacionArgs<ExtArgs>
   proyecto?: boolean | Prisma.usuario$proyectoArgs<ExtArgs>
   proyecto_participante?: boolean | Prisma.usuario$proyecto_participanteArgs<ExtArgs>
-  entrevistas?: boolean | Prisma.usuario$entrevistasArgs<ExtArgs>
   _count?: boolean | Prisma.UsuarioCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["usuario"]>
 
@@ -958,10 +1072,11 @@ export type usuarioSelectScalar = {
 
 export type usuarioOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id_usuario" | "nombre" | "apellido_paterno" | "apellido_materno" | "telefono" | "email" | "estatus" | "password_hash" | "Nombre_usuario", ExtArgs["result"]["usuario"]>
 export type usuarioInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  entrevista?: boolean | Prisma.usuario$entrevistaArgs<ExtArgs>
   equipo_proyecto?: boolean | Prisma.usuario$equipo_proyectoArgs<ExtArgs>
+  observacion?: boolean | Prisma.usuario$observacionArgs<ExtArgs>
   proyecto?: boolean | Prisma.usuario$proyectoArgs<ExtArgs>
   proyecto_participante?: boolean | Prisma.usuario$proyecto_participanteArgs<ExtArgs>
-  entrevistas?: boolean | Prisma.usuario$entrevistasArgs<ExtArgs>
   _count?: boolean | Prisma.UsuarioCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type usuarioIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -970,10 +1085,11 @@ export type usuarioIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
 export type $usuarioPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "usuario"
   objects: {
+    entrevista: Prisma.$entrevistaPayload<ExtArgs>[]
     equipo_proyecto: Prisma.$equipo_proyectoPayload<ExtArgs>[]
+    observacion: Prisma.$observacionPayload<ExtArgs>[]
     proyecto: Prisma.$proyectoPayload<ExtArgs>[]
     proyecto_participante: Prisma.$proyecto_participantePayload<ExtArgs>[]
-    entrevistas: Prisma.$entrevistaPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id_usuario: number
@@ -983,7 +1099,7 @@ export type $usuarioPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     telefono: number | null
     email: string
     estatus: string | null
-    password_hash: string | null
+    password_hash: string
     Nombre_usuario: string | null
   }, ExtArgs["result"]["usuario"]>
   composites: {}
@@ -1379,10 +1495,11 @@ readonly fields: usuarioFieldRefs;
  */
 export interface Prisma__usuarioClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  entrevista<T extends Prisma.usuario$entrevistaArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.usuario$entrevistaArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$entrevistaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   equipo_proyecto<T extends Prisma.usuario$equipo_proyectoArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.usuario$equipo_proyectoArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$equipo_proyectoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  observacion<T extends Prisma.usuario$observacionArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.usuario$observacionArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$observacionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   proyecto<T extends Prisma.usuario$proyectoArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.usuario$proyectoArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$proyectoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   proyecto_participante<T extends Prisma.usuario$proyecto_participanteArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.usuario$proyecto_participanteArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$proyecto_participantePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  entrevistas<T extends Prisma.usuario$entrevistasArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.usuario$entrevistasArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$entrevistaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1814,6 +1931,30 @@ export type usuarioDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Inter
 }
 
 /**
+ * usuario.entrevista
+ */
+export type usuario$entrevistaArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the entrevista
+   */
+  select?: Prisma.entrevistaSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the entrevista
+   */
+  omit?: Prisma.entrevistaOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.entrevistaInclude<ExtArgs> | null
+  where?: Prisma.entrevistaWhereInput
+  orderBy?: Prisma.entrevistaOrderByWithRelationInput | Prisma.entrevistaOrderByWithRelationInput[]
+  cursor?: Prisma.entrevistaWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.EntrevistaScalarFieldEnum | Prisma.EntrevistaScalarFieldEnum[]
+}
+
+/**
  * usuario.equipo_proyecto
  */
 export type usuario$equipo_proyectoArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1835,6 +1976,30 @@ export type usuario$equipo_proyectoArgs<ExtArgs extends runtime.Types.Extensions
   take?: number
   skip?: number
   distinct?: Prisma.Equipo_proyectoScalarFieldEnum | Prisma.Equipo_proyectoScalarFieldEnum[]
+}
+
+/**
+ * usuario.observacion
+ */
+export type usuario$observacionArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the observacion
+   */
+  select?: Prisma.observacionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the observacion
+   */
+  omit?: Prisma.observacionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.observacionInclude<ExtArgs> | null
+  where?: Prisma.observacionWhereInput
+  orderBy?: Prisma.observacionOrderByWithRelationInput | Prisma.observacionOrderByWithRelationInput[]
+  cursor?: Prisma.observacionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ObservacionScalarFieldEnum | Prisma.ObservacionScalarFieldEnum[]
 }
 
 /**
@@ -1883,30 +2048,6 @@ export type usuario$proyecto_participanteArgs<ExtArgs extends runtime.Types.Exte
   take?: number
   skip?: number
   distinct?: Prisma.Proyecto_participanteScalarFieldEnum | Prisma.Proyecto_participanteScalarFieldEnum[]
-}
-
-/**
- * usuario.entrevistas
- */
-export type usuario$entrevistasArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the entrevista
-   */
-  select?: Prisma.entrevistaSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the entrevista
-   */
-  omit?: Prisma.entrevistaOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.entrevistaInclude<ExtArgs> | null
-  where?: Prisma.entrevistaWhereInput
-  orderBy?: Prisma.entrevistaOrderByWithRelationInput | Prisma.entrevistaOrderByWithRelationInput[]
-  cursor?: Prisma.entrevistaWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.EntrevistaScalarFieldEnum | Prisma.EntrevistaScalarFieldEnum[]
 }
 
 /**

@@ -6,8 +6,8 @@ import { Eye, EyeSlash } from "@boxicons/react";
 export default function Login() {
     return (
         <main className="login-page">
-            <FormLogin/>
-            <BannerLogin/>
+            <FormLogin />
+            <BannerLogin />
         </main>
     );
 }
@@ -20,7 +20,7 @@ function FormLogin() {
     const [errorMessage, setErrorMessage] = useState<string>("");
     const navigate = useNavigate();
 
-    const APIURL = "http://localhost:3000/api/auth/login" // Esta url no es la del back por ahora
+    const API_URL = import.meta.env.VITE_API_URL;
 
     // Método para iniciar sesión
     const signIn = async () => {
@@ -32,7 +32,7 @@ function FormLogin() {
         }
 
         try {
-            const response = await fetch(APIURL, {
+            const response = await fetch(`${API_URL}/auth/login`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
@@ -46,7 +46,7 @@ function FormLogin() {
                 setErrorMessage(message.message);
                 return;
             }
-            
+
             const data = await response.json();
             localStorage.setItem("token", data.token); // Guarda el token en localstorage
             setErrorMessage("");
@@ -98,7 +98,7 @@ function FormLogin() {
                         onChange={(e) => setPassw(e.target.value)}
                     />
                     <button className="btn-show-passw" type="button" onClick={() => setToggleShowPassw(!toggleShowPassw)}>
-                        {toggleShowPassw ? <EyeSlash className="eye-icon" fill="#6c6c6c"/> : <Eye className="eye-icon" fill="#6c6c6c"/>}
+                        {toggleShowPassw ? <EyeSlash className="eye-icon" fill="#6c6c6c" /> : <Eye className="eye-icon" fill="#6c6c6c" />}
                     </button>
                     <a href="#">¿Olvidó su contraseña?</a>
                 </div>
@@ -121,7 +121,7 @@ function FormLogin() {
 
             <div className="create-account">
                 <span>¿No tienes cuenta?</span>
-                <a href="#">Cree Cuenta</a>
+                <a href="/register">Cree Cuenta</a>
             </div>
         </form>
     );

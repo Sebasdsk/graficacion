@@ -276,7 +276,7 @@ export type pregunta_entrevistaCreateInput = {
   orden_pregunta: number
   pregunta: string
   respuesta?: string | null
-  entrevista: Prisma.entrevistaCreateNestedOneWithoutPreguntasInput
+  entrevista: Prisma.entrevistaCreateNestedOneWithoutPregunta_entrevistaInput
 }
 
 export type pregunta_entrevistaUncheckedCreateInput = {
@@ -291,7 +291,7 @@ export type pregunta_entrevistaUpdateInput = {
   orden_pregunta?: Prisma.IntFieldUpdateOperationsInput | number
   pregunta?: Prisma.StringFieldUpdateOperationsInput | string
   respuesta?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  entrevista?: Prisma.entrevistaUpdateOneRequiredWithoutPreguntasNestedInput
+  entrevista?: Prisma.entrevistaUpdateOneRequiredWithoutPregunta_entrevistaNestedInput
 }
 
 export type pregunta_entrevistaUncheckedUpdateInput = {

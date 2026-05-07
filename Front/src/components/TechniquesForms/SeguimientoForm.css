@@ -1,0 +1,162 @@
+.seguimiento-informacion-section,
+.seguimiento-etapas-section,
+.seguimiento-cuellos-section,
+.seguimiento-mejoras-section {
+    display: flex;
+    flex-direction: column;
+    gap: .8rem;
+    padding: 1.2rem;
+    border: 1px solid var(--border-container);
+    background: #ffff;
+    border-radius: 15px;
+}
+
+.seguimiento-informacion-section h2,
+.header-etapas-section h2,
+.seguimiento-cuellos-section h2,
+.seguimiento-mejoras-section h2 {
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+.input-container-seguimiento {
+    display: flex;
+    flex-direction: column;
+    gap: .4rem;
+    flex: 1;
+}
+
+.input-container-seguimiento label {
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.input-container-seguimiento input,
+.input-container-seguimiento textarea {
+    padding: .6rem;
+    border-radius: 10px;
+    border: 1px solid var(--border-container);
+    background-color: #f9f9f9;
+    font-family: inherit;
+    font-size: 0.9rem;
+    color: var(--text-color);
+}
+
+.input-container-seguimiento textarea {
+    resize: none;
+    min-height: 60px;
+}
+
+.input-container-seguimiento input:hover,
+.input-container-seguimiento textarea:hover {
+    box-shadow: var(--shadow-hover);
+}
+
+.input-container-seguimiento input:focus,
+.input-container-seguimiento textarea:focus {
+    outline: none;
+    border-color: #ccc;
+    background-color: #fff;
+}
+
+.header-etapas-section {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.button-add-etapa {
+    background: #ffff;
+    border: 1px solid var(--border-container);
+    border-radius: 10px;
+    padding: .5rem .8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .4rem;
+    transition: all .2s ease;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.button-add-etapa:hover {
+    background-color: #f5f5f5;
+    transform: translateY(-2px);
+}
+
+.etapas-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.no-etapas {
+    padding: 2rem;
+    text-align: center;
+    font-size: .9rem;
+    color: var(--info-text);
+}
+
+.etapa-card {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1.2rem;
+    border-radius: 10px;
+    border: 1px solid var(--border-container);
+    background-color: #fff;
+}
+
+.etapa-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.etapa-header-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-weight: 500;
+}
+
+.numero-etapa {
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: var(--border-container);
+    flex-shrink: 0;
+}
+
+.button-delete-etapa {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.button-delete-etapa:hover {
+    transform: scale(1.1);
+}
+
+.etapa-body {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.etapa-row {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.etapa-row .input-container-seguimiento {
+    flex: 1;
+}

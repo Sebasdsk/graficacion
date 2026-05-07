@@ -1,0 +1,60 @@
+.actor-node {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 50px;
+    padding: 1rem;
+}
+
+.actor-node-handle {
+    background: #555;
+}
+
+.actor-node-head {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid black;
+}
+
+.actor-node-torso {
+    width: 2px;
+    height: 25px;
+    background-color: black;
+    margin: 2px 0;
+}
+
+.actor-node-arms {
+    width: 30px;
+    height: 2px;
+    background-color: black;
+    margin-top: -20px;
+    margin-bottom: 18px;
+}
+
+.actor-node-legs {
+    display: flex;
+    width: 20px;
+    justify-content: space-between;
+    margin-top: -2px;
+}
+
+.actor-node-leg {
+    width: 2px;
+    height: 20px;
+    background-color: black;
+}
+
+.actor-node-leg-left {
+    transform: rotate(20deg);
+}
+
+.actor-node-leg-right {
+    transform: rotate(-20deg);
+}
+
+.actor-node-label {
+    margin-top: 5px;
+    font-size: 12px;
+    font-weight: bold;
+}

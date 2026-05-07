@@ -5,7 +5,7 @@ import { useState, type SetStateAction } from "react";
 import { counterStatusProjects } from "../../utils/counterStatusProjects";
 
 interface ProjectListProp {
-    projects: Array<Proyecto>;
+    projects: Proyecto[];
 }
 
 type StatusProject = "Todos" | "Planificación" | "En Progreso" | "Completado" | "Cancelado";
@@ -43,7 +43,6 @@ export default function ProjectsList({ projects }: ProjectListProp) {
                         descripcion={p.descripcion}
                         estatus={p.estatus}
                         fecha_inicio={p.fecha_inicio}
-                        colaboradores={p.colaboradores}
                     />
                 ))}
             </section>

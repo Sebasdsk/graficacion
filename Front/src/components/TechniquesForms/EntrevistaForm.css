@@ -1,13 +1,17 @@
-.entrevista-informacion-section {
+.entrevista-informacion-section,
+.preguntas-entrevista-section,
+.notas-entrevista {
     display: flex;
     flex-direction: column;
     gap: .8rem;
     padding: 1.2rem;
     border: 1px solid var(--border-container);
+    background: #ffff;
     border-radius: 15px;
 }
 
-.header-entrevista-section h2 {
+.header-entrevista-section h2,
+.header-preguntas-section h2 {
     font-size: 1.2rem;
     font-weight: 500;
 }
@@ -34,10 +38,13 @@
 .entrevistado-container select,
 .fecha-container input,
 .duracion-container input {
-    padding: .4rem;
+    padding: .6rem;
     border-radius: 10px;
-    resize: none;
     border: 1px solid var(--border-container);
+    background-color: #f9f9f9;
+    font-family: inherit;
+    font-size: 0.9rem;
+    color: var(--text-color);
 }
 
 .rol-container select:hover,
@@ -45,4 +52,122 @@
 .fecha-container input:hover,
 .duracion-container input:hover {
     box-shadow: var(--shadow-hover);
+}
+
+.rol-container select:focus,
+.entrevistado-container select:focus,
+.fecha-container input:focus,
+.duracion-container input:focus {
+    outline: none;
+    border-color: #ccc;
+    background-color: #fff;
+}
+
+.header-preguntas-section {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.button-add-question {
+    background: #ffff;
+    border: 1px solid var(--border-container);
+    border-radius: 10px;
+    padding: .5rem .8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .4rem;
+    transition: all .2s ease;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.preguntas-entrevista-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.button-add-question:hover {
+    background-color: #f5f5f5;
+    transform: translateY(-2px);
+}
+
+.no-question-added {
+    padding: 2rem;
+    text-align: center;
+    font-size: .9rem;
+    color: var(--info-text);
+}
+
+.pregunta-entrevista-card {
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: .6rem;
+    border-radius: 10px;
+    resize: none;
+    border: 1px solid var(--border-container);
+}
+
+.numero-pregunta {
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: var(--border-container);
+    flex-shrink: 0;
+}
+
+.textareas-pregunta {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: .4rem;
+}
+
+.textareas-pregunta textarea,
+.notas-entrevista textarea {
+    resize: none;
+    padding: .8rem;
+    border-radius: 10px;
+    border: 1px solid var(--border-container);
+    background-color: #f9f9f9;
+    font-family: inherit;
+    font-size: 0.9rem;
+    color: var(--text-color);
+    min-height: 60px;
+}
+
+.textareas-pregunta textarea:focus,
+.notas-entrevista textarea:focus {
+    outline: none;
+    border-color: #ccc;
+    background-color: #fff;
+}
+
+.button-delete-question {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    padding: 0.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s;
+}
+
+.button-delete-question:hover {
+    transform: scale(1.1);
+}
+
+.notas-entrevista h2 {
+    font-size: 1.2rem;
+    font-weight: 500;
 }

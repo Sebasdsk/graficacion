@@ -1,0 +1,9 @@
+.caso-uso-container {
+    padding: 1rem;
+    border: 1px solid var(--border-container);
+    border-radius: 35px;
+    background: #fff;
+    overflow: hidden;
+    width: auto;
+    height: auto;
+}

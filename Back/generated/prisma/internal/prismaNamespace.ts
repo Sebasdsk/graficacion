@@ -80,12 +80,12 @@ export type PrismaVersion = {
 }
 
 /**
- * Prisma Client JS version: 7.7.0
- * Query Engine version: 75cbdc1eb7150937890ad5465d861175c6624711
+ * Prisma Client JS version: 7.8.0
+ * Query Engine version: 3c6e192761c0362d496ed980de936e2f3cebcd3a
  */
 export const prismaVersion: PrismaVersion = {
-  client: "7.7.0",
-  engine: "75cbdc1eb7150937890ad5465d861175c6624711"
+  client: "7.8.0",
+  engine: "3c6e192761c0362d496ed980de936e2f3cebcd3a"
 }
 
 /**
@@ -395,6 +395,7 @@ export const ModelName = {
   requerimiento: 'requerimiento',
   tecnica_recoleccion: 'tecnica_recoleccion',
   entrevista: 'entrevista',
+  observacion: 'observacion',
   pregunta_entrevista: 'pregunta_entrevista'
 } as const
 
@@ -411,7 +412,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "proceso" | "proyecto" | "proyecto_participante" | "rol" | "stakeholder" | "subproceso" | "usuario" | "equipo_proyecto" | "requerimiento" | "tecnica_recoleccion" | "entrevista" | "pregunta_entrevista"
+    modelProps: "proceso" | "proyecto" | "proyecto_participante" | "rol" | "stakeholder" | "subproceso" | "usuario" | "equipo_proyecto" | "requerimiento" | "tecnica_recoleccion" | "entrevista" | "observacion" | "pregunta_entrevista"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1229,6 +1230,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    observacion: {
+      payload: Prisma.$observacionPayload<ExtArgs>
+      fields: Prisma.observacionFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.observacionFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$observacionPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.observacionFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$observacionPayload>
+        }
+        findFirst: {
+          args: Prisma.observacionFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$observacionPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.observacionFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$observacionPayload>
+        }
+        findMany: {
+          args: Prisma.observacionFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$observacionPayload>[]
+        }
+        create: {
+          args: Prisma.observacionCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$observacionPayload>
+        }
+        createMany: {
+          args: Prisma.observacionCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.observacionCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$observacionPayload>[]
+        }
+        delete: {
+          args: Prisma.observacionDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$observacionPayload>
+        }
+        update: {
+          args: Prisma.observacionUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$observacionPayload>
+        }
+        deleteMany: {
+          args: Prisma.observacionDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.observacionUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.observacionUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$observacionPayload>[]
+        }
+        upsert: {
+          args: Prisma.observacionUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$observacionPayload>
+        }
+        aggregate: {
+          args: Prisma.ObservacionAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateObservacion>
+        }
+        groupBy: {
+          args: Prisma.observacionGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ObservacionGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.observacionCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ObservacionCountAggregateOutputType> | number
+        }
+      }
+    }
     pregunta_entrevista: {
       payload: Prisma.$pregunta_entrevistaPayload<ExtArgs>
       fields: Prisma.pregunta_entrevistaFieldRefs
@@ -1347,7 +1422,7 @@ export const ProcesoScalarFieldEnum = {
   nombre: 'nombre',
   descripcion: 'descripcion',
   id_proyecto: 'id_proyecto',
-  codigo_orden: 'codigo_orden'
+  estatus: 'estatus'
 } as const
 
 export type ProcesoScalarFieldEnum = (typeof ProcesoScalarFieldEnum)[keyof typeof ProcesoScalarFieldEnum]
@@ -1383,8 +1458,8 @@ export type Proyecto_participanteScalarFieldEnum = (typeof Proyecto_participante
 export const RolScalarFieldEnum = {
   id_rol: 'id_rol',
   nombre: 'nombre',
-  descripcion: 'descripcion',
   estatus: 'estatus',
+  descripcion: 'descripcion',
   id_proyecto: 'id_proyecto'
 } as const
 
@@ -1393,11 +1468,11 @@ export type RolScalarFieldEnum = (typeof RolScalarFieldEnum)[keyof typeof RolSca
 
 export const StakeholderScalarFieldEnum = {
   id_stakeholder: 'id_stakeholder',
-  id_rol: 'id_rol',
   nombre: 'nombre',
   area: 'area',
   contacto_email: 'contacto_email',
-  notas: 'notas'
+  estatus: 'estatus',
+  id_rol: 'id_rol'
 } as const
 
 export type StakeholderScalarFieldEnum = (typeof StakeholderScalarFieldEnum)[keyof typeof StakeholderScalarFieldEnum]
@@ -1407,7 +1482,7 @@ export const SubprocesoScalarFieldEnum = {
   id_subproceso: 'id_subproceso',
   nombre: 'nombre',
   descripcion: 'descripcion',
-  codigo_orden: 'codigo_orden',
+  estatus: 'estatus',
   id_proceso: 'id_proceso'
 } as const
 
@@ -1471,6 +1546,20 @@ export const EntrevistaScalarFieldEnum = {
 } as const
 
 export type EntrevistaScalarFieldEnum = (typeof EntrevistaScalarFieldEnum)[keyof typeof EntrevistaScalarFieldEnum]
+
+
+export const ObservacionScalarFieldEnum = {
+  id_observacion: 'id_observacion',
+  id_tecnica: 'id_tecnica',
+  id_usuario: 'id_usuario',
+  fecha: 'fecha',
+  nota: 'nota',
+  tipo_observacion: 'tipo_observacion',
+  tipo_hallazgo: 'tipo_hallazgo',
+  impacto: 'impacto'
+} as const
+
+export type ObservacionScalarFieldEnum = (typeof ObservacionScalarFieldEnum)[keyof typeof ObservacionScalarFieldEnum]
 
 
 export const Pregunta_entrevistaScalarFieldEnum = {
@@ -1669,6 +1758,21 @@ export type PrismaClientOptions = ({
    * ```
    */
   comments?: runtime.SqlCommenterPlugin[]
+  /**
+   * Optional maximum size for the query plan cache. If not provided, a default size will be used.
+   * A value of `0` can be used to disable the cache entirely. A higher cache size can improve
+   * performance for applications that execute a large number of unique queries, while a smaller
+   * cache size can reduce memory usage.
+   * 
+   * @example
+   * ```
+   * const prisma = new PrismaClient({
+   *   adapter,
+   *   queryPlanCacheMaxSize: 100,
+   * })
+   * ```
+   */
+  queryPlanCacheMaxSize?: number
 }
 export type GlobalOmitConfig = {
   proceso?: Prisma.procesoOmit
@@ -1682,6 +1786,7 @@ export type GlobalOmitConfig = {
   requerimiento?: Prisma.requerimientoOmit
   tecnica_recoleccion?: Prisma.tecnica_recoleccionOmit
   entrevista?: Prisma.entrevistaOmit
+  observacion?: Prisma.observacionOmit
   pregunta_entrevista?: Prisma.pregunta_entrevistaOmit
 }
 

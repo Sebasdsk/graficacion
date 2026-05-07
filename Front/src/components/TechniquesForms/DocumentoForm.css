@@ -1,0 +1,144 @@
+.documento-informacion-section,
+.hallazgos-clave-section,
+.requisitos-identificados-section {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    padding: 1.5rem;
+    border: 1px solid var(--border-container);
+    background: #ffff;
+    border-radius: 15px;
+}
+
+.header-documento-section h2,
+.header-items-section h2 {
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+.info-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+}
+
+.input-container {
+    display: flex;
+    flex-direction: column;
+    gap: .4rem;
+    flex: 1;
+}
+
+.input-container input {
+    padding: .6rem;
+    border-radius: 10px;
+    border: 1px solid var(--border-container);
+    background-color: #f9f9f9;
+    font-family: inherit;
+    font-size: 0.95rem;
+    color: var(--text-color);
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.input-container input:hover {
+    box-shadow: var(--shadow-hover);
+}
+
+.input-container input:focus {
+    outline: none;
+    border-color: #ccc;
+    background-color: #fff;
+}
+
+.header-items-section {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.button-add-item {
+    background: #ffff;
+    border: 1px solid var(--border-container);
+    border-radius: 10px;
+    padding: .5rem .8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .4rem;
+    transition: all .2s ease;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.button-add-item:hover {
+    background-color: #f5f5f5;
+    transform: translateY(-2px);
+}
+
+.items-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.no-items {
+    padding: 2rem;
+    text-align: center;
+    font-size: .9rem;
+    color: var(--info-text);
+}
+
+.item-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+}
+
+.item-card input {
+    padding: .6rem;
+    border-radius: 10px;
+    border: 1px solid var(--border-container);
+    background-color: #f9f9f9;
+    font-family: inherit;
+    font-size: 0.95rem;
+    color: var(--text-color);
+}
+
+.item-card input:hover {
+    box-shadow: var(--shadow-hover);
+}
+
+.item-card input:focus {
+    outline: none;
+    border-color: #ccc;
+    background-color: #fff;
+}
+
+.input-texto-principal {
+    flex: 3;
+}
+
+.input-texto-secundario {
+    flex: 1;
+    max-width: 150px;
+}
+
+.button-delete-item {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    padding: 0.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s;
+}
+
+.button-delete-item:hover {
+    transform: scale(1.1);
+}

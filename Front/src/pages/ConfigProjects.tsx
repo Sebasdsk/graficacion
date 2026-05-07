@@ -11,6 +11,7 @@ import { type Proyecto } from "../Types/Proyectos";
 import "./ConfigProjects.css"
 import Roles from "../components/RolesComponents/Roles";
 import { createContext } from 'react';
+import FlowticCard from "../components/ConfigProjectsComponents/FlowticDiagramsCard";
 
 type OptionsProjects = "Roles" | "Procesos";
 
@@ -30,7 +31,7 @@ export default function ConfigProjects() {
     const [projectId, setProjectId] = useState<number | null>(null);
 
     // Con el hook "useParams" obtenemos el id pasado en la ruta desde el componente Project
-    const idProject = useParams();
+    const { id_project } = useParams();
 
     // Objeto que guarda las clases CSS del estatus de los proyectos, para dar estilos en la interfaz
     const statusClasses: Record<string, string> = {
@@ -50,11 +51,11 @@ export default function ConfigProjects() {
             const token = localStorage.getItem("token");
 
             try {
-                if (!idProject.id) throw new Error("No se proporcionó un id de proyecto para la petición.");
+                if (!id_project) throw new Error("No se proporcionó un id de proyecto para la petición.");
                 if (!token) throw new Error("El token no fue proporcionado");
 
                 // Obtiene la info del proyecto seleccionado por su id
-                const dataProject = await consultOneProject(idProject.id, token);
+                const dataProject = await consultOneProject(id_project, token);
                 if (!dataProject) {
                     navigate("/login");
                     throw new Error("No se pudo obtener la información del proyecto");
@@ -82,66 +83,66 @@ export default function ConfigProjects() {
 
     return (
         <main className={`configurate-container ${collapsed ? "collapsed" : ""} ${mobileOpen ? "mobile-open" : ""}`}>
-            <ProjectSideBar option={option} setOption={setOption}/>
-            {mobileOpen && <div 
-                    className="backdrop"
-                    onClick={() => setMobileOpen(!mobileOpen)}
-                />}
+            <ProjectSideBar option={option} setOption={setOption} />
+            {mobileOpen && <div
+                className="backdrop"
+                onClick={() => setMobileOpen(!mobileOpen)}
+            />}
             <section className="configurate-body">
-                <header className="configurate-header">
-                    <HeaderConfigProject
-                        collapsed={collapsed}
-                        setCollapsed={setCollapsed}
-                        mobileOpen={mobileOpen}
-                        setMobileOpen={setMobileOpen}
-                    />
-                    <div className="section-header">
-                        <div className="data-project">
-                            <div className="principal-info">
-                                <button
-                                    className="button-go-back"
-                                    onClick={() => navigate("/dashboard")}
-                                >
-                                    <ArrowLeftStroke />
-                                </button>
-                                <div>
-                                    <h1>{project?.nombre}</h1>
-                                    <p>{project?.descripcion}</p>
-                                </div>
-                            </div>
-                            <dl className="secundary-info">
-                                <div className="state-project">
-                                    <dt>Estado:</dt>
-                                    <dd className={`status-project ${checkStatus(projectStatus)}`}>{project?.estatus}</dd>
-                                </div>
-                                <div className="date-project">
-                                    <dt>
-                                        <Calendar size="xs"/>
-                                        Creado el
-                                    </dt>
-                                    <dd>{project?.fecha_inicio}</dd>
-                                </div>
-                            </dl>
-                        </div>
-                        <button
-                            className="button-edit-project"
-                            onClick={() => setOpenEditModal(true)}
-                        >
-                            <Pencil size="xs"/> Editar
-                        </button>
-                    </div>
-                </header>
+                <HeaderConfigProject
+                    collapsed={collapsed}
+                    setCollapsed={setCollapsed}
+                    mobileOpen={mobileOpen}
+                    setMobileOpen={setMobileOpen}
+                />
                 <section className="config-content">
-                    <ResumeProject/>
+                    <header className="configurate-header">
+                        <div className="section-header">
+                            <div className="data-project">
+                                <div className="principal-info">
+                                    <button
+                                        className="button-go-back"
+                                        onClick={() => navigate("/dashboard")}
+                                    >
+                                        <ArrowLeftStroke />
+                                    </button>
+                                    <div>
+                                        <h1>{project?.nombre}</h1>
+                                        <p>{project?.descripcion}</p>
+                                    </div>
+                                </div>
+                                <dl className="secundary-info">
+                                    <div className="state-project">
+                                        <dt>Estado:</dt>
+                                        <dd className={`status-project ${checkStatus(projectStatus)}`}>{project?.estatus}</dd>
+                                    </div>
+                                    <div className="date-project">
+                                        <dt>
+                                            <Calendar size="xs" />
+                                            Creado el
+                                        </dt>
+                                        <dd>{project?.fecha_inicio}</dd>
+                                    </div>
+                                </dl>
+                            </div>
+                            <button
+                                className="button-edit-project"
+                                onClick={() => setOpenEditModal(true)}
+                            >
+                                <Pencil size="xs" /> Editar
+                            </button>
+                        </div>
+                    </header>
+                    <ResumeProject />
                     <div className="buttons-menu">
-                        <button 
+                        <button
                             className={`button-menu ${option === "Roles" ? "selected" : ""}`}
                             onClick={() => setOption("Roles")}
                         >
                             Roles y Stakeholders
                         </button>
                         <button
-                        onClick={() => setOption("Procesos")}
+                            onClick={() => setOption("Procesos")}
                             className={`button-menu ${option === "Procesos" ? "selected" : ""}`}
                         >
                             Procesos
@@ -149,24 +150,24 @@ export default function ConfigProjects() {
                     </div>
                     {option === "Roles" && projectId !== null && (
                         <ProjectIdContext value={projectId}>
-                            <Roles/>
+                            <Roles />
                         </ProjectIdContext>
                     )}
                     {option === "Procesos" && projectId !== null && (
                         <ProjectIdContext value={projectId}>
-                            <Process/>
+                            <Process />
                         </ProjectIdContext>
                     )}
                 </section>
             </section>
             {openEditModal && <ModalCreate
                 children={
-                <EditProject
-                    proyecto={project}
-                    setProyecto={setProject}
-                    setOpenEditModal={setOpenEditModal}
-                />
-                } setOpen={setOpenEditModal}/>}
+                    <EditProject
+                        proyecto={project}
+                        setProyecto={setProject}
+                        setOpenEditModal={setOpenEditModal}
+                    />
+                } setOpen={setOpenEditModal} />}
         </main>
     );
 }
@@ -227,15 +228,16 @@ function ProjectSideBar({ option, setOption }: OptionsProjectsProp) {
                     className={`sidebar-button-menu ${option === "Roles" ? 'option-selected' : ''}`}
                     onClick={() => setOption("Roles")}
                 >
-                    <Community size="xs"/> Roles y Stakeholders
+                    <Community size="xs" /> Roles y Stakeholders
                 </button>
                 <button
                     className={`sidebar-button-menu ${option === "Procesos" ? 'option-selected' : ''}`}
                     onClick={() => setOption("Procesos")}
                 >
-                    <Workflow size="xs"/> Procesos
+                    <Workflow size="xs" /> Procesos
                 </button>
             </section>
+            <FlowticCard />
         </aside>
     );
 }
