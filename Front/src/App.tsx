@@ -7,6 +7,7 @@ import HomePage from "./pages/HomePage"
 import TechniquesDashboard from "./pages/TechniquesDashboard"
 import UMLs from "./pages/UMLs"
 import UMLsDashboard from "./pages/UMLsDashboard"
+import { ReactFlowProvider } from "@xyflow/react"
 
 function App() {
   return (
@@ -18,7 +19,14 @@ function App() {
         <Route path='/dashboard' element={<Dashboard />} />
         <Route path="/config-projects/:id_project" element={<ConfigProjects />} />
         <Route path="/config-projects/:id_project/proccess/subprocess/:id_subproceso/techniques-dashboard" element={<TechniquesDashboard />} />
-        <Route path="/uml-editor" element={<UMLs/>}/>
+        <Route path="/uml-editor/:id_project" element={
+          // Esto es importante, el editor de UML no se renderizará.
+          // Porque en el mismo se utiliza el hook "useReactFlow()"
+          // que necesita estar dentro de un "ReactFlowProvider" para funcionar correctamente.
+          <ReactFlowProvider>
+            <UMLs/>
+          </ReactFlowProvider>
+        }/>
         <Route path="/uml-dashboard/:id_project" element={<UMLsDashboard />} />
       </Routes>
     </>

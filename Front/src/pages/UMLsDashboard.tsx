@@ -77,7 +77,7 @@ export default function UMLsDashboard() {
                     Volver al Proyecto
                 </button>
                 <h3>
-                    Flowtic 
+                    Flowtic
                     <span className='flowtic-graphics'>Graphics</span>
                 </h3>
             </header>
@@ -161,7 +161,7 @@ export default function UMLsDashboard() {
                                         <div className="diagram-actions">
                                             <button
                                                 className="btn-edit"
-                                                onClick={() => navigate("/uml-editor")}
+                                                onClick={() => navigate(`/uml-editor/${id_project}`)}
                                             >
                                                 <Edit />
                                                 Editar
