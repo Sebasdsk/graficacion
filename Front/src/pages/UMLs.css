@@ -24,6 +24,20 @@
     z-index: 1000;
 }
 
+.info-actions-diagram {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.diagram-type-header {
+    padding: .4rem .8rem;
+    background-color: var(--container);
+    border-radius: 20px;
+    border: 1px solid var(--border-container);
+    font-size: .7rem;
+}
+
 .button-save-diagram {
     background: var(--button-green);
     border-radius: 10px;

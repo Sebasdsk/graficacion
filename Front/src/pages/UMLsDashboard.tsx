@@ -1,17 +1,24 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { Plus, Edit, Trash, ArrowLeftStroke } from "@boxicons/react";
+import { Plus, Edit, Trash, ArrowLeftStroke, WorkflowAlt } from "@boxicons/react";
 import type { Rol } from "../Types/Roles";
 import type { Proceso } from "../Types/Procesos";
 import "./UMLsDashboard.css";
+import ModalCreate from "../Modals/ModalCreate";
+import Modal from "../Modals/Modal";
+import UMLsCreate from "../Modals/ModalChildrens/UMLsModals/UMLsCreate";
+import UMLsEdit from "../Modals/ModalChildrens/UMLsModals/UMLsEdit";
+import UMLsDelete from "../Modals/ModalChildrens/UMLsModals/UMLsDelete";
 
-// Mock data
-const mockDiagrams = [
-    { id: 1, tipo: 'Casos de Uso', colorClass: 'casos', name: 'Diagrama de casos de uso de ejemplo', descripcion: 'Descripción de ejemplo para este diagrama de Casos de uso', nodos: 0, conexiones: 0 },
-    { id: 2, tipo: 'Clases', colorClass: 'clases', name: 'Diagrama de clases de ejemplo', descripcion: 'Descripción de ejemplo para este Diagrama de Clases', nodos: 0, conexiones: 0 },
-    { id: 3, tipo: 'Secuencia', colorClass: 'secuencia', name: 'Diagrama de secuencias de ejemplo', descripcion: 'Descripción de ejemplo para este diagrama de Secuencia.', nodos: 0, conexiones: 0 },
-    { id: 4, tipo: 'Paquetes', colorClass: 'paquetes', name: 'Diagrama de paquetes de ejemplo', descripcion: 'Descripción de ejemplo para este diagrama de Paquetes.', nodos: 0, conexiones: 0 },
-];
+export interface DiagramaUml {
+    id_diagrama: number;
+    tipo_diagrama: string;
+    colorClass: string;
+    nombre: string;
+    descripcion: string;
+    nodos: number;
+    conexiones: number;
+}
 
 export default function UMLsDashboard() {
     const { id_project } = useParams();
@@ -20,6 +27,11 @@ export default function UMLsDashboard() {
     const [projectDescription, setProjectDescription] = useState("Cargando...");
     const [rolesProyecto, setRolesProyecto] = useState<Rol[]>([]);
     const [procesos, setProcesos] = useState<Proceso[]>([]);
+    const [diagramasUML, setDiagramasUML] = useState<DiagramaUml[]>([]);
+    const [openCreateModal, setOpenCreateModal] = useState<boolean>(false);
+    const [openEditModal, setOpenEditModal] = useState<boolean>(false);
+    const [selectedEditDiagram, setSelectedEditDiagram] = useState<DiagramaUml | null>(null);
+    const [selectedDeleteId, setSelectedDeleteId] = useState<number | null>(null);
 
     const API_URL = import.meta.env.VITE_API_URL;
 
@@ -58,8 +70,29 @@ export default function UMLsDashboard() {
         }
     };
 
+    // Función para obtener los diagramas UML
+    const fetchDiagramas = async () => {
+        const token = localStorage.getItem("token");
+        if (!token || !id_project) return;
+
+        const headers = {
+            "Authorization": `Bearer ${token}`
+        };
+
+        try {
+            const diagramasRes = await fetch(`${API_URL}/diagramasUML/proyecto/${id_project}`, { headers });
+            if (diagramasRes.ok) {
+                const diagramasData = await diagramasRes.json();
+                setDiagramasUML(diagramasData);
+            }
+        } catch (error) {
+            console.error("Error fetching diagramas:", error);
+        }
+    };
+
     useEffect(() => {
         fetchData();
+        fetchDiagramas();
     }, [id_project]);
 
     const totalSubprocesos = procesos.reduce((acc, proceso) => {
@@ -90,11 +123,79 @@ export default function UMLsDashboard() {
                             <h1>{projectName}</h1>
                             <p>{projectDescription}</p>
                         </div>
-                        <button className="btn-primary">
+                        <button
+                            className="btn-primary"
+                            onClick={() => setOpenCreateModal(true)}
+                        >
                             <Plus /> Nuevo Diagrama
                         </button>
                     </div>
                 </div>
+
+                <section className={`dashboard-content ${diagramasUML.length > 0 ? 'has-diagrams' : ''}`}>
+                    {diagramasUML.length === 0 ? (
+                        <div className="no-diagrams-container">
+                            <h2>No hay diagramas aún</h2>
+                            <small>Crea tu primer diagrama UML para visualizar la arquitectura del sistema</small>
+                            <button
+                                className="btn-primary"
+                                onClick={() => setOpenCreateModal(true)}
+                            >
+                                <Plus />
+                                Crear Primer Diagrama
+                            </button>
+                        </div>
+                    ) : (
+                        <>
+                            <h2>Diagramas UML</h2>
+                            <ul className="diagrams-grid">
+                                {diagramasUML.map(diagram => (
+                                    <article className="diagram-card" key={diagram.id_diagrama}>
+                                        <div className="diagram-type-badge">
+                                            <div className={`badge-dot ${diagram.tipo_diagrama}`}></div>
+                                            {diagram.tipo_diagrama === "use_case" && "Casos de Uso"}
+                                            {diagram.tipo_diagrama === "class" && "Clases"}
+                                            {diagram.tipo_diagrama === "sequence" && "Secuencia"}
+                                            {diagram.tipo_diagrama === "package" && "Paquetes"}
+                                        </div>
+                                        <div className="diagram-info">
+                                            <h3>{diagram.nombre}</h3>
+                                            <p>{diagram.descripcion}</p>
+                                        </div>
+                                        <div className="diagram-stats">
+                                            <span>{diagram.nodos} nodos</span>
+                                            <span>{diagram.conexiones} conexiones</span>
+                                        </div>
+                                        <div className="diagram-actions">
+                                            <button
+                                                className="btn-diagram"
+                                                onClick={() => navigate(`/uml-editor/${id_project}/uml/${diagram.id_diagrama}`)}
+                                            >
+                                                <WorkflowAlt />
+                                                Diagramar
+                                            </button>
+                                            <button 
+                                                className="btn-edit"
+                                                onClick={() => {
+                                                    setSelectedEditDiagram(diagram);
+                                                    setOpenEditModal(true);
+                                                }}
+                                            >
+                                                <Edit color="#4a4a4a" />
+                                            </button>
+                                            <button 
+                                                className="btn-delete"
+                                                onClick={() => setSelectedDeleteId(diagram.id_diagrama)}
+                                            >
+                                                <Trash color="#ef4444" />
+                                            </button>
+                                        </div>
+                                    </article>
+                                ))}
+                            </ul>
+                        </>
+                    )}
+                </section>
 
                 <section className="roles-procesos-section">
                     <article className="info-card">
@@ -129,52 +230,44 @@ export default function UMLsDashboard() {
                         </div>
                     </article>
                 </section>
-
-                <section className={`dashboard-content ${mockDiagrams.length > 0 ? 'has-diagrams' : ''}`}>
-                    {mockDiagrams.length === 0 ? (
-                        <div className="no-diagrams-container">
-                            <h2>No hay diagramas aún</h2>
-                            <small>Crea tu primer diagrama UML para visualizar la arquitectura del sistema</small>
-                            <button className="btn-primary">
-                                <Plus />
-                                Crear Primer Diagrama
-                            </button>
-                        </div>
-                    ) : (
-                        <>
-                            <h2>Diagramas UML</h2>
-                            <ul className="diagrams-grid">
-                                {mockDiagrams.map(diagram => (
-                                    <article className="diagram-card" key={diagram.id}>
-                                        <div className="diagram-type-badge">
-                                            <div className={`badge-dot ${diagram.colorClass}`}></div>
-                                            {diagram.tipo}
-                                        </div>
-                                        <div className="diagram-info">
-                                            <h3>{diagram.name}</h3>
-                                            <p>{diagram.descripcion}</p>
-                                        </div>
-                                        <div className="diagram-stats">
-                                            <span>{diagram.nodos} nodos</span>
-                                            <span>{diagram.conexiones} conexiones</span>
-                                        </div>
-                                        <div className="diagram-actions">
-                                            <button
-                                                className="btn-edit"
-                                                onClick={() => navigate(`/uml-editor/${id_project}`)}
-                                            >
-                                                <Edit />
-                                                Editar
-                                            </button>
-                                            <button className="btn-delete"><Trash color="#ef4444" /></button>
-                                        </div>
-                                    </article>
-                                ))}
-                            </ul>
-                        </>
-                    )}
-                </section>
             </main>
+            {openCreateModal && (
+                <ModalCreate
+                    children={
+                    <UMLsCreate
+                        idProject={Number(id_project)}
+                        setModalOpen={setOpenCreateModal}
+                        setDiagramasUML={setDiagramasUML}
+                    />}
+                    setOpen={setOpenCreateModal}
+                />
+            )}
+            {openEditModal && selectedEditDiagram && (
+                <ModalCreate
+                    children={
+                        <UMLsEdit
+                            diagram={selectedEditDiagram}
+                            setModalOpen={setOpenEditModal}
+                            setDiagramasUML={setDiagramasUML}
+                        />
+                    }
+                    setOpen={setOpenEditModal}
+                />
+            )}
+            {selectedDeleteId !== null && (
+                <Modal
+                    setSelectedId={setSelectedDeleteId}
+                    children={
+                        <UMLsDelete
+                            idDiagrama={selectedDeleteId}
+                            setSelectedDeleteId={setSelectedDeleteId}
+                            onDeleteDiagram={(id) => {
+                                setDiagramasUML(prev => prev.filter(d => d.id_diagrama !== id));
+                            }}
+                        />
+                    }
+                />
+            )}
         </div>
     );
 }
