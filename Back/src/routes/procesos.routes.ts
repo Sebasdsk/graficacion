@@ -11,15 +11,10 @@ router.get('/proyecto/:id_proyecto', verifyToken, async (req: any, res: Response
 
         const procesos = await prisma.proceso.findMany({
             where: {
-                id_proyecto: Number(id_proyecto),
-                estatus: 'A'
+                id_proyecto: Number(id_proyecto)
             },
             include: {
-                subproceso: {
-                    where: {
-                        estatus: 'A'
-                    }
-                }
+                subproceso: true 
             },
         });
 
@@ -36,13 +31,11 @@ router.post('/crear_proceso', verifyToken, async (req: any, res: Response) => {
     try {
         const { nombre, descripcion, id_proyecto } = req.body;
 
-        // Creamos el registro con el nuevo orden
         const proceso = await prisma.proceso.create({
             data: {
                 nombre,
                 descripcion,
-                id_proyecto: Number(id_proyecto),
-                estatus: 'A'
+                id_proyecto: Number(id_proyecto)
             }
         });
 
@@ -72,17 +65,16 @@ router.put('/actualizar_proceso/:id_proceso', verifyToken, async (req: any, res:
     }
 });
 
-// Eliminar proceso (soft delete)
+// Eliminar proceso
 router.patch('/eliminar_proceso/:id_proceso', verifyToken, async (req: any, res: Response) => {
     try {
         const { id_proceso } = req.params;
 
-        await prisma.proceso.update({
-            where: { id_proceso: Number(id_proceso) },
-            data: { estatus: 'E' }
+        await prisma.proceso.delete({
+            where: { id_proceso: Number(id_proceso) }
         });
 
-        res.json({ message: "Proceso eliminado correctamente" });
+        res.json({ message: "Proceso eliminado físicamente" });
     } catch (err) {
         console.error("Error en PATCH /eliminar_proceso:", err);
         res.status(500).json('Error al eliminar proceso');
@@ -98,8 +90,7 @@ router.post('/subproceso', verifyToken, async (req: any, res: Response) => {
             data: {
                 nombre: nombre,
                 descripcion: descripcion,
-                id_proceso: Number(id_proceso),
-                estatus: 'A'
+                id_proceso: Number(id_proceso)
             }
         });
 
@@ -129,17 +120,16 @@ router.put('/subproceso/actualizar/:id_subproceso', verifyToken, async (req: any
     }
 });
 
-// Eliminar subproceso (soft delete)
+// Eliminar subproceso 
 router.put('/subproceso/eliminar/:id_subproceso', verifyToken, async (req: any, res: Response) => {
     try {
         const { id_subproceso } = req.params;
 
-        await prisma.subproceso.update({
-            where: { id_subproceso: Number(id_subproceso) },
-            data: { estatus: 'E' }
+        await prisma.subproceso.delete({
+            where: { id_subproceso: Number(id_subproceso) }
         });
 
-        res.json({ message: "Subproceso eliminado correctamente" });
+        res.json({ message: "Subproceso eliminado físicamente" });
     } catch (err) {
         console.error("Error en PUT /subproceso/eliminar:", err);
         res.status(500).json('Error al eliminar subproceso');
