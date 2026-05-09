@@ -7,12 +7,14 @@ import { DashboardAlt, FolderMinus } from "@boxicons/react";
 import consultAllProjects from "../services/consultAllProjects";
 import { counterStatusProjects } from "../utils/counterStatusProjects";
 import type { Proyecto } from "../Types/Proyectos";
+import type { Rol } from "../Types/Roles";
 
 export default function Dashboard() {
     const navigate = useNavigate();
     const [collapsed, setCollapsed] = useState<boolean>(false);
     const [mobileOpen, setMobileOpen] = useState<boolean>(false);
     const [projects, setProjects] = useState<Proyecto[]>([]);
+    const [roles, setRoles] = useState<Rol[]>([]);
 
     // Valores derivados de projects para mostrar el conteo en el sidebar
     const totalProyectos = projects.length;
@@ -21,6 +23,8 @@ export default function Dashboard() {
     const progreso = contadorEstatus["En Progreso"] ?? 0;
     const completado = contadorEstatus["Completado"] ?? 0;
     const cancelado = contadorEstatus["Cancelado"] ?? 0;
+
+    const API_URL = import.meta.env.VITE_API_URL;
 
     const token = localStorage.getItem("token");
     if (!token) {
@@ -35,11 +39,38 @@ export default function Dashboard() {
             console.error("Error en la query: ", err)
             navigate("/");
         }
-    }
+    };
+
+    const getRoles = async () => {
+        try {
+            const response = await fetch(`${API_URL}/roles/lista-roles`, {
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error("Error en la consulta de roles");
+            }
+
+            const data = await response.json();
+            setRoles(data); // Guarda los roles consultados en el estado
+        } catch (err) {
+            console.error("Error en la query: ", err)
+            navigate("/");
+        }
+    };
+
+    // Valor derivado de roles para mostrar el conteo total de stakeholders
+    const totalStakeholders = roles.map(r => r.stakeholder).flat().length;
 
     useEffect(() => {
         getProjects();
+        getRoles();
     }, []);
+
+    console.log(roles);
 
     return (
         <main className={`panel-control ${collapsed ? "collapsed" : ""} ${mobileOpen ? "mobile-open" : ""}`}>
@@ -62,7 +93,12 @@ export default function Dashboard() {
                     mobileOpen={mobileOpen}
                     setMobileOpen={setMobileOpen}
                 />
-                <Projects projects={projects} setProjects={setProjects}/>
+                <Projects
+                    projects={projects}
+                    setProjects={setProjects}
+                    roles={roles} 
+                    totalStakeholders={totalStakeholders}
+                />
             </section>
         </main>
     );
