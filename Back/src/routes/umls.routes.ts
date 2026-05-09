@@ -1,5 +1,5 @@
 import { Router, Request, Response } from 'express';
-import { prisma } from '../../lib/prisma'; 
+import { prisma } from '../../lib/prisma';
 import { verifyToken } from '../middleware/auth.middleware';
 import { tipo_diagrama } from '../../generated/prisma/enums';
 
@@ -11,7 +11,8 @@ router.get('/proyecto/:id_proyecto', verifyToken, async (req: Request, res: Resp
         const { id_proyecto } = req.params;
         const diagrams = await prisma.diagrama_uml.findMany({
             where: {
-                id_proyecto: Number(id_proyecto)
+                id_proyecto: Number(id_proyecto),
+                estatus: 'A'
             }
         });
 
@@ -22,14 +23,39 @@ router.get('/proyecto/:id_proyecto', verifyToken, async (req: Request, res: Resp
     }
 });
 
+// Función para obtener un diagrama UML por su ID
+router.get('/:id_diagrama', verifyToken, async (req: Request, res: Response) => {
+    const { id_diagrama } = req.params;
+
+    try {
+        const diagram = await prisma.diagrama_uml.findUnique({
+            where: {
+                id_diagrama: Number(id_diagrama)
+            }
+        });
+
+        if (!diagram) {
+            return res.status(404).json({ error: 'Diagrama no encontrado' });
+        }
+
+        res.json(diagram);
+    } catch (error) {
+        console.error('Error al obtener el diagrama:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
 // Método para crear un nuevo diagrama UML
-router.post('/crear_diagrama', verifyToken, async (req: Request, res: Response) => {
+router.post('/crear-diagrama', verifyToken, async (req: Request, res: Response) => {
     const { id_proyecto, nombre, descripcion, tipo } = req.body;
 
     // Verificar el tipo de diagrama
-    const tipo_diagrama: tipo_diagrama = tipo;
-    if (!tipo_diagrama.includes(tipo)) {
-        return res.status(400).json({ error: 'Tipo de diagrama inválido' });
+    const tipoDiagrama = tipo as tipo_diagrama;
+
+    if (!Object.values(tipo_diagrama).includes(tipoDiagrama)) {
+        return res.status(400).json({
+            error: 'Tipo de diagrama inválido'
+        });
     }
 
     try {
@@ -38,7 +64,7 @@ router.post('/crear_diagrama', verifyToken, async (req: Request, res: Response) 
                 id_proyecto: Number(id_proyecto),
                 nombre: nombre,
                 descripcion: descripcion,
-                tipo_diagrama: tipo_diagrama
+                tipo_diagrama: tipoDiagrama
             }
         });
         res.status(201).json(newDiagram);
