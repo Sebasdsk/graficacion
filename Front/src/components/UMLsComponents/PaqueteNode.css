@@ -1,0 +1,32 @@
+.paquete-node-container {
+    border-radius: 4px;
+    padding: 8px;
+    min-width: 200px;
+}
+
+.paquete-header {
+    font-weight: bold;
+    width: 50%;
+    border: 1px solid var(--border-container);
+    border-bottom: none;
+    padding: .4rem;
+    background: var(--container);
+}
+
+.paquete-header h3 {
+    margin: 0;
+    font-size: .9rem;
+}
+
+.paquete-items-container {
+    width: 100%;
+    border: 1px solid var(--border-container);
+    padding: 2rem;
+    background: #fff;
+    min-height: 90px;
+}
+
+.no-items-paquete-node {
+    color: #999;
+    font-style: italic;
+}

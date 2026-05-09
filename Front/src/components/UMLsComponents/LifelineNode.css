@@ -1,0 +1,37 @@
+.lifeline-node {
+    width: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+.lifeline-dashed-line {
+    width: 2px;
+    height: 100%;
+    border-left: 2px dashed #1a1a1a;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+}
+
+.lifeline-activation-box {
+    width: 16px;
+    height: 60%;
+    background-color: white;
+    border: 2px solid #1a1a1a;
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+}
+
+.lifeline-node-handle {
+    background-color: #555;
+    width: 8px;
+    height: 8px;
+    z-index: 3;
+}
