@@ -101,6 +101,7 @@
     align-items: center;
     justify-content: center;
     gap: .5rem;
+    color: #1a1a1a;
 }
 
 .btn-primary:hover {
@@ -108,6 +109,8 @@
 }
 
 .dashboard-content {
+    margin-left: 1rem;
+    margin-right: 1rem;
     background-color: white;
     border-radius: 12px;
     padding: 3rem;
@@ -117,6 +120,7 @@
     justify-content: center;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
     margin-bottom: 2rem;
+    border: 1px solid var(--border-container);
 }
 
 .dashboard-content h2 {
@@ -171,6 +175,7 @@
     background-color: transparent;
     box-shadow: none;
     display: block;
+    border: none;
 }
 
 .diagram-card {
@@ -203,19 +208,19 @@
     border-radius: 50%;
 }
 
-.badge-dot.casos {
+.badge-dot.use_case {
     background-color: #3b82f6;
 }
 
-.badge-dot.clases {
+.badge-dot.class {
     background-color: #10b981;
 }
 
-.badge-dot.secuencia {
+.badge-dot.sequence {
     background-color: #a855f7;
 }
 
-.badge-dot.paquetes {
+.badge-dot.package {
     background-color: #f97316;
 }
 
@@ -247,7 +252,7 @@
     margin-top: auto;
 }
 
-.btn-edit {
+.btn-diagram {
     flex: 1;
     background-color: #fff;
     border: 1px solid #d1d5db;
@@ -261,10 +266,12 @@
     transition: all .1s ease;
 }
 
-.btn-edit:hover {
+.btn-diagram:hover {
     background-color: #f9fafb;
 }
 
+
+.btn-edit,
 .btn-delete {
     border: none;
     background-color: transparent;
@@ -275,6 +282,7 @@
     transition: transform 0.2s;
 }
 
+.btn-edit:hover,
 .btn-delete:hover {
     transform: scale(1.1);
 }

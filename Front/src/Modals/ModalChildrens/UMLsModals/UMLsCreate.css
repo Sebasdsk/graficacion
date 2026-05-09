@@ -1,0 +1,53 @@
+.create-uml {
+    display: flex;
+    flex-direction: column;
+    width: clamp(300px, 40vw, 500px);
+    gap: 1rem;
+}
+
+.header-create-uml{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.form-create-uml {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.diagram-type,
+.diagram-name,
+.diagram-description {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+}
+
+.diagram-type select,
+.diagram-name input,
+.diagram-description textarea {
+    padding: .8rem;
+    border-radius: 10px;
+    resize: none;
+    border: 1px solid var(--border-container);
+}
+
+.diagram-type select:hover,
+.diagram-name input:hover,
+.diagram-description textarea:hover {
+    box-shadow: var(--shadow-hover);
+}
+
+.btn-create-uml {
+    padding: .8rem;
+    border-radius: 10px;
+    border: none;
+    background: var(--button-green);
+    transition: all .2s ease;
+}
+
+.btn-create-uml:hover {
+    transform: translateY(-2px);
+}

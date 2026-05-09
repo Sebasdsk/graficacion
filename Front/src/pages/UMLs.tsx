@@ -43,16 +43,18 @@ const nodeTypes = {
 const initialNodes: Node[] = [];
 const initialEdges: Edge[] = [];
 
-type DiagramType = 'use-case' | 'class' | 'package' | 'sequence';
+type DiagramType = 'use_case' | 'class' | 'package' | 'sequence';
 
 export default function UMLs() {
-    const { id_project } = useParams();
-    const [selectTypeDiagram, setSelectTypeDiagram] = useState<DiagramType>('use-case');
+    const { id_project, id_diagrama } = useParams();
+    const [selectTypeDiagram, setSelectTypeDiagram] = useState<DiagramType>('use_case');
     const [nodes, setNodes] = useState<Node[]>(initialNodes);
     const [edges, setEdges] = useState<Edge[]>(initialEdges);
     const [roles, setRoles] = useState<Rol[]>([]);
     const [procesos, setProcesos] = useState<Proceso[]>([]);
     const reactFlow = useReactFlow(); // Esto para obtener información sobre el flujo de ReactFlow
+
+    const API_URL = import.meta.env.VITE_API_URL;
 
     // Encontrar el nodo y conexión seleccionados (React Flow maneja automáticamente la propiedad 'selected')
     const selectedNode = nodes.find(node => node.selected);
@@ -73,7 +75,7 @@ export default function UMLs() {
 
     // Estilos de las conexiones según el tipo de diagrama
     const stylesEdges: Record<DiagramType, { type: string; style: React.CSSProperties; markerEnd?: any }> = {
-        'use-case': {
+        'use_case': {
             type: 'straight',
             style: { strokeWidth: 1, stroke: '#1a1a1a' }
         },
@@ -218,7 +220,6 @@ export default function UMLs() {
     // Método para obtener los roles, procesos y subprocesos del proyecto al cargar la página
     const getProjectData = async () => {
         const token = localStorage.getItem("token");
-        const API_URL = import.meta.env.VITE_API_URL;
 
         const headers = {
             "Authorization": `Bearer ${token}`
@@ -241,16 +242,69 @@ export default function UMLs() {
         }
     };
 
+    // Función para obtener un diagrama UML por su ID
+    const getDiagram = async () => {
+        const token = localStorage.getItem("token");
+
+        const headers = {
+            "Authorization": `Bearer ${token}`
+        };
+
+        try {
+            const diagramasRes = await fetch(`${API_URL}/diagramasUML/${id_diagrama}`, { headers });
+            if (!diagramasRes.ok) {
+                throw new Error(`Error al obtener el diagrama: ${diagramasRes.statusText}`);
+            }
+
+            const diagramasData = await diagramasRes.json();
+            console.log("Diagrama parseado: ", diagramasData);
+            const flow = JSON.parse(diagramasData.diagrama);
+            // Actualiza el tipo de diagrama para mostrar los estilos correctos
+            setSelectTypeDiagram(diagramasData.tipo_diagrama);
+
+            // Aqui ya obtiene los nodos, conexiones y la vista tal cual lo dejó el usuario
+            setNodes(flow.nodes || []); // Actualiza los nodos
+            setEdges(flow.edges || []); // Actualiza las conexiones
+            reactFlow.setViewport(flow.viewport || { x: 0, y: 0, zoom: 1 }); // Actualiza la vista
+        } catch (error) {
+            console.error("Error fetching diagramas:", error);
+        }
+    };
+
     // Esta función se encarga de convertir el estado actual del diagrama (nodos, conexiones, etc.)
     // a un formato serializable para su almacenamiento o procesamiento posterior
-    const handleSaveDiagram = () => {
-        // Esto convierte el diagrama a un objeto serializable, para su posterior almacenamiento o procesamiento
-        const flowData = reactFlow.toObject();
-        console.log("Diagrama guardado: ", flowData); // Imprimir el objeto del diagrama
-    }
+    const handleSaveDiagram = async () => {
+        const token = localStorage.getItem("token");
+
+        const headers = {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+        };
+
+        try {
+            const flowData = reactFlow.toObject();
+            
+            const response = await fetch(`${API_URL}/diagramasUML/actualizar_uml/${id_diagrama}`, {
+                method: "PUT",
+                headers,
+                body: JSON.stringify({
+                    diagrama: JSON.stringify(flowData) // string para el campo TEXT de la BD
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error(`Error al guardar el diagrama: ${response.statusText}`);
+            }
+            alert("Diagrama guardado correctamente");
+
+        } catch (error) {
+            console.error("Error al guardar el diagrama:", error);
+        }
+    };
 
     useEffect(() => {
         getProjectData();
+        getDiagram();
     }, []);
 
     // Obtener los subprocesos de los procesos
@@ -260,32 +314,25 @@ export default function UMLs() {
         <div className='diagram-container-page'>
             <header className='header-diagram-map'>
                 <FlowticGraficsLogo />
-                <button
-                    className='button-save-diagram'
-                    onClick={handleSaveDiagram}
-                >
-                    <Save size='sm' /> Guardar
-                </button>
+                <div className='info-actions-diagram'>
+                    <div className='diagram-type-header'>
+                        {selectTypeDiagram === 'use_case' && 'Casos de Uso'}  
+                        {selectTypeDiagram === 'class' && 'Clases'} 
+                        {selectTypeDiagram === 'sequence' && 'Secuencia' }
+                        {selectTypeDiagram === 'package' && 'Paquetes'}
+                    </div>
+                    <button
+                        className='button-save-diagram'
+                        onClick={handleSaveDiagram}
+                    >
+                        <Save size='sm' /> Guardar
+                    </button>
+                </div>
             </header>
 
             <main className='principal-container-page'>
                 <aside className='sidebar-uml-editor'>
-                    {/* Selector de tipo de diagrama, esto es temporal solo para ver los cambios de los estilos de las conexiones */}
-                    <section className='diagram-selector' style={{ marginBottom: '1rem', padding: '1rem' }}>
-                        <h4>Tipo de Diagrama</h4>
-                        <select
-                            value={selectTypeDiagram}
-                            onChange={(e) => setSelectTypeDiagram(e.target.value as DiagramType)}
-                            style={{ width: '100%', padding: '0.5rem', marginTop: '0.5rem', borderRadius: '8px', border: '1px solid #ccc' }}
-                        >
-                            <option value="use-case">Diagrama de Casos de Uso</option>
-                            <option value="class">Diagrama de Clases</option>
-                            <option value="sequence">Diagrama de Secuencia</option>
-                            <option value="package">Diagrama de Paquetes</option>
-                        </select>
-                    </section>
-
-                    {selectTypeDiagram === 'use-case' && (
+                    {selectTypeDiagram === 'use_case' && (
                         <section className='elements-diagram'>
                             <h4>Elementos del Diagrama</h4>
                             <button

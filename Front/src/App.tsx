@@ -19,7 +19,7 @@ function App() {
         <Route path='/dashboard' element={<Dashboard />} />
         <Route path="/config-projects/:id_project" element={<ConfigProjects />} />
         <Route path="/config-projects/:id_project/proccess/subprocess/:id_subproceso/techniques-dashboard" element={<TechniquesDashboard />} />
-        <Route path="/uml-editor/:id_project" element={
+        <Route path="/uml-editor/:id_project/uml/:id_diagrama" element={
           // Esto es importante, el editor de UML no se renderizará.
           // Porque en el mismo se utiliza el hook "useReactFlow()"
           // que necesita estar dentro de un "ReactFlowProvider" para funcionar correctamente.

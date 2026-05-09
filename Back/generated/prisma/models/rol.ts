@@ -341,6 +341,11 @@ export type rolUncheckedUpdateManyInput = {
   id_proyecto?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
+export type RolNullableScalarRelationFilter = {
+  is?: Prisma.rolWhereInput | null
+  isNot?: Prisma.rolWhereInput | null
+}
+
 export type RolListRelationFilter = {
   every?: Prisma.rolWhereInput
   some?: Prisma.rolWhereInput
@@ -390,9 +395,20 @@ export type rolSumOrderByAggregateInput = {
   id_proyecto?: Prisma.SortOrder
 }
 
-export type RolNullableScalarRelationFilter = {
-  is?: Prisma.rolWhereInput | null
-  isNot?: Prisma.rolWhereInput | null
+export type rolCreateNestedOneWithoutEquipo_proyectoInput = {
+  create?: Prisma.XOR<Prisma.rolCreateWithoutEquipo_proyectoInput, Prisma.rolUncheckedCreateWithoutEquipo_proyectoInput>
+  connectOrCreate?: Prisma.rolCreateOrConnectWithoutEquipo_proyectoInput
+  connect?: Prisma.rolWhereUniqueInput
+}
+
+export type rolUpdateOneWithoutEquipo_proyectoNestedInput = {
+  create?: Prisma.XOR<Prisma.rolCreateWithoutEquipo_proyectoInput, Prisma.rolUncheckedCreateWithoutEquipo_proyectoInput>
+  connectOrCreate?: Prisma.rolCreateOrConnectWithoutEquipo_proyectoInput
+  upsert?: Prisma.rolUpsertWithoutEquipo_proyectoInput
+  disconnect?: Prisma.rolWhereInput | boolean
+  delete?: Prisma.rolWhereInput | boolean
+  connect?: Prisma.rolWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.rolUpdateToOneWithWhereWithoutEquipo_proyectoInput, Prisma.rolUpdateWithoutEquipo_proyectoInput>, Prisma.rolUncheckedUpdateWithoutEquipo_proyectoInput>
 }
 
 export type rolCreateNestedManyWithoutProyectoInput = {
@@ -467,20 +483,58 @@ export type rolUpdateOneWithoutStakeholderNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.rolUpdateToOneWithWhereWithoutStakeholderInput, Prisma.rolUpdateWithoutStakeholderInput>, Prisma.rolUncheckedUpdateWithoutStakeholderInput>
 }
 
-export type rolCreateNestedOneWithoutEquipo_proyectoInput = {
-  create?: Prisma.XOR<Prisma.rolCreateWithoutEquipo_proyectoInput, Prisma.rolUncheckedCreateWithoutEquipo_proyectoInput>
-  connectOrCreate?: Prisma.rolCreateOrConnectWithoutEquipo_proyectoInput
-  connect?: Prisma.rolWhereUniqueInput
+export type rolCreateWithoutEquipo_proyectoInput = {
+  nombre: string
+  estatus?: string | null
+  descripcion?: string | null
+  proyecto_participante?: Prisma.proyecto_participanteCreateNestedManyWithoutRolInput
+  proyecto?: Prisma.proyectoCreateNestedOneWithoutRolInput
+  stakeholder?: Prisma.stakeholderCreateNestedManyWithoutRolInput
 }
 
-export type rolUpdateOneWithoutEquipo_proyectoNestedInput = {
-  create?: Prisma.XOR<Prisma.rolCreateWithoutEquipo_proyectoInput, Prisma.rolUncheckedCreateWithoutEquipo_proyectoInput>
-  connectOrCreate?: Prisma.rolCreateOrConnectWithoutEquipo_proyectoInput
-  upsert?: Prisma.rolUpsertWithoutEquipo_proyectoInput
-  disconnect?: Prisma.rolWhereInput | boolean
-  delete?: Prisma.rolWhereInput | boolean
-  connect?: Prisma.rolWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.rolUpdateToOneWithWhereWithoutEquipo_proyectoInput, Prisma.rolUpdateWithoutEquipo_proyectoInput>, Prisma.rolUncheckedUpdateWithoutEquipo_proyectoInput>
+export type rolUncheckedCreateWithoutEquipo_proyectoInput = {
+  id_rol?: number
+  nombre: string
+  estatus?: string | null
+  descripcion?: string | null
+  id_proyecto?: number | null
+  proyecto_participante?: Prisma.proyecto_participanteUncheckedCreateNestedManyWithoutRolInput
+  stakeholder?: Prisma.stakeholderUncheckedCreateNestedManyWithoutRolInput
+}
+
+export type rolCreateOrConnectWithoutEquipo_proyectoInput = {
+  where: Prisma.rolWhereUniqueInput
+  create: Prisma.XOR<Prisma.rolCreateWithoutEquipo_proyectoInput, Prisma.rolUncheckedCreateWithoutEquipo_proyectoInput>
+}
+
+export type rolUpsertWithoutEquipo_proyectoInput = {
+  update: Prisma.XOR<Prisma.rolUpdateWithoutEquipo_proyectoInput, Prisma.rolUncheckedUpdateWithoutEquipo_proyectoInput>
+  create: Prisma.XOR<Prisma.rolCreateWithoutEquipo_proyectoInput, Prisma.rolUncheckedCreateWithoutEquipo_proyectoInput>
+  where?: Prisma.rolWhereInput
+}
+
+export type rolUpdateToOneWithWhereWithoutEquipo_proyectoInput = {
+  where?: Prisma.rolWhereInput
+  data: Prisma.XOR<Prisma.rolUpdateWithoutEquipo_proyectoInput, Prisma.rolUncheckedUpdateWithoutEquipo_proyectoInput>
+}
+
+export type rolUpdateWithoutEquipo_proyectoInput = {
+  nombre?: Prisma.StringFieldUpdateOperationsInput | string
+  estatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  descripcion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  proyecto_participante?: Prisma.proyecto_participanteUpdateManyWithoutRolNestedInput
+  proyecto?: Prisma.proyectoUpdateOneWithoutRolNestedInput
+  stakeholder?: Prisma.stakeholderUpdateManyWithoutRolNestedInput
+}
+
+export type rolUncheckedUpdateWithoutEquipo_proyectoInput = {
+  id_rol?: Prisma.IntFieldUpdateOperationsInput | number
+  nombre?: Prisma.StringFieldUpdateOperationsInput | string
+  estatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  descripcion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  id_proyecto?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  proyecto_participante?: Prisma.proyecto_participanteUncheckedUpdateManyWithoutRolNestedInput
+  stakeholder?: Prisma.stakeholderUncheckedUpdateManyWithoutRolNestedInput
 }
 
 export type rolCreateWithoutProyectoInput = {
@@ -645,60 +699,6 @@ export type rolUncheckedUpdateWithoutStakeholderInput = {
   id_proyecto?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   equipo_proyecto?: Prisma.equipo_proyectoUncheckedUpdateManyWithoutRolNestedInput
   proyecto_participante?: Prisma.proyecto_participanteUncheckedUpdateManyWithoutRolNestedInput
-}
-
-export type rolCreateWithoutEquipo_proyectoInput = {
-  nombre: string
-  estatus?: string | null
-  descripcion?: string | null
-  proyecto_participante?: Prisma.proyecto_participanteCreateNestedManyWithoutRolInput
-  proyecto?: Prisma.proyectoCreateNestedOneWithoutRolInput
-  stakeholder?: Prisma.stakeholderCreateNestedManyWithoutRolInput
-}
-
-export type rolUncheckedCreateWithoutEquipo_proyectoInput = {
-  id_rol?: number
-  nombre: string
-  estatus?: string | null
-  descripcion?: string | null
-  id_proyecto?: number | null
-  proyecto_participante?: Prisma.proyecto_participanteUncheckedCreateNestedManyWithoutRolInput
-  stakeholder?: Prisma.stakeholderUncheckedCreateNestedManyWithoutRolInput
-}
-
-export type rolCreateOrConnectWithoutEquipo_proyectoInput = {
-  where: Prisma.rolWhereUniqueInput
-  create: Prisma.XOR<Prisma.rolCreateWithoutEquipo_proyectoInput, Prisma.rolUncheckedCreateWithoutEquipo_proyectoInput>
-}
-
-export type rolUpsertWithoutEquipo_proyectoInput = {
-  update: Prisma.XOR<Prisma.rolUpdateWithoutEquipo_proyectoInput, Prisma.rolUncheckedUpdateWithoutEquipo_proyectoInput>
-  create: Prisma.XOR<Prisma.rolCreateWithoutEquipo_proyectoInput, Prisma.rolUncheckedCreateWithoutEquipo_proyectoInput>
-  where?: Prisma.rolWhereInput
-}
-
-export type rolUpdateToOneWithWhereWithoutEquipo_proyectoInput = {
-  where?: Prisma.rolWhereInput
-  data: Prisma.XOR<Prisma.rolUpdateWithoutEquipo_proyectoInput, Prisma.rolUncheckedUpdateWithoutEquipo_proyectoInput>
-}
-
-export type rolUpdateWithoutEquipo_proyectoInput = {
-  nombre?: Prisma.StringFieldUpdateOperationsInput | string
-  estatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  descripcion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  proyecto_participante?: Prisma.proyecto_participanteUpdateManyWithoutRolNestedInput
-  proyecto?: Prisma.proyectoUpdateOneWithoutRolNestedInput
-  stakeholder?: Prisma.stakeholderUpdateManyWithoutRolNestedInput
-}
-
-export type rolUncheckedUpdateWithoutEquipo_proyectoInput = {
-  id_rol?: Prisma.IntFieldUpdateOperationsInput | number
-  nombre?: Prisma.StringFieldUpdateOperationsInput | string
-  estatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  descripcion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  id_proyecto?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  proyecto_participante?: Prisma.proyecto_participanteUncheckedUpdateManyWithoutRolNestedInput
-  stakeholder?: Prisma.stakeholderUncheckedUpdateManyWithoutRolNestedInput
 }
 
 export type rolCreateManyProyectoInput = {

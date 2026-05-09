@@ -18,6 +18,31 @@ export { Prisma }
 export * as $Enums from './enums'
 export * from './enums';
 /**
+ * Model diagrama_uml
+ * 
+ */
+export type diagrama_uml = Prisma.diagrama_umlModel
+/**
+ * Model entrevista
+ * 
+ */
+export type entrevista = Prisma.entrevistaModel
+/**
+ * Model equipo_proyecto
+ * 
+ */
+export type equipo_proyecto = Prisma.equipo_proyectoModel
+/**
+ * Model observacion
+ * 
+ */
+export type observacion = Prisma.observacionModel
+/**
+ * Model pregunta_entrevista
+ * 
+ */
+export type pregunta_entrevista = Prisma.pregunta_entrevistaModel
+/**
  * Model proceso
  * 
  */
@@ -32,6 +57,11 @@ export type proyecto = Prisma.proyectoModel
  * 
  */
 export type proyecto_participante = Prisma.proyecto_participanteModel
+/**
+ * Model requerimiento
+ * 
+ */
+export type requerimiento = Prisma.requerimientoModel
 /**
  * Model rol
  * 
@@ -48,37 +78,12 @@ export type stakeholder = Prisma.stakeholderModel
  */
 export type subproceso = Prisma.subprocesoModel
 /**
- * Model usuario
- * 
- */
-export type usuario = Prisma.usuarioModel
-/**
- * Model equipo_proyecto
- * 
- */
-export type equipo_proyecto = Prisma.equipo_proyectoModel
-/**
- * Model requerimiento
- * 
- */
-export type requerimiento = Prisma.requerimientoModel
-/**
  * Model tecnica_recoleccion
  * 
  */
 export type tecnica_recoleccion = Prisma.tecnica_recoleccionModel
 /**
- * Model entrevista
+ * Model usuario
  * 
  */
-export type entrevista = Prisma.entrevistaModel
-/**
- * Model observacion
- * 
- */
-export type observacion = Prisma.observacionModel
-/**
- * Model pregunta_entrevista
- * 
- */
-export type pregunta_entrevista = Prisma.pregunta_entrevistaModel
+export type usuario = Prisma.usuarioModel
