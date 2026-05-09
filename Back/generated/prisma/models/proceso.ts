@@ -376,30 +376,6 @@ export type ProcesoScalarRelationFilter = {
   isNot?: Prisma.procesoWhereInput
 }
 
-export type StringFieldUpdateOperationsInput = {
-  set?: string
-}
-
-export type NullableStringFieldUpdateOperationsInput = {
-  set?: string | null
-}
-
-export type IntFieldUpdateOperationsInput = {
-  set?: number
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
-}
-
-export type NullableIntFieldUpdateOperationsInput = {
-  set?: number | null
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
-}
-
 export type procesoCreateNestedManyWithoutProyectoInput = {
   create?: Prisma.XOR<Prisma.procesoCreateWithoutProyectoInput, Prisma.procesoUncheckedCreateWithoutProyectoInput> | Prisma.procesoCreateWithoutProyectoInput[] | Prisma.procesoUncheckedCreateWithoutProyectoInput[]
   connectOrCreate?: Prisma.procesoCreateOrConnectWithoutProyectoInput | Prisma.procesoCreateOrConnectWithoutProyectoInput[]

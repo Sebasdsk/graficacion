@@ -9,7 +9,11 @@
 * 🟢 You can import this file directly.
 */
 
+export const tipo_diagrama = {
+  use_case: 'use_case',
+  class: 'class',
+  sequence: 'sequence',
+  package: 'package'
+} as const
 
-
-// This file is empty because there are no enums in the schema.
-export {}
+export type tipo_diagrama = (typeof tipo_diagrama)[keyof typeof tipo_diagrama]

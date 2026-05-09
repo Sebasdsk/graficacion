@@ -40,6 +40,13 @@ export type StringFilter<$PrismaModel = never> = {
   not?: Prisma.NestedStringFilter<$PrismaModel> | string
 }
 
+export type Enumtipo_diagramaNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.tipo_diagrama | Prisma.Enumtipo_diagramaFieldRefInput<$PrismaModel> | null
+  in?: $Enums.tipo_diagrama[] | Prisma.ListEnumtipo_diagramaFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.tipo_diagrama[] | Prisma.ListEnumtipo_diagramaFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumtipo_diagramaNullableFilter<$PrismaModel> | $Enums.tipo_diagrama | null
+}
+
 export type StringNullableFilter<$PrismaModel = never> = {
   equals?: string | Prisma.StringFieldRefInput<$PrismaModel> | null
   in?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel> | null
@@ -103,6 +110,16 @@ export type StringWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedStringFilter<$PrismaModel>
   _max?: Prisma.NestedStringFilter<$PrismaModel>
+}
+
+export type Enumtipo_diagramaNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.tipo_diagrama | Prisma.Enumtipo_diagramaFieldRefInput<$PrismaModel> | null
+  in?: $Enums.tipo_diagrama[] | Prisma.ListEnumtipo_diagramaFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.tipo_diagrama[] | Prisma.ListEnumtipo_diagramaFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumtipo_diagramaNullableWithAggregatesFilter<$PrismaModel> | $Enums.tipo_diagrama | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumtipo_diagramaNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumtipo_diagramaNullableFilter<$PrismaModel>
 }
 
 export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -202,6 +219,13 @@ export type NestedStringFilter<$PrismaModel = never> = {
   not?: Prisma.NestedStringFilter<$PrismaModel> | string
 }
 
+export type NestedEnumtipo_diagramaNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.tipo_diagrama | Prisma.Enumtipo_diagramaFieldRefInput<$PrismaModel> | null
+  in?: $Enums.tipo_diagrama[] | Prisma.ListEnumtipo_diagramaFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.tipo_diagrama[] | Prisma.ListEnumtipo_diagramaFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumtipo_diagramaNullableFilter<$PrismaModel> | $Enums.tipo_diagrama | null
+}
+
 export type NestedStringNullableFilter<$PrismaModel = never> = {
   equals?: string | Prisma.StringFieldRefInput<$PrismaModel> | null
   in?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel> | null
@@ -269,6 +293,16 @@ export type NestedStringWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedStringFilter<$PrismaModel>
   _max?: Prisma.NestedStringFilter<$PrismaModel>
+}
+
+export type NestedEnumtipo_diagramaNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.tipo_diagrama | Prisma.Enumtipo_diagramaFieldRefInput<$PrismaModel> | null
+  in?: $Enums.tipo_diagrama[] | Prisma.ListEnumtipo_diagramaFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.tipo_diagrama[] | Prisma.ListEnumtipo_diagramaFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumtipo_diagramaNullableWithAggregatesFilter<$PrismaModel> | $Enums.tipo_diagrama | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumtipo_diagramaNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumtipo_diagramaNullableFilter<$PrismaModel>
 }
 
 export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {

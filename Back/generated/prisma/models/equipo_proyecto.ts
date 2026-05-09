@@ -315,16 +315,6 @@ export type equipo_proyectoUncheckedUpdateManyInput = {
   id_rol?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
-export type Equipo_proyectoListRelationFilter = {
-  every?: Prisma.equipo_proyectoWhereInput
-  some?: Prisma.equipo_proyectoWhereInput
-  none?: Prisma.equipo_proyectoWhereInput
-}
-
-export type equipo_proyectoOrderByRelationAggregateInput = {
-  _count?: Prisma.SortOrder
-}
-
 export type equipo_proyectoId_proyectoId_usuarioId_rolCompoundUniqueInput = {
   id_proyecto: number
   id_usuario: number
@@ -364,6 +354,16 @@ export type equipo_proyectoSumOrderByAggregateInput = {
   id_proyecto?: Prisma.SortOrder
   id_usuario?: Prisma.SortOrder
   id_rol?: Prisma.SortOrder
+}
+
+export type Equipo_proyectoListRelationFilter = {
+  every?: Prisma.equipo_proyectoWhereInput
+  some?: Prisma.equipo_proyectoWhereInput
+  none?: Prisma.equipo_proyectoWhereInput
+}
+
+export type equipo_proyectoOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
 }
 
 export type equipo_proyectoCreateNestedManyWithoutProyectoInput = {

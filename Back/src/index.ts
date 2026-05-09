@@ -12,6 +12,7 @@ import entrevistaRoutes from './routes/Tecnicas/entrevista.routes';
 import preguntasEntrevistaRoutes from './routes/Tecnicas/preguntas-entrevista.routes' ;
 import observacionesRoutes from './routes/Tecnicas/observaciones.routes';
 import stakeholdersRoutes from './routes/stakeholders.routes';
+import diagramasUMLRoutes from './routes/umls.routes';
 
 dotenv.config();
 
@@ -30,7 +31,8 @@ app.use('/api/roles', rolesRoutes);
 app.use('/api/entrevista', entrevistaRoutes);
 app.use('/api/preguntasEntrevista', preguntasEntrevistaRoutes);
 app.use('/api/observaciones', observacionesRoutes);
-app.use('/api/stakeholders', stakeholdersRoutes)
+app.use('/api/stakeholders', stakeholdersRoutes);
+app.use('/api/diagramasUML', diagramasUMLRoutes);
 
 const PORT = process.env.PORT || 3000;
 
