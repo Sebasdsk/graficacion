@@ -230,6 +230,8 @@ export type stakeholderWhereInput = {
   id_rol?: Prisma.IntNullableFilter<"stakeholder"> | number | null
   rol?: Prisma.XOR<Prisma.RolNullableScalarRelationFilter, Prisma.rolWhereInput> | null
   tecnica_recoleccion?: Prisma.Tecnica_recoleccionListRelationFilter
+  participacione?: Prisma.Participante_focus_groupListRelationFilter
+  observacion?: Prisma.ObservacionListRelationFilter
 }
 
 export type stakeholderOrderByWithRelationInput = {
@@ -241,6 +243,8 @@ export type stakeholderOrderByWithRelationInput = {
   id_rol?: Prisma.SortOrderInput | Prisma.SortOrder
   rol?: Prisma.rolOrderByWithRelationInput
   tecnica_recoleccion?: Prisma.tecnica_recoleccionOrderByRelationAggregateInput
+  participacione?: Prisma.participante_focus_groupOrderByRelationAggregateInput
+  observacion?: Prisma.observacionOrderByRelationAggregateInput
 }
 
 export type stakeholderWhereUniqueInput = Prisma.AtLeast<{
@@ -255,6 +259,8 @@ export type stakeholderWhereUniqueInput = Prisma.AtLeast<{
   id_rol?: Prisma.IntNullableFilter<"stakeholder"> | number | null
   rol?: Prisma.XOR<Prisma.RolNullableScalarRelationFilter, Prisma.rolWhereInput> | null
   tecnica_recoleccion?: Prisma.Tecnica_recoleccionListRelationFilter
+  participacione?: Prisma.Participante_focus_groupListRelationFilter
+  observacion?: Prisma.ObservacionListRelationFilter
 }, "id_stakeholder">
 
 export type stakeholderOrderByWithAggregationInput = {
@@ -290,6 +296,8 @@ export type stakeholderCreateInput = {
   estatus?: string | null
   rol?: Prisma.rolCreateNestedOneWithoutStakeholderInput
   tecnica_recoleccion?: Prisma.tecnica_recoleccionCreateNestedManyWithoutStakeholderInput
+  participacione?: Prisma.participante_focus_groupCreateNestedManyWithoutStakeholderInput
+  observacion?: Prisma.observacionCreateNestedManyWithoutStakeholderInput
 }
 
 export type stakeholderUncheckedCreateInput = {
@@ -300,6 +308,8 @@ export type stakeholderUncheckedCreateInput = {
   estatus?: string | null
   id_rol?: number | null
   tecnica_recoleccion?: Prisma.tecnica_recoleccionUncheckedCreateNestedManyWithoutStakeholderInput
+  participacione?: Prisma.participante_focus_groupUncheckedCreateNestedManyWithoutStakeholderInput
+  observacion?: Prisma.observacionUncheckedCreateNestedManyWithoutStakeholderInput
 }
 
 export type stakeholderUpdateInput = {
@@ -309,6 +319,8 @@ export type stakeholderUpdateInput = {
   estatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rol?: Prisma.rolUpdateOneWithoutStakeholderNestedInput
   tecnica_recoleccion?: Prisma.tecnica_recoleccionUpdateManyWithoutStakeholderNestedInput
+  participacione?: Prisma.participante_focus_groupUpdateManyWithoutStakeholderNestedInput
+  observacion?: Prisma.observacionUpdateManyWithoutStakeholderNestedInput
 }
 
 export type stakeholderUncheckedUpdateInput = {
@@ -319,6 +331,8 @@ export type stakeholderUncheckedUpdateInput = {
   estatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   id_rol?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   tecnica_recoleccion?: Prisma.tecnica_recoleccionUncheckedUpdateManyWithoutStakeholderNestedInput
+  participacione?: Prisma.participante_focus_groupUncheckedUpdateManyWithoutStakeholderNestedInput
+  observacion?: Prisma.observacionUncheckedUpdateManyWithoutStakeholderNestedInput
 }
 
 export type stakeholderCreateManyInput = {
@@ -344,6 +358,16 @@ export type stakeholderUncheckedUpdateManyInput = {
   contacto_email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   id_rol?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+}
+
+export type StakeholderNullableScalarRelationFilter = {
+  is?: Prisma.stakeholderWhereInput | null
+  isNot?: Prisma.stakeholderWhereInput | null
+}
+
+export type StakeholderScalarRelationFilter = {
+  is?: Prisma.stakeholderWhereInput
+  isNot?: Prisma.stakeholderWhereInput
 }
 
 export type StakeholderListRelationFilter = {
@@ -393,9 +417,34 @@ export type stakeholderSumOrderByAggregateInput = {
   id_rol?: Prisma.SortOrder
 }
 
-export type StakeholderNullableScalarRelationFilter = {
-  is?: Prisma.stakeholderWhereInput | null
-  isNot?: Prisma.stakeholderWhereInput | null
+export type stakeholderCreateNestedOneWithoutObservacionInput = {
+  create?: Prisma.XOR<Prisma.stakeholderCreateWithoutObservacionInput, Prisma.stakeholderUncheckedCreateWithoutObservacionInput>
+  connectOrCreate?: Prisma.stakeholderCreateOrConnectWithoutObservacionInput
+  connect?: Prisma.stakeholderWhereUniqueInput
+}
+
+export type stakeholderUpdateOneWithoutObservacionNestedInput = {
+  create?: Prisma.XOR<Prisma.stakeholderCreateWithoutObservacionInput, Prisma.stakeholderUncheckedCreateWithoutObservacionInput>
+  connectOrCreate?: Prisma.stakeholderCreateOrConnectWithoutObservacionInput
+  upsert?: Prisma.stakeholderUpsertWithoutObservacionInput
+  disconnect?: Prisma.stakeholderWhereInput | boolean
+  delete?: Prisma.stakeholderWhereInput | boolean
+  connect?: Prisma.stakeholderWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.stakeholderUpdateToOneWithWhereWithoutObservacionInput, Prisma.stakeholderUpdateWithoutObservacionInput>, Prisma.stakeholderUncheckedUpdateWithoutObservacionInput>
+}
+
+export type stakeholderCreateNestedOneWithoutParticipacioneInput = {
+  create?: Prisma.XOR<Prisma.stakeholderCreateWithoutParticipacioneInput, Prisma.stakeholderUncheckedCreateWithoutParticipacioneInput>
+  connectOrCreate?: Prisma.stakeholderCreateOrConnectWithoutParticipacioneInput
+  connect?: Prisma.stakeholderWhereUniqueInput
+}
+
+export type stakeholderUpdateOneRequiredWithoutParticipacioneNestedInput = {
+  create?: Prisma.XOR<Prisma.stakeholderCreateWithoutParticipacioneInput, Prisma.stakeholderUncheckedCreateWithoutParticipacioneInput>
+  connectOrCreate?: Prisma.stakeholderCreateOrConnectWithoutParticipacioneInput
+  upsert?: Prisma.stakeholderUpsertWithoutParticipacioneInput
+  connect?: Prisma.stakeholderWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.stakeholderUpdateToOneWithWhereWithoutParticipacioneInput, Prisma.stakeholderUpdateWithoutParticipacioneInput>, Prisma.stakeholderUncheckedUpdateWithoutParticipacioneInput>
 }
 
 export type stakeholderCreateNestedManyWithoutRolInput = {
@@ -456,12 +505,130 @@ export type stakeholderUpdateOneWithoutTecnica_recoleccionNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.stakeholderUpdateToOneWithWhereWithoutTecnica_recoleccionInput, Prisma.stakeholderUpdateWithoutTecnica_recoleccionInput>, Prisma.stakeholderUncheckedUpdateWithoutTecnica_recoleccionInput>
 }
 
+export type stakeholderCreateWithoutObservacionInput = {
+  nombre: string
+  area?: string | null
+  contacto_email?: string | null
+  estatus?: string | null
+  rol?: Prisma.rolCreateNestedOneWithoutStakeholderInput
+  tecnica_recoleccion?: Prisma.tecnica_recoleccionCreateNestedManyWithoutStakeholderInput
+  participacione?: Prisma.participante_focus_groupCreateNestedManyWithoutStakeholderInput
+}
+
+export type stakeholderUncheckedCreateWithoutObservacionInput = {
+  id_stakeholder?: number
+  nombre: string
+  area?: string | null
+  contacto_email?: string | null
+  estatus?: string | null
+  id_rol?: number | null
+  tecnica_recoleccion?: Prisma.tecnica_recoleccionUncheckedCreateNestedManyWithoutStakeholderInput
+  participacione?: Prisma.participante_focus_groupUncheckedCreateNestedManyWithoutStakeholderInput
+}
+
+export type stakeholderCreateOrConnectWithoutObservacionInput = {
+  where: Prisma.stakeholderWhereUniqueInput
+  create: Prisma.XOR<Prisma.stakeholderCreateWithoutObservacionInput, Prisma.stakeholderUncheckedCreateWithoutObservacionInput>
+}
+
+export type stakeholderUpsertWithoutObservacionInput = {
+  update: Prisma.XOR<Prisma.stakeholderUpdateWithoutObservacionInput, Prisma.stakeholderUncheckedUpdateWithoutObservacionInput>
+  create: Prisma.XOR<Prisma.stakeholderCreateWithoutObservacionInput, Prisma.stakeholderUncheckedCreateWithoutObservacionInput>
+  where?: Prisma.stakeholderWhereInput
+}
+
+export type stakeholderUpdateToOneWithWhereWithoutObservacionInput = {
+  where?: Prisma.stakeholderWhereInput
+  data: Prisma.XOR<Prisma.stakeholderUpdateWithoutObservacionInput, Prisma.stakeholderUncheckedUpdateWithoutObservacionInput>
+}
+
+export type stakeholderUpdateWithoutObservacionInput = {
+  nombre?: Prisma.StringFieldUpdateOperationsInput | string
+  area?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contacto_email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  estatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rol?: Prisma.rolUpdateOneWithoutStakeholderNestedInput
+  tecnica_recoleccion?: Prisma.tecnica_recoleccionUpdateManyWithoutStakeholderNestedInput
+  participacione?: Prisma.participante_focus_groupUpdateManyWithoutStakeholderNestedInput
+}
+
+export type stakeholderUncheckedUpdateWithoutObservacionInput = {
+  id_stakeholder?: Prisma.IntFieldUpdateOperationsInput | number
+  nombre?: Prisma.StringFieldUpdateOperationsInput | string
+  area?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contacto_email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  estatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  id_rol?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  tecnica_recoleccion?: Prisma.tecnica_recoleccionUncheckedUpdateManyWithoutStakeholderNestedInput
+  participacione?: Prisma.participante_focus_groupUncheckedUpdateManyWithoutStakeholderNestedInput
+}
+
+export type stakeholderCreateWithoutParticipacioneInput = {
+  nombre: string
+  area?: string | null
+  contacto_email?: string | null
+  estatus?: string | null
+  rol?: Prisma.rolCreateNestedOneWithoutStakeholderInput
+  tecnica_recoleccion?: Prisma.tecnica_recoleccionCreateNestedManyWithoutStakeholderInput
+  observacion?: Prisma.observacionCreateNestedManyWithoutStakeholderInput
+}
+
+export type stakeholderUncheckedCreateWithoutParticipacioneInput = {
+  id_stakeholder?: number
+  nombre: string
+  area?: string | null
+  contacto_email?: string | null
+  estatus?: string | null
+  id_rol?: number | null
+  tecnica_recoleccion?: Prisma.tecnica_recoleccionUncheckedCreateNestedManyWithoutStakeholderInput
+  observacion?: Prisma.observacionUncheckedCreateNestedManyWithoutStakeholderInput
+}
+
+export type stakeholderCreateOrConnectWithoutParticipacioneInput = {
+  where: Prisma.stakeholderWhereUniqueInput
+  create: Prisma.XOR<Prisma.stakeholderCreateWithoutParticipacioneInput, Prisma.stakeholderUncheckedCreateWithoutParticipacioneInput>
+}
+
+export type stakeholderUpsertWithoutParticipacioneInput = {
+  update: Prisma.XOR<Prisma.stakeholderUpdateWithoutParticipacioneInput, Prisma.stakeholderUncheckedUpdateWithoutParticipacioneInput>
+  create: Prisma.XOR<Prisma.stakeholderCreateWithoutParticipacioneInput, Prisma.stakeholderUncheckedCreateWithoutParticipacioneInput>
+  where?: Prisma.stakeholderWhereInput
+}
+
+export type stakeholderUpdateToOneWithWhereWithoutParticipacioneInput = {
+  where?: Prisma.stakeholderWhereInput
+  data: Prisma.XOR<Prisma.stakeholderUpdateWithoutParticipacioneInput, Prisma.stakeholderUncheckedUpdateWithoutParticipacioneInput>
+}
+
+export type stakeholderUpdateWithoutParticipacioneInput = {
+  nombre?: Prisma.StringFieldUpdateOperationsInput | string
+  area?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contacto_email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  estatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rol?: Prisma.rolUpdateOneWithoutStakeholderNestedInput
+  tecnica_recoleccion?: Prisma.tecnica_recoleccionUpdateManyWithoutStakeholderNestedInput
+  observacion?: Prisma.observacionUpdateManyWithoutStakeholderNestedInput
+}
+
+export type stakeholderUncheckedUpdateWithoutParticipacioneInput = {
+  id_stakeholder?: Prisma.IntFieldUpdateOperationsInput | number
+  nombre?: Prisma.StringFieldUpdateOperationsInput | string
+  area?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contacto_email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  estatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  id_rol?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  tecnica_recoleccion?: Prisma.tecnica_recoleccionUncheckedUpdateManyWithoutStakeholderNestedInput
+  observacion?: Prisma.observacionUncheckedUpdateManyWithoutStakeholderNestedInput
+}
+
 export type stakeholderCreateWithoutRolInput = {
   nombre: string
   area?: string | null
   contacto_email?: string | null
   estatus?: string | null
   tecnica_recoleccion?: Prisma.tecnica_recoleccionCreateNestedManyWithoutStakeholderInput
+  participacione?: Prisma.participante_focus_groupCreateNestedManyWithoutStakeholderInput
+  observacion?: Prisma.observacionCreateNestedManyWithoutStakeholderInput
 }
 
 export type stakeholderUncheckedCreateWithoutRolInput = {
@@ -471,6 +638,8 @@ export type stakeholderUncheckedCreateWithoutRolInput = {
   contacto_email?: string | null
   estatus?: string | null
   tecnica_recoleccion?: Prisma.tecnica_recoleccionUncheckedCreateNestedManyWithoutStakeholderInput
+  participacione?: Prisma.participante_focus_groupUncheckedCreateNestedManyWithoutStakeholderInput
+  observacion?: Prisma.observacionUncheckedCreateNestedManyWithoutStakeholderInput
 }
 
 export type stakeholderCreateOrConnectWithoutRolInput = {
@@ -517,6 +686,8 @@ export type stakeholderCreateWithoutTecnica_recoleccionInput = {
   contacto_email?: string | null
   estatus?: string | null
   rol?: Prisma.rolCreateNestedOneWithoutStakeholderInput
+  participacione?: Prisma.participante_focus_groupCreateNestedManyWithoutStakeholderInput
+  observacion?: Prisma.observacionCreateNestedManyWithoutStakeholderInput
 }
 
 export type stakeholderUncheckedCreateWithoutTecnica_recoleccionInput = {
@@ -526,6 +697,8 @@ export type stakeholderUncheckedCreateWithoutTecnica_recoleccionInput = {
   contacto_email?: string | null
   estatus?: string | null
   id_rol?: number | null
+  participacione?: Prisma.participante_focus_groupUncheckedCreateNestedManyWithoutStakeholderInput
+  observacion?: Prisma.observacionUncheckedCreateNestedManyWithoutStakeholderInput
 }
 
 export type stakeholderCreateOrConnectWithoutTecnica_recoleccionInput = {
@@ -550,6 +723,8 @@ export type stakeholderUpdateWithoutTecnica_recoleccionInput = {
   contacto_email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rol?: Prisma.rolUpdateOneWithoutStakeholderNestedInput
+  participacione?: Prisma.participante_focus_groupUpdateManyWithoutStakeholderNestedInput
+  observacion?: Prisma.observacionUpdateManyWithoutStakeholderNestedInput
 }
 
 export type stakeholderUncheckedUpdateWithoutTecnica_recoleccionInput = {
@@ -559,6 +734,8 @@ export type stakeholderUncheckedUpdateWithoutTecnica_recoleccionInput = {
   contacto_email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   id_rol?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  participacione?: Prisma.participante_focus_groupUncheckedUpdateManyWithoutStakeholderNestedInput
+  observacion?: Prisma.observacionUncheckedUpdateManyWithoutStakeholderNestedInput
 }
 
 export type stakeholderCreateManyRolInput = {
@@ -575,6 +752,8 @@ export type stakeholderUpdateWithoutRolInput = {
   contacto_email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tecnica_recoleccion?: Prisma.tecnica_recoleccionUpdateManyWithoutStakeholderNestedInput
+  participacione?: Prisma.participante_focus_groupUpdateManyWithoutStakeholderNestedInput
+  observacion?: Prisma.observacionUpdateManyWithoutStakeholderNestedInput
 }
 
 export type stakeholderUncheckedUpdateWithoutRolInput = {
@@ -584,6 +763,8 @@ export type stakeholderUncheckedUpdateWithoutRolInput = {
   contacto_email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tecnica_recoleccion?: Prisma.tecnica_recoleccionUncheckedUpdateManyWithoutStakeholderNestedInput
+  participacione?: Prisma.participante_focus_groupUncheckedUpdateManyWithoutStakeholderNestedInput
+  observacion?: Prisma.observacionUncheckedUpdateManyWithoutStakeholderNestedInput
 }
 
 export type stakeholderUncheckedUpdateManyWithoutRolInput = {
@@ -601,10 +782,14 @@ export type stakeholderUncheckedUpdateManyWithoutRolInput = {
 
 export type StakeholderCountOutputType = {
   tecnica_recoleccion: number
+  participacione: number
+  observacion: number
 }
 
 export type StakeholderCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tecnica_recoleccion?: boolean | StakeholderCountOutputTypeCountTecnica_recoleccionArgs
+  participacione?: boolean | StakeholderCountOutputTypeCountParticipacioneArgs
+  observacion?: boolean | StakeholderCountOutputTypeCountObservacionArgs
 }
 
 /**
@@ -624,6 +809,20 @@ export type StakeholderCountOutputTypeCountTecnica_recoleccionArgs<ExtArgs exten
   where?: Prisma.tecnica_recoleccionWhereInput
 }
 
+/**
+ * StakeholderCountOutputType without action
+ */
+export type StakeholderCountOutputTypeCountParticipacioneArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.participante_focus_groupWhereInput
+}
+
+/**
+ * StakeholderCountOutputType without action
+ */
+export type StakeholderCountOutputTypeCountObservacionArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.observacionWhereInput
+}
+
 
 export type stakeholderSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id_stakeholder?: boolean
@@ -634,6 +833,8 @@ export type stakeholderSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   id_rol?: boolean
   rol?: boolean | Prisma.stakeholder$rolArgs<ExtArgs>
   tecnica_recoleccion?: boolean | Prisma.stakeholder$tecnica_recoleccionArgs<ExtArgs>
+  participacione?: boolean | Prisma.stakeholder$participacioneArgs<ExtArgs>
+  observacion?: boolean | Prisma.stakeholder$observacionArgs<ExtArgs>
   _count?: boolean | Prisma.StakeholderCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["stakeholder"]>
 
@@ -670,6 +871,8 @@ export type stakeholderOmit<ExtArgs extends runtime.Types.Extensions.InternalArg
 export type stakeholderInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   rol?: boolean | Prisma.stakeholder$rolArgs<ExtArgs>
   tecnica_recoleccion?: boolean | Prisma.stakeholder$tecnica_recoleccionArgs<ExtArgs>
+  participacione?: boolean | Prisma.stakeholder$participacioneArgs<ExtArgs>
+  observacion?: boolean | Prisma.stakeholder$observacionArgs<ExtArgs>
   _count?: boolean | Prisma.StakeholderCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type stakeholderIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -684,6 +887,8 @@ export type $stakeholderPayload<ExtArgs extends runtime.Types.Extensions.Interna
   objects: {
     rol: Prisma.$rolPayload<ExtArgs> | null
     tecnica_recoleccion: Prisma.$tecnica_recoleccionPayload<ExtArgs>[]
+    participacione: Prisma.$participante_focus_groupPayload<ExtArgs>[]
+    observacion: Prisma.$observacionPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id_stakeholder: number
@@ -1088,6 +1293,8 @@ export interface Prisma__stakeholderClient<T, Null = never, ExtArgs extends runt
   readonly [Symbol.toStringTag]: "PrismaPromise"
   rol<T extends Prisma.stakeholder$rolArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.stakeholder$rolArgs<ExtArgs>>): Prisma.Prisma__rolClient<runtime.Types.Result.GetResult<Prisma.$rolPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   tecnica_recoleccion<T extends Prisma.stakeholder$tecnica_recoleccionArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.stakeholder$tecnica_recoleccionArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$tecnica_recoleccionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  participacione<T extends Prisma.stakeholder$participacioneArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.stakeholder$participacioneArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$participante_focus_groupPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  observacion<T extends Prisma.stakeholder$observacionArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.stakeholder$observacionArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$observacionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1564,6 +1771,54 @@ export type stakeholder$tecnica_recoleccionArgs<ExtArgs extends runtime.Types.Ex
   take?: number
   skip?: number
   distinct?: Prisma.Tecnica_recoleccionScalarFieldEnum | Prisma.Tecnica_recoleccionScalarFieldEnum[]
+}
+
+/**
+ * stakeholder.participacione
+ */
+export type stakeholder$participacioneArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the participante_focus_group
+   */
+  select?: Prisma.participante_focus_groupSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the participante_focus_group
+   */
+  omit?: Prisma.participante_focus_groupOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.participante_focus_groupInclude<ExtArgs> | null
+  where?: Prisma.participante_focus_groupWhereInput
+  orderBy?: Prisma.participante_focus_groupOrderByWithRelationInput | Prisma.participante_focus_groupOrderByWithRelationInput[]
+  cursor?: Prisma.participante_focus_groupWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.Participante_focus_groupScalarFieldEnum | Prisma.Participante_focus_groupScalarFieldEnum[]
+}
+
+/**
+ * stakeholder.observacion
+ */
+export type stakeholder$observacionArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the observacion
+   */
+  select?: Prisma.observacionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the observacion
+   */
+  omit?: Prisma.observacionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.observacionInclude<ExtArgs> | null
+  where?: Prisma.observacionWhereInput
+  orderBy?: Prisma.observacionOrderByWithRelationInput | Prisma.observacionOrderByWithRelationInput[]
+  cursor?: Prisma.observacionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ObservacionScalarFieldEnum | Prisma.ObservacionScalarFieldEnum[]
 }
 
 /**

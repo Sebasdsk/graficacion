@@ -233,7 +233,9 @@ export type tecnica_recoleccionWhereInput = {
   id_subproceso?: Prisma.IntFilter<"tecnica_recoleccion"> | number
   id_stakeholder?: Prisma.IntNullableFilter<"tecnica_recoleccion"> | number | null
   entrevista?: Prisma.EntrevistaListRelationFilter
+  cuestionario?: Prisma.CuestionarioListRelationFilter
   observacion?: Prisma.ObservacionListRelationFilter
+  focus_group?: Prisma.Focus_groupListRelationFilter
   requerimiento?: Prisma.RequerimientoListRelationFilter
   stakeholder?: Prisma.XOR<Prisma.StakeholderNullableScalarRelationFilter, Prisma.stakeholderWhereInput> | null
   subproceso?: Prisma.XOR<Prisma.SubprocesoScalarRelationFilter, Prisma.subprocesoWhereInput>
@@ -247,7 +249,9 @@ export type tecnica_recoleccionOrderByWithRelationInput = {
   id_subproceso?: Prisma.SortOrder
   id_stakeholder?: Prisma.SortOrderInput | Prisma.SortOrder
   entrevista?: Prisma.entrevistaOrderByRelationAggregateInput
+  cuestionario?: Prisma.cuestionarioOrderByRelationAggregateInput
   observacion?: Prisma.observacionOrderByRelationAggregateInput
+  focus_group?: Prisma.focus_groupOrderByRelationAggregateInput
   requerimiento?: Prisma.requerimientoOrderByRelationAggregateInput
   stakeholder?: Prisma.stakeholderOrderByWithRelationInput
   subproceso?: Prisma.subprocesoOrderByWithRelationInput
@@ -264,7 +268,9 @@ export type tecnica_recoleccionWhereUniqueInput = Prisma.AtLeast<{
   id_subproceso?: Prisma.IntFilter<"tecnica_recoleccion"> | number
   id_stakeholder?: Prisma.IntNullableFilter<"tecnica_recoleccion"> | number | null
   entrevista?: Prisma.EntrevistaListRelationFilter
+  cuestionario?: Prisma.CuestionarioListRelationFilter
   observacion?: Prisma.ObservacionListRelationFilter
+  focus_group?: Prisma.Focus_groupListRelationFilter
   requerimiento?: Prisma.RequerimientoListRelationFilter
   stakeholder?: Prisma.XOR<Prisma.StakeholderNullableScalarRelationFilter, Prisma.stakeholderWhereInput> | null
   subproceso?: Prisma.XOR<Prisma.SubprocesoScalarRelationFilter, Prisma.subprocesoWhereInput>
@@ -301,7 +307,9 @@ export type tecnica_recoleccionCreateInput = {
   detalle?: string | null
   codigo_orden: string
   entrevista?: Prisma.entrevistaCreateNestedManyWithoutTecnica_recoleccionInput
+  cuestionario?: Prisma.cuestionarioCreateNestedManyWithoutTecnicaInput
   observacion?: Prisma.observacionCreateNestedManyWithoutTecnica_recoleccionInput
+  focus_group?: Prisma.focus_groupCreateNestedManyWithoutTecnicaInput
   requerimiento?: Prisma.requerimientoCreateNestedManyWithoutTecnica_recoleccionInput
   stakeholder?: Prisma.stakeholderCreateNestedOneWithoutTecnica_recoleccionInput
   subproceso: Prisma.subprocesoCreateNestedOneWithoutTecnica_recoleccionInput
@@ -315,7 +323,9 @@ export type tecnica_recoleccionUncheckedCreateInput = {
   id_subproceso: number
   id_stakeholder?: number | null
   entrevista?: Prisma.entrevistaUncheckedCreateNestedManyWithoutTecnica_recoleccionInput
+  cuestionario?: Prisma.cuestionarioUncheckedCreateNestedManyWithoutTecnicaInput
   observacion?: Prisma.observacionUncheckedCreateNestedManyWithoutTecnica_recoleccionInput
+  focus_group?: Prisma.focus_groupUncheckedCreateNestedManyWithoutTecnicaInput
   requerimiento?: Prisma.requerimientoUncheckedCreateNestedManyWithoutTecnica_recoleccionInput
 }
 
@@ -324,7 +334,9 @@ export type tecnica_recoleccionUpdateInput = {
   detalle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   codigo_orden?: Prisma.StringFieldUpdateOperationsInput | string
   entrevista?: Prisma.entrevistaUpdateManyWithoutTecnica_recoleccionNestedInput
+  cuestionario?: Prisma.cuestionarioUpdateManyWithoutTecnicaNestedInput
   observacion?: Prisma.observacionUpdateManyWithoutTecnica_recoleccionNestedInput
+  focus_group?: Prisma.focus_groupUpdateManyWithoutTecnicaNestedInput
   requerimiento?: Prisma.requerimientoUpdateManyWithoutTecnica_recoleccionNestedInput
   stakeholder?: Prisma.stakeholderUpdateOneWithoutTecnica_recoleccionNestedInput
   subproceso?: Prisma.subprocesoUpdateOneRequiredWithoutTecnica_recoleccionNestedInput
@@ -338,7 +350,9 @@ export type tecnica_recoleccionUncheckedUpdateInput = {
   id_subproceso?: Prisma.IntFieldUpdateOperationsInput | number
   id_stakeholder?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   entrevista?: Prisma.entrevistaUncheckedUpdateManyWithoutTecnica_recoleccionNestedInput
+  cuestionario?: Prisma.cuestionarioUncheckedUpdateManyWithoutTecnicaNestedInput
   observacion?: Prisma.observacionUncheckedUpdateManyWithoutTecnica_recoleccionNestedInput
+  focus_group?: Prisma.focus_groupUncheckedUpdateManyWithoutTecnicaNestedInput
   requerimiento?: Prisma.requerimientoUncheckedUpdateManyWithoutTecnica_recoleccionNestedInput
 }
 
@@ -448,6 +462,34 @@ export type tecnica_recoleccionUpdateOneRequiredWithoutObservacionNestedInput = 
   update?: Prisma.XOR<Prisma.XOR<Prisma.tecnica_recoleccionUpdateToOneWithWhereWithoutObservacionInput, Prisma.tecnica_recoleccionUpdateWithoutObservacionInput>, Prisma.tecnica_recoleccionUncheckedUpdateWithoutObservacionInput>
 }
 
+export type tecnica_recoleccionCreateNestedOneWithoutCuestionarioInput = {
+  create?: Prisma.XOR<Prisma.tecnica_recoleccionCreateWithoutCuestionarioInput, Prisma.tecnica_recoleccionUncheckedCreateWithoutCuestionarioInput>
+  connectOrCreate?: Prisma.tecnica_recoleccionCreateOrConnectWithoutCuestionarioInput
+  connect?: Prisma.tecnica_recoleccionWhereUniqueInput
+}
+
+export type tecnica_recoleccionUpdateOneRequiredWithoutCuestionarioNestedInput = {
+  create?: Prisma.XOR<Prisma.tecnica_recoleccionCreateWithoutCuestionarioInput, Prisma.tecnica_recoleccionUncheckedCreateWithoutCuestionarioInput>
+  connectOrCreate?: Prisma.tecnica_recoleccionCreateOrConnectWithoutCuestionarioInput
+  upsert?: Prisma.tecnica_recoleccionUpsertWithoutCuestionarioInput
+  connect?: Prisma.tecnica_recoleccionWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.tecnica_recoleccionUpdateToOneWithWhereWithoutCuestionarioInput, Prisma.tecnica_recoleccionUpdateWithoutCuestionarioInput>, Prisma.tecnica_recoleccionUncheckedUpdateWithoutCuestionarioInput>
+}
+
+export type tecnica_recoleccionCreateNestedOneWithoutFocus_groupInput = {
+  create?: Prisma.XOR<Prisma.tecnica_recoleccionCreateWithoutFocus_groupInput, Prisma.tecnica_recoleccionUncheckedCreateWithoutFocus_groupInput>
+  connectOrCreate?: Prisma.tecnica_recoleccionCreateOrConnectWithoutFocus_groupInput
+  connect?: Prisma.tecnica_recoleccionWhereUniqueInput
+}
+
+export type tecnica_recoleccionUpdateOneRequiredWithoutFocus_groupNestedInput = {
+  create?: Prisma.XOR<Prisma.tecnica_recoleccionCreateWithoutFocus_groupInput, Prisma.tecnica_recoleccionUncheckedCreateWithoutFocus_groupInput>
+  connectOrCreate?: Prisma.tecnica_recoleccionCreateOrConnectWithoutFocus_groupInput
+  upsert?: Prisma.tecnica_recoleccionUpsertWithoutFocus_groupInput
+  connect?: Prisma.tecnica_recoleccionWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.tecnica_recoleccionUpdateToOneWithWhereWithoutFocus_groupInput, Prisma.tecnica_recoleccionUpdateWithoutFocus_groupInput>, Prisma.tecnica_recoleccionUncheckedUpdateWithoutFocus_groupInput>
+}
+
 export type tecnica_recoleccionCreateNestedOneWithoutRequerimientoInput = {
   create?: Prisma.XOR<Prisma.tecnica_recoleccionCreateWithoutRequerimientoInput, Prisma.tecnica_recoleccionUncheckedCreateWithoutRequerimientoInput>
   connectOrCreate?: Prisma.tecnica_recoleccionCreateOrConnectWithoutRequerimientoInput
@@ -550,7 +592,9 @@ export type tecnica_recoleccionCreateWithoutEntrevistaInput = {
   tipo: string
   detalle?: string | null
   codigo_orden: string
+  cuestionario?: Prisma.cuestionarioCreateNestedManyWithoutTecnicaInput
   observacion?: Prisma.observacionCreateNestedManyWithoutTecnica_recoleccionInput
+  focus_group?: Prisma.focus_groupCreateNestedManyWithoutTecnicaInput
   requerimiento?: Prisma.requerimientoCreateNestedManyWithoutTecnica_recoleccionInput
   stakeholder?: Prisma.stakeholderCreateNestedOneWithoutTecnica_recoleccionInput
   subproceso: Prisma.subprocesoCreateNestedOneWithoutTecnica_recoleccionInput
@@ -563,7 +607,9 @@ export type tecnica_recoleccionUncheckedCreateWithoutEntrevistaInput = {
   codigo_orden: string
   id_subproceso: number
   id_stakeholder?: number | null
+  cuestionario?: Prisma.cuestionarioUncheckedCreateNestedManyWithoutTecnicaInput
   observacion?: Prisma.observacionUncheckedCreateNestedManyWithoutTecnica_recoleccionInput
+  focus_group?: Prisma.focus_groupUncheckedCreateNestedManyWithoutTecnicaInput
   requerimiento?: Prisma.requerimientoUncheckedCreateNestedManyWithoutTecnica_recoleccionInput
 }
 
@@ -587,7 +633,9 @@ export type tecnica_recoleccionUpdateWithoutEntrevistaInput = {
   tipo?: Prisma.StringFieldUpdateOperationsInput | string
   detalle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   codigo_orden?: Prisma.StringFieldUpdateOperationsInput | string
+  cuestionario?: Prisma.cuestionarioUpdateManyWithoutTecnicaNestedInput
   observacion?: Prisma.observacionUpdateManyWithoutTecnica_recoleccionNestedInput
+  focus_group?: Prisma.focus_groupUpdateManyWithoutTecnicaNestedInput
   requerimiento?: Prisma.requerimientoUpdateManyWithoutTecnica_recoleccionNestedInput
   stakeholder?: Prisma.stakeholderUpdateOneWithoutTecnica_recoleccionNestedInput
   subproceso?: Prisma.subprocesoUpdateOneRequiredWithoutTecnica_recoleccionNestedInput
@@ -600,7 +648,9 @@ export type tecnica_recoleccionUncheckedUpdateWithoutEntrevistaInput = {
   codigo_orden?: Prisma.StringFieldUpdateOperationsInput | string
   id_subproceso?: Prisma.IntFieldUpdateOperationsInput | number
   id_stakeholder?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  cuestionario?: Prisma.cuestionarioUncheckedUpdateManyWithoutTecnicaNestedInput
   observacion?: Prisma.observacionUncheckedUpdateManyWithoutTecnica_recoleccionNestedInput
+  focus_group?: Prisma.focus_groupUncheckedUpdateManyWithoutTecnicaNestedInput
   requerimiento?: Prisma.requerimientoUncheckedUpdateManyWithoutTecnica_recoleccionNestedInput
 }
 
@@ -609,6 +659,8 @@ export type tecnica_recoleccionCreateWithoutObservacionInput = {
   detalle?: string | null
   codigo_orden: string
   entrevista?: Prisma.entrevistaCreateNestedManyWithoutTecnica_recoleccionInput
+  cuestionario?: Prisma.cuestionarioCreateNestedManyWithoutTecnicaInput
+  focus_group?: Prisma.focus_groupCreateNestedManyWithoutTecnicaInput
   requerimiento?: Prisma.requerimientoCreateNestedManyWithoutTecnica_recoleccionInput
   stakeholder?: Prisma.stakeholderCreateNestedOneWithoutTecnica_recoleccionInput
   subproceso: Prisma.subprocesoCreateNestedOneWithoutTecnica_recoleccionInput
@@ -622,6 +674,8 @@ export type tecnica_recoleccionUncheckedCreateWithoutObservacionInput = {
   id_subproceso: number
   id_stakeholder?: number | null
   entrevista?: Prisma.entrevistaUncheckedCreateNestedManyWithoutTecnica_recoleccionInput
+  cuestionario?: Prisma.cuestionarioUncheckedCreateNestedManyWithoutTecnicaInput
+  focus_group?: Prisma.focus_groupUncheckedCreateNestedManyWithoutTecnicaInput
   requerimiento?: Prisma.requerimientoUncheckedCreateNestedManyWithoutTecnica_recoleccionInput
 }
 
@@ -646,6 +700,8 @@ export type tecnica_recoleccionUpdateWithoutObservacionInput = {
   detalle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   codigo_orden?: Prisma.StringFieldUpdateOperationsInput | string
   entrevista?: Prisma.entrevistaUpdateManyWithoutTecnica_recoleccionNestedInput
+  cuestionario?: Prisma.cuestionarioUpdateManyWithoutTecnicaNestedInput
+  focus_group?: Prisma.focus_groupUpdateManyWithoutTecnicaNestedInput
   requerimiento?: Prisma.requerimientoUpdateManyWithoutTecnica_recoleccionNestedInput
   stakeholder?: Prisma.stakeholderUpdateOneWithoutTecnica_recoleccionNestedInput
   subproceso?: Prisma.subprocesoUpdateOneRequiredWithoutTecnica_recoleccionNestedInput
@@ -659,6 +715,140 @@ export type tecnica_recoleccionUncheckedUpdateWithoutObservacionInput = {
   id_subproceso?: Prisma.IntFieldUpdateOperationsInput | number
   id_stakeholder?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   entrevista?: Prisma.entrevistaUncheckedUpdateManyWithoutTecnica_recoleccionNestedInput
+  cuestionario?: Prisma.cuestionarioUncheckedUpdateManyWithoutTecnicaNestedInput
+  focus_group?: Prisma.focus_groupUncheckedUpdateManyWithoutTecnicaNestedInput
+  requerimiento?: Prisma.requerimientoUncheckedUpdateManyWithoutTecnica_recoleccionNestedInput
+}
+
+export type tecnica_recoleccionCreateWithoutCuestionarioInput = {
+  tipo: string
+  detalle?: string | null
+  codigo_orden: string
+  entrevista?: Prisma.entrevistaCreateNestedManyWithoutTecnica_recoleccionInput
+  observacion?: Prisma.observacionCreateNestedManyWithoutTecnica_recoleccionInput
+  focus_group?: Prisma.focus_groupCreateNestedManyWithoutTecnicaInput
+  requerimiento?: Prisma.requerimientoCreateNestedManyWithoutTecnica_recoleccionInput
+  stakeholder?: Prisma.stakeholderCreateNestedOneWithoutTecnica_recoleccionInput
+  subproceso: Prisma.subprocesoCreateNestedOneWithoutTecnica_recoleccionInput
+}
+
+export type tecnica_recoleccionUncheckedCreateWithoutCuestionarioInput = {
+  id_tecnica?: number
+  tipo: string
+  detalle?: string | null
+  codigo_orden: string
+  id_subproceso: number
+  id_stakeholder?: number | null
+  entrevista?: Prisma.entrevistaUncheckedCreateNestedManyWithoutTecnica_recoleccionInput
+  observacion?: Prisma.observacionUncheckedCreateNestedManyWithoutTecnica_recoleccionInput
+  focus_group?: Prisma.focus_groupUncheckedCreateNestedManyWithoutTecnicaInput
+  requerimiento?: Prisma.requerimientoUncheckedCreateNestedManyWithoutTecnica_recoleccionInput
+}
+
+export type tecnica_recoleccionCreateOrConnectWithoutCuestionarioInput = {
+  where: Prisma.tecnica_recoleccionWhereUniqueInput
+  create: Prisma.XOR<Prisma.tecnica_recoleccionCreateWithoutCuestionarioInput, Prisma.tecnica_recoleccionUncheckedCreateWithoutCuestionarioInput>
+}
+
+export type tecnica_recoleccionUpsertWithoutCuestionarioInput = {
+  update: Prisma.XOR<Prisma.tecnica_recoleccionUpdateWithoutCuestionarioInput, Prisma.tecnica_recoleccionUncheckedUpdateWithoutCuestionarioInput>
+  create: Prisma.XOR<Prisma.tecnica_recoleccionCreateWithoutCuestionarioInput, Prisma.tecnica_recoleccionUncheckedCreateWithoutCuestionarioInput>
+  where?: Prisma.tecnica_recoleccionWhereInput
+}
+
+export type tecnica_recoleccionUpdateToOneWithWhereWithoutCuestionarioInput = {
+  where?: Prisma.tecnica_recoleccionWhereInput
+  data: Prisma.XOR<Prisma.tecnica_recoleccionUpdateWithoutCuestionarioInput, Prisma.tecnica_recoleccionUncheckedUpdateWithoutCuestionarioInput>
+}
+
+export type tecnica_recoleccionUpdateWithoutCuestionarioInput = {
+  tipo?: Prisma.StringFieldUpdateOperationsInput | string
+  detalle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codigo_orden?: Prisma.StringFieldUpdateOperationsInput | string
+  entrevista?: Prisma.entrevistaUpdateManyWithoutTecnica_recoleccionNestedInput
+  observacion?: Prisma.observacionUpdateManyWithoutTecnica_recoleccionNestedInput
+  focus_group?: Prisma.focus_groupUpdateManyWithoutTecnicaNestedInput
+  requerimiento?: Prisma.requerimientoUpdateManyWithoutTecnica_recoleccionNestedInput
+  stakeholder?: Prisma.stakeholderUpdateOneWithoutTecnica_recoleccionNestedInput
+  subproceso?: Prisma.subprocesoUpdateOneRequiredWithoutTecnica_recoleccionNestedInput
+}
+
+export type tecnica_recoleccionUncheckedUpdateWithoutCuestionarioInput = {
+  id_tecnica?: Prisma.IntFieldUpdateOperationsInput | number
+  tipo?: Prisma.StringFieldUpdateOperationsInput | string
+  detalle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codigo_orden?: Prisma.StringFieldUpdateOperationsInput | string
+  id_subproceso?: Prisma.IntFieldUpdateOperationsInput | number
+  id_stakeholder?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  entrevista?: Prisma.entrevistaUncheckedUpdateManyWithoutTecnica_recoleccionNestedInput
+  observacion?: Prisma.observacionUncheckedUpdateManyWithoutTecnica_recoleccionNestedInput
+  focus_group?: Prisma.focus_groupUncheckedUpdateManyWithoutTecnicaNestedInput
+  requerimiento?: Prisma.requerimientoUncheckedUpdateManyWithoutTecnica_recoleccionNestedInput
+}
+
+export type tecnica_recoleccionCreateWithoutFocus_groupInput = {
+  tipo: string
+  detalle?: string | null
+  codigo_orden: string
+  entrevista?: Prisma.entrevistaCreateNestedManyWithoutTecnica_recoleccionInput
+  cuestionario?: Prisma.cuestionarioCreateNestedManyWithoutTecnicaInput
+  observacion?: Prisma.observacionCreateNestedManyWithoutTecnica_recoleccionInput
+  requerimiento?: Prisma.requerimientoCreateNestedManyWithoutTecnica_recoleccionInput
+  stakeholder?: Prisma.stakeholderCreateNestedOneWithoutTecnica_recoleccionInput
+  subproceso: Prisma.subprocesoCreateNestedOneWithoutTecnica_recoleccionInput
+}
+
+export type tecnica_recoleccionUncheckedCreateWithoutFocus_groupInput = {
+  id_tecnica?: number
+  tipo: string
+  detalle?: string | null
+  codigo_orden: string
+  id_subproceso: number
+  id_stakeholder?: number | null
+  entrevista?: Prisma.entrevistaUncheckedCreateNestedManyWithoutTecnica_recoleccionInput
+  cuestionario?: Prisma.cuestionarioUncheckedCreateNestedManyWithoutTecnicaInput
+  observacion?: Prisma.observacionUncheckedCreateNestedManyWithoutTecnica_recoleccionInput
+  requerimiento?: Prisma.requerimientoUncheckedCreateNestedManyWithoutTecnica_recoleccionInput
+}
+
+export type tecnica_recoleccionCreateOrConnectWithoutFocus_groupInput = {
+  where: Prisma.tecnica_recoleccionWhereUniqueInput
+  create: Prisma.XOR<Prisma.tecnica_recoleccionCreateWithoutFocus_groupInput, Prisma.tecnica_recoleccionUncheckedCreateWithoutFocus_groupInput>
+}
+
+export type tecnica_recoleccionUpsertWithoutFocus_groupInput = {
+  update: Prisma.XOR<Prisma.tecnica_recoleccionUpdateWithoutFocus_groupInput, Prisma.tecnica_recoleccionUncheckedUpdateWithoutFocus_groupInput>
+  create: Prisma.XOR<Prisma.tecnica_recoleccionCreateWithoutFocus_groupInput, Prisma.tecnica_recoleccionUncheckedCreateWithoutFocus_groupInput>
+  where?: Prisma.tecnica_recoleccionWhereInput
+}
+
+export type tecnica_recoleccionUpdateToOneWithWhereWithoutFocus_groupInput = {
+  where?: Prisma.tecnica_recoleccionWhereInput
+  data: Prisma.XOR<Prisma.tecnica_recoleccionUpdateWithoutFocus_groupInput, Prisma.tecnica_recoleccionUncheckedUpdateWithoutFocus_groupInput>
+}
+
+export type tecnica_recoleccionUpdateWithoutFocus_groupInput = {
+  tipo?: Prisma.StringFieldUpdateOperationsInput | string
+  detalle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codigo_orden?: Prisma.StringFieldUpdateOperationsInput | string
+  entrevista?: Prisma.entrevistaUpdateManyWithoutTecnica_recoleccionNestedInput
+  cuestionario?: Prisma.cuestionarioUpdateManyWithoutTecnicaNestedInput
+  observacion?: Prisma.observacionUpdateManyWithoutTecnica_recoleccionNestedInput
+  requerimiento?: Prisma.requerimientoUpdateManyWithoutTecnica_recoleccionNestedInput
+  stakeholder?: Prisma.stakeholderUpdateOneWithoutTecnica_recoleccionNestedInput
+  subproceso?: Prisma.subprocesoUpdateOneRequiredWithoutTecnica_recoleccionNestedInput
+}
+
+export type tecnica_recoleccionUncheckedUpdateWithoutFocus_groupInput = {
+  id_tecnica?: Prisma.IntFieldUpdateOperationsInput | number
+  tipo?: Prisma.StringFieldUpdateOperationsInput | string
+  detalle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  codigo_orden?: Prisma.StringFieldUpdateOperationsInput | string
+  id_subproceso?: Prisma.IntFieldUpdateOperationsInput | number
+  id_stakeholder?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  entrevista?: Prisma.entrevistaUncheckedUpdateManyWithoutTecnica_recoleccionNestedInput
+  cuestionario?: Prisma.cuestionarioUncheckedUpdateManyWithoutTecnicaNestedInput
+  observacion?: Prisma.observacionUncheckedUpdateManyWithoutTecnica_recoleccionNestedInput
   requerimiento?: Prisma.requerimientoUncheckedUpdateManyWithoutTecnica_recoleccionNestedInput
 }
 
@@ -667,7 +857,9 @@ export type tecnica_recoleccionCreateWithoutRequerimientoInput = {
   detalle?: string | null
   codigo_orden: string
   entrevista?: Prisma.entrevistaCreateNestedManyWithoutTecnica_recoleccionInput
+  cuestionario?: Prisma.cuestionarioCreateNestedManyWithoutTecnicaInput
   observacion?: Prisma.observacionCreateNestedManyWithoutTecnica_recoleccionInput
+  focus_group?: Prisma.focus_groupCreateNestedManyWithoutTecnicaInput
   stakeholder?: Prisma.stakeholderCreateNestedOneWithoutTecnica_recoleccionInput
   subproceso: Prisma.subprocesoCreateNestedOneWithoutTecnica_recoleccionInput
 }
@@ -680,7 +872,9 @@ export type tecnica_recoleccionUncheckedCreateWithoutRequerimientoInput = {
   id_subproceso: number
   id_stakeholder?: number | null
   entrevista?: Prisma.entrevistaUncheckedCreateNestedManyWithoutTecnica_recoleccionInput
+  cuestionario?: Prisma.cuestionarioUncheckedCreateNestedManyWithoutTecnicaInput
   observacion?: Prisma.observacionUncheckedCreateNestedManyWithoutTecnica_recoleccionInput
+  focus_group?: Prisma.focus_groupUncheckedCreateNestedManyWithoutTecnicaInput
 }
 
 export type tecnica_recoleccionCreateOrConnectWithoutRequerimientoInput = {
@@ -704,7 +898,9 @@ export type tecnica_recoleccionUpdateWithoutRequerimientoInput = {
   detalle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   codigo_orden?: Prisma.StringFieldUpdateOperationsInput | string
   entrevista?: Prisma.entrevistaUpdateManyWithoutTecnica_recoleccionNestedInput
+  cuestionario?: Prisma.cuestionarioUpdateManyWithoutTecnicaNestedInput
   observacion?: Prisma.observacionUpdateManyWithoutTecnica_recoleccionNestedInput
+  focus_group?: Prisma.focus_groupUpdateManyWithoutTecnicaNestedInput
   stakeholder?: Prisma.stakeholderUpdateOneWithoutTecnica_recoleccionNestedInput
   subproceso?: Prisma.subprocesoUpdateOneRequiredWithoutTecnica_recoleccionNestedInput
 }
@@ -717,7 +913,9 @@ export type tecnica_recoleccionUncheckedUpdateWithoutRequerimientoInput = {
   id_subproceso?: Prisma.IntFieldUpdateOperationsInput | number
   id_stakeholder?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   entrevista?: Prisma.entrevistaUncheckedUpdateManyWithoutTecnica_recoleccionNestedInput
+  cuestionario?: Prisma.cuestionarioUncheckedUpdateManyWithoutTecnicaNestedInput
   observacion?: Prisma.observacionUncheckedUpdateManyWithoutTecnica_recoleccionNestedInput
+  focus_group?: Prisma.focus_groupUncheckedUpdateManyWithoutTecnicaNestedInput
 }
 
 export type tecnica_recoleccionCreateWithoutStakeholderInput = {
@@ -725,7 +923,9 @@ export type tecnica_recoleccionCreateWithoutStakeholderInput = {
   detalle?: string | null
   codigo_orden: string
   entrevista?: Prisma.entrevistaCreateNestedManyWithoutTecnica_recoleccionInput
+  cuestionario?: Prisma.cuestionarioCreateNestedManyWithoutTecnicaInput
   observacion?: Prisma.observacionCreateNestedManyWithoutTecnica_recoleccionInput
+  focus_group?: Prisma.focus_groupCreateNestedManyWithoutTecnicaInput
   requerimiento?: Prisma.requerimientoCreateNestedManyWithoutTecnica_recoleccionInput
   subproceso: Prisma.subprocesoCreateNestedOneWithoutTecnica_recoleccionInput
 }
@@ -737,7 +937,9 @@ export type tecnica_recoleccionUncheckedCreateWithoutStakeholderInput = {
   codigo_orden: string
   id_subproceso: number
   entrevista?: Prisma.entrevistaUncheckedCreateNestedManyWithoutTecnica_recoleccionInput
+  cuestionario?: Prisma.cuestionarioUncheckedCreateNestedManyWithoutTecnicaInput
   observacion?: Prisma.observacionUncheckedCreateNestedManyWithoutTecnica_recoleccionInput
+  focus_group?: Prisma.focus_groupUncheckedCreateNestedManyWithoutTecnicaInput
   requerimiento?: Prisma.requerimientoUncheckedCreateNestedManyWithoutTecnica_recoleccionInput
 }
 
@@ -784,7 +986,9 @@ export type tecnica_recoleccionCreateWithoutSubprocesoInput = {
   detalle?: string | null
   codigo_orden: string
   entrevista?: Prisma.entrevistaCreateNestedManyWithoutTecnica_recoleccionInput
+  cuestionario?: Prisma.cuestionarioCreateNestedManyWithoutTecnicaInput
   observacion?: Prisma.observacionCreateNestedManyWithoutTecnica_recoleccionInput
+  focus_group?: Prisma.focus_groupCreateNestedManyWithoutTecnicaInput
   requerimiento?: Prisma.requerimientoCreateNestedManyWithoutTecnica_recoleccionInput
   stakeholder?: Prisma.stakeholderCreateNestedOneWithoutTecnica_recoleccionInput
 }
@@ -796,7 +1000,9 @@ export type tecnica_recoleccionUncheckedCreateWithoutSubprocesoInput = {
   codigo_orden: string
   id_stakeholder?: number | null
   entrevista?: Prisma.entrevistaUncheckedCreateNestedManyWithoutTecnica_recoleccionInput
+  cuestionario?: Prisma.cuestionarioUncheckedCreateNestedManyWithoutTecnicaInput
   observacion?: Prisma.observacionUncheckedCreateNestedManyWithoutTecnica_recoleccionInput
+  focus_group?: Prisma.focus_groupUncheckedCreateNestedManyWithoutTecnicaInput
   requerimiento?: Prisma.requerimientoUncheckedCreateNestedManyWithoutTecnica_recoleccionInput
 }
 
@@ -839,7 +1045,9 @@ export type tecnica_recoleccionUpdateWithoutStakeholderInput = {
   detalle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   codigo_orden?: Prisma.StringFieldUpdateOperationsInput | string
   entrevista?: Prisma.entrevistaUpdateManyWithoutTecnica_recoleccionNestedInput
+  cuestionario?: Prisma.cuestionarioUpdateManyWithoutTecnicaNestedInput
   observacion?: Prisma.observacionUpdateManyWithoutTecnica_recoleccionNestedInput
+  focus_group?: Prisma.focus_groupUpdateManyWithoutTecnicaNestedInput
   requerimiento?: Prisma.requerimientoUpdateManyWithoutTecnica_recoleccionNestedInput
   subproceso?: Prisma.subprocesoUpdateOneRequiredWithoutTecnica_recoleccionNestedInput
 }
@@ -851,7 +1059,9 @@ export type tecnica_recoleccionUncheckedUpdateWithoutStakeholderInput = {
   codigo_orden?: Prisma.StringFieldUpdateOperationsInput | string
   id_subproceso?: Prisma.IntFieldUpdateOperationsInput | number
   entrevista?: Prisma.entrevistaUncheckedUpdateManyWithoutTecnica_recoleccionNestedInput
+  cuestionario?: Prisma.cuestionarioUncheckedUpdateManyWithoutTecnicaNestedInput
   observacion?: Prisma.observacionUncheckedUpdateManyWithoutTecnica_recoleccionNestedInput
+  focus_group?: Prisma.focus_groupUncheckedUpdateManyWithoutTecnicaNestedInput
   requerimiento?: Prisma.requerimientoUncheckedUpdateManyWithoutTecnica_recoleccionNestedInput
 }
 
@@ -876,7 +1086,9 @@ export type tecnica_recoleccionUpdateWithoutSubprocesoInput = {
   detalle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   codigo_orden?: Prisma.StringFieldUpdateOperationsInput | string
   entrevista?: Prisma.entrevistaUpdateManyWithoutTecnica_recoleccionNestedInput
+  cuestionario?: Prisma.cuestionarioUpdateManyWithoutTecnicaNestedInput
   observacion?: Prisma.observacionUpdateManyWithoutTecnica_recoleccionNestedInput
+  focus_group?: Prisma.focus_groupUpdateManyWithoutTecnicaNestedInput
   requerimiento?: Prisma.requerimientoUpdateManyWithoutTecnica_recoleccionNestedInput
   stakeholder?: Prisma.stakeholderUpdateOneWithoutTecnica_recoleccionNestedInput
 }
@@ -888,7 +1100,9 @@ export type tecnica_recoleccionUncheckedUpdateWithoutSubprocesoInput = {
   codigo_orden?: Prisma.StringFieldUpdateOperationsInput | string
   id_stakeholder?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   entrevista?: Prisma.entrevistaUncheckedUpdateManyWithoutTecnica_recoleccionNestedInput
+  cuestionario?: Prisma.cuestionarioUncheckedUpdateManyWithoutTecnicaNestedInput
   observacion?: Prisma.observacionUncheckedUpdateManyWithoutTecnica_recoleccionNestedInput
+  focus_group?: Prisma.focus_groupUncheckedUpdateManyWithoutTecnicaNestedInput
   requerimiento?: Prisma.requerimientoUncheckedUpdateManyWithoutTecnica_recoleccionNestedInput
 }
 
@@ -907,13 +1121,17 @@ export type tecnica_recoleccionUncheckedUpdateManyWithoutSubprocesoInput = {
 
 export type Tecnica_recoleccionCountOutputType = {
   entrevista: number
+  cuestionario: number
   observacion: number
+  focus_group: number
   requerimiento: number
 }
 
 export type Tecnica_recoleccionCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   entrevista?: boolean | Tecnica_recoleccionCountOutputTypeCountEntrevistaArgs
+  cuestionario?: boolean | Tecnica_recoleccionCountOutputTypeCountCuestionarioArgs
   observacion?: boolean | Tecnica_recoleccionCountOutputTypeCountObservacionArgs
+  focus_group?: boolean | Tecnica_recoleccionCountOutputTypeCountFocus_groupArgs
   requerimiento?: boolean | Tecnica_recoleccionCountOutputTypeCountRequerimientoArgs
 }
 
@@ -937,8 +1155,22 @@ export type Tecnica_recoleccionCountOutputTypeCountEntrevistaArgs<ExtArgs extend
 /**
  * Tecnica_recoleccionCountOutputType without action
  */
+export type Tecnica_recoleccionCountOutputTypeCountCuestionarioArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.cuestionarioWhereInput
+}
+
+/**
+ * Tecnica_recoleccionCountOutputType without action
+ */
 export type Tecnica_recoleccionCountOutputTypeCountObservacionArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.observacionWhereInput
+}
+
+/**
+ * Tecnica_recoleccionCountOutputType without action
+ */
+export type Tecnica_recoleccionCountOutputTypeCountFocus_groupArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.focus_groupWhereInput
 }
 
 /**
@@ -957,7 +1189,9 @@ export type tecnica_recoleccionSelect<ExtArgs extends runtime.Types.Extensions.I
   id_subproceso?: boolean
   id_stakeholder?: boolean
   entrevista?: boolean | Prisma.tecnica_recoleccion$entrevistaArgs<ExtArgs>
+  cuestionario?: boolean | Prisma.tecnica_recoleccion$cuestionarioArgs<ExtArgs>
   observacion?: boolean | Prisma.tecnica_recoleccion$observacionArgs<ExtArgs>
+  focus_group?: boolean | Prisma.tecnica_recoleccion$focus_groupArgs<ExtArgs>
   requerimiento?: boolean | Prisma.tecnica_recoleccion$requerimientoArgs<ExtArgs>
   stakeholder?: boolean | Prisma.tecnica_recoleccion$stakeholderArgs<ExtArgs>
   subproceso?: boolean | Prisma.subprocesoDefaultArgs<ExtArgs>
@@ -998,7 +1232,9 @@ export type tecnica_recoleccionSelectScalar = {
 export type tecnica_recoleccionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id_tecnica" | "tipo" | "detalle" | "codigo_orden" | "id_subproceso" | "id_stakeholder", ExtArgs["result"]["tecnica_recoleccion"]>
 export type tecnica_recoleccionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   entrevista?: boolean | Prisma.tecnica_recoleccion$entrevistaArgs<ExtArgs>
+  cuestionario?: boolean | Prisma.tecnica_recoleccion$cuestionarioArgs<ExtArgs>
   observacion?: boolean | Prisma.tecnica_recoleccion$observacionArgs<ExtArgs>
+  focus_group?: boolean | Prisma.tecnica_recoleccion$focus_groupArgs<ExtArgs>
   requerimiento?: boolean | Prisma.tecnica_recoleccion$requerimientoArgs<ExtArgs>
   stakeholder?: boolean | Prisma.tecnica_recoleccion$stakeholderArgs<ExtArgs>
   subproceso?: boolean | Prisma.subprocesoDefaultArgs<ExtArgs>
@@ -1017,7 +1253,9 @@ export type $tecnica_recoleccionPayload<ExtArgs extends runtime.Types.Extensions
   name: "tecnica_recoleccion"
   objects: {
     entrevista: Prisma.$entrevistaPayload<ExtArgs>[]
+    cuestionario: Prisma.$cuestionarioPayload<ExtArgs>[]
     observacion: Prisma.$observacionPayload<ExtArgs>[]
+    focus_group: Prisma.$focus_groupPayload<ExtArgs>[]
     requerimiento: Prisma.$requerimientoPayload<ExtArgs>[]
     stakeholder: Prisma.$stakeholderPayload<ExtArgs> | null
     subproceso: Prisma.$subprocesoPayload<ExtArgs>
@@ -1424,7 +1662,9 @@ readonly fields: tecnica_recoleccionFieldRefs;
 export interface Prisma__tecnica_recoleccionClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   entrevista<T extends Prisma.tecnica_recoleccion$entrevistaArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.tecnica_recoleccion$entrevistaArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$entrevistaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  cuestionario<T extends Prisma.tecnica_recoleccion$cuestionarioArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.tecnica_recoleccion$cuestionarioArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$cuestionarioPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   observacion<T extends Prisma.tecnica_recoleccion$observacionArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.tecnica_recoleccion$observacionArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$observacionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  focus_group<T extends Prisma.tecnica_recoleccion$focus_groupArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.tecnica_recoleccion$focus_groupArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$focus_groupPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   requerimiento<T extends Prisma.tecnica_recoleccion$requerimientoArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.tecnica_recoleccion$requerimientoArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$requerimientoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   stakeholder<T extends Prisma.tecnica_recoleccion$stakeholderArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.tecnica_recoleccion$stakeholderArgs<ExtArgs>>): Prisma.Prisma__stakeholderClient<runtime.Types.Result.GetResult<Prisma.$stakeholderPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   subproceso<T extends Prisma.subprocesoDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.subprocesoDefaultArgs<ExtArgs>>): Prisma.Prisma__subprocesoClient<runtime.Types.Result.GetResult<Prisma.$subprocesoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
@@ -1888,6 +2128,30 @@ export type tecnica_recoleccion$entrevistaArgs<ExtArgs extends runtime.Types.Ext
 }
 
 /**
+ * tecnica_recoleccion.cuestionario
+ */
+export type tecnica_recoleccion$cuestionarioArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the cuestionario
+   */
+  select?: Prisma.cuestionarioSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the cuestionario
+   */
+  omit?: Prisma.cuestionarioOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.cuestionarioInclude<ExtArgs> | null
+  where?: Prisma.cuestionarioWhereInput
+  orderBy?: Prisma.cuestionarioOrderByWithRelationInput | Prisma.cuestionarioOrderByWithRelationInput[]
+  cursor?: Prisma.cuestionarioWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CuestionarioScalarFieldEnum | Prisma.CuestionarioScalarFieldEnum[]
+}
+
+/**
  * tecnica_recoleccion.observacion
  */
 export type tecnica_recoleccion$observacionArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1909,6 +2173,30 @@ export type tecnica_recoleccion$observacionArgs<ExtArgs extends runtime.Types.Ex
   take?: number
   skip?: number
   distinct?: Prisma.ObservacionScalarFieldEnum | Prisma.ObservacionScalarFieldEnum[]
+}
+
+/**
+ * tecnica_recoleccion.focus_group
+ */
+export type tecnica_recoleccion$focus_groupArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the focus_group
+   */
+  select?: Prisma.focus_groupSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the focus_group
+   */
+  omit?: Prisma.focus_groupOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.focus_groupInclude<ExtArgs> | null
+  where?: Prisma.focus_groupWhereInput
+  orderBy?: Prisma.focus_groupOrderByWithRelationInput | Prisma.focus_groupOrderByWithRelationInput[]
+  cursor?: Prisma.focus_groupWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.Focus_groupScalarFieldEnum | Prisma.Focus_groupScalarFieldEnum[]
 }
 
 /**

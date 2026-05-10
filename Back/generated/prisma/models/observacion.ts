@@ -30,45 +30,55 @@ export type ObservacionAvgAggregateOutputType = {
   id_observacion: number | null
   id_tecnica: number | null
   id_usuario: number | null
+  id_stakeholder: number | null
+  duracion: number | null
 }
 
 export type ObservacionSumAggregateOutputType = {
   id_observacion: number | null
   id_tecnica: number | null
   id_usuario: number | null
+  id_stakeholder: number | null
+  duracion: number | null
 }
 
 export type ObservacionMinAggregateOutputType = {
   id_observacion: number | null
   id_tecnica: number | null
   id_usuario: number | null
+  id_stakeholder: number | null
+  ubicacion: string | null
   fecha: Date | null
+  duracion: number | null
+  hallazgos_conclusiones: string | null
   nota: string | null
-  tipo_observacion: string | null
-  tipo_hallazgo: string | null
-  impacto: string | null
+  estatus: string | null
 }
 
 export type ObservacionMaxAggregateOutputType = {
   id_observacion: number | null
   id_tecnica: number | null
   id_usuario: number | null
+  id_stakeholder: number | null
+  ubicacion: string | null
   fecha: Date | null
+  duracion: number | null
+  hallazgos_conclusiones: string | null
   nota: string | null
-  tipo_observacion: string | null
-  tipo_hallazgo: string | null
-  impacto: string | null
+  estatus: string | null
 }
 
 export type ObservacionCountAggregateOutputType = {
   id_observacion: number
   id_tecnica: number
   id_usuario: number
+  id_stakeholder: number
+  ubicacion: number
   fecha: number
+  duracion: number
+  hallazgos_conclusiones: number
   nota: number
-  tipo_observacion: number
-  tipo_hallazgo: number
-  impacto: number
+  estatus: number
   _all: number
 }
 
@@ -77,45 +87,55 @@ export type ObservacionAvgAggregateInputType = {
   id_observacion?: true
   id_tecnica?: true
   id_usuario?: true
+  id_stakeholder?: true
+  duracion?: true
 }
 
 export type ObservacionSumAggregateInputType = {
   id_observacion?: true
   id_tecnica?: true
   id_usuario?: true
+  id_stakeholder?: true
+  duracion?: true
 }
 
 export type ObservacionMinAggregateInputType = {
   id_observacion?: true
   id_tecnica?: true
   id_usuario?: true
+  id_stakeholder?: true
+  ubicacion?: true
   fecha?: true
+  duracion?: true
+  hallazgos_conclusiones?: true
   nota?: true
-  tipo_observacion?: true
-  tipo_hallazgo?: true
-  impacto?: true
+  estatus?: true
 }
 
 export type ObservacionMaxAggregateInputType = {
   id_observacion?: true
   id_tecnica?: true
   id_usuario?: true
+  id_stakeholder?: true
+  ubicacion?: true
   fecha?: true
+  duracion?: true
+  hallazgos_conclusiones?: true
   nota?: true
-  tipo_observacion?: true
-  tipo_hallazgo?: true
-  impacto?: true
+  estatus?: true
 }
 
 export type ObservacionCountAggregateInputType = {
   id_observacion?: true
   id_tecnica?: true
   id_usuario?: true
+  id_stakeholder?: true
+  ubicacion?: true
   fecha?: true
+  duracion?: true
+  hallazgos_conclusiones?: true
   nota?: true
-  tipo_observacion?: true
-  tipo_hallazgo?: true
-  impacto?: true
+  estatus?: true
   _all?: true
 }
 
@@ -209,11 +229,13 @@ export type ObservacionGroupByOutputType = {
   id_observacion: number
   id_tecnica: number
   id_usuario: number
+  id_stakeholder: number | null
+  ubicacion: string | null
   fecha: Date | null
-  nota: string
-  tipo_observacion: string
-  tipo_hallazgo: string | null
-  impacto: string | null
+  duracion: number | null
+  hallazgos_conclusiones: string | null
+  nota: string | null
+  estatus: string
   _count: ObservacionCountAggregateOutputType | null
   _avg: ObservacionAvgAggregateOutputType | null
   _sum: ObservacionSumAggregateOutputType | null
@@ -243,26 +265,32 @@ export type observacionWhereInput = {
   id_observacion?: Prisma.IntFilter<"observacion"> | number
   id_tecnica?: Prisma.IntFilter<"observacion"> | number
   id_usuario?: Prisma.IntFilter<"observacion"> | number
+  id_stakeholder?: Prisma.IntNullableFilter<"observacion"> | number | null
+  ubicacion?: Prisma.StringNullableFilter<"observacion"> | string | null
   fecha?: Prisma.DateTimeNullableFilter<"observacion"> | Date | string | null
-  nota?: Prisma.StringFilter<"observacion"> | string
-  tipo_observacion?: Prisma.StringFilter<"observacion"> | string
-  tipo_hallazgo?: Prisma.StringNullableFilter<"observacion"> | string | null
-  impacto?: Prisma.StringNullableFilter<"observacion"> | string | null
+  duracion?: Prisma.IntNullableFilter<"observacion"> | number | null
+  hallazgos_conclusiones?: Prisma.StringNullableFilter<"observacion"> | string | null
+  nota?: Prisma.StringNullableFilter<"observacion"> | string | null
+  estatus?: Prisma.StringFilter<"observacion"> | string
   tecnica_recoleccion?: Prisma.XOR<Prisma.Tecnica_recoleccionScalarRelationFilter, Prisma.tecnica_recoleccionWhereInput>
   usuario?: Prisma.XOR<Prisma.UsuarioScalarRelationFilter, Prisma.usuarioWhereInput>
+  stakeholder?: Prisma.XOR<Prisma.StakeholderNullableScalarRelationFilter, Prisma.stakeholderWhereInput> | null
 }
 
 export type observacionOrderByWithRelationInput = {
   id_observacion?: Prisma.SortOrder
   id_tecnica?: Prisma.SortOrder
   id_usuario?: Prisma.SortOrder
+  id_stakeholder?: Prisma.SortOrderInput | Prisma.SortOrder
+  ubicacion?: Prisma.SortOrderInput | Prisma.SortOrder
   fecha?: Prisma.SortOrderInput | Prisma.SortOrder
-  nota?: Prisma.SortOrder
-  tipo_observacion?: Prisma.SortOrder
-  tipo_hallazgo?: Prisma.SortOrderInput | Prisma.SortOrder
-  impacto?: Prisma.SortOrderInput | Prisma.SortOrder
+  duracion?: Prisma.SortOrderInput | Prisma.SortOrder
+  hallazgos_conclusiones?: Prisma.SortOrderInput | Prisma.SortOrder
+  nota?: Prisma.SortOrderInput | Prisma.SortOrder
+  estatus?: Prisma.SortOrder
   tecnica_recoleccion?: Prisma.tecnica_recoleccionOrderByWithRelationInput
   usuario?: Prisma.usuarioOrderByWithRelationInput
+  stakeholder?: Prisma.stakeholderOrderByWithRelationInput
 }
 
 export type observacionWhereUniqueInput = Prisma.AtLeast<{
@@ -272,24 +300,29 @@ export type observacionWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.observacionWhereInput | Prisma.observacionWhereInput[]
   id_tecnica?: Prisma.IntFilter<"observacion"> | number
   id_usuario?: Prisma.IntFilter<"observacion"> | number
+  id_stakeholder?: Prisma.IntNullableFilter<"observacion"> | number | null
+  ubicacion?: Prisma.StringNullableFilter<"observacion"> | string | null
   fecha?: Prisma.DateTimeNullableFilter<"observacion"> | Date | string | null
-  nota?: Prisma.StringFilter<"observacion"> | string
-  tipo_observacion?: Prisma.StringFilter<"observacion"> | string
-  tipo_hallazgo?: Prisma.StringNullableFilter<"observacion"> | string | null
-  impacto?: Prisma.StringNullableFilter<"observacion"> | string | null
+  duracion?: Prisma.IntNullableFilter<"observacion"> | number | null
+  hallazgos_conclusiones?: Prisma.StringNullableFilter<"observacion"> | string | null
+  nota?: Prisma.StringNullableFilter<"observacion"> | string | null
+  estatus?: Prisma.StringFilter<"observacion"> | string
   tecnica_recoleccion?: Prisma.XOR<Prisma.Tecnica_recoleccionScalarRelationFilter, Prisma.tecnica_recoleccionWhereInput>
   usuario?: Prisma.XOR<Prisma.UsuarioScalarRelationFilter, Prisma.usuarioWhereInput>
+  stakeholder?: Prisma.XOR<Prisma.StakeholderNullableScalarRelationFilter, Prisma.stakeholderWhereInput> | null
 }, "id_observacion">
 
 export type observacionOrderByWithAggregationInput = {
   id_observacion?: Prisma.SortOrder
   id_tecnica?: Prisma.SortOrder
   id_usuario?: Prisma.SortOrder
+  id_stakeholder?: Prisma.SortOrderInput | Prisma.SortOrder
+  ubicacion?: Prisma.SortOrderInput | Prisma.SortOrder
   fecha?: Prisma.SortOrderInput | Prisma.SortOrder
-  nota?: Prisma.SortOrder
-  tipo_observacion?: Prisma.SortOrder
-  tipo_hallazgo?: Prisma.SortOrderInput | Prisma.SortOrder
-  impacto?: Prisma.SortOrderInput | Prisma.SortOrder
+  duracion?: Prisma.SortOrderInput | Prisma.SortOrder
+  hallazgos_conclusiones?: Prisma.SortOrderInput | Prisma.SortOrder
+  nota?: Prisma.SortOrderInput | Prisma.SortOrder
+  estatus?: Prisma.SortOrder
   _count?: Prisma.observacionCountOrderByAggregateInput
   _avg?: Prisma.observacionAvgOrderByAggregateInput
   _max?: Prisma.observacionMaxOrderByAggregateInput
@@ -304,128 +337,153 @@ export type observacionScalarWhereWithAggregatesInput = {
   id_observacion?: Prisma.IntWithAggregatesFilter<"observacion"> | number
   id_tecnica?: Prisma.IntWithAggregatesFilter<"observacion"> | number
   id_usuario?: Prisma.IntWithAggregatesFilter<"observacion"> | number
+  id_stakeholder?: Prisma.IntNullableWithAggregatesFilter<"observacion"> | number | null
+  ubicacion?: Prisma.StringNullableWithAggregatesFilter<"observacion"> | string | null
   fecha?: Prisma.DateTimeNullableWithAggregatesFilter<"observacion"> | Date | string | null
-  nota?: Prisma.StringWithAggregatesFilter<"observacion"> | string
-  tipo_observacion?: Prisma.StringWithAggregatesFilter<"observacion"> | string
-  tipo_hallazgo?: Prisma.StringNullableWithAggregatesFilter<"observacion"> | string | null
-  impacto?: Prisma.StringNullableWithAggregatesFilter<"observacion"> | string | null
+  duracion?: Prisma.IntNullableWithAggregatesFilter<"observacion"> | number | null
+  hallazgos_conclusiones?: Prisma.StringNullableWithAggregatesFilter<"observacion"> | string | null
+  nota?: Prisma.StringNullableWithAggregatesFilter<"observacion"> | string | null
+  estatus?: Prisma.StringWithAggregatesFilter<"observacion"> | string
 }
 
 export type observacionCreateInput = {
+  ubicacion?: string | null
   fecha?: Date | string | null
-  nota: string
-  tipo_observacion: string
-  tipo_hallazgo?: string | null
-  impacto?: string | null
+  duracion?: number | null
+  hallazgos_conclusiones?: string | null
+  nota?: string | null
+  estatus?: string
   tecnica_recoleccion: Prisma.tecnica_recoleccionCreateNestedOneWithoutObservacionInput
   usuario: Prisma.usuarioCreateNestedOneWithoutObservacionInput
+  stakeholder?: Prisma.stakeholderCreateNestedOneWithoutObservacionInput
 }
 
 export type observacionUncheckedCreateInput = {
   id_observacion?: number
   id_tecnica: number
   id_usuario: number
+  id_stakeholder?: number | null
+  ubicacion?: string | null
   fecha?: Date | string | null
-  nota: string
-  tipo_observacion: string
-  tipo_hallazgo?: string | null
-  impacto?: string | null
+  duracion?: number | null
+  hallazgos_conclusiones?: string | null
+  nota?: string | null
+  estatus?: string
 }
 
 export type observacionUpdateInput = {
+  ubicacion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fecha?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  nota?: Prisma.StringFieldUpdateOperationsInput | string
-  tipo_observacion?: Prisma.StringFieldUpdateOperationsInput | string
-  tipo_hallazgo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  impacto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  duracion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  hallazgos_conclusiones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nota?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  estatus?: Prisma.StringFieldUpdateOperationsInput | string
   tecnica_recoleccion?: Prisma.tecnica_recoleccionUpdateOneRequiredWithoutObservacionNestedInput
   usuario?: Prisma.usuarioUpdateOneRequiredWithoutObservacionNestedInput
+  stakeholder?: Prisma.stakeholderUpdateOneWithoutObservacionNestedInput
 }
 
 export type observacionUncheckedUpdateInput = {
   id_observacion?: Prisma.IntFieldUpdateOperationsInput | number
   id_tecnica?: Prisma.IntFieldUpdateOperationsInput | number
   id_usuario?: Prisma.IntFieldUpdateOperationsInput | number
+  id_stakeholder?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  ubicacion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fecha?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  nota?: Prisma.StringFieldUpdateOperationsInput | string
-  tipo_observacion?: Prisma.StringFieldUpdateOperationsInput | string
-  tipo_hallazgo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  impacto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  duracion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  hallazgos_conclusiones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nota?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  estatus?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type observacionCreateManyInput = {
   id_observacion?: number
   id_tecnica: number
   id_usuario: number
+  id_stakeholder?: number | null
+  ubicacion?: string | null
   fecha?: Date | string | null
-  nota: string
-  tipo_observacion: string
-  tipo_hallazgo?: string | null
-  impacto?: string | null
+  duracion?: number | null
+  hallazgos_conclusiones?: string | null
+  nota?: string | null
+  estatus?: string
 }
 
 export type observacionUpdateManyMutationInput = {
+  ubicacion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fecha?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  nota?: Prisma.StringFieldUpdateOperationsInput | string
-  tipo_observacion?: Prisma.StringFieldUpdateOperationsInput | string
-  tipo_hallazgo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  impacto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  duracion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  hallazgos_conclusiones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nota?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  estatus?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type observacionUncheckedUpdateManyInput = {
   id_observacion?: Prisma.IntFieldUpdateOperationsInput | number
   id_tecnica?: Prisma.IntFieldUpdateOperationsInput | number
   id_usuario?: Prisma.IntFieldUpdateOperationsInput | number
+  id_stakeholder?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  ubicacion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fecha?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  nota?: Prisma.StringFieldUpdateOperationsInput | string
-  tipo_observacion?: Prisma.StringFieldUpdateOperationsInput | string
-  tipo_hallazgo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  impacto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  duracion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  hallazgos_conclusiones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nota?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  estatus?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type observacionCountOrderByAggregateInput = {
   id_observacion?: Prisma.SortOrder
   id_tecnica?: Prisma.SortOrder
   id_usuario?: Prisma.SortOrder
+  id_stakeholder?: Prisma.SortOrder
+  ubicacion?: Prisma.SortOrder
   fecha?: Prisma.SortOrder
+  duracion?: Prisma.SortOrder
+  hallazgos_conclusiones?: Prisma.SortOrder
   nota?: Prisma.SortOrder
-  tipo_observacion?: Prisma.SortOrder
-  tipo_hallazgo?: Prisma.SortOrder
-  impacto?: Prisma.SortOrder
+  estatus?: Prisma.SortOrder
 }
 
 export type observacionAvgOrderByAggregateInput = {
   id_observacion?: Prisma.SortOrder
   id_tecnica?: Prisma.SortOrder
   id_usuario?: Prisma.SortOrder
+  id_stakeholder?: Prisma.SortOrder
+  duracion?: Prisma.SortOrder
 }
 
 export type observacionMaxOrderByAggregateInput = {
   id_observacion?: Prisma.SortOrder
   id_tecnica?: Prisma.SortOrder
   id_usuario?: Prisma.SortOrder
+  id_stakeholder?: Prisma.SortOrder
+  ubicacion?: Prisma.SortOrder
   fecha?: Prisma.SortOrder
+  duracion?: Prisma.SortOrder
+  hallazgos_conclusiones?: Prisma.SortOrder
   nota?: Prisma.SortOrder
-  tipo_observacion?: Prisma.SortOrder
-  tipo_hallazgo?: Prisma.SortOrder
-  impacto?: Prisma.SortOrder
+  estatus?: Prisma.SortOrder
 }
 
 export type observacionMinOrderByAggregateInput = {
   id_observacion?: Prisma.SortOrder
   id_tecnica?: Prisma.SortOrder
   id_usuario?: Prisma.SortOrder
+  id_stakeholder?: Prisma.SortOrder
+  ubicacion?: Prisma.SortOrder
   fecha?: Prisma.SortOrder
+  duracion?: Prisma.SortOrder
+  hallazgos_conclusiones?: Prisma.SortOrder
   nota?: Prisma.SortOrder
-  tipo_observacion?: Prisma.SortOrder
-  tipo_hallazgo?: Prisma.SortOrder
-  impacto?: Prisma.SortOrder
+  estatus?: Prisma.SortOrder
 }
 
 export type observacionSumOrderByAggregateInput = {
   id_observacion?: Prisma.SortOrder
   id_tecnica?: Prisma.SortOrder
   id_usuario?: Prisma.SortOrder
+  id_stakeholder?: Prisma.SortOrder
+  duracion?: Prisma.SortOrder
 }
 
 export type ObservacionListRelationFilter = {
@@ -436,6 +494,48 @@ export type ObservacionListRelationFilter = {
 
 export type observacionOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
+}
+
+export type observacionCreateNestedManyWithoutStakeholderInput = {
+  create?: Prisma.XOR<Prisma.observacionCreateWithoutStakeholderInput, Prisma.observacionUncheckedCreateWithoutStakeholderInput> | Prisma.observacionCreateWithoutStakeholderInput[] | Prisma.observacionUncheckedCreateWithoutStakeholderInput[]
+  connectOrCreate?: Prisma.observacionCreateOrConnectWithoutStakeholderInput | Prisma.observacionCreateOrConnectWithoutStakeholderInput[]
+  createMany?: Prisma.observacionCreateManyStakeholderInputEnvelope
+  connect?: Prisma.observacionWhereUniqueInput | Prisma.observacionWhereUniqueInput[]
+}
+
+export type observacionUncheckedCreateNestedManyWithoutStakeholderInput = {
+  create?: Prisma.XOR<Prisma.observacionCreateWithoutStakeholderInput, Prisma.observacionUncheckedCreateWithoutStakeholderInput> | Prisma.observacionCreateWithoutStakeholderInput[] | Prisma.observacionUncheckedCreateWithoutStakeholderInput[]
+  connectOrCreate?: Prisma.observacionCreateOrConnectWithoutStakeholderInput | Prisma.observacionCreateOrConnectWithoutStakeholderInput[]
+  createMany?: Prisma.observacionCreateManyStakeholderInputEnvelope
+  connect?: Prisma.observacionWhereUniqueInput | Prisma.observacionWhereUniqueInput[]
+}
+
+export type observacionUpdateManyWithoutStakeholderNestedInput = {
+  create?: Prisma.XOR<Prisma.observacionCreateWithoutStakeholderInput, Prisma.observacionUncheckedCreateWithoutStakeholderInput> | Prisma.observacionCreateWithoutStakeholderInput[] | Prisma.observacionUncheckedCreateWithoutStakeholderInput[]
+  connectOrCreate?: Prisma.observacionCreateOrConnectWithoutStakeholderInput | Prisma.observacionCreateOrConnectWithoutStakeholderInput[]
+  upsert?: Prisma.observacionUpsertWithWhereUniqueWithoutStakeholderInput | Prisma.observacionUpsertWithWhereUniqueWithoutStakeholderInput[]
+  createMany?: Prisma.observacionCreateManyStakeholderInputEnvelope
+  set?: Prisma.observacionWhereUniqueInput | Prisma.observacionWhereUniqueInput[]
+  disconnect?: Prisma.observacionWhereUniqueInput | Prisma.observacionWhereUniqueInput[]
+  delete?: Prisma.observacionWhereUniqueInput | Prisma.observacionWhereUniqueInput[]
+  connect?: Prisma.observacionWhereUniqueInput | Prisma.observacionWhereUniqueInput[]
+  update?: Prisma.observacionUpdateWithWhereUniqueWithoutStakeholderInput | Prisma.observacionUpdateWithWhereUniqueWithoutStakeholderInput[]
+  updateMany?: Prisma.observacionUpdateManyWithWhereWithoutStakeholderInput | Prisma.observacionUpdateManyWithWhereWithoutStakeholderInput[]
+  deleteMany?: Prisma.observacionScalarWhereInput | Prisma.observacionScalarWhereInput[]
+}
+
+export type observacionUncheckedUpdateManyWithoutStakeholderNestedInput = {
+  create?: Prisma.XOR<Prisma.observacionCreateWithoutStakeholderInput, Prisma.observacionUncheckedCreateWithoutStakeholderInput> | Prisma.observacionCreateWithoutStakeholderInput[] | Prisma.observacionUncheckedCreateWithoutStakeholderInput[]
+  connectOrCreate?: Prisma.observacionCreateOrConnectWithoutStakeholderInput | Prisma.observacionCreateOrConnectWithoutStakeholderInput[]
+  upsert?: Prisma.observacionUpsertWithWhereUniqueWithoutStakeholderInput | Prisma.observacionUpsertWithWhereUniqueWithoutStakeholderInput[]
+  createMany?: Prisma.observacionCreateManyStakeholderInputEnvelope
+  set?: Prisma.observacionWhereUniqueInput | Prisma.observacionWhereUniqueInput[]
+  disconnect?: Prisma.observacionWhereUniqueInput | Prisma.observacionWhereUniqueInput[]
+  delete?: Prisma.observacionWhereUniqueInput | Prisma.observacionWhereUniqueInput[]
+  connect?: Prisma.observacionWhereUniqueInput | Prisma.observacionWhereUniqueInput[]
+  update?: Prisma.observacionUpdateWithWhereUniqueWithoutStakeholderInput | Prisma.observacionUpdateWithWhereUniqueWithoutStakeholderInput[]
+  updateMany?: Prisma.observacionUpdateManyWithWhereWithoutStakeholderInput | Prisma.observacionUpdateManyWithWhereWithoutStakeholderInput[]
+  deleteMany?: Prisma.observacionScalarWhereInput | Prisma.observacionScalarWhereInput[]
 }
 
 export type observacionCreateNestedManyWithoutTecnica_recoleccionInput = {
@@ -522,23 +622,92 @@ export type observacionUncheckedUpdateManyWithoutUsuarioNestedInput = {
   deleteMany?: Prisma.observacionScalarWhereInput | Prisma.observacionScalarWhereInput[]
 }
 
-export type observacionCreateWithoutTecnica_recoleccionInput = {
+export type observacionCreateWithoutStakeholderInput = {
+  ubicacion?: string | null
   fecha?: Date | string | null
-  nota: string
-  tipo_observacion: string
-  tipo_hallazgo?: string | null
-  impacto?: string | null
+  duracion?: number | null
+  hallazgos_conclusiones?: string | null
+  nota?: string | null
+  estatus?: string
+  tecnica_recoleccion: Prisma.tecnica_recoleccionCreateNestedOneWithoutObservacionInput
   usuario: Prisma.usuarioCreateNestedOneWithoutObservacionInput
+}
+
+export type observacionUncheckedCreateWithoutStakeholderInput = {
+  id_observacion?: number
+  id_tecnica: number
+  id_usuario: number
+  ubicacion?: string | null
+  fecha?: Date | string | null
+  duracion?: number | null
+  hallazgos_conclusiones?: string | null
+  nota?: string | null
+  estatus?: string
+}
+
+export type observacionCreateOrConnectWithoutStakeholderInput = {
+  where: Prisma.observacionWhereUniqueInput
+  create: Prisma.XOR<Prisma.observacionCreateWithoutStakeholderInput, Prisma.observacionUncheckedCreateWithoutStakeholderInput>
+}
+
+export type observacionCreateManyStakeholderInputEnvelope = {
+  data: Prisma.observacionCreateManyStakeholderInput | Prisma.observacionCreateManyStakeholderInput[]
+  skipDuplicates?: boolean
+}
+
+export type observacionUpsertWithWhereUniqueWithoutStakeholderInput = {
+  where: Prisma.observacionWhereUniqueInput
+  update: Prisma.XOR<Prisma.observacionUpdateWithoutStakeholderInput, Prisma.observacionUncheckedUpdateWithoutStakeholderInput>
+  create: Prisma.XOR<Prisma.observacionCreateWithoutStakeholderInput, Prisma.observacionUncheckedCreateWithoutStakeholderInput>
+}
+
+export type observacionUpdateWithWhereUniqueWithoutStakeholderInput = {
+  where: Prisma.observacionWhereUniqueInput
+  data: Prisma.XOR<Prisma.observacionUpdateWithoutStakeholderInput, Prisma.observacionUncheckedUpdateWithoutStakeholderInput>
+}
+
+export type observacionUpdateManyWithWhereWithoutStakeholderInput = {
+  where: Prisma.observacionScalarWhereInput
+  data: Prisma.XOR<Prisma.observacionUpdateManyMutationInput, Prisma.observacionUncheckedUpdateManyWithoutStakeholderInput>
+}
+
+export type observacionScalarWhereInput = {
+  AND?: Prisma.observacionScalarWhereInput | Prisma.observacionScalarWhereInput[]
+  OR?: Prisma.observacionScalarWhereInput[]
+  NOT?: Prisma.observacionScalarWhereInput | Prisma.observacionScalarWhereInput[]
+  id_observacion?: Prisma.IntFilter<"observacion"> | number
+  id_tecnica?: Prisma.IntFilter<"observacion"> | number
+  id_usuario?: Prisma.IntFilter<"observacion"> | number
+  id_stakeholder?: Prisma.IntNullableFilter<"observacion"> | number | null
+  ubicacion?: Prisma.StringNullableFilter<"observacion"> | string | null
+  fecha?: Prisma.DateTimeNullableFilter<"observacion"> | Date | string | null
+  duracion?: Prisma.IntNullableFilter<"observacion"> | number | null
+  hallazgos_conclusiones?: Prisma.StringNullableFilter<"observacion"> | string | null
+  nota?: Prisma.StringNullableFilter<"observacion"> | string | null
+  estatus?: Prisma.StringFilter<"observacion"> | string
+}
+
+export type observacionCreateWithoutTecnica_recoleccionInput = {
+  ubicacion?: string | null
+  fecha?: Date | string | null
+  duracion?: number | null
+  hallazgos_conclusiones?: string | null
+  nota?: string | null
+  estatus?: string
+  usuario: Prisma.usuarioCreateNestedOneWithoutObservacionInput
+  stakeholder?: Prisma.stakeholderCreateNestedOneWithoutObservacionInput
 }
 
 export type observacionUncheckedCreateWithoutTecnica_recoleccionInput = {
   id_observacion?: number
   id_usuario: number
+  id_stakeholder?: number | null
+  ubicacion?: string | null
   fecha?: Date | string | null
-  nota: string
-  tipo_observacion: string
-  tipo_hallazgo?: string | null
-  impacto?: string | null
+  duracion?: number | null
+  hallazgos_conclusiones?: string | null
+  nota?: string | null
+  estatus?: string
 }
 
 export type observacionCreateOrConnectWithoutTecnica_recoleccionInput = {
@@ -567,37 +736,27 @@ export type observacionUpdateManyWithWhereWithoutTecnica_recoleccionInput = {
   data: Prisma.XOR<Prisma.observacionUpdateManyMutationInput, Prisma.observacionUncheckedUpdateManyWithoutTecnica_recoleccionInput>
 }
 
-export type observacionScalarWhereInput = {
-  AND?: Prisma.observacionScalarWhereInput | Prisma.observacionScalarWhereInput[]
-  OR?: Prisma.observacionScalarWhereInput[]
-  NOT?: Prisma.observacionScalarWhereInput | Prisma.observacionScalarWhereInput[]
-  id_observacion?: Prisma.IntFilter<"observacion"> | number
-  id_tecnica?: Prisma.IntFilter<"observacion"> | number
-  id_usuario?: Prisma.IntFilter<"observacion"> | number
-  fecha?: Prisma.DateTimeNullableFilter<"observacion"> | Date | string | null
-  nota?: Prisma.StringFilter<"observacion"> | string
-  tipo_observacion?: Prisma.StringFilter<"observacion"> | string
-  tipo_hallazgo?: Prisma.StringNullableFilter<"observacion"> | string | null
-  impacto?: Prisma.StringNullableFilter<"observacion"> | string | null
-}
-
 export type observacionCreateWithoutUsuarioInput = {
+  ubicacion?: string | null
   fecha?: Date | string | null
-  nota: string
-  tipo_observacion: string
-  tipo_hallazgo?: string | null
-  impacto?: string | null
+  duracion?: number | null
+  hallazgos_conclusiones?: string | null
+  nota?: string | null
+  estatus?: string
   tecnica_recoleccion: Prisma.tecnica_recoleccionCreateNestedOneWithoutObservacionInput
+  stakeholder?: Prisma.stakeholderCreateNestedOneWithoutObservacionInput
 }
 
 export type observacionUncheckedCreateWithoutUsuarioInput = {
   id_observacion?: number
   id_tecnica: number
+  id_stakeholder?: number | null
+  ubicacion?: string | null
   fecha?: Date | string | null
-  nota: string
-  tipo_observacion: string
-  tipo_hallazgo?: string | null
-  impacto?: string | null
+  duracion?: number | null
+  hallazgos_conclusiones?: string | null
+  nota?: string | null
+  estatus?: string
 }
 
 export type observacionCreateOrConnectWithoutUsuarioInput = {
@@ -626,82 +785,145 @@ export type observacionUpdateManyWithWhereWithoutUsuarioInput = {
   data: Prisma.XOR<Prisma.observacionUpdateManyMutationInput, Prisma.observacionUncheckedUpdateManyWithoutUsuarioInput>
 }
 
+export type observacionCreateManyStakeholderInput = {
+  id_observacion?: number
+  id_tecnica: number
+  id_usuario: number
+  ubicacion?: string | null
+  fecha?: Date | string | null
+  duracion?: number | null
+  hallazgos_conclusiones?: string | null
+  nota?: string | null
+  estatus?: string
+}
+
+export type observacionUpdateWithoutStakeholderInput = {
+  ubicacion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fecha?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  duracion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  hallazgos_conclusiones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nota?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  estatus?: Prisma.StringFieldUpdateOperationsInput | string
+  tecnica_recoleccion?: Prisma.tecnica_recoleccionUpdateOneRequiredWithoutObservacionNestedInput
+  usuario?: Prisma.usuarioUpdateOneRequiredWithoutObservacionNestedInput
+}
+
+export type observacionUncheckedUpdateWithoutStakeholderInput = {
+  id_observacion?: Prisma.IntFieldUpdateOperationsInput | number
+  id_tecnica?: Prisma.IntFieldUpdateOperationsInput | number
+  id_usuario?: Prisma.IntFieldUpdateOperationsInput | number
+  ubicacion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fecha?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  duracion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  hallazgos_conclusiones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nota?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  estatus?: Prisma.StringFieldUpdateOperationsInput | string
+}
+
+export type observacionUncheckedUpdateManyWithoutStakeholderInput = {
+  id_observacion?: Prisma.IntFieldUpdateOperationsInput | number
+  id_tecnica?: Prisma.IntFieldUpdateOperationsInput | number
+  id_usuario?: Prisma.IntFieldUpdateOperationsInput | number
+  ubicacion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fecha?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  duracion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  hallazgos_conclusiones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nota?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  estatus?: Prisma.StringFieldUpdateOperationsInput | string
+}
+
 export type observacionCreateManyTecnica_recoleccionInput = {
   id_observacion?: number
   id_usuario: number
+  id_stakeholder?: number | null
+  ubicacion?: string | null
   fecha?: Date | string | null
-  nota: string
-  tipo_observacion: string
-  tipo_hallazgo?: string | null
-  impacto?: string | null
+  duracion?: number | null
+  hallazgos_conclusiones?: string | null
+  nota?: string | null
+  estatus?: string
 }
 
 export type observacionUpdateWithoutTecnica_recoleccionInput = {
+  ubicacion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fecha?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  nota?: Prisma.StringFieldUpdateOperationsInput | string
-  tipo_observacion?: Prisma.StringFieldUpdateOperationsInput | string
-  tipo_hallazgo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  impacto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  duracion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  hallazgos_conclusiones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nota?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  estatus?: Prisma.StringFieldUpdateOperationsInput | string
   usuario?: Prisma.usuarioUpdateOneRequiredWithoutObservacionNestedInput
+  stakeholder?: Prisma.stakeholderUpdateOneWithoutObservacionNestedInput
 }
 
 export type observacionUncheckedUpdateWithoutTecnica_recoleccionInput = {
   id_observacion?: Prisma.IntFieldUpdateOperationsInput | number
   id_usuario?: Prisma.IntFieldUpdateOperationsInput | number
+  id_stakeholder?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  ubicacion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fecha?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  nota?: Prisma.StringFieldUpdateOperationsInput | string
-  tipo_observacion?: Prisma.StringFieldUpdateOperationsInput | string
-  tipo_hallazgo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  impacto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  duracion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  hallazgos_conclusiones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nota?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  estatus?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type observacionUncheckedUpdateManyWithoutTecnica_recoleccionInput = {
   id_observacion?: Prisma.IntFieldUpdateOperationsInput | number
   id_usuario?: Prisma.IntFieldUpdateOperationsInput | number
+  id_stakeholder?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  ubicacion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fecha?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  nota?: Prisma.StringFieldUpdateOperationsInput | string
-  tipo_observacion?: Prisma.StringFieldUpdateOperationsInput | string
-  tipo_hallazgo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  impacto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  duracion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  hallazgos_conclusiones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nota?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  estatus?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type observacionCreateManyUsuarioInput = {
   id_observacion?: number
   id_tecnica: number
+  id_stakeholder?: number | null
+  ubicacion?: string | null
   fecha?: Date | string | null
-  nota: string
-  tipo_observacion: string
-  tipo_hallazgo?: string | null
-  impacto?: string | null
+  duracion?: number | null
+  hallazgos_conclusiones?: string | null
+  nota?: string | null
+  estatus?: string
 }
 
 export type observacionUpdateWithoutUsuarioInput = {
+  ubicacion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fecha?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  nota?: Prisma.StringFieldUpdateOperationsInput | string
-  tipo_observacion?: Prisma.StringFieldUpdateOperationsInput | string
-  tipo_hallazgo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  impacto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  duracion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  hallazgos_conclusiones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nota?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  estatus?: Prisma.StringFieldUpdateOperationsInput | string
   tecnica_recoleccion?: Prisma.tecnica_recoleccionUpdateOneRequiredWithoutObservacionNestedInput
+  stakeholder?: Prisma.stakeholderUpdateOneWithoutObservacionNestedInput
 }
 
 export type observacionUncheckedUpdateWithoutUsuarioInput = {
   id_observacion?: Prisma.IntFieldUpdateOperationsInput | number
   id_tecnica?: Prisma.IntFieldUpdateOperationsInput | number
+  id_stakeholder?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  ubicacion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fecha?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  nota?: Prisma.StringFieldUpdateOperationsInput | string
-  tipo_observacion?: Prisma.StringFieldUpdateOperationsInput | string
-  tipo_hallazgo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  impacto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  duracion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  hallazgos_conclusiones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nota?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  estatus?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type observacionUncheckedUpdateManyWithoutUsuarioInput = {
   id_observacion?: Prisma.IntFieldUpdateOperationsInput | number
   id_tecnica?: Prisma.IntFieldUpdateOperationsInput | number
+  id_stakeholder?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  ubicacion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fecha?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  nota?: Prisma.StringFieldUpdateOperationsInput | string
-  tipo_observacion?: Prisma.StringFieldUpdateOperationsInput | string
-  tipo_hallazgo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  impacto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  duracion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  hallazgos_conclusiones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nota?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  estatus?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 
@@ -710,64 +932,78 @@ export type observacionSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   id_observacion?: boolean
   id_tecnica?: boolean
   id_usuario?: boolean
+  id_stakeholder?: boolean
+  ubicacion?: boolean
   fecha?: boolean
+  duracion?: boolean
+  hallazgos_conclusiones?: boolean
   nota?: boolean
-  tipo_observacion?: boolean
-  tipo_hallazgo?: boolean
-  impacto?: boolean
+  estatus?: boolean
   tecnica_recoleccion?: boolean | Prisma.tecnica_recoleccionDefaultArgs<ExtArgs>
   usuario?: boolean | Prisma.usuarioDefaultArgs<ExtArgs>
+  stakeholder?: boolean | Prisma.observacion$stakeholderArgs<ExtArgs>
 }, ExtArgs["result"]["observacion"]>
 
 export type observacionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id_observacion?: boolean
   id_tecnica?: boolean
   id_usuario?: boolean
+  id_stakeholder?: boolean
+  ubicacion?: boolean
   fecha?: boolean
+  duracion?: boolean
+  hallazgos_conclusiones?: boolean
   nota?: boolean
-  tipo_observacion?: boolean
-  tipo_hallazgo?: boolean
-  impacto?: boolean
+  estatus?: boolean
   tecnica_recoleccion?: boolean | Prisma.tecnica_recoleccionDefaultArgs<ExtArgs>
   usuario?: boolean | Prisma.usuarioDefaultArgs<ExtArgs>
+  stakeholder?: boolean | Prisma.observacion$stakeholderArgs<ExtArgs>
 }, ExtArgs["result"]["observacion"]>
 
 export type observacionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id_observacion?: boolean
   id_tecnica?: boolean
   id_usuario?: boolean
+  id_stakeholder?: boolean
+  ubicacion?: boolean
   fecha?: boolean
+  duracion?: boolean
+  hallazgos_conclusiones?: boolean
   nota?: boolean
-  tipo_observacion?: boolean
-  tipo_hallazgo?: boolean
-  impacto?: boolean
+  estatus?: boolean
   tecnica_recoleccion?: boolean | Prisma.tecnica_recoleccionDefaultArgs<ExtArgs>
   usuario?: boolean | Prisma.usuarioDefaultArgs<ExtArgs>
+  stakeholder?: boolean | Prisma.observacion$stakeholderArgs<ExtArgs>
 }, ExtArgs["result"]["observacion"]>
 
 export type observacionSelectScalar = {
   id_observacion?: boolean
   id_tecnica?: boolean
   id_usuario?: boolean
+  id_stakeholder?: boolean
+  ubicacion?: boolean
   fecha?: boolean
+  duracion?: boolean
+  hallazgos_conclusiones?: boolean
   nota?: boolean
-  tipo_observacion?: boolean
-  tipo_hallazgo?: boolean
-  impacto?: boolean
+  estatus?: boolean
 }
 
-export type observacionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id_observacion" | "id_tecnica" | "id_usuario" | "fecha" | "nota" | "tipo_observacion" | "tipo_hallazgo" | "impacto", ExtArgs["result"]["observacion"]>
+export type observacionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id_observacion" | "id_tecnica" | "id_usuario" | "id_stakeholder" | "ubicacion" | "fecha" | "duracion" | "hallazgos_conclusiones" | "nota" | "estatus", ExtArgs["result"]["observacion"]>
 export type observacionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tecnica_recoleccion?: boolean | Prisma.tecnica_recoleccionDefaultArgs<ExtArgs>
   usuario?: boolean | Prisma.usuarioDefaultArgs<ExtArgs>
+  stakeholder?: boolean | Prisma.observacion$stakeholderArgs<ExtArgs>
 }
 export type observacionIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tecnica_recoleccion?: boolean | Prisma.tecnica_recoleccionDefaultArgs<ExtArgs>
   usuario?: boolean | Prisma.usuarioDefaultArgs<ExtArgs>
+  stakeholder?: boolean | Prisma.observacion$stakeholderArgs<ExtArgs>
 }
 export type observacionIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tecnica_recoleccion?: boolean | Prisma.tecnica_recoleccionDefaultArgs<ExtArgs>
   usuario?: boolean | Prisma.usuarioDefaultArgs<ExtArgs>
+  stakeholder?: boolean | Prisma.observacion$stakeholderArgs<ExtArgs>
 }
 
 export type $observacionPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -775,16 +1011,19 @@ export type $observacionPayload<ExtArgs extends runtime.Types.Extensions.Interna
   objects: {
     tecnica_recoleccion: Prisma.$tecnica_recoleccionPayload<ExtArgs>
     usuario: Prisma.$usuarioPayload<ExtArgs>
+    stakeholder: Prisma.$stakeholderPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id_observacion: number
     id_tecnica: number
     id_usuario: number
+    id_stakeholder: number | null
+    ubicacion: string | null
     fecha: Date | null
-    nota: string
-    tipo_observacion: string
-    tipo_hallazgo: string | null
-    impacto: string | null
+    duracion: number | null
+    hallazgos_conclusiones: string | null
+    nota: string | null
+    estatus: string
   }, ExtArgs["result"]["observacion"]>
   composites: {}
 }
@@ -1181,6 +1420,7 @@ export interface Prisma__observacionClient<T, Null = never, ExtArgs extends runt
   readonly [Symbol.toStringTag]: "PrismaPromise"
   tecnica_recoleccion<T extends Prisma.tecnica_recoleccionDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.tecnica_recoleccionDefaultArgs<ExtArgs>>): Prisma.Prisma__tecnica_recoleccionClient<runtime.Types.Result.GetResult<Prisma.$tecnica_recoleccionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   usuario<T extends Prisma.usuarioDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.usuarioDefaultArgs<ExtArgs>>): Prisma.Prisma__usuarioClient<runtime.Types.Result.GetResult<Prisma.$usuarioPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  stakeholder<T extends Prisma.observacion$stakeholderArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.observacion$stakeholderArgs<ExtArgs>>): Prisma.Prisma__stakeholderClient<runtime.Types.Result.GetResult<Prisma.$stakeholderPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1213,11 +1453,13 @@ export interface observacionFieldRefs {
   readonly id_observacion: Prisma.FieldRef<"observacion", 'Int'>
   readonly id_tecnica: Prisma.FieldRef<"observacion", 'Int'>
   readonly id_usuario: Prisma.FieldRef<"observacion", 'Int'>
+  readonly id_stakeholder: Prisma.FieldRef<"observacion", 'Int'>
+  readonly ubicacion: Prisma.FieldRef<"observacion", 'String'>
   readonly fecha: Prisma.FieldRef<"observacion", 'DateTime'>
+  readonly duracion: Prisma.FieldRef<"observacion", 'Int'>
+  readonly hallazgos_conclusiones: Prisma.FieldRef<"observacion", 'String'>
   readonly nota: Prisma.FieldRef<"observacion", 'String'>
-  readonly tipo_observacion: Prisma.FieldRef<"observacion", 'String'>
-  readonly tipo_hallazgo: Prisma.FieldRef<"observacion", 'String'>
-  readonly impacto: Prisma.FieldRef<"observacion", 'String'>
+  readonly estatus: Prisma.FieldRef<"observacion", 'String'>
 }
     
 
@@ -1616,6 +1858,25 @@ export type observacionDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.I
    * Limit how many observacions to delete.
    */
   limit?: number
+}
+
+/**
+ * observacion.stakeholder
+ */
+export type observacion$stakeholderArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the stakeholder
+   */
+  select?: Prisma.stakeholderSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the stakeholder
+   */
+  omit?: Prisma.stakeholderOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.stakeholderInclude<ExtArgs> | null
+  where?: Prisma.stakeholderWhereInput
 }
 
 /**

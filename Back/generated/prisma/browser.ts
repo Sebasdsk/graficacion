@@ -43,6 +43,26 @@ export type observacion = Prisma.observacionModel
  */
 export type pregunta_entrevista = Prisma.pregunta_entrevistaModel
 /**
+ * Model cuestionario
+ * 
+ */
+export type cuestionario = Prisma.cuestionarioModel
+/**
+ * Model pregunta_cuestionario
+ * 
+ */
+export type pregunta_cuestionario = Prisma.pregunta_cuestionarioModel
+/**
+ * Model focus_group
+ * 
+ */
+export type focus_group = Prisma.focus_groupModel
+/**
+ * Model participante_focus_group
+ * 
+ */
+export type participante_focus_group = Prisma.participante_focus_groupModel
+/**
  * Model proceso
  * 
  */
