@@ -70,7 +70,9 @@ model proceso {
   descripcion String?
   id_proyecto Int?
   estatus     String?      @default("A") @db.VarChar(1)
+  id_rol      Int?
   proyecto    proyecto?    @relation(fields: [id_proyecto], references: [id_proyecto], onDelete: Cascade, onUpdate: NoAction)
+  rol         rol?         @relation(fields: [id_rol], references: [id_rol], onDelete: NoAction, onUpdate: NoAction)
   subproceso  subproceso[]
 }
 
@@ -121,6 +123,7 @@ model rol {
   descripcion           String?                 @db.Char(200)
   id_proyecto           Int?
   equipo_proyecto       equipo_proyecto[]
+  proceso               proceso[]
   proyecto_participante proyecto_participante[]
   proyecto              proyecto?               @relation(fields: [id_proyecto], references: [id_proyecto], onDelete: NoAction, onUpdate: NoAction, map: "fk_rol_proyecto")
   stakeholder           stakeholder[]
@@ -148,17 +151,19 @@ model subproceso {
 }
 
 model tecnica_recoleccion {
-  id_tecnica     Int             @id @default(autoincrement())
-  tipo           String          @db.VarChar(50)
-  detalle        String?
-  codigo_orden   String          @db.VarChar(10)
-  id_subproceso  Int
-  id_stakeholder Int?
-  entrevista     entrevista[]
-  observacion    observacion[]
-  requerimiento  requerimiento[]
-  stakeholder    stakeholder?    @relation(fields: [id_stakeholder], references: [id_stakeholder], onDelete: Cascade, onUpdate: NoAction, map: "tecnica_id_stakeholder_fkey")
-  subproceso     subproceso      @relation(fields: [id_subproceso], references: [id_subproceso], onDelete: Cascade, onUpdate: NoAction, map: "tecnica_id_subproceso_fkey")
+  id_tecnica                   Int                           @id @default(autoincrement())
+  tipo                         String                        @db.VarChar(50)
+  detalle                      String?
+  estatus                      String                        @default("A") @db.VarChar(1)
+  id_subproceso                Int
+  id_stakeholder               Int?
+  id_tecnica_catalogo          Int?
+  entrevista                   entrevista[]
+  observacion                  observacion[]
+  requerimiento                requerimiento[]
+  stakeholder                  stakeholder?                  @relation(fields: [id_stakeholder], references: [id_stakeholder], onDelete: Cascade, onUpdate: NoAction, map: "tecnica_id_stakeholder_fkey")
+  subproceso                   subproceso                    @relation(fields: [id_subproceso], references: [id_subproceso], onDelete: Cascade, onUpdate: NoAction, map: "tecnica_id_subproceso_fkey")
+  tecnica_recoleccion_catalogo tecnica_recoleccion_catalogo? @relation(fields: [id_tecnica_catalogo], references: [id_tecnica_catalogo], onDelete: NoAction, onUpdate: NoAction, map: "tecnica_id_tecnica_recoleccion_catalogo_fkey")
 }
 
 model usuario {
@@ -176,6 +181,12 @@ model usuario {
   observacion           observacion[]
   proyecto              proyecto[]
   proyecto_participante proyecto_participante[]
+}
+
+model tecnica_recoleccion_catalogo {
+  id_tecnica_catalogo Int                   @id @default(autoincrement())
+  nombre              String                @db.VarChar(60)
+  tecnica_recoleccion tecnica_recoleccion[]
 }
 
 enum tipo_diagrama {
