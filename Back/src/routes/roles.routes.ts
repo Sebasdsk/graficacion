@@ -5,10 +5,30 @@ import { verifyToken } from '../middleware/auth.middleware';
 const router = Router();
 
 // Obtener lista de roles 
-router.get('/lista-roles', verifyToken, async (req: Request, res: Response) => {
+router.get('/lista-roles', verifyToken, async (req: any, res: Response) => {
     try {
+        const id_usuario = req.usuario.id;
+        const proyectosUsuario = await prisma.proyecto.findMany({
+            where: {
+                id_usuario_creador: Number(id_usuario)
+            }
+        });
+        
+        // Obtiene los roles de los proyectos del usuario en específico
         const roles = await prisma.rol.findMany({
-            orderBy: { id_rol: 'asc' }
+            where: {
+                id_proyecto: {
+                    in: proyectosUsuario.map(p => p.id_proyecto)
+                }
+            },
+            orderBy: { id_rol: 'asc' },
+            include: {
+                stakeholder: {
+                    where: {
+                        estatus: 'A' // Solo los que están A de Activos
+                    }
+                }
+            }
         });
         res.json(roles);
     } catch (err) {

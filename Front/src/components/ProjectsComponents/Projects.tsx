@@ -7,13 +7,19 @@ import { useNavigate } from "react-router";
 import ModalCreate from "../../Modals/ModalCreate";
 import "./Projects.css"
 import type { Proyecto } from "../../Types/Proyectos";
+import type { Rol } from "../../Types/Roles";
 
 interface ProjectsProp {
     projects: Proyecto[];
     setProjects: React.Dispatch<SetStateAction<Proyecto[]>>;
 }
 
-export default function Projects({ projects, setProjects }: ProjectsProp) {
+interface TotalRolesStakeProp {
+    roles: Rol[];
+    totalStakeholders: number;
+}
+
+export default function Projects({ projects, setProjects, roles, totalStakeholders }: ProjectsProp & TotalRolesStakeProp) {
     // Este state se utiliza para mostrar o no el componente de ProjectCreate
     const [createProject, setCreateProject] = useState<boolean>(false);
     const navigate = useNavigate();
@@ -35,7 +41,12 @@ export default function Projects({ projects, setProjects }: ProjectsProp) {
                 <CreateProject setCreateProject={setCreateProject}/>
             </header>
             <section className="projects-body">
-                <ProjectsResume totalProjects={totalProjects}/>
+                <ProjectsResume
+                    projects={projects}
+                    totalProjects={totalProjects}
+                    roles={roles}
+                    totalStakeholders={totalStakeholders}
+                />
                 <ProjectsList projects={projects}/>
             </section>
             {createProject && 
