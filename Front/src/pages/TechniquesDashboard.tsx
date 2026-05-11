@@ -27,20 +27,9 @@ export const tecnicasCatalogo: TipoTecnica[] = [
     { id: 7, nombre: "Seguimiento Transaccional" }
 ]
 
-const techniques: Tecnica[] = [
-    { id: 1, nombre: "Entrevista con Stakeholders", descripcion: "Realizar entrevistas individuales con los principales stakeholders.", tipo: tecnicasCatalogo[0], estatus: "En Progreso" },
-    { id: 2, nombre: "Historia de Usuario para Usuarios Finales", descripcion: "Diseñar y distribuir un cuestionario para recopilar información de los usuarios.", tipo: tecnicasCatalogo[4], estatus: "Planificada" },
-    { id: 3, nombre: "Focus Group con Usuarios", descripcion: "Organizar un focus group con usuarios para obtener retroalimentación.", tipo: tecnicasCatalogo[2], estatus: "En Progreso" },
-    { id: 4, nombre: "Observación de Usuarios", descripcion: "Realizar sesiones de observación con usuarios.", tipo: tecnicasCatalogo[3], estatus: "Planificada" },
-    { id: 5, nombre: "Entrevista con Gerente", descripcion: "Realizar sesiones de entrevistas con el gerente.", tipo: tecnicasCatalogo[0], estatus: "Completada" },
-    { id: 6, nombre: "Cuestionario para Usuarios Finales", descripcion: "Diseñar y distribuir un cuestionario para recopilar información de los usuarios.", tipo: tecnicasCatalogo[1], estatus: "Completada" },
-    { id: 7, nombre: "Documentos", descripcion: "Diseñar y distribuir un cuestionario para recopilar información de los usuarios.", tipo: tecnicasCatalogo[5], estatus: "Completada" },
-    { id: 8, nombre: "Seguimiento de Transacciones", descripcion: "Realizar seguimiento de transacciones.", tipo: tecnicasCatalogo[6], estatus: "Planificada" }
-];
-
+// ... imports y types
 type SelectedTecnique = "Vista General" | "Entrevista" | "Observación" | "Historias de Usuario" | "Focus Group" | "Documentos" | "Seguimiento Transaccional" | "Cuestionario";
 
-// Diccionario para asignar dinámicamente los colores según el estatus
 const statusDictionary: Record<estatusTecnica, string> = {
     "Completada": "green",
     "En Progreso": "blue",
@@ -55,7 +44,6 @@ const iconStatusDictionary: Record<estatusTecnica, JSX.Element> = {
     "Eliminada": <Trash fill="#f44336" />
 }
 
-// Esta función cambia un tipo string a SelectedTecnique
 const convertStringToTypeTecnique = (type: string) => {
     const tipo = tecnicasCatalogo.find(t => t.nombre === type)?.nombre ?? "Vista General";
     return tipo as SelectedTecnique;
@@ -67,6 +55,11 @@ export default function TechniquesDashboard() {
     const [mobileOpen, setMobileOpen] = useState<boolean>(false);
     const [addTechnique, setAddTechnique] = useState<boolean>(false);
     const [selectedTechnique, setSelectedTechnique] = useState<SelectedTecnique>("Vista General");
+    const [selectedTechniqueData, setSelectedTechniqueData] = useState<Tecnica | null>(null);
+
+    // Estado para las técnicas
+    const [techniques, setTechniques] = useState<Tecnica[]>([]);
+
     const tecnicasFiltradas = filterTechniques(techniques);
     const navigate = useNavigate();
 
@@ -75,11 +68,12 @@ export default function TechniquesDashboard() {
         descripcion: ""
     });
 
-    const getSubproceso = async () => {
+    const getSubprocesoAndTechniques = async () => {
         const token = localStorage.getItem("token");
         const API_URL = import.meta.env.VITE_API_URL;
 
         try {
+            // Fetch Subproceso
             const response = await fetch(`${API_URL}/procesos/subproceso/${id_subproceso}`, {
                 method: "GET",
                 headers: {
@@ -98,24 +92,56 @@ export default function TechniquesDashboard() {
                 nombre: data.nombre,
                 descripcion: data.descripcion
             });
+
+            // Fetch Tecnicas
+            const responseTec = await fetch(`${API_URL}/tecnicas/subproceso/${id_subproceso}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`,
+                }
+            });
+
+            if (!responseTec.ok) {
+                throw new Error("Error al obtener las técnicas");
+            }
+
+            const dataTec = await responseTec.json();
+
+            // Mapear los datos de BD al formato esperado por el frontend
+            const mappedTechniques: Tecnica[] = dataTec.map((t: any) => ({
+                id: t.id_tecnica,
+                nombre: t.titulo,
+                descripcion: t.descripcion || "",
+                tipo: {
+                    id: t.tecnica_recoleccion_catalogo?.id_tecnica_catalogo || 0,
+                    nombre: t.tecnica_recoleccion_catalogo?.nombre || "Desconocida"
+                },
+                // Mapeo simple de estatus, ajusta según tu lógica real
+                estatus: t.estatus === "A" ? "En Progreso" : "Completada"
+            }));
+
+            setTechniques(mappedTechniques);
         } catch (error) {
-            console.error("Error fetching subproceso:", error);
+            console.error("Error fetching data:", error);
         }
     };
 
     useEffect(() => {
-        getSubproceso();
-    }, []);
+        getSubprocesoAndTechniques();
+    }, [addTechnique]); // Recargar técnicas si addTechnique cambia (por ejemplo al cerrar el modal)
 
     return (
         <main className={`techniques-dashboard-page ${collapsed ? "collapsed" : ""} ${mobileOpen ? "mobile-open" : ""}`}>
             <TechniquesSidebar
                 subprocessName={subprocess.nombre}
                 subprocessDescription={subprocess.descripcion}
+                techniques={techniques}
                 addTechnique={addTechnique}
                 setAddTechnique={setAddTechnique}
                 selectedTechnique={selectedTechnique}
                 setSelectedTechnique={setSelectedTechnique}
+                setSelectedTechniqueData={setSelectedTechniqueData}
             />
             {mobileOpen && (
                 <div
@@ -175,7 +201,10 @@ export default function TechniquesDashboard() {
                                             <article
                                                 key={technique.id}
                                                 className="technique-card"
-                                                onClick={() => setSelectedTechnique(convertStringToTypeTecnique(tipo))}>
+                                                onClick={() => {
+                                                    setSelectedTechnique(convertStringToTypeTecnique(tipo));
+                                                    setSelectedTechniqueData(technique);
+                                                }}>
                                                 <header className="technique-card-header">
                                                     <h4>{technique.nombre}</h4>
                                                     <span>{technique.estatus}</span>
@@ -189,43 +218,43 @@ export default function TechniquesDashboard() {
                         </section>
                     </section>
                 )}
-                {selectedTechnique === "Entrevista" && (
+                {selectedTechnique === "Entrevista" && selectedTechniqueData && (
                     <FormTechnique
                         tipoTecnica={tecnicasCatalogo[0]}
                         children={<EntrevistaForm />}
                     />
                 )}
-                {selectedTechnique === "Focus Group" && (
+                {selectedTechnique === "Focus Group" && selectedTechniqueData && (
                     <FormTechnique
                         tipoTecnica={tecnicasCatalogo[2]}
                         children={<FocusGroupForm />}
                     />
                 )}
-                {selectedTechnique === "Observación" && (
+                {selectedTechnique === "Observación" && selectedTechniqueData && (
                     <FormTechnique
                         tipoTecnica={tecnicasCatalogo[3]}
                         children={<ObservacionForm />}
                     />
                 )}
-                {selectedTechnique === "Historias de Usuario" && (
+                {selectedTechnique === "Historias de Usuario" && selectedTechniqueData && (
                     <FormTechnique
                         tipoTecnica={tecnicasCatalogo[4]}
                         children={<HistoriasUsuarioForm />}
                     />
                 )}
-                {selectedTechnique === "Documentos" && (
+                {selectedTechnique === "Documentos" && selectedTechniqueData && (
                     <FormTechnique
                         tipoTecnica={tecnicasCatalogo[5]}
                         children={<DocumentoForm />}
                     />
                 )}
-                {selectedTechnique === "Cuestionario" && (
+                {selectedTechnique === "Cuestionario" && selectedTechniqueData && (
                     <FormTechnique
                         tipoTecnica={tecnicasCatalogo[1]}
                         children={<CuestionarioForm />}
                     />
                 )}
-                {selectedTechnique === "Seguimiento Transaccional" && (
+                {selectedTechnique === "Seguimiento Transaccional" && selectedTechniqueData && (
                     <FormTechnique
                         tipoTecnica={tecnicasCatalogo[6]}
                         children={<SeguimientoForm />}
@@ -248,14 +277,16 @@ interface SetAddTechniqueProp {
 }
 
 interface SetSelectedTechnoqueProp {
+    techniques: Tecnica[];
     selectedTechnique: SelectedTecnique;
     setSelectedTechnique: React.Dispatch<React.SetStateAction<SelectedTecnique>>;
+    setSelectedTechniqueData: React.Dispatch<React.SetStateAction<Tecnica | null>>;
 }
 
 function TechniquesSidebar({
     subprocessName, subprocessDescription,
     addTechnique, setAddTechnique,
-    setSelectedTechnique }: SubprocessSidebarProps & SetAddTechniqueProp & SetSelectedTechnoqueProp) {
+    techniques, setSelectedTechnique, setSelectedTechniqueData }: SubprocessSidebarProps & SetAddTechniqueProp & SetSelectedTechnoqueProp) {
     const navigate = useNavigate();
 
     // Mock data
@@ -343,7 +374,10 @@ function TechniquesSidebar({
                                 <div
                                     key={tecnica.id}
                                     className="technique-item-sidebar"
-                                    onClick={() => setSelectedTechnique(convertStringToTypeTecnique(tecnica.tipo.nombre))}>
+                                    onClick={() => {
+                                        setSelectedTechnique(convertStringToTypeTecnique(tecnica.tipo.nombre));
+                                        setSelectedTechniqueData(tecnica);
+                                    }}>
                                     <div className="technique-item-content">
                                         {asignarIconoTecnica(tecnica.tipo.nombre)}
                                         <div>
