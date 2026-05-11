@@ -8,7 +8,6 @@ router.get('/subproceso/:id_subproceso', async (req: Request, res: Response) => 
   try {
     const tecnicas = await prisma.tecnica_recoleccion.findMany({
       where: { id_subproceso: Number(req.params.id_subproceso) },
-      orderBy: { codigo_orden: 'asc' }
     });
     res.json(tecnicas);
   } catch (error: any) {
