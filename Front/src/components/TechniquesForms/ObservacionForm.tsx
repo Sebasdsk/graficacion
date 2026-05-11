@@ -5,10 +5,19 @@ import type { Rol } from "../../Types/Roles";
 import { useParams } from "react-router";
 import type { Observacion } from "../../Types/Observaciones";
 
-export default function ObservacionForm() {
+interface TecnicaProps {
+    tecnica: any;
+}
+
+export default function ObservacionForm({ tecnica }: TecnicaProps) {
     const { id_project } = useParams();
     const [roles, setRoles] = useState<Rol[]>([]);
     const [rolSeleccionado, setRolSeleccionado] = useState<number | null>(null);
+    const [idStakeholder, setIdStakeholder] = useState<number | null>(null);
+    const [ubicacion, setUbicacion] = useState("");
+    const [fecha, setFecha] = useState("");
+    const [duracion, setDuracion] = useState("");
+    const [hallazgos, setHallazgos] = useState("");
 
     const [observacionesList, setObservacionesList] = useState<Observacion[]>([]);
 
@@ -53,7 +62,7 @@ export default function ObservacionForm() {
             id_observacion: nuevoId,
             hora: "",
             categoria: "",
-            texto: ""
+            descripcion: ""
         };
         setObservacionesList(prev => [...prev, nuevaObservacion])
     };
@@ -64,8 +73,78 @@ export default function ObservacionForm() {
         setObservacionesList(filtradas);
     };
 
+    const token = localStorage.getItem("token");
+    const API_URL = import.meta.env.VITE_API_URL;
+
+    // Guardar los cambios de la Observación
+    const handleSubmit = async () => {
+        const body = {
+            id_stakeholder: idStakeholder,
+            ubicacion,
+            fecha,
+            duracion,
+            hallazgos,
+            observaciones: observacionesList
+        };
+
+        try {
+            const response = await fetch(`${API_URL}/observaciones/${tecnica.observacionData.id_observacion}`,
+                {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${token}`
+                    },
+                    body: JSON.stringify(body)
+                }
+            );
+
+            if (!response.ok) {
+                throw new Error("Error al actualizar observación");
+            }
+            const data = await response.json();
+            console.log(data);
+
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
+    const getObservación = async () => {
+        try {
+            const response = await fetch(`${API_URL}/observaciones/${tecnica.observacionData.id_observacion}`,
+                {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${token}`
+                    }
+                }
+            );
+
+            if (!response.ok) {
+                throw new Error("Error al obtener la técnica de Observación");
+            }
+
+            const data = await response.json();
+            setRolSeleccionado(data.stakeholder.id_rol);
+            setIdStakeholder(data.id_stakeholder);
+            setUbicacion(data.ubicacion || "");
+            setFecha(data.fecha ? data.fecha.split("T")[0] : "");
+            setDuracion(String(data.duracion || ""));
+            setHallazgos(data.hallazgos || "");
+            setObservacionesList(data.observacion_detalle);
+        } catch (err) {
+            console.error("Error en la petición:", err);
+        }
+    }
+
+    useEffect(() => {
+        getObservación();
+    },[]);
+
     return (
-        <>
+        <form action={handleSubmit}>
             <section className="observacion-informacion-section">
                 <header className="header-observacion-section">
                     <h2>Información de la Observación</h2>
@@ -89,7 +168,12 @@ export default function ObservacionForm() {
                     </div>
                     <div className="input-container">
                         <label htmlFor="persona-observada">Persona Observada</label>
-                        <select name="persona-observada" id="persona-observada">
+                        <select
+                            name="persona-observada"
+                            id="persona-observada"
+                            value={idStakeholder || ""}
+                            onChange={(e) => setIdStakeholder(Number(e.target.value))}
+                        >
                             <option value="">-- Selecciona un stakeholder --</option>
                             {stakeholdersDelRol.length > 0 ? (
                                 stakeholdersDelRol.map(s => (
@@ -108,6 +192,8 @@ export default function ObservacionForm() {
                             type="text"
                             placeholder="Ej: Oficina, Departamento de Ventas"
                             id="ubicacion"
+                            value={ubicacion}
+                            onChange={(e) => setUbicacion(e.target.value)}
                         />
                     </div>
                     <div className="input-container">
@@ -115,13 +201,18 @@ export default function ObservacionForm() {
                         <input
                             type="date"
                             id="fecha"
+                            value={fecha}
+                            onChange={(e) => setFecha(e.target.value)}
                         />
                     </div>
                     <div className="input-container">
                         <label htmlFor="duracion">Duración</label>
                         <input
                             id="duracion"
-                            type="text" placeholder="Ej: 2 horas" />
+                            type="text" placeholder="Ej: 2 horas"
+                            value={duracion}
+                            onChange={(e) => setDuracion(e.target.value)}
+                        />
                     </div>
                 </div>
             </section>
@@ -184,11 +275,11 @@ export default function ObservacionForm() {
                                 <div className="textarea-observacion">
                                     <textarea
                                         placeholder="Describe lo observado..."
-                                        value={obs.texto}
+                                        value={obs.descripcion}
                                         onChange={(e) => {
                                             const nuevas = observacionesList.map(item =>
                                                 item.id_observacion === obs.id_observacion
-                                                    ? { ...item, texto: e.target.value }
+                                                    ? { ...item, descripcion: e.target.value }
                                                     : item
                                             );
                                             setObservacionesList(nuevas);
@@ -205,8 +296,19 @@ export default function ObservacionForm() {
                 <h2>Hallazgos y Conclusiones</h2>
                 <textarea
                     placeholder="Resume los principales hallazgos de la observación..."
+                    value={hallazgos}
+                    onChange={(e) => setHallazgos(e.target.value)}
                 />
             </section>
-        </>
+            <div className="buttons-techniques-section">
+                <button className="button-cancel-changes">Cancelar Cambios</button>
+                <button
+                    className="button-confirm-changes"
+                    type="submit"
+                >
+                    Guardar Cambios
+                </button>
+            </div>
+        </form>
     );
 }

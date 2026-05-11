@@ -6,7 +6,7 @@ import type { TipoTecnica } from "../Types/Techniques";
 const iconDictionary: Record<TipoTecnica["nombre"], JSX.Element> = {
     "Entrevista": <Message />,
     "Cuestionario": <MessageCircleQuestionMark />,
-    "Historias de Usuario": <BookOpen />,
+    "Historia de Usuario": <BookOpen />,
     "Observación": <Eye />,
     "Documentos": <FileDetail />,
     "Focus Group": <LightBulb />,

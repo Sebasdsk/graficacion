@@ -22,13 +22,13 @@ export const tecnicasCatalogo: TipoTecnica[] = [
     { id: 2, nombre: "Cuestionario" },
     { id: 3, nombre: "Focus Group" },
     { id: 4, nombre: "Observación" },
-    { id: 5, nombre: "Historias de Usuario" },
+    { id: 5, nombre: "Historia de Usuario" },
     { id: 6, nombre: "Documentos" },
     { id: 7, nombre: "Seguimiento Transaccional" }
 ]
 
 // ... imports y types
-type SelectedTecnique = "Vista General" | "Entrevista" | "Observación" | "Historias de Usuario" | "Focus Group" | "Documentos" | "Seguimiento Transaccional" | "Cuestionario";
+type SelectedTecnique = "Vista General" | "Entrevista" | "Observación" | "Historia de Usuario" | "Focus Group" | "Documentos" | "Seguimiento Transaccional" | "Cuestionario";
 
 const statusDictionary: Record<estatusTecnica, string> = {
     "Completada": "green",
@@ -111,14 +111,17 @@ export default function TechniquesDashboard() {
             // Mapear los datos de BD al formato esperado por el frontend
             const mappedTechniques: Tecnica[] = dataTec.map((t: any) => ({
                 id: t.id_tecnica,
-                nombre: t.titulo,
+                titulo: t.titulo,
                 descripcion: t.descripcion || "",
                 tipo: {
                     id: t.tecnica_recoleccion_catalogo?.id_tecnica_catalogo || 0,
                     nombre: t.tecnica_recoleccion_catalogo?.nombre || "Desconocida"
                 },
                 // Mapeo simple de estatus, ajusta según tu lógica real
-                estatus: t.estatus === "A" ? "En Progreso" : "Completada"
+                estatus: t.estatus === "A" ? "En Progreso" : "Completada",
+                entrevistaData: t.entrevista?.[0] || null,
+                observacionData: t.observacion?.[0] || null,
+                historiaUsuarioData: t.historia_usuario?.[0] || null,
             }));
 
             setTechniques(mappedTechniques);
@@ -129,7 +132,9 @@ export default function TechniquesDashboard() {
 
     useEffect(() => {
         getSubprocesoAndTechniques();
-    }, [addTechnique]); // Recargar técnicas si addTechnique cambia (por ejemplo al cerrar el modal)
+    }, [addTechnique]); // Recargar técnicas si addTechnique cambia (por ejemplo al cerrar el modal)}
+
+    console.log(techniques)
 
     return (
         <main className={`techniques-dashboard-page ${collapsed ? "collapsed" : ""} ${mobileOpen ? "mobile-open" : ""}`}>
@@ -206,7 +211,7 @@ export default function TechniquesDashboard() {
                                                     setSelectedTechniqueData(technique);
                                                 }}>
                                                 <header className="technique-card-header">
-                                                    <h4>{technique.nombre}</h4>
+                                                    <h4>{technique.titulo}</h4>
                                                     <span>{technique.estatus}</span>
                                                 </header>
                                                 <p>{technique.descripcion}</p>
@@ -221,42 +226,49 @@ export default function TechniquesDashboard() {
                 {selectedTechnique === "Entrevista" && selectedTechniqueData && (
                     <FormTechnique
                         tipoTecnica={tecnicasCatalogo[0]}
-                        children={<EntrevistaForm />}
+                        tecnica={selectedTechniqueData}
+                        children={<EntrevistaForm tecnica={selectedTechniqueData}/>}
                     />
                 )}
                 {selectedTechnique === "Focus Group" && selectedTechniqueData && (
                     <FormTechnique
                         tipoTecnica={tecnicasCatalogo[2]}
+                        tecnica={selectedTechniqueData}
                         children={<FocusGroupForm />}
                     />
                 )}
                 {selectedTechnique === "Observación" && selectedTechniqueData && (
                     <FormTechnique
                         tipoTecnica={tecnicasCatalogo[3]}
-                        children={<ObservacionForm />}
+                        tecnica={selectedTechniqueData}
+                        children={<ObservacionForm tecnica={selectedTechniqueData}/> }
                     />
                 )}
-                {selectedTechnique === "Historias de Usuario" && selectedTechniqueData && (
+                {selectedTechnique === "Historia de Usuario" && selectedTechniqueData && (
                     <FormTechnique
                         tipoTecnica={tecnicasCatalogo[4]}
-                        children={<HistoriasUsuarioForm />}
+                        tecnica={selectedTechniqueData}
+                        children={<HistoriasUsuarioForm tecnica={selectedTechniqueData}/>}
                     />
                 )}
                 {selectedTechnique === "Documentos" && selectedTechniqueData && (
                     <FormTechnique
                         tipoTecnica={tecnicasCatalogo[5]}
+                        tecnica={selectedTechniqueData}
                         children={<DocumentoForm />}
                     />
                 )}
                 {selectedTechnique === "Cuestionario" && selectedTechniqueData && (
                     <FormTechnique
                         tipoTecnica={tecnicasCatalogo[1]}
+                        tecnica={selectedTechniqueData}
                         children={<CuestionarioForm />}
                     />
                 )}
                 {selectedTechnique === "Seguimiento Transaccional" && selectedTechniqueData && (
                     <FormTechnique
                         tipoTecnica={tecnicasCatalogo[6]}
+                        tecnica={selectedTechniqueData}
                         children={<SeguimientoForm />}
                     />
                 )}
@@ -381,7 +393,7 @@ function TechniquesSidebar({
                                     <div className="technique-item-content">
                                         {asignarIconoTecnica(tecnica.tipo.nombre)}
                                         <div>
-                                            <span>{tecnica.nombre}</span>
+                                            <span>{tecnica.titulo}</span>
                                             <small>{tecnica.tipo.nombre}</small>
                                         </div>
                                     </div>
