@@ -11,8 +11,7 @@ import rolesRoutes from './routes/roles.routes';
 import tecnicasRoutes from './routes/tecnicas.routes';
 import entrevistaRoutes from './routes/Tecnicas/entrevista.routes';
 import preguntasEntrevistaRoutes from './routes/Tecnicas/preguntas-entrevista.routes';
-import cuestionarioRoutes from './routes/Tecnicas/cuestionario.routes';
-import focusgroupRoutes from './routes/Tecnicas/focus_group.routes';
+import historiasUsuarioRoutes from './routes/Tecnicas/historias-usuario.routes';
 import observacionesRoutes from './routes/Tecnicas/observaciones.routes';
 import stakeholdersRoutes from './routes/stakeholders.routes';
 import diagramasUMLRoutes from './routes/umls.routes';
@@ -24,7 +23,7 @@ const app = express();
 // Middlewares
 app.use(morgan('dev'));
 app.use(cors());
-app.use(express.json()); 
+app.use(express.json());
 
 // Rutas
 app.use('/api/auth', login);
@@ -34,8 +33,7 @@ app.use('/api/roles', rolesRoutes);
 app.use('/api/tecnicas', tecnicasRoutes);
 app.use('/api/entrevista', entrevistaRoutes);
 app.use('/api/preguntasEntrevista', preguntasEntrevistaRoutes);
-app.use('/api/cuestionario', cuestionarioRoutes);
-app.use('/api/focusgroup', focusgroupRoutes);
+app.use('/api/historiasUsuario', historiasUsuarioRoutes);
 app.use('/api/observaciones', observacionesRoutes);
 app.use('/api/stakeholders', stakeholdersRoutes);
 app.use('/api/diagramasUML', diagramasUMLRoutes);

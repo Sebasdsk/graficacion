@@ -1,7 +1,8 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import "./ProcessesCreate.css";
 import { ProjectIdContext } from "../../../pages/ConfigProjects";
 import type { Proceso } from "../../../Types/Procesos";
+import type { Rol } from "../../../Types/Roles";
 
 // Esta interfaz es para pasar el estado para abrir/cerrar el modal de creación de procesos
 interface OpenCreateProcessModalProp {
@@ -14,16 +15,36 @@ interface SetProcesosProp {
 }
 
 export default function ProcessesCreate({ setCreateProcess, setProcesos }: OpenCreateProcessModalProp & SetProcesosProp) {
-    const [nombre, setNombre] = useState("");
-    const [descripcion, setDescripcion] = useState("");
+    const [nombre, setNombre] = useState<string>("");
+    const [descripcion, setDescripcion] = useState<string>("");
+    const [rolParticipante, setRolParticipante] = useState<string>("");
+    const [roles, setRoles] = useState<Rol[]>([]);
     const projectId = useContext(ProjectIdContext); // Utiliza el contexto para obtener el ID del proyecto
 
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        // Lógica para crear un nuevo proceso
-        const API_URL = import.meta.env.VITE_API_URL;
-        const token = localStorage.getItem("token");
+    const API_URL = import.meta.env.VITE_API_URL;
+    const token = localStorage.getItem("token");
 
+    const getRoles = async () => {
+        try {
+            const response = await fetch(`${API_URL}/roles/proyecto/${projectId}`, {
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error(`Error al obtener los roles: ${response}`);
+            }
+
+            const data = await response.json();
+            setRoles(data);
+        } catch (err) {
+
+        }
+    }
+
+    const handleSubmit = async () => {
         try {
             const response = await fetch(`${API_URL}/procesos/crear_proceso`, {
                 method: "POST",
@@ -31,7 +52,12 @@ export default function ProcessesCreate({ setCreateProcess, setProcesos }: OpenC
                     "Content-Type": "application/json",
                     "Authorization": `Bearer ${token}`
                 },
-                body: JSON.stringify({ nombre, descripcion, id_proyecto: projectId }),
+                body: JSON.stringify({
+                    nombre: nombre,
+                    descripcion: descripcion,
+                    id_proyecto: projectId,
+                    id_rol: rolParticipante
+                }),
             });
 
             if (!response.ok) {
@@ -48,8 +74,12 @@ export default function ProcessesCreate({ setCreateProcess, setProcesos }: OpenC
         }
     };
 
+    useEffect(() => {
+        getRoles();
+    }, []);
+
     return (
-        <form className="create-process" onSubmit={handleSubmit}>
+        <form className="create-process" action={handleSubmit}>
             <header className="header-create-process">
                 <h3>Crear Nuevo Proceso</h3>
             </header>
@@ -63,7 +93,7 @@ export default function ProcessesCreate({ setCreateProcess, setProcesos }: OpenC
                         placeholder="Ingrese el nombre del proceso"
                         value={nombre}
                         onChange={(e) => setNombre(e.target.value)}
-                        required/>
+                        required />
                 </div>
                 <div className="process-description">
                     <label
@@ -75,6 +105,25 @@ export default function ProcessesCreate({ setCreateProcess, setProcesos }: OpenC
                         onChange={(e) => setDescripcion(e.target.value)}
                         required
                     />
+                </div>
+                <div className="process-roles">
+                    <label htmlFor="rol-participante">Rol participante</label>
+                    <select
+                        name="rol-participante"
+                        id="rol-participante"
+                        value={rolParticipante}
+                        onChange={(e) => setRolParticipante(e.target.value)}
+                    >
+                        {roles.length === 0 && (
+                            <option value="">-- No hay roles en el proyecto --</option>
+                        )}
+                        {roles.length > 0 && (
+                            <option value="">-- Seleccione un Rol --</option>
+                        )}
+                        {roles.length > 0 && roles.map(r => (
+                            <option key={r.id_rol} value={r.id_rol}>{r.nombre}</option>
+                        ))}
+                    </select>
                 </div>
                 <button>Crear Proceso</button>
             </div>

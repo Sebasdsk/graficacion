@@ -68,7 +68,11 @@ export const ModelName = {
   stakeholder: 'stakeholder',
   subproceso: 'subproceso',
   tecnica_recoleccion: 'tecnica_recoleccion',
-  usuario: 'usuario'
+  usuario: 'usuario',
+  tecnica_recoleccion_catalogo: 'tecnica_recoleccion_catalogo',
+  criterio_aceptacion: 'criterio_aceptacion',
+  historia_usuario: 'historia_usuario',
+  observacion_detalle: 'observacion_detalle'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -124,15 +128,12 @@ export type Equipo_proyectoScalarFieldEnum = (typeof Equipo_proyectoScalarFieldE
 
 export const ObservacionScalarFieldEnum = {
   id_observacion: 'id_observacion',
-  id_tecnica: 'id_tecnica',
-  id_usuario: 'id_usuario',
-  id_stakeholder: 'id_stakeholder',
   ubicacion: 'ubicacion',
   fecha: 'fecha',
   duracion: 'duracion',
-  hallazgos_conclusiones: 'hallazgos_conclusiones',
-  nota: 'nota',
-  estatus: 'estatus'
+  hallazgos: 'hallazgos',
+  id_tecnica: 'id_tecnica',
+  id_stakeholder: 'id_stakeholder'
 } as const
 
 export type ObservacionScalarFieldEnum = (typeof ObservacionScalarFieldEnum)[keyof typeof ObservacionScalarFieldEnum]
@@ -209,7 +210,8 @@ export const ProcesoScalarFieldEnum = {
   nombre: 'nombre',
   descripcion: 'descripcion',
   id_proyecto: 'id_proyecto',
-  estatus: 'estatus'
+  estatus: 'estatus',
+  id_rol: 'id_rol'
 } as const
 
 export type ProcesoScalarFieldEnum = (typeof ProcesoScalarFieldEnum)[keyof typeof ProcesoScalarFieldEnum]
@@ -288,11 +290,13 @@ export type SubprocesoScalarFieldEnum = (typeof SubprocesoScalarFieldEnum)[keyof
 
 export const Tecnica_recoleccionScalarFieldEnum = {
   id_tecnica: 'id_tecnica',
-  tipo: 'tipo',
-  detalle: 'detalle',
-  codigo_orden: 'codigo_orden',
+  titulo: 'titulo',
+  descripcion: 'descripcion',
+  estatus: 'estatus',
   id_subproceso: 'id_subproceso',
-  id_stakeholder: 'id_stakeholder'
+  id_stakeholder: 'id_stakeholder',
+  id_tecnica_catalogo: 'id_tecnica_catalogo',
+  ultima_actualizacion: 'ultima_actualizacion'
 } as const
 
 export type Tecnica_recoleccionScalarFieldEnum = (typeof Tecnica_recoleccionScalarFieldEnum)[keyof typeof Tecnica_recoleccionScalarFieldEnum]
@@ -311,6 +315,46 @@ export const UsuarioScalarFieldEnum = {
 } as const
 
 export type UsuarioScalarFieldEnum = (typeof UsuarioScalarFieldEnum)[keyof typeof UsuarioScalarFieldEnum]
+
+
+export const Tecnica_recoleccion_catalogoScalarFieldEnum = {
+  id_tecnica_catalogo: 'id_tecnica_catalogo',
+  nombre: 'nombre'
+} as const
+
+export type Tecnica_recoleccion_catalogoScalarFieldEnum = (typeof Tecnica_recoleccion_catalogoScalarFieldEnum)[keyof typeof Tecnica_recoleccion_catalogoScalarFieldEnum]
+
+
+export const Criterio_aceptacionScalarFieldEnum = {
+  id_criterio: 'id_criterio',
+  descripcion: 'descripcion',
+  id_historia_usario: 'id_historia_usario'
+} as const
+
+export type Criterio_aceptacionScalarFieldEnum = (typeof Criterio_aceptacionScalarFieldEnum)[keyof typeof Criterio_aceptacionScalarFieldEnum]
+
+
+export const Historia_usuarioScalarFieldEnum = {
+  id_historia_usario: 'id_historia_usario',
+  titulo: 'titulo',
+  autor: 'autor',
+  objetivo: 'objetivo',
+  proposito: 'proposito',
+  id_tecnica: 'id_tecnica'
+} as const
+
+export type Historia_usuarioScalarFieldEnum = (typeof Historia_usuarioScalarFieldEnum)[keyof typeof Historia_usuarioScalarFieldEnum]
+
+
+export const Observacion_detalleScalarFieldEnum = {
+  id_observacion_detalle: 'id_observacion_detalle',
+  hora: 'hora',
+  categoria: 'categoria',
+  descripcion: 'descripcion',
+  id_observacion: 'id_observacion'
+} as const
+
+export type Observacion_detalleScalarFieldEnum = (typeof Observacion_detalleScalarFieldEnum)[keyof typeof Observacion_detalleScalarFieldEnum]
 
 
 export const SortOrder = {
