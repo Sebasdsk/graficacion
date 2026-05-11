@@ -109,3 +109,23 @@ export type tecnica_recoleccion = Prisma.tecnica_recoleccionModel
  * 
  */
 export type usuario = Prisma.usuarioModel
+/**
+ * Model tecnica_recoleccion_catalogo
+ * 
+ */
+export type tecnica_recoleccion_catalogo = Prisma.tecnica_recoleccion_catalogoModel
+/**
+ * Model criterio_aceptacion
+ * 
+ */
+export type criterio_aceptacion = Prisma.criterio_aceptacionModel
+/**
+ * Model historia_usuario
+ * 
+ */
+export type historia_usuario = Prisma.historia_usuarioModel
+/**
+ * Model observacion_detalle
+ * 
+ */
+export type observacion_detalle = Prisma.observacion_detalleModel

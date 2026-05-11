@@ -17,3 +17,12 @@ export const tipo_diagrama = {
 } as const
 
 export type tipo_diagrama = (typeof tipo_diagrama)[keyof typeof tipo_diagrama]
+
+
+export const prioridad_historia_usuario = {
+  Alta: 'Alta',
+  Media: 'Media',
+  Baja: 'Baja'
+} as const
+
+export type prioridad_historia_usuario = (typeof prioridad_historia_usuario)[keyof typeof prioridad_historia_usuario]

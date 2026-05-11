@@ -43,16 +43,16 @@ model equipo_proyecto {
 }
 
 model observacion {
-  id_observacion      Int                 @id @default(autoincrement())
-  id_tecnica          Int
-  id_usuario          Int
-  fecha               DateTime?           @db.Date
-  nota                String
-  tipo_observacion    String              @db.VarChar(30)
-  tipo_hallazgo       String?             @db.VarChar(20)
-  impacto             String?             @db.VarChar(10)
-  tecnica_recoleccion tecnica_recoleccion @relation(fields: [id_tecnica], references: [id_tecnica], onDelete: Cascade, onUpdate: NoAction, map: "fk_observacion_tecnica")
-  usuario             usuario             @relation(fields: [id_usuario], references: [id_usuario], onDelete: NoAction, onUpdate: NoAction, map: "fk_observacion_usuario")
+  id_observacion      Int                   @id @default(autoincrement())
+  ubicacion           String?               @db.VarChar(100)
+  fecha               DateTime?             @db.Date
+  duracion            Int?
+  hallazgos           String?
+  id_tecnica          Int?
+  id_stakeholder      Int?
+  stakeholder         stakeholder?          @relation(fields: [id_stakeholder], references: [id_stakeholder], onDelete: NoAction, onUpdate: NoAction)
+  tecnica_recoleccion tecnica_recoleccion?  @relation(fields: [id_tecnica], references: [id_tecnica], onDelete: NoAction, onUpdate: NoAction, map: "fk_observacion_tecnica")
+  observacion_detalle observacion_detalle[]
 }
 
 model pregunta_entrevista {
@@ -136,6 +136,7 @@ model stakeholder {
   contacto_email      String?               @db.VarChar(60)
   estatus             String?               @default("A") @db.VarChar(1)
   id_rol              Int?
+  observacion         observacion[]
   rol                 rol?                  @relation(fields: [id_rol], references: [id_rol], onDelete: NoAction, onUpdate: NoAction, map: "fk_stakeholder_rol")
   tecnica_recoleccion tecnica_recoleccion[]
 }
@@ -152,13 +153,15 @@ model subproceso {
 
 model tecnica_recoleccion {
   id_tecnica                   Int                           @id @default(autoincrement())
-  tipo                         String                        @db.VarChar(50)
-  detalle                      String?
+  titulo                       String                        @db.VarChar(50)
+  descripcion                  String?
   estatus                      String                        @default("A") @db.VarChar(1)
   id_subproceso                Int
   id_stakeholder               Int?
   id_tecnica_catalogo          Int?
+  ultima_actualizacion         DateTime?                     @db.Date
   entrevista                   entrevista[]
+  historia_usuario             historia_usuario[]
   observacion                  observacion[]
   requerimiento                requerimiento[]
   stakeholder                  stakeholder?                  @relation(fields: [id_stakeholder], references: [id_stakeholder], onDelete: Cascade, onUpdate: NoAction, map: "tecnica_id_stakeholder_fkey")
@@ -178,7 +181,6 @@ model usuario {
   Nombre_usuario        String?                 @db.VarChar(32)
   entrevista            entrevista[]
   equipo_proyecto       equipo_proyecto[]
-  observacion           observacion[]
   proyecto              proyecto[]
   proyecto_participante proyecto_participante[]
 }
@@ -189,9 +191,42 @@ model tecnica_recoleccion_catalogo {
   tecnica_recoleccion tecnica_recoleccion[]
 }
 
+model criterio_aceptacion {
+  id_criterio        Int               @id @default(autoincrement())
+  descripcion        String            @db.VarChar(50)
+  id_historia_usario Int?
+  historia_usuario   historia_usuario? @relation(fields: [id_historia_usario], references: [id_historia_usario], onDelete: NoAction, onUpdate: NoAction, map: "criterio_aceptacion_id_historia_usuario_fkey")
+}
+
+model historia_usuario {
+  id_historia_usario  Int                   @id @default(autoincrement())
+  titulo              String                @db.VarChar(50)
+  autor               String                @db.VarChar(30)
+  objetivo            String                @db.VarChar(50)
+  proposito           String                @db.VarChar(100)
+  id_tecnica          Int?
+  criterio_aceptacion criterio_aceptacion[]
+  tecnica_recoleccion tecnica_recoleccion?  @relation(fields: [id_tecnica], references: [id_tecnica], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model observacion_detalle {
+  id_observacion_detalle Int          @id @default(autoincrement())
+  hora                   String       @db.VarChar(30)
+  categoria              String       @db.VarChar(100)
+  descripcion            String?
+  id_observacion         Int?
+  observacion            observacion? @relation(fields: [id_observacion], references: [id_observacion], onDelete: NoAction, onUpdate: NoAction)
+}
+
 enum tipo_diagrama {
   use_case @map("use-case")
   class
   sequence
   package
+}
+
+enum prioridad_historia_usuario {
+  Alta
+  Media
+  Baja
 }

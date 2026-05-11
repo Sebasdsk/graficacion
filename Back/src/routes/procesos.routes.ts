@@ -1,4 +1,4 @@
-import { Router, Request, Response } from 'express';
+import { Router, Response } from 'express';
 import { prisma } from '../../lib/prisma'; 
 import { verifyToken } from '../middleware/auth.middleware';
 
@@ -29,13 +29,14 @@ router.get('/proyecto/:id_proyecto', verifyToken, async (req: any, res: Response
 // Crear proceso
 router.post('/crear_proceso', verifyToken, async (req: any, res: Response) => {
     try {
-        const { nombre, descripcion, id_proyecto } = req.body;
+        const { nombre, descripcion, id_proyecto, id_rol } = req.body;
 
         const proceso = await prisma.proceso.create({
             data: {
                 nombre,
                 descripcion,
-                id_proyecto: Number(id_proyecto)
+                id_proyecto: Number(id_proyecto),
+                id_rol: Number(id_rol)
             }
         });
 
@@ -51,11 +52,17 @@ router.post('/crear_proceso', verifyToken, async (req: any, res: Response) => {
 router.put('/actualizar_proceso/:id_proceso', verifyToken, async (req: any, res: Response) => {
     try {
         const { id_proceso } = req.params;
-        const { nombre, descripcion } = req.body;
+        const { nombre, descripcion, id_rol } = req.body;
 
         const proceso = await prisma.proceso.update({
-            where: { id_proceso: Number(id_proceso) },
-            data: { nombre, descripcion }
+            where: {
+                id_proceso: Number(id_proceso)
+            },
+            data: {
+                nombre: nombre, 
+                descripcion: descripcion,
+                id_rol: Number(id_rol)
+            }
         });
 
         res.json({ message: "Proceso actualizado", proceso });
