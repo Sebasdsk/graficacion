@@ -29,19 +29,16 @@ export type AggregatePregunta_entrevista = {
 export type Pregunta_entrevistaAvgAggregateOutputType = {
   id_pregunta: number | null
   id_entrevista: number | null
-  orden_pregunta: number | null
 }
 
 export type Pregunta_entrevistaSumAggregateOutputType = {
   id_pregunta: number | null
   id_entrevista: number | null
-  orden_pregunta: number | null
 }
 
 export type Pregunta_entrevistaMinAggregateOutputType = {
   id_pregunta: number | null
   id_entrevista: number | null
-  orden_pregunta: number | null
   pregunta: string | null
   respuesta: string | null
 }
@@ -49,7 +46,6 @@ export type Pregunta_entrevistaMinAggregateOutputType = {
 export type Pregunta_entrevistaMaxAggregateOutputType = {
   id_pregunta: number | null
   id_entrevista: number | null
-  orden_pregunta: number | null
   pregunta: string | null
   respuesta: string | null
 }
@@ -57,7 +53,6 @@ export type Pregunta_entrevistaMaxAggregateOutputType = {
 export type Pregunta_entrevistaCountAggregateOutputType = {
   id_pregunta: number
   id_entrevista: number
-  orden_pregunta: number
   pregunta: number
   respuesta: number
   _all: number
@@ -67,19 +62,16 @@ export type Pregunta_entrevistaCountAggregateOutputType = {
 export type Pregunta_entrevistaAvgAggregateInputType = {
   id_pregunta?: true
   id_entrevista?: true
-  orden_pregunta?: true
 }
 
 export type Pregunta_entrevistaSumAggregateInputType = {
   id_pregunta?: true
   id_entrevista?: true
-  orden_pregunta?: true
 }
 
 export type Pregunta_entrevistaMinAggregateInputType = {
   id_pregunta?: true
   id_entrevista?: true
-  orden_pregunta?: true
   pregunta?: true
   respuesta?: true
 }
@@ -87,7 +79,6 @@ export type Pregunta_entrevistaMinAggregateInputType = {
 export type Pregunta_entrevistaMaxAggregateInputType = {
   id_pregunta?: true
   id_entrevista?: true
-  orden_pregunta?: true
   pregunta?: true
   respuesta?: true
 }
@@ -95,7 +86,6 @@ export type Pregunta_entrevistaMaxAggregateInputType = {
 export type Pregunta_entrevistaCountAggregateInputType = {
   id_pregunta?: true
   id_entrevista?: true
-  orden_pregunta?: true
   pregunta?: true
   respuesta?: true
   _all?: true
@@ -190,7 +180,6 @@ export type pregunta_entrevistaGroupByArgs<ExtArgs extends runtime.Types.Extensi
 export type Pregunta_entrevistaGroupByOutputType = {
   id_pregunta: number
   id_entrevista: number
-  orden_pregunta: number
   pregunta: string
   respuesta: string | null
   _count: Pregunta_entrevistaCountAggregateOutputType | null
@@ -221,7 +210,6 @@ export type pregunta_entrevistaWhereInput = {
   NOT?: Prisma.pregunta_entrevistaWhereInput | Prisma.pregunta_entrevistaWhereInput[]
   id_pregunta?: Prisma.IntFilter<"pregunta_entrevista"> | number
   id_entrevista?: Prisma.IntFilter<"pregunta_entrevista"> | number
-  orden_pregunta?: Prisma.IntFilter<"pregunta_entrevista"> | number
   pregunta?: Prisma.StringFilter<"pregunta_entrevista"> | string
   respuesta?: Prisma.StringNullableFilter<"pregunta_entrevista"> | string | null
   entrevista?: Prisma.XOR<Prisma.EntrevistaScalarRelationFilter, Prisma.entrevistaWhereInput>
@@ -230,7 +218,6 @@ export type pregunta_entrevistaWhereInput = {
 export type pregunta_entrevistaOrderByWithRelationInput = {
   id_pregunta?: Prisma.SortOrder
   id_entrevista?: Prisma.SortOrder
-  orden_pregunta?: Prisma.SortOrder
   pregunta?: Prisma.SortOrder
   respuesta?: Prisma.SortOrderInput | Prisma.SortOrder
   entrevista?: Prisma.entrevistaOrderByWithRelationInput
@@ -242,7 +229,6 @@ export type pregunta_entrevistaWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.pregunta_entrevistaWhereInput[]
   NOT?: Prisma.pregunta_entrevistaWhereInput | Prisma.pregunta_entrevistaWhereInput[]
   id_entrevista?: Prisma.IntFilter<"pregunta_entrevista"> | number
-  orden_pregunta?: Prisma.IntFilter<"pregunta_entrevista"> | number
   pregunta?: Prisma.StringFilter<"pregunta_entrevista"> | string
   respuesta?: Prisma.StringNullableFilter<"pregunta_entrevista"> | string | null
   entrevista?: Prisma.XOR<Prisma.EntrevistaScalarRelationFilter, Prisma.entrevistaWhereInput>
@@ -251,7 +237,6 @@ export type pregunta_entrevistaWhereUniqueInput = Prisma.AtLeast<{
 export type pregunta_entrevistaOrderByWithAggregationInput = {
   id_pregunta?: Prisma.SortOrder
   id_entrevista?: Prisma.SortOrder
-  orden_pregunta?: Prisma.SortOrder
   pregunta?: Prisma.SortOrder
   respuesta?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.pregunta_entrevistaCountOrderByAggregateInput
@@ -267,13 +252,11 @@ export type pregunta_entrevistaScalarWhereWithAggregatesInput = {
   NOT?: Prisma.pregunta_entrevistaScalarWhereWithAggregatesInput | Prisma.pregunta_entrevistaScalarWhereWithAggregatesInput[]
   id_pregunta?: Prisma.IntWithAggregatesFilter<"pregunta_entrevista"> | number
   id_entrevista?: Prisma.IntWithAggregatesFilter<"pregunta_entrevista"> | number
-  orden_pregunta?: Prisma.IntWithAggregatesFilter<"pregunta_entrevista"> | number
   pregunta?: Prisma.StringWithAggregatesFilter<"pregunta_entrevista"> | string
   respuesta?: Prisma.StringNullableWithAggregatesFilter<"pregunta_entrevista"> | string | null
 }
 
 export type pregunta_entrevistaCreateInput = {
-  orden_pregunta: number
   pregunta: string
   respuesta?: string | null
   entrevista: Prisma.entrevistaCreateNestedOneWithoutPregunta_entrevistaInput
@@ -282,13 +265,11 @@ export type pregunta_entrevistaCreateInput = {
 export type pregunta_entrevistaUncheckedCreateInput = {
   id_pregunta?: number
   id_entrevista: number
-  orden_pregunta: number
   pregunta: string
   respuesta?: string | null
 }
 
 export type pregunta_entrevistaUpdateInput = {
-  orden_pregunta?: Prisma.IntFieldUpdateOperationsInput | number
   pregunta?: Prisma.StringFieldUpdateOperationsInput | string
   respuesta?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   entrevista?: Prisma.entrevistaUpdateOneRequiredWithoutPregunta_entrevistaNestedInput
@@ -297,7 +278,6 @@ export type pregunta_entrevistaUpdateInput = {
 export type pregunta_entrevistaUncheckedUpdateInput = {
   id_pregunta?: Prisma.IntFieldUpdateOperationsInput | number
   id_entrevista?: Prisma.IntFieldUpdateOperationsInput | number
-  orden_pregunta?: Prisma.IntFieldUpdateOperationsInput | number
   pregunta?: Prisma.StringFieldUpdateOperationsInput | string
   respuesta?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
@@ -305,13 +285,11 @@ export type pregunta_entrevistaUncheckedUpdateInput = {
 export type pregunta_entrevistaCreateManyInput = {
   id_pregunta?: number
   id_entrevista: number
-  orden_pregunta: number
   pregunta: string
   respuesta?: string | null
 }
 
 export type pregunta_entrevistaUpdateManyMutationInput = {
-  orden_pregunta?: Prisma.IntFieldUpdateOperationsInput | number
   pregunta?: Prisma.StringFieldUpdateOperationsInput | string
   respuesta?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
@@ -319,7 +297,6 @@ export type pregunta_entrevistaUpdateManyMutationInput = {
 export type pregunta_entrevistaUncheckedUpdateManyInput = {
   id_pregunta?: Prisma.IntFieldUpdateOperationsInput | number
   id_entrevista?: Prisma.IntFieldUpdateOperationsInput | number
-  orden_pregunta?: Prisma.IntFieldUpdateOperationsInput | number
   pregunta?: Prisma.StringFieldUpdateOperationsInput | string
   respuesta?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
@@ -337,7 +314,6 @@ export type pregunta_entrevistaOrderByRelationAggregateInput = {
 export type pregunta_entrevistaCountOrderByAggregateInput = {
   id_pregunta?: Prisma.SortOrder
   id_entrevista?: Prisma.SortOrder
-  orden_pregunta?: Prisma.SortOrder
   pregunta?: Prisma.SortOrder
   respuesta?: Prisma.SortOrder
 }
@@ -345,13 +321,11 @@ export type pregunta_entrevistaCountOrderByAggregateInput = {
 export type pregunta_entrevistaAvgOrderByAggregateInput = {
   id_pregunta?: Prisma.SortOrder
   id_entrevista?: Prisma.SortOrder
-  orden_pregunta?: Prisma.SortOrder
 }
 
 export type pregunta_entrevistaMaxOrderByAggregateInput = {
   id_pregunta?: Prisma.SortOrder
   id_entrevista?: Prisma.SortOrder
-  orden_pregunta?: Prisma.SortOrder
   pregunta?: Prisma.SortOrder
   respuesta?: Prisma.SortOrder
 }
@@ -359,7 +333,6 @@ export type pregunta_entrevistaMaxOrderByAggregateInput = {
 export type pregunta_entrevistaMinOrderByAggregateInput = {
   id_pregunta?: Prisma.SortOrder
   id_entrevista?: Prisma.SortOrder
-  orden_pregunta?: Prisma.SortOrder
   pregunta?: Prisma.SortOrder
   respuesta?: Prisma.SortOrder
 }
@@ -367,7 +340,6 @@ export type pregunta_entrevistaMinOrderByAggregateInput = {
 export type pregunta_entrevistaSumOrderByAggregateInput = {
   id_pregunta?: Prisma.SortOrder
   id_entrevista?: Prisma.SortOrder
-  orden_pregunta?: Prisma.SortOrder
 }
 
 export type pregunta_entrevistaCreateNestedManyWithoutEntrevistaInput = {
@@ -413,14 +385,12 @@ export type pregunta_entrevistaUncheckedUpdateManyWithoutEntrevistaNestedInput =
 }
 
 export type pregunta_entrevistaCreateWithoutEntrevistaInput = {
-  orden_pregunta: number
   pregunta: string
   respuesta?: string | null
 }
 
 export type pregunta_entrevistaUncheckedCreateWithoutEntrevistaInput = {
   id_pregunta?: number
-  orden_pregunta: number
   pregunta: string
   respuesta?: string | null
 }
@@ -457,34 +427,29 @@ export type pregunta_entrevistaScalarWhereInput = {
   NOT?: Prisma.pregunta_entrevistaScalarWhereInput | Prisma.pregunta_entrevistaScalarWhereInput[]
   id_pregunta?: Prisma.IntFilter<"pregunta_entrevista"> | number
   id_entrevista?: Prisma.IntFilter<"pregunta_entrevista"> | number
-  orden_pregunta?: Prisma.IntFilter<"pregunta_entrevista"> | number
   pregunta?: Prisma.StringFilter<"pregunta_entrevista"> | string
   respuesta?: Prisma.StringNullableFilter<"pregunta_entrevista"> | string | null
 }
 
 export type pregunta_entrevistaCreateManyEntrevistaInput = {
   id_pregunta?: number
-  orden_pregunta: number
   pregunta: string
   respuesta?: string | null
 }
 
 export type pregunta_entrevistaUpdateWithoutEntrevistaInput = {
-  orden_pregunta?: Prisma.IntFieldUpdateOperationsInput | number
   pregunta?: Prisma.StringFieldUpdateOperationsInput | string
   respuesta?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type pregunta_entrevistaUncheckedUpdateWithoutEntrevistaInput = {
   id_pregunta?: Prisma.IntFieldUpdateOperationsInput | number
-  orden_pregunta?: Prisma.IntFieldUpdateOperationsInput | number
   pregunta?: Prisma.StringFieldUpdateOperationsInput | string
   respuesta?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type pregunta_entrevistaUncheckedUpdateManyWithoutEntrevistaInput = {
   id_pregunta?: Prisma.IntFieldUpdateOperationsInput | number
-  orden_pregunta?: Prisma.IntFieldUpdateOperationsInput | number
   pregunta?: Prisma.StringFieldUpdateOperationsInput | string
   respuesta?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
@@ -494,7 +459,6 @@ export type pregunta_entrevistaUncheckedUpdateManyWithoutEntrevistaInput = {
 export type pregunta_entrevistaSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id_pregunta?: boolean
   id_entrevista?: boolean
-  orden_pregunta?: boolean
   pregunta?: boolean
   respuesta?: boolean
   entrevista?: boolean | Prisma.entrevistaDefaultArgs<ExtArgs>
@@ -503,7 +467,6 @@ export type pregunta_entrevistaSelect<ExtArgs extends runtime.Types.Extensions.I
 export type pregunta_entrevistaSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id_pregunta?: boolean
   id_entrevista?: boolean
-  orden_pregunta?: boolean
   pregunta?: boolean
   respuesta?: boolean
   entrevista?: boolean | Prisma.entrevistaDefaultArgs<ExtArgs>
@@ -512,7 +475,6 @@ export type pregunta_entrevistaSelectCreateManyAndReturn<ExtArgs extends runtime
 export type pregunta_entrevistaSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id_pregunta?: boolean
   id_entrevista?: boolean
-  orden_pregunta?: boolean
   pregunta?: boolean
   respuesta?: boolean
   entrevista?: boolean | Prisma.entrevistaDefaultArgs<ExtArgs>
@@ -521,12 +483,11 @@ export type pregunta_entrevistaSelectUpdateManyAndReturn<ExtArgs extends runtime
 export type pregunta_entrevistaSelectScalar = {
   id_pregunta?: boolean
   id_entrevista?: boolean
-  orden_pregunta?: boolean
   pregunta?: boolean
   respuesta?: boolean
 }
 
-export type pregunta_entrevistaOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id_pregunta" | "id_entrevista" | "orden_pregunta" | "pregunta" | "respuesta", ExtArgs["result"]["pregunta_entrevista"]>
+export type pregunta_entrevistaOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id_pregunta" | "id_entrevista" | "pregunta" | "respuesta", ExtArgs["result"]["pregunta_entrevista"]>
 export type pregunta_entrevistaInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   entrevista?: boolean | Prisma.entrevistaDefaultArgs<ExtArgs>
 }
@@ -545,7 +506,6 @@ export type $pregunta_entrevistaPayload<ExtArgs extends runtime.Types.Extensions
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id_pregunta: number
     id_entrevista: number
-    orden_pregunta: number
     pregunta: string
     respuesta: string | null
   }, ExtArgs["result"]["pregunta_entrevista"]>
@@ -974,7 +934,6 @@ export interface Prisma__pregunta_entrevistaClient<T, Null = never, ExtArgs exte
 export interface pregunta_entrevistaFieldRefs {
   readonly id_pregunta: Prisma.FieldRef<"pregunta_entrevista", 'Int'>
   readonly id_entrevista: Prisma.FieldRef<"pregunta_entrevista", 'Int'>
-  readonly orden_pregunta: Prisma.FieldRef<"pregunta_entrevista", 'Int'>
   readonly pregunta: Prisma.FieldRef<"pregunta_entrevista", 'String'>
   readonly respuesta: Prisma.FieldRef<"pregunta_entrevista", 'String'>
 }

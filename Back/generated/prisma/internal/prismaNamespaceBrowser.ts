@@ -68,7 +68,20 @@ export const ModelName = {
   tecnica_recoleccion_catalogo: 'tecnica_recoleccion_catalogo',
   criterio_aceptacion: 'criterio_aceptacion',
   historia_usuario: 'historia_usuario',
-  observacion_detalle: 'observacion_detalle'
+  observacion_detalle: 'observacion_detalle',
+  analisis_documento: 'analisis_documento',
+  cuestionario: 'cuestionario',
+  detalle_respuesta: 'detalle_respuesta',
+  etapa_proceso: 'etapa_proceso',
+  focus_group: 'focus_group',
+  hallazgo_documento: 'hallazgo_documento',
+  idea_generada: 'idea_generada',
+  opcion_respuesta: 'opcion_respuesta',
+  participante_focus_group: 'participante_focus_group',
+  pregunta_cuestionario: 'pregunta_cuestionario',
+  requisito_documento: 'requisito_documento',
+  respuesta_cuestionario: 'respuesta_cuestionario',
+  seguimiento_transaccional: 'seguimiento_transaccional'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -103,10 +116,10 @@ export type Diagrama_umlScalarFieldEnum = (typeof Diagrama_umlScalarFieldEnum)[k
 export const EntrevistaScalarFieldEnum = {
   id_entrevista: 'id_entrevista',
   id_tecnica: 'id_tecnica',
-  id_usuario: 'id_usuario',
+  id_stakeholder: 'id_stakeholder',
   fecha_entrevista: 'fecha_entrevista',
   duracion: 'duracion',
-  estatus: 'estatus'
+  notas: 'notas'
 } as const
 
 export type EntrevistaScalarFieldEnum = (typeof EntrevistaScalarFieldEnum)[keyof typeof EntrevistaScalarFieldEnum]
@@ -138,7 +151,6 @@ export type ObservacionScalarFieldEnum = (typeof ObservacionScalarFieldEnum)[key
 export const Pregunta_entrevistaScalarFieldEnum = {
   id_pregunta: 'id_pregunta',
   id_entrevista: 'id_entrevista',
-  orden_pregunta: 'orden_pregunta',
   pregunta: 'pregunta',
   respuesta: 'respuesta'
 } as const
@@ -296,6 +308,163 @@ export const Observacion_detalleScalarFieldEnum = {
 } as const
 
 export type Observacion_detalleScalarFieldEnum = (typeof Observacion_detalleScalarFieldEnum)[keyof typeof Observacion_detalleScalarFieldEnum]
+
+
+export const Analisis_documentoScalarFieldEnum = {
+  id_analisis_documento: 'id_analisis_documento',
+  id_tecnica: 'id_tecnica',
+  nombre_documento: 'nombre_documento',
+  tipo_documento: 'tipo_documento',
+  fuente: 'fuente',
+  fecha_analisis: 'fecha_analisis',
+  estatus: 'estatus',
+  observaciones: 'observaciones',
+  fecha_creacion: 'fecha_creacion'
+} as const
+
+export type Analisis_documentoScalarFieldEnum = (typeof Analisis_documentoScalarFieldEnum)[keyof typeof Analisis_documentoScalarFieldEnum]
+
+
+export const CuestionarioScalarFieldEnum = {
+  id_cuestionario: 'id_cuestionario',
+  id_tecnica: 'id_tecnica',
+  id_stakeholder: 'id_stakeholder',
+  objetivo: 'objetivo',
+  audiencia_objetivo: 'audiencia_objetivo',
+  responsable: 'responsable',
+  metodo_distribucion: 'metodo_distribucion',
+  fecha_distribucion: 'fecha_distribucion',
+  fecha_limite: 'fecha_limite',
+  respuestas_recibidas: 'respuestas_recibidas',
+  instrucciones: 'instrucciones',
+  estatus: 'estatus',
+  fecha_creacion: 'fecha_creacion'
+} as const
+
+export type CuestionarioScalarFieldEnum = (typeof CuestionarioScalarFieldEnum)[keyof typeof CuestionarioScalarFieldEnum]
+
+
+export const Detalle_respuestaScalarFieldEnum = {
+  id_detalle_respuesta: 'id_detalle_respuesta',
+  id_respuesta: 'id_respuesta',
+  id_pregunta: 'id_pregunta',
+  respuesta_texto: 'respuesta_texto',
+  respuesta_numero: 'respuesta_numero',
+  id_opcion: 'id_opcion'
+} as const
+
+export type Detalle_respuestaScalarFieldEnum = (typeof Detalle_respuestaScalarFieldEnum)[keyof typeof Detalle_respuestaScalarFieldEnum]
+
+
+export const Etapa_procesoScalarFieldEnum = {
+  id_etapa: 'id_etapa',
+  id_seguimiento: 'id_seguimiento',
+  nombre_etapa: 'nombre_etapa',
+  id_rol: 'id_rol',
+  descripcion: 'descripcion',
+  entradas: 'entradas',
+  salidas: 'salidas',
+  cuello_botella: 'cuello_botella',
+  mejora_propuesta: 'mejora_propuesta'
+} as const
+
+export type Etapa_procesoScalarFieldEnum = (typeof Etapa_procesoScalarFieldEnum)[keyof typeof Etapa_procesoScalarFieldEnum]
+
+
+export const Focus_groupScalarFieldEnum = {
+  id_focus: 'id_focus',
+  id_tecnica: 'id_tecnica',
+  id_stakeholder: 'id_stakeholder',
+  fecha: 'fecha',
+  duracion: 'duracion',
+  estatus: 'estatus',
+  tema: 'tema',
+  conclusiones: 'conclusiones'
+} as const
+
+export type Focus_groupScalarFieldEnum = (typeof Focus_groupScalarFieldEnum)[keyof typeof Focus_groupScalarFieldEnum]
+
+
+export const Hallazgo_documentoScalarFieldEnum = {
+  id_hallazgo: 'id_hallazgo',
+  id_analisis_documento: 'id_analisis_documento',
+  descripcion: 'descripcion',
+  pagina: 'pagina'
+} as const
+
+export type Hallazgo_documentoScalarFieldEnum = (typeof Hallazgo_documentoScalarFieldEnum)[keyof typeof Hallazgo_documentoScalarFieldEnum]
+
+
+export const Idea_generadaScalarFieldEnum = {
+  id_idea_generada: 'id_idea_generada',
+  idea: 'idea',
+  puntucacion: 'puntucacion',
+  id_focus: 'id_focus'
+} as const
+
+export type Idea_generadaScalarFieldEnum = (typeof Idea_generadaScalarFieldEnum)[keyof typeof Idea_generadaScalarFieldEnum]
+
+
+export const Opcion_respuestaScalarFieldEnum = {
+  id_opcion: 'id_opcion',
+  id_pregunta: 'id_pregunta',
+  texto_opcion: 'texto_opcion'
+} as const
+
+export type Opcion_respuestaScalarFieldEnum = (typeof Opcion_respuestaScalarFieldEnum)[keyof typeof Opcion_respuestaScalarFieldEnum]
+
+
+export const Participante_focus_groupScalarFieldEnum = {
+  id_participante: 'id_participante',
+  id_focus: 'id_focus',
+  id_stakeholder: 'id_stakeholder'
+} as const
+
+export type Participante_focus_groupScalarFieldEnum = (typeof Participante_focus_groupScalarFieldEnum)[keyof typeof Participante_focus_groupScalarFieldEnum]
+
+
+export const Pregunta_cuestionarioScalarFieldEnum = {
+  id_pregunta: 'id_pregunta',
+  id_cuestionario: 'id_cuestionario',
+  orden_pregunta: 'orden_pregunta',
+  pregunta: 'pregunta',
+  tipo_pregunta: 'tipo_pregunta',
+  valor_minimo: 'valor_minimo',
+  valor_maximo: 'valor_maximo',
+  etiqueta_minima: 'etiqueta_minima',
+  etiqueta_maxima: 'etiqueta_maxima'
+} as const
+
+export type Pregunta_cuestionarioScalarFieldEnum = (typeof Pregunta_cuestionarioScalarFieldEnum)[keyof typeof Pregunta_cuestionarioScalarFieldEnum]
+
+
+export const Requisito_documentoScalarFieldEnum = {
+  id_requisito_documento: 'id_requisito_documento',
+  id_analisis_documento: 'id_analisis_documento',
+  descripcion: 'descripcion',
+  tipo_requisito: 'tipo_requisito'
+} as const
+
+export type Requisito_documentoScalarFieldEnum = (typeof Requisito_documentoScalarFieldEnum)[keyof typeof Requisito_documentoScalarFieldEnum]
+
+
+export const Respuesta_cuestionarioScalarFieldEnum = {
+  id_respuesta: 'id_respuesta',
+  id_cuestionario: 'id_cuestionario',
+  id_stakeholder: 'id_stakeholder',
+  fecha_respuesta: 'fecha_respuesta'
+} as const
+
+export type Respuesta_cuestionarioScalarFieldEnum = (typeof Respuesta_cuestionarioScalarFieldEnum)[keyof typeof Respuesta_cuestionarioScalarFieldEnum]
+
+
+export const Seguimiento_transaccionalScalarFieldEnum = {
+  id_seguimiento: 'id_seguimiento',
+  id_tecnica: 'id_tecnica',
+  descripcion_flujo: 'descripcion_flujo'
+} as const
+
+export type Seguimiento_transaccionalScalarFieldEnum = (typeof Seguimiento_transaccionalScalarFieldEnum)[keyof typeof Seguimiento_transaccionalScalarFieldEnum]
 
 
 export const SortOrder = {

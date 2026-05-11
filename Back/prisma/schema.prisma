@@ -21,12 +21,12 @@ model diagrama_uml {
 model entrevista {
   id_entrevista       Int                   @id @default(autoincrement())
   id_tecnica          Int
-  id_usuario          Int
+  id_stakeholder      Int?
   fecha_entrevista    DateTime?             @db.Date
   duracion            Int?
-  estatus             String                @db.VarChar(20)
+  notas               String?
+  stakeholder         stakeholder?          @relation(fields: [id_stakeholder], references: [id_stakeholder], onDelete: NoAction, onUpdate: NoAction)
   tecnica_recoleccion tecnica_recoleccion   @relation(fields: [id_tecnica], references: [id_tecnica], onDelete: Cascade)
-  usuario             usuario               @relation(fields: [id_usuario], references: [id_usuario])
   pregunta_entrevista pregunta_entrevista[]
 }
 
@@ -56,12 +56,11 @@ model observacion {
 }
 
 model pregunta_entrevista {
-  id_pregunta    Int        @id @default(autoincrement())
-  id_entrevista  Int
-  orden_pregunta Int
-  pregunta       String
-  respuesta      String?
-  entrevista     entrevista @relation(fields: [id_entrevista], references: [id_entrevista], onDelete: Cascade)
+  id_pregunta   Int        @id @default(autoincrement())
+  id_entrevista Int
+  pregunta      String
+  respuesta     String?
+  entrevista    entrevista @relation(fields: [id_entrevista], references: [id_entrevista], onDelete: Cascade)
 }
 
 model proceso {
@@ -123,6 +122,7 @@ model rol {
   descripcion           String?                 @db.Char(200)
   id_proyecto           Int?
   equipo_proyecto       equipo_proyecto[]
+  etapa_proceso         etapa_proceso[]
   proceso               proceso[]
   proyecto_participante proyecto_participante[]
   proyecto              proyecto?               @relation(fields: [id_proyecto], references: [id_proyecto], onDelete: NoAction, onUpdate: NoAction, map: "fk_rol_proyecto")
@@ -130,15 +130,20 @@ model rol {
 }
 
 model stakeholder {
-  id_stakeholder      Int                   @id @default(autoincrement())
-  nombre              String                @db.VarChar(100)
-  area                String?               @db.VarChar(50)
-  contacto_email      String?               @db.VarChar(60)
-  estatus             String?               @default("A") @db.VarChar(1)
-  id_rol              Int?
-  observacion         observacion[]
-  rol                 rol?                  @relation(fields: [id_rol], references: [id_rol], onDelete: NoAction, onUpdate: NoAction, map: "fk_stakeholder_rol")
-  tecnica_recoleccion tecnica_recoleccion[]
+  id_stakeholder           Int                        @id @default(autoincrement())
+  nombre                   String                     @db.VarChar(100)
+  area                     String?                    @db.VarChar(50)
+  contacto_email           String?                    @db.VarChar(60)
+  estatus                  String?                    @default("A") @db.VarChar(1)
+  id_rol                   Int?
+  cuestionario             cuestionario[]
+  entrevista               entrevista[]
+  focus_group              focus_group[]
+  observacion              observacion[]
+  participante_focus_group participante_focus_group[]
+  respuesta_cuestionario   respuesta_cuestionario[]
+  rol                      rol?                       @relation(fields: [id_rol], references: [id_rol], onDelete: NoAction, onUpdate: NoAction, map: "fk_stakeholder_rol")
+  tecnica_recoleccion      tecnica_recoleccion[]
 }
 
 model subproceso {
@@ -160,10 +165,14 @@ model tecnica_recoleccion {
   id_stakeholder               Int?
   id_tecnica_catalogo          Int?
   ultima_actualizacion         DateTime?                     @db.Date
+  analisis_documento           analisis_documento[]
+  cuestionario                 cuestionario[]
   entrevista                   entrevista[]
+  focus_group                  focus_group[]
   historia_usuario             historia_usuario[]
   observacion                  observacion[]
   requerimiento                requerimiento[]
+  seguimiento_transaccional    seguimiento_transaccional[]
   stakeholder                  stakeholder?                  @relation(fields: [id_stakeholder], references: [id_stakeholder], onDelete: Cascade, onUpdate: NoAction, map: "tecnica_id_stakeholder_fkey")
   subproceso                   subproceso                    @relation(fields: [id_subproceso], references: [id_subproceso], onDelete: Cascade, onUpdate: NoAction, map: "tecnica_id_subproceso_fkey")
   tecnica_recoleccion_catalogo tecnica_recoleccion_catalogo? @relation(fields: [id_tecnica_catalogo], references: [id_tecnica_catalogo], onDelete: NoAction, onUpdate: NoAction, map: "tecnica_id_tecnica_recoleccion_catalogo_fkey")
@@ -179,7 +188,6 @@ model usuario {
   estatus               String?                 @db.VarChar(1)
   password_hash         String                  @db.VarChar(64)
   Nombre_usuario        String?                 @db.VarChar(32)
-  entrevista            entrevista[]
   equipo_proyecto       equipo_proyecto[]
   proyecto              proyecto[]
   proyecto_participante proyecto_participante[]
@@ -218,6 +226,155 @@ model observacion_detalle {
   observacion            observacion? @relation(fields: [id_observacion], references: [id_observacion], onDelete: NoAction, onUpdate: NoAction)
 }
 
+model analisis_documento {
+  id_analisis_documento Int                   @id @default(autoincrement())
+  id_tecnica            Int
+  nombre_documento      String                @db.VarChar(150)
+  tipo_documento        String?               @db.VarChar(100)
+  fuente                String?               @db.VarChar(100)
+  fecha_analisis        DateTime?             @db.Date
+  estatus               String                @default("Analizado") @db.VarChar(20)
+  observaciones         String?
+  fecha_creacion        DateTime?             @default(dbgenerated("CURRENT_DATE")) @db.Date
+  tecnica_recoleccion   tecnica_recoleccion   @relation(fields: [id_tecnica], references: [id_tecnica], onDelete: Cascade, onUpdate: NoAction, map: "fk_analisis_documento_tecnica")
+  hallazgo_documento    hallazgo_documento[]
+  requisito_documento   requisito_documento[]
+}
+
+model cuestionario {
+  id_cuestionario        Int                      @id @default(autoincrement())
+  id_tecnica             Int
+  id_stakeholder         Int?
+  objetivo               String?
+  audiencia_objetivo     String?                  @db.VarChar(200)
+  responsable            String?                  @db.VarChar(100)
+  metodo_distribucion    String?                  @db.VarChar(50)
+  fecha_distribucion     DateTime?                @db.Date
+  fecha_limite           DateTime?                @db.Date
+  respuestas_recibidas   Int?                     @default(0)
+  instrucciones          String?
+  estatus                String                   @default("Borrador") @db.VarChar(20)
+  fecha_creacion         DateTime?                @default(dbgenerated("CURRENT_DATE")) @db.Date
+  stakeholder            stakeholder?             @relation(fields: [id_stakeholder], references: [id_stakeholder], onDelete: NoAction, onUpdate: NoAction, map: "fk_cuestionario_stakeholder")
+  tecnica_recoleccion    tecnica_recoleccion      @relation(fields: [id_tecnica], references: [id_tecnica], onDelete: Cascade, onUpdate: NoAction, map: "fk_cuestionario_tecnica")
+  pregunta_cuestionario  pregunta_cuestionario[]
+  respuesta_cuestionario respuesta_cuestionario[]
+}
+
+model detalle_respuesta {
+  id_detalle_respuesta   Int                    @id @default(autoincrement())
+  id_respuesta           Int
+  id_pregunta            Int
+  respuesta_texto        String?
+  respuesta_numero       Int?
+  id_opcion              Int?
+  opcion_respuesta       opcion_respuesta?      @relation(fields: [id_opcion], references: [id_opcion], onUpdate: NoAction, map: "fk_detalle_opcion")
+  pregunta_cuestionario  pregunta_cuestionario  @relation(fields: [id_pregunta], references: [id_pregunta], onDelete: Cascade, onUpdate: NoAction, map: "fk_detalle_pregunta")
+  respuesta_cuestionario respuesta_cuestionario @relation(fields: [id_respuesta], references: [id_respuesta], onDelete: Cascade, onUpdate: NoAction, map: "fk_detalle_respuesta")
+}
+
+model etapa_proceso {
+  id_etapa                  Int                       @id @default(autoincrement())
+  id_seguimiento            Int
+  nombre_etapa              String                    @db.VarChar(150)
+  id_rol                    Int?
+  descripcion               String?
+  entradas                  String?
+  salidas                   String?
+  cuello_botella            String?
+  mejora_propuesta          String?
+  rol                       rol?                      @relation(fields: [id_rol], references: [id_rol], onDelete: Cascade, onUpdate: NoAction, map: "fk_etapa_rol")
+  seguimiento_transaccional seguimiento_transaccional @relation(fields: [id_seguimiento], references: [id_seguimiento], onDelete: Cascade, onUpdate: NoAction, map: "fk_etapa_seguimiento")
+}
+
+model focus_group {
+  id_focus                 Int                        @id @default(autoincrement())
+  id_tecnica               Int
+  id_stakeholder           Int?
+  fecha                    DateTime?                  @db.Date
+  duracion                 Int?
+  estatus                  String                     @default("Planificada") @db.VarChar(20)
+  tema                     String                     @db.VarChar(200)
+  conclusiones             String?
+  stakeholder              stakeholder?               @relation(fields: [id_stakeholder], references: [id_stakeholder], onDelete: NoAction, onUpdate: NoAction, map: "fk_focus_group_stakeholder")
+  tecnica_recoleccion      tecnica_recoleccion        @relation(fields: [id_tecnica], references: [id_tecnica], onDelete: Cascade, onUpdate: NoAction, map: "fk_focus_group_tecnica")
+  idea_generada            idea_generada[]
+  participante_focus_group participante_focus_group[]
+}
+
+model hallazgo_documento {
+  id_hallazgo           Int                @id @default(autoincrement())
+  id_analisis_documento Int
+  descripcion           String
+  pagina                Int?
+  analisis_documento    analisis_documento @relation(fields: [id_analisis_documento], references: [id_analisis_documento], onDelete: Cascade, onUpdate: NoAction, map: "fk_hallazgo_documento")
+}
+
+model idea_generada {
+  id_idea_generada Int          @id @default(autoincrement())
+  idea             String?      @db.VarChar(50)
+  puntucacion      Int?
+  id_focus         Int?
+  focus_group      focus_group? @relation(fields: [id_focus], references: [id_focus], onDelete: Cascade, onUpdate: NoAction, map: "fk_idea_focus")
+}
+
+model opcion_respuesta {
+  id_opcion             Int                   @id @default(autoincrement())
+  id_pregunta           Int
+  texto_opcion          String                @db.VarChar(200)
+  detalle_respuesta     detalle_respuesta[]
+  pregunta_cuestionario pregunta_cuestionario @relation(fields: [id_pregunta], references: [id_pregunta], onDelete: Cascade, onUpdate: NoAction, map: "fk_opcion_pregunta")
+}
+
+model participante_focus_group {
+  id_participante Int         @id @default(autoincrement())
+  id_focus        Int
+  id_stakeholder  Int
+  focus_group     focus_group @relation(fields: [id_focus], references: [id_focus], onDelete: Cascade, onUpdate: NoAction, map: "fk_participante_focus")
+  stakeholder     stakeholder @relation(fields: [id_stakeholder], references: [id_stakeholder], onDelete: Cascade, onUpdate: NoAction, map: "fk_participante_stakeholder")
+}
+
+model pregunta_cuestionario {
+  id_pregunta       Int                 @id @default(autoincrement())
+  id_cuestionario   Int
+  orden_pregunta    Int
+  pregunta          String
+  tipo_pregunta     tipo_pregunta?      @default(texto_libre)
+  valor_minimo      Int?
+  valor_maximo      Int?
+  etiqueta_minima   String?             @db.VarChar(100)
+  etiqueta_maxima   String?             @db.VarChar(100)
+  detalle_respuesta detalle_respuesta[]
+  opcion_respuesta  opcion_respuesta[]
+  cuestionario      cuestionario        @relation(fields: [id_cuestionario], references: [id_cuestionario], onDelete: Cascade, onUpdate: NoAction, map: "fk_pregunta_cuestionario")
+}
+
+model requisito_documento {
+  id_requisito_documento Int                @id @default(autoincrement())
+  id_analisis_documento  Int
+  descripcion            String
+  tipo_requisito         String?            @db.VarChar(30)
+  analisis_documento     analisis_documento @relation(fields: [id_analisis_documento], references: [id_analisis_documento], onDelete: Cascade, onUpdate: NoAction, map: "fk_requisito_documento")
+}
+
+model respuesta_cuestionario {
+  id_respuesta      Int                 @id @default(autoincrement())
+  id_cuestionario   Int
+  id_stakeholder    Int
+  fecha_respuesta   DateTime?           @default(now()) @db.Timestamp(6)
+  detalle_respuesta detalle_respuesta[]
+  cuestionario      cuestionario        @relation(fields: [id_cuestionario], references: [id_cuestionario], onDelete: Cascade, onUpdate: NoAction, map: "fk_respuesta_cuestionario")
+  stakeholder       stakeholder         @relation(fields: [id_stakeholder], references: [id_stakeholder], onDelete: Cascade, onUpdate: NoAction, map: "fk_respuesta_stakeholder")
+}
+
+model seguimiento_transaccional {
+  id_seguimiento      Int                 @id @default(autoincrement())
+  id_tecnica          Int
+  descripcion_flujo   String
+  etapa_proceso       etapa_proceso[]
+  tecnica_recoleccion tecnica_recoleccion @relation(fields: [id_tecnica], references: [id_tecnica], onDelete: Cascade, onUpdate: NoAction, map: "fk_seguimiento_tecnica")
+}
+
 enum tipo_diagrama {
   use_case @map("use-case")
   class
@@ -229,4 +386,10 @@ enum prioridad_historia_usuario {
   Alta
   Media
   Baja
+}
+
+enum tipo_pregunta {
+  texto_libre
+  opcion_multiple
+  escala
 }

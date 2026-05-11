@@ -221,6 +221,7 @@ export type rolWhereInput = {
   descripcion?: Prisma.StringNullableFilter<"rol"> | string | null
   id_proyecto?: Prisma.IntNullableFilter<"rol"> | number | null
   equipo_proyecto?: Prisma.Equipo_proyectoListRelationFilter
+  etapa_proceso?: Prisma.Etapa_procesoListRelationFilter
   proceso?: Prisma.ProcesoListRelationFilter
   proyecto_participante?: Prisma.Proyecto_participanteListRelationFilter
   proyecto?: Prisma.XOR<Prisma.ProyectoNullableScalarRelationFilter, Prisma.proyectoWhereInput> | null
@@ -234,6 +235,7 @@ export type rolOrderByWithRelationInput = {
   descripcion?: Prisma.SortOrderInput | Prisma.SortOrder
   id_proyecto?: Prisma.SortOrderInput | Prisma.SortOrder
   equipo_proyecto?: Prisma.equipo_proyectoOrderByRelationAggregateInput
+  etapa_proceso?: Prisma.etapa_procesoOrderByRelationAggregateInput
   proceso?: Prisma.procesoOrderByRelationAggregateInput
   proyecto_participante?: Prisma.proyecto_participanteOrderByRelationAggregateInput
   proyecto?: Prisma.proyectoOrderByWithRelationInput
@@ -250,6 +252,7 @@ export type rolWhereUniqueInput = Prisma.AtLeast<{
   descripcion?: Prisma.StringNullableFilter<"rol"> | string | null
   id_proyecto?: Prisma.IntNullableFilter<"rol"> | number | null
   equipo_proyecto?: Prisma.Equipo_proyectoListRelationFilter
+  etapa_proceso?: Prisma.Etapa_procesoListRelationFilter
   proceso?: Prisma.ProcesoListRelationFilter
   proyecto_participante?: Prisma.Proyecto_participanteListRelationFilter
   proyecto?: Prisma.XOR<Prisma.ProyectoNullableScalarRelationFilter, Prisma.proyectoWhereInput> | null
@@ -285,6 +288,7 @@ export type rolCreateInput = {
   estatus?: string | null
   descripcion?: string | null
   equipo_proyecto?: Prisma.equipo_proyectoCreateNestedManyWithoutRolInput
+  etapa_proceso?: Prisma.etapa_procesoCreateNestedManyWithoutRolInput
   proceso?: Prisma.procesoCreateNestedManyWithoutRolInput
   proyecto_participante?: Prisma.proyecto_participanteCreateNestedManyWithoutRolInput
   proyecto?: Prisma.proyectoCreateNestedOneWithoutRolInput
@@ -298,6 +302,7 @@ export type rolUncheckedCreateInput = {
   descripcion?: string | null
   id_proyecto?: number | null
   equipo_proyecto?: Prisma.equipo_proyectoUncheckedCreateNestedManyWithoutRolInput
+  etapa_proceso?: Prisma.etapa_procesoUncheckedCreateNestedManyWithoutRolInput
   proceso?: Prisma.procesoUncheckedCreateNestedManyWithoutRolInput
   proyecto_participante?: Prisma.proyecto_participanteUncheckedCreateNestedManyWithoutRolInput
   stakeholder?: Prisma.stakeholderUncheckedCreateNestedManyWithoutRolInput
@@ -308,6 +313,7 @@ export type rolUpdateInput = {
   estatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   descripcion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   equipo_proyecto?: Prisma.equipo_proyectoUpdateManyWithoutRolNestedInput
+  etapa_proceso?: Prisma.etapa_procesoUpdateManyWithoutRolNestedInput
   proceso?: Prisma.procesoUpdateManyWithoutRolNestedInput
   proyecto_participante?: Prisma.proyecto_participanteUpdateManyWithoutRolNestedInput
   proyecto?: Prisma.proyectoUpdateOneWithoutRolNestedInput
@@ -321,6 +327,7 @@ export type rolUncheckedUpdateInput = {
   descripcion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   id_proyecto?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   equipo_proyecto?: Prisma.equipo_proyectoUncheckedUpdateManyWithoutRolNestedInput
+  etapa_proceso?: Prisma.etapa_procesoUncheckedUpdateManyWithoutRolNestedInput
   proceso?: Prisma.procesoUncheckedUpdateManyWithoutRolNestedInput
   proyecto_participante?: Prisma.proyecto_participanteUncheckedUpdateManyWithoutRolNestedInput
   stakeholder?: Prisma.stakeholderUncheckedUpdateManyWithoutRolNestedInput
@@ -506,10 +513,27 @@ export type rolUpdateOneWithoutStakeholderNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.rolUpdateToOneWithWhereWithoutStakeholderInput, Prisma.rolUpdateWithoutStakeholderInput>, Prisma.rolUncheckedUpdateWithoutStakeholderInput>
 }
 
+export type rolCreateNestedOneWithoutEtapa_procesoInput = {
+  create?: Prisma.XOR<Prisma.rolCreateWithoutEtapa_procesoInput, Prisma.rolUncheckedCreateWithoutEtapa_procesoInput>
+  connectOrCreate?: Prisma.rolCreateOrConnectWithoutEtapa_procesoInput
+  connect?: Prisma.rolWhereUniqueInput
+}
+
+export type rolUpdateOneWithoutEtapa_procesoNestedInput = {
+  create?: Prisma.XOR<Prisma.rolCreateWithoutEtapa_procesoInput, Prisma.rolUncheckedCreateWithoutEtapa_procesoInput>
+  connectOrCreate?: Prisma.rolCreateOrConnectWithoutEtapa_procesoInput
+  upsert?: Prisma.rolUpsertWithoutEtapa_procesoInput
+  disconnect?: Prisma.rolWhereInput | boolean
+  delete?: Prisma.rolWhereInput | boolean
+  connect?: Prisma.rolWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.rolUpdateToOneWithWhereWithoutEtapa_procesoInput, Prisma.rolUpdateWithoutEtapa_procesoInput>, Prisma.rolUncheckedUpdateWithoutEtapa_procesoInput>
+}
+
 export type rolCreateWithoutEquipo_proyectoInput = {
   nombre: string
   estatus?: string | null
   descripcion?: string | null
+  etapa_proceso?: Prisma.etapa_procesoCreateNestedManyWithoutRolInput
   proceso?: Prisma.procesoCreateNestedManyWithoutRolInput
   proyecto_participante?: Prisma.proyecto_participanteCreateNestedManyWithoutRolInput
   proyecto?: Prisma.proyectoCreateNestedOneWithoutRolInput
@@ -522,6 +546,7 @@ export type rolUncheckedCreateWithoutEquipo_proyectoInput = {
   estatus?: string | null
   descripcion?: string | null
   id_proyecto?: number | null
+  etapa_proceso?: Prisma.etapa_procesoUncheckedCreateNestedManyWithoutRolInput
   proceso?: Prisma.procesoUncheckedCreateNestedManyWithoutRolInput
   proyecto_participante?: Prisma.proyecto_participanteUncheckedCreateNestedManyWithoutRolInput
   stakeholder?: Prisma.stakeholderUncheckedCreateNestedManyWithoutRolInput
@@ -547,6 +572,7 @@ export type rolUpdateWithoutEquipo_proyectoInput = {
   nombre?: Prisma.StringFieldUpdateOperationsInput | string
   estatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   descripcion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  etapa_proceso?: Prisma.etapa_procesoUpdateManyWithoutRolNestedInput
   proceso?: Prisma.procesoUpdateManyWithoutRolNestedInput
   proyecto_participante?: Prisma.proyecto_participanteUpdateManyWithoutRolNestedInput
   proyecto?: Prisma.proyectoUpdateOneWithoutRolNestedInput
@@ -559,6 +585,7 @@ export type rolUncheckedUpdateWithoutEquipo_proyectoInput = {
   estatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   descripcion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   id_proyecto?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  etapa_proceso?: Prisma.etapa_procesoUncheckedUpdateManyWithoutRolNestedInput
   proceso?: Prisma.procesoUncheckedUpdateManyWithoutRolNestedInput
   proyecto_participante?: Prisma.proyecto_participanteUncheckedUpdateManyWithoutRolNestedInput
   stakeholder?: Prisma.stakeholderUncheckedUpdateManyWithoutRolNestedInput
@@ -569,6 +596,7 @@ export type rolCreateWithoutProcesoInput = {
   estatus?: string | null
   descripcion?: string | null
   equipo_proyecto?: Prisma.equipo_proyectoCreateNestedManyWithoutRolInput
+  etapa_proceso?: Prisma.etapa_procesoCreateNestedManyWithoutRolInput
   proyecto_participante?: Prisma.proyecto_participanteCreateNestedManyWithoutRolInput
   proyecto?: Prisma.proyectoCreateNestedOneWithoutRolInput
   stakeholder?: Prisma.stakeholderCreateNestedManyWithoutRolInput
@@ -581,6 +609,7 @@ export type rolUncheckedCreateWithoutProcesoInput = {
   descripcion?: string | null
   id_proyecto?: number | null
   equipo_proyecto?: Prisma.equipo_proyectoUncheckedCreateNestedManyWithoutRolInput
+  etapa_proceso?: Prisma.etapa_procesoUncheckedCreateNestedManyWithoutRolInput
   proyecto_participante?: Prisma.proyecto_participanteUncheckedCreateNestedManyWithoutRolInput
   stakeholder?: Prisma.stakeholderUncheckedCreateNestedManyWithoutRolInput
 }
@@ -606,6 +635,7 @@ export type rolUpdateWithoutProcesoInput = {
   estatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   descripcion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   equipo_proyecto?: Prisma.equipo_proyectoUpdateManyWithoutRolNestedInput
+  etapa_proceso?: Prisma.etapa_procesoUpdateManyWithoutRolNestedInput
   proyecto_participante?: Prisma.proyecto_participanteUpdateManyWithoutRolNestedInput
   proyecto?: Prisma.proyectoUpdateOneWithoutRolNestedInput
   stakeholder?: Prisma.stakeholderUpdateManyWithoutRolNestedInput
@@ -618,6 +648,7 @@ export type rolUncheckedUpdateWithoutProcesoInput = {
   descripcion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   id_proyecto?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   equipo_proyecto?: Prisma.equipo_proyectoUncheckedUpdateManyWithoutRolNestedInput
+  etapa_proceso?: Prisma.etapa_procesoUncheckedUpdateManyWithoutRolNestedInput
   proyecto_participante?: Prisma.proyecto_participanteUncheckedUpdateManyWithoutRolNestedInput
   stakeholder?: Prisma.stakeholderUncheckedUpdateManyWithoutRolNestedInput
 }
@@ -627,6 +658,7 @@ export type rolCreateWithoutProyectoInput = {
   estatus?: string | null
   descripcion?: string | null
   equipo_proyecto?: Prisma.equipo_proyectoCreateNestedManyWithoutRolInput
+  etapa_proceso?: Prisma.etapa_procesoCreateNestedManyWithoutRolInput
   proceso?: Prisma.procesoCreateNestedManyWithoutRolInput
   proyecto_participante?: Prisma.proyecto_participanteCreateNestedManyWithoutRolInput
   stakeholder?: Prisma.stakeholderCreateNestedManyWithoutRolInput
@@ -638,6 +670,7 @@ export type rolUncheckedCreateWithoutProyectoInput = {
   estatus?: string | null
   descripcion?: string | null
   equipo_proyecto?: Prisma.equipo_proyectoUncheckedCreateNestedManyWithoutRolInput
+  etapa_proceso?: Prisma.etapa_procesoUncheckedCreateNestedManyWithoutRolInput
   proceso?: Prisma.procesoUncheckedCreateNestedManyWithoutRolInput
   proyecto_participante?: Prisma.proyecto_participanteUncheckedCreateNestedManyWithoutRolInput
   stakeholder?: Prisma.stakeholderUncheckedCreateNestedManyWithoutRolInput
@@ -685,6 +718,7 @@ export type rolCreateWithoutProyecto_participanteInput = {
   estatus?: string | null
   descripcion?: string | null
   equipo_proyecto?: Prisma.equipo_proyectoCreateNestedManyWithoutRolInput
+  etapa_proceso?: Prisma.etapa_procesoCreateNestedManyWithoutRolInput
   proceso?: Prisma.procesoCreateNestedManyWithoutRolInput
   proyecto?: Prisma.proyectoCreateNestedOneWithoutRolInput
   stakeholder?: Prisma.stakeholderCreateNestedManyWithoutRolInput
@@ -697,6 +731,7 @@ export type rolUncheckedCreateWithoutProyecto_participanteInput = {
   descripcion?: string | null
   id_proyecto?: number | null
   equipo_proyecto?: Prisma.equipo_proyectoUncheckedCreateNestedManyWithoutRolInput
+  etapa_proceso?: Prisma.etapa_procesoUncheckedCreateNestedManyWithoutRolInput
   proceso?: Prisma.procesoUncheckedCreateNestedManyWithoutRolInput
   stakeholder?: Prisma.stakeholderUncheckedCreateNestedManyWithoutRolInput
 }
@@ -722,6 +757,7 @@ export type rolUpdateWithoutProyecto_participanteInput = {
   estatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   descripcion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   equipo_proyecto?: Prisma.equipo_proyectoUpdateManyWithoutRolNestedInput
+  etapa_proceso?: Prisma.etapa_procesoUpdateManyWithoutRolNestedInput
   proceso?: Prisma.procesoUpdateManyWithoutRolNestedInput
   proyecto?: Prisma.proyectoUpdateOneWithoutRolNestedInput
   stakeholder?: Prisma.stakeholderUpdateManyWithoutRolNestedInput
@@ -734,6 +770,7 @@ export type rolUncheckedUpdateWithoutProyecto_participanteInput = {
   descripcion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   id_proyecto?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   equipo_proyecto?: Prisma.equipo_proyectoUncheckedUpdateManyWithoutRolNestedInput
+  etapa_proceso?: Prisma.etapa_procesoUncheckedUpdateManyWithoutRolNestedInput
   proceso?: Prisma.procesoUncheckedUpdateManyWithoutRolNestedInput
   stakeholder?: Prisma.stakeholderUncheckedUpdateManyWithoutRolNestedInput
 }
@@ -743,6 +780,7 @@ export type rolCreateWithoutStakeholderInput = {
   estatus?: string | null
   descripcion?: string | null
   equipo_proyecto?: Prisma.equipo_proyectoCreateNestedManyWithoutRolInput
+  etapa_proceso?: Prisma.etapa_procesoCreateNestedManyWithoutRolInput
   proceso?: Prisma.procesoCreateNestedManyWithoutRolInput
   proyecto_participante?: Prisma.proyecto_participanteCreateNestedManyWithoutRolInput
   proyecto?: Prisma.proyectoCreateNestedOneWithoutRolInput
@@ -755,6 +793,7 @@ export type rolUncheckedCreateWithoutStakeholderInput = {
   descripcion?: string | null
   id_proyecto?: number | null
   equipo_proyecto?: Prisma.equipo_proyectoUncheckedCreateNestedManyWithoutRolInput
+  etapa_proceso?: Prisma.etapa_procesoUncheckedCreateNestedManyWithoutRolInput
   proceso?: Prisma.procesoUncheckedCreateNestedManyWithoutRolInput
   proyecto_participante?: Prisma.proyecto_participanteUncheckedCreateNestedManyWithoutRolInput
 }
@@ -780,6 +819,7 @@ export type rolUpdateWithoutStakeholderInput = {
   estatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   descripcion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   equipo_proyecto?: Prisma.equipo_proyectoUpdateManyWithoutRolNestedInput
+  etapa_proceso?: Prisma.etapa_procesoUpdateManyWithoutRolNestedInput
   proceso?: Prisma.procesoUpdateManyWithoutRolNestedInput
   proyecto_participante?: Prisma.proyecto_participanteUpdateManyWithoutRolNestedInput
   proyecto?: Prisma.proyectoUpdateOneWithoutRolNestedInput
@@ -792,8 +832,71 @@ export type rolUncheckedUpdateWithoutStakeholderInput = {
   descripcion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   id_proyecto?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   equipo_proyecto?: Prisma.equipo_proyectoUncheckedUpdateManyWithoutRolNestedInput
+  etapa_proceso?: Prisma.etapa_procesoUncheckedUpdateManyWithoutRolNestedInput
   proceso?: Prisma.procesoUncheckedUpdateManyWithoutRolNestedInput
   proyecto_participante?: Prisma.proyecto_participanteUncheckedUpdateManyWithoutRolNestedInput
+}
+
+export type rolCreateWithoutEtapa_procesoInput = {
+  nombre: string
+  estatus?: string | null
+  descripcion?: string | null
+  equipo_proyecto?: Prisma.equipo_proyectoCreateNestedManyWithoutRolInput
+  proceso?: Prisma.procesoCreateNestedManyWithoutRolInput
+  proyecto_participante?: Prisma.proyecto_participanteCreateNestedManyWithoutRolInput
+  proyecto?: Prisma.proyectoCreateNestedOneWithoutRolInput
+  stakeholder?: Prisma.stakeholderCreateNestedManyWithoutRolInput
+}
+
+export type rolUncheckedCreateWithoutEtapa_procesoInput = {
+  id_rol?: number
+  nombre: string
+  estatus?: string | null
+  descripcion?: string | null
+  id_proyecto?: number | null
+  equipo_proyecto?: Prisma.equipo_proyectoUncheckedCreateNestedManyWithoutRolInput
+  proceso?: Prisma.procesoUncheckedCreateNestedManyWithoutRolInput
+  proyecto_participante?: Prisma.proyecto_participanteUncheckedCreateNestedManyWithoutRolInput
+  stakeholder?: Prisma.stakeholderUncheckedCreateNestedManyWithoutRolInput
+}
+
+export type rolCreateOrConnectWithoutEtapa_procesoInput = {
+  where: Prisma.rolWhereUniqueInput
+  create: Prisma.XOR<Prisma.rolCreateWithoutEtapa_procesoInput, Prisma.rolUncheckedCreateWithoutEtapa_procesoInput>
+}
+
+export type rolUpsertWithoutEtapa_procesoInput = {
+  update: Prisma.XOR<Prisma.rolUpdateWithoutEtapa_procesoInput, Prisma.rolUncheckedUpdateWithoutEtapa_procesoInput>
+  create: Prisma.XOR<Prisma.rolCreateWithoutEtapa_procesoInput, Prisma.rolUncheckedCreateWithoutEtapa_procesoInput>
+  where?: Prisma.rolWhereInput
+}
+
+export type rolUpdateToOneWithWhereWithoutEtapa_procesoInput = {
+  where?: Prisma.rolWhereInput
+  data: Prisma.XOR<Prisma.rolUpdateWithoutEtapa_procesoInput, Prisma.rolUncheckedUpdateWithoutEtapa_procesoInput>
+}
+
+export type rolUpdateWithoutEtapa_procesoInput = {
+  nombre?: Prisma.StringFieldUpdateOperationsInput | string
+  estatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  descripcion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  equipo_proyecto?: Prisma.equipo_proyectoUpdateManyWithoutRolNestedInput
+  proceso?: Prisma.procesoUpdateManyWithoutRolNestedInput
+  proyecto_participante?: Prisma.proyecto_participanteUpdateManyWithoutRolNestedInput
+  proyecto?: Prisma.proyectoUpdateOneWithoutRolNestedInput
+  stakeholder?: Prisma.stakeholderUpdateManyWithoutRolNestedInput
+}
+
+export type rolUncheckedUpdateWithoutEtapa_procesoInput = {
+  id_rol?: Prisma.IntFieldUpdateOperationsInput | number
+  nombre?: Prisma.StringFieldUpdateOperationsInput | string
+  estatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  descripcion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  id_proyecto?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  equipo_proyecto?: Prisma.equipo_proyectoUncheckedUpdateManyWithoutRolNestedInput
+  proceso?: Prisma.procesoUncheckedUpdateManyWithoutRolNestedInput
+  proyecto_participante?: Prisma.proyecto_participanteUncheckedUpdateManyWithoutRolNestedInput
+  stakeholder?: Prisma.stakeholderUncheckedUpdateManyWithoutRolNestedInput
 }
 
 export type rolCreateManyProyectoInput = {
@@ -808,6 +911,7 @@ export type rolUpdateWithoutProyectoInput = {
   estatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   descripcion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   equipo_proyecto?: Prisma.equipo_proyectoUpdateManyWithoutRolNestedInput
+  etapa_proceso?: Prisma.etapa_procesoUpdateManyWithoutRolNestedInput
   proceso?: Prisma.procesoUpdateManyWithoutRolNestedInput
   proyecto_participante?: Prisma.proyecto_participanteUpdateManyWithoutRolNestedInput
   stakeholder?: Prisma.stakeholderUpdateManyWithoutRolNestedInput
@@ -819,6 +923,7 @@ export type rolUncheckedUpdateWithoutProyectoInput = {
   estatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   descripcion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   equipo_proyecto?: Prisma.equipo_proyectoUncheckedUpdateManyWithoutRolNestedInput
+  etapa_proceso?: Prisma.etapa_procesoUncheckedUpdateManyWithoutRolNestedInput
   proceso?: Prisma.procesoUncheckedUpdateManyWithoutRolNestedInput
   proyecto_participante?: Prisma.proyecto_participanteUncheckedUpdateManyWithoutRolNestedInput
   stakeholder?: Prisma.stakeholderUncheckedUpdateManyWithoutRolNestedInput
@@ -838,6 +943,7 @@ export type rolUncheckedUpdateManyWithoutProyectoInput = {
 
 export type RolCountOutputType = {
   equipo_proyecto: number
+  etapa_proceso: number
   proceso: number
   proyecto_participante: number
   stakeholder: number
@@ -845,6 +951,7 @@ export type RolCountOutputType = {
 
 export type RolCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   equipo_proyecto?: boolean | RolCountOutputTypeCountEquipo_proyectoArgs
+  etapa_proceso?: boolean | RolCountOutputTypeCountEtapa_procesoArgs
   proceso?: boolean | RolCountOutputTypeCountProcesoArgs
   proyecto_participante?: boolean | RolCountOutputTypeCountProyecto_participanteArgs
   stakeholder?: boolean | RolCountOutputTypeCountStakeholderArgs
@@ -865,6 +972,13 @@ export type RolCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensio
  */
 export type RolCountOutputTypeCountEquipo_proyectoArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.equipo_proyectoWhereInput
+}
+
+/**
+ * RolCountOutputType without action
+ */
+export type RolCountOutputTypeCountEtapa_procesoArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.etapa_procesoWhereInput
 }
 
 /**
@@ -896,6 +1010,7 @@ export type rolSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = ru
   descripcion?: boolean
   id_proyecto?: boolean
   equipo_proyecto?: boolean | Prisma.rol$equipo_proyectoArgs<ExtArgs>
+  etapa_proceso?: boolean | Prisma.rol$etapa_procesoArgs<ExtArgs>
   proceso?: boolean | Prisma.rol$procesoArgs<ExtArgs>
   proyecto_participante?: boolean | Prisma.rol$proyecto_participanteArgs<ExtArgs>
   proyecto?: boolean | Prisma.rol$proyectoArgs<ExtArgs>
@@ -932,6 +1047,7 @@ export type rolSelectScalar = {
 export type rolOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id_rol" | "nombre" | "estatus" | "descripcion" | "id_proyecto", ExtArgs["result"]["rol"]>
 export type rolInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   equipo_proyecto?: boolean | Prisma.rol$equipo_proyectoArgs<ExtArgs>
+  etapa_proceso?: boolean | Prisma.rol$etapa_procesoArgs<ExtArgs>
   proceso?: boolean | Prisma.rol$procesoArgs<ExtArgs>
   proyecto_participante?: boolean | Prisma.rol$proyecto_participanteArgs<ExtArgs>
   proyecto?: boolean | Prisma.rol$proyectoArgs<ExtArgs>
@@ -949,6 +1065,7 @@ export type $rolPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   name: "rol"
   objects: {
     equipo_proyecto: Prisma.$equipo_proyectoPayload<ExtArgs>[]
+    etapa_proceso: Prisma.$etapa_procesoPayload<ExtArgs>[]
     proceso: Prisma.$procesoPayload<ExtArgs>[]
     proyecto_participante: Prisma.$proyecto_participantePayload<ExtArgs>[]
     proyecto: Prisma.$proyectoPayload<ExtArgs> | null
@@ -1355,6 +1472,7 @@ readonly fields: rolFieldRefs;
 export interface Prisma__rolClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   equipo_proyecto<T extends Prisma.rol$equipo_proyectoArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.rol$equipo_proyectoArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$equipo_proyectoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  etapa_proceso<T extends Prisma.rol$etapa_procesoArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.rol$etapa_procesoArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$etapa_procesoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   proceso<T extends Prisma.rol$procesoArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.rol$procesoArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$procesoPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   proyecto_participante<T extends Prisma.rol$proyecto_participanteArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.rol$proyecto_participanteArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$proyecto_participantePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   proyecto<T extends Prisma.rol$proyectoArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.rol$proyectoArgs<ExtArgs>>): Prisma.Prisma__proyectoClient<runtime.Types.Result.GetResult<Prisma.$proyectoPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
@@ -1815,6 +1933,30 @@ export type rol$equipo_proyectoArgs<ExtArgs extends runtime.Types.Extensions.Int
   take?: number
   skip?: number
   distinct?: Prisma.Equipo_proyectoScalarFieldEnum | Prisma.Equipo_proyectoScalarFieldEnum[]
+}
+
+/**
+ * rol.etapa_proceso
+ */
+export type rol$etapa_procesoArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the etapa_proceso
+   */
+  select?: Prisma.etapa_procesoSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the etapa_proceso
+   */
+  omit?: Prisma.etapa_procesoOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.etapa_procesoInclude<ExtArgs> | null
+  where?: Prisma.etapa_procesoWhereInput
+  orderBy?: Prisma.etapa_procesoOrderByWithRelationInput | Prisma.etapa_procesoOrderByWithRelationInput[]
+  cursor?: Prisma.etapa_procesoWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.Etapa_procesoScalarFieldEnum | Prisma.Etapa_procesoScalarFieldEnum[]
 }
 
 /**

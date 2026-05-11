@@ -26,3 +26,12 @@ export const prioridad_historia_usuario = {
 } as const
 
 export type prioridad_historia_usuario = (typeof prioridad_historia_usuario)[keyof typeof prioridad_historia_usuario]
+
+
+export const tipo_pregunta = {
+  texto_libre: 'texto_libre',
+  opcion_multiple: 'opcion_multiple',
+  escala: 'escala'
+} as const
+
+export type tipo_pregunta = (typeof tipo_pregunta)[keyof typeof tipo_pregunta]

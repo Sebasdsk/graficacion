@@ -8,6 +8,16 @@ router.get('/subproceso/:id_subproceso', async (req: Request, res: Response) => 
   try {
     const tecnicas = await prisma.tecnica_recoleccion.findMany({
       where: { id_subproceso: Number(req.params.id_subproceso) },
+      include: { 
+        tecnica_recoleccion_catalogo: true,
+        entrevista: true,
+        observacion: true,
+        focus_group: true,
+        historia_usuario: true,
+        seguimiento_transaccional: true,
+        analisis_documento: true,
+        cuestionario: true
+      }
     });
     res.json(tecnicas);
   } catch (error: any) {
@@ -22,7 +32,12 @@ router.get('/:id', async (req: Request, res: Response) => {
       where: { id_tecnica: Number(req.params.id) },
       include: {
         entrevista: true,
-        observacion: true
+        observacion: true,
+        focus_group: true,
+        historia_usuario: true,
+        seguimiento_transaccional: true,
+        analisis_documento: true,
+        cuestionario: true
       }
     });
     if (!tecnica) return res.status(404).json({ error: 'Tecnica no encontrada' });

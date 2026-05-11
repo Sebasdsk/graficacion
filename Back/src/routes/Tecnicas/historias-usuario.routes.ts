@@ -42,7 +42,7 @@ router.post('/crear_historia/:id_subproceso', async (req: Request, res: Response
     // 1. Crear la técnica base
     const tecnicaRecoleccion = await prisma.tecnica_recoleccion.create({
       data: {
-        id_tecnica_catalogo: Number(5), // 5 = Historias de Usuario
+        id_tecnica_catalogo: Number(6),
         titulo: titulo,
         descripcion: descripcion,
         id_subproceso: Number(id_subproceso)
@@ -76,7 +76,7 @@ router.post('/crear_historia/:id_subproceso', async (req: Request, res: Response
 // Actualizar historia de usuario
 router.put('/actualizar_historia/:id', async (req: Request, res: Response) => {
   try {
-    const { titulo, autor, objetivo, proposito, id_tecnica } = req.body;
+    const { titulo, autor, objetivo, proposito, id_tecnica, criterios_aceptacion } = req.body;
     const historia = await prisma.historia_usuario.update({
       where: { id_historia_usario: Number(req.params.id) },
       data: {
@@ -87,6 +87,24 @@ router.put('/actualizar_historia/:id', async (req: Request, res: Response) => {
         ...(id_tecnica !== undefined && { id_tecnica })
       }
     });
+
+    if (criterios_aceptacion !== undefined) {
+      // Eliminar criterios anteriores
+      await prisma.criterio_aceptacion.deleteMany({
+        where: { id_historia_usario: Number(req.params.id) }
+      });
+
+      // Crear nuevos criterios
+      if (criterios_aceptacion.length > 0) {
+        await prisma.criterio_aceptacion.createMany({
+          data: criterios_aceptacion.map((c: any) => ({
+            id_historia_usario: Number(req.params.id),
+            descripcion: c.texto || c.descripcion
+          }))
+        });
+      }
+    }
+
     res.json(historia);
   } catch (error: any) {
     res.status(400).json({ error: error.message });
