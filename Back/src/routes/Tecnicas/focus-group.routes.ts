@@ -12,7 +12,7 @@ router.post('/:id_subproceso', async (req: Request, res: Response) => {
     // Crea la técnica base
     const tecnicaRecoleccion = await prisma.tecnica_recoleccion.create({
       data: {
-        id_tecnica_catalogo: Number(3), // 3 = Focus Group
+        id_tecnica_catalogo: Number(3),
         titulo: titulo,
         descripcion: descripcion,
         id_subproceso: Number(id_subproceso)
@@ -50,7 +50,15 @@ router.get('/:id', async (req: Request, res: Response) => {
   try {
     const focusGroup = await prisma.focus_group.findUnique({
       where: { id_focus: Number(req.params.id) },
-      include: { tecnica_recoleccion: true, idea_generada: true, participante_focus_group: true }
+      include: {
+        tecnica_recoleccion: true,
+        idea_generada: true,
+        participante_focus_group: {
+          include: {
+            stakeholder: true
+          }
+        }
+      }
     });
     if (!focusGroup) return res.status(404).json({ error: 'Focus Group no encontrado' });
     res.json(focusGroup);
@@ -63,23 +71,70 @@ router.get('/:id', async (req: Request, res: Response) => {
 router.put('/:id', async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const { id_stakeholder, fecha, duracion, estatus, tema, conclusiones } = req.body;
+    const { fecha, duracion, estatus, tema, conclusiones, participantes, ideas } = req.body;
 
+    // Actualizar los campos básicos del focus group
     const focusGroup = await prisma.focus_group.update({
       where: {
         id_focus: Number(id)
       },
       data: {
-        ...(id_stakeholder && { id_stakeholder: Number(id_stakeholder) }),
         ...(fecha && { fecha: new Date(fecha) }),
-        ...(duracion && { duracion: Number(duracion) }),
+        ...(duracion !== undefined && { duracion: Number(duracion) }),
         ...(estatus && { estatus }),
-        ...(tema && { tema }),
-        ...(conclusiones && { conclusiones })
+        ...(tema !== undefined && { tema }),
+        ...(conclusiones !== undefined && { conclusiones })
       }
     });
 
-    res.json(focusGroup);
+    // Actualizar participantes (delete old + create new)
+    if (participantes !== undefined) {
+      await prisma.participante_focus_group.deleteMany({
+        where: { id_focus: Number(id) }
+      });
+
+      if (participantes.length > 0) {
+        const participantesValidos = participantes.filter((p: any) => p.stakeholder);
+        if (participantesValidos.length > 0) {
+          await prisma.participante_focus_group.createMany({
+            data: participantesValidos.map((p: any) => ({
+              id_focus: Number(id),
+              id_stakeholder: Number(p.stakeholder)
+            }))
+          });
+        }
+      }
+    }
+
+    // Actualizar ideas generadas (delete old + create new)
+    if (ideas !== undefined) {
+      await prisma.idea_generada.deleteMany({
+        where: { id_focus: Number(id) }
+      });
+
+      if (ideas.length > 0) {
+        await prisma.idea_generada.createMany({
+          data: ideas.map((i: any) => ({
+            id_focus: Number(id),
+            idea: i.texto,
+            puntucacion: Number(i.votos) || 0
+          }))
+        });
+      }
+    }
+
+    // Retornar el focus group actualizado con sus relaciones
+    const focusGroupActualizado = await prisma.focus_group.findUnique({
+      where: { id_focus: Number(id) },
+      include: {
+        idea_generada: true,
+        participante_focus_group: {
+          include: { stakeholder: true }
+        }
+      }
+    });
+
+    res.json(focusGroupActualizado);
   } catch (error: any) {
     res.status(400).json({ error: error.message });
   }

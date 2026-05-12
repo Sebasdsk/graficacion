@@ -24,11 +24,11 @@ export const tecnicasCatalogo: TipoTecnica[] = [
     { id: 4, nombre: "Observación" },
     { id: 5, nombre: "Historia de Usuario" },
     { id: 6, nombre: "Documentos" },
-    { id: 7, nombre: "Seguimiento Transaccional" }
+    { id: 7, nombre: "Seguimiento Transacional" }
 ]
 
 // ... imports y types
-type SelectedTecnique = "Vista General" | "Entrevista" | "Observación" | "Historia de Usuario" | "Focus Group" | "Documentos" | "Seguimiento Transaccional" | "Cuestionario";
+type SelectedTecnique = "Vista General" | "Entrevista" | "Observación" | "Historia de Usuario" | "Focus Group" | "Documentos" | "Seguimiento Transacional" | "Cuestionario";
 
 const statusDictionary: Record<estatusTecnica, string> = {
     "Completada": "green",
@@ -122,6 +122,10 @@ export default function TechniquesDashboard() {
                 entrevistaData: t.entrevista?.[0] || null,
                 observacionData: t.observacion?.[0] || null,
                 historiaUsuarioData: t.historia_usuario?.[0] || null,
+                focusGroupData: t.focus_group?.[0] || null,
+                cuestionarioData: t.cuestionario?.[0] || null,
+                documentoData: t.analisis_documento?.[0] || null,
+                seguimientoData: t.seguimiento_transaccional?.[0] || null,
             }));
 
             setTechniques(mappedTechniques);
@@ -227,49 +231,49 @@ export default function TechniquesDashboard() {
                     <FormTechnique
                         tipoTecnica={tecnicasCatalogo[0]}
                         tecnica={selectedTechniqueData}
-                        children={<EntrevistaForm tecnica={selectedTechniqueData}/>}
+                        children={<EntrevistaForm tecnica={selectedTechniqueData} />}
                     />
                 )}
                 {selectedTechnique === "Focus Group" && selectedTechniqueData && (
                     <FormTechnique
                         tipoTecnica={tecnicasCatalogo[2]}
                         tecnica={selectedTechniqueData}
-                        children={<FocusGroupForm />}
+                        children={<FocusGroupForm tecnica={selectedTechniqueData} />}
                     />
                 )}
                 {selectedTechnique === "Observación" && selectedTechniqueData && (
                     <FormTechnique
                         tipoTecnica={tecnicasCatalogo[3]}
                         tecnica={selectedTechniqueData}
-                        children={<ObservacionForm tecnica={selectedTechniqueData}/> }
+                        children={<ObservacionForm tecnica={selectedTechniqueData} />}
                     />
                 )}
                 {selectedTechnique === "Historia de Usuario" && selectedTechniqueData && (
                     <FormTechnique
                         tipoTecnica={tecnicasCatalogo[4]}
                         tecnica={selectedTechniqueData}
-                        children={<HistoriasUsuarioForm tecnica={selectedTechniqueData}/>}
+                        children={<HistoriasUsuarioForm tecnica={selectedTechniqueData} />}
                     />
                 )}
                 {selectedTechnique === "Documentos" && selectedTechniqueData && (
                     <FormTechnique
                         tipoTecnica={tecnicasCatalogo[5]}
                         tecnica={selectedTechniqueData}
-                        children={<DocumentoForm />}
+                        children={<DocumentoForm tecnica={selectedTechniqueData} />}
                     />
                 )}
                 {selectedTechnique === "Cuestionario" && selectedTechniqueData && (
                     <FormTechnique
                         tipoTecnica={tecnicasCatalogo[1]}
                         tecnica={selectedTechniqueData}
-                        children={<CuestionarioForm />}
+                        children={<CuestionarioForm tecnica={selectedTechniqueData} />}
                     />
                 )}
-                {selectedTechnique === "Seguimiento Transaccional" && selectedTechniqueData && (
+                {selectedTechnique === "Seguimiento Transacional" && selectedTechniqueData && (
                     <FormTechnique
                         tipoTecnica={tecnicasCatalogo[6]}
                         tecnica={selectedTechniqueData}
-                        children={<SeguimientoForm />}
+                        children={<SeguimientoForm tecnica={selectedTechniqueData} />}
                     />
                 )}
                 {addTechnique && (<CreateNewTechnique onClose={() => setAddTechnique(false)} />)}

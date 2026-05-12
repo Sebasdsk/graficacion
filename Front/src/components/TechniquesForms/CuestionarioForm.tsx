@@ -1,6 +1,6 @@
 import { Plus, Trash, ChevronUp, ChevronDown } from "@boxicons/react";
 import "./CuestionarioForm.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 type TipoPregunta = "Texto Libre" | "Opción Múltiple" | "Escala";
 
@@ -21,7 +21,18 @@ interface PreguntaCuestionario {
     contraido: boolean;
 }
 
-export default function CuestionarioForm() {
+interface TecnicaProps {
+    tecnica: any;
+}
+
+// Mapea el enum de la BD al tipo del frontend
+const mapTipoPregunta = (tipo: string): TipoPregunta => {
+    if (tipo === "opcion_multiple") return "Opción Múltiple";
+    if (tipo === "escala") return "Escala";
+    return "Texto Libre";
+};
+
+export default function CuestionarioForm({ tecnica }: TecnicaProps) {
     const [preguntas, setPreguntas] = useState<PreguntaCuestionario[]>([]);
 
     const [infoGeneral, setInfoGeneral] = useState({
@@ -35,7 +46,10 @@ export default function CuestionarioForm() {
         instrucciones: ""
     });
 
-    // Manejar cambios en la información general el cuestionario
+    const token = localStorage.getItem("token");
+    const API_URL = import.meta.env.VITE_API_URL;
+
+    // Manejar cambios en la información general del cuestionario
     const handleInfoChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setInfoGeneral({
             ...infoGeneral,
@@ -128,8 +142,117 @@ export default function CuestionarioForm() {
         }));
     };
 
+    // Cargar datos del cuestionario desde el backend
+    const getCuestionario = async () => {
+        try {
+            const response = await fetch(
+                `${API_URL}/cuestionarios/${tecnica.cuestionarioData.id_cuestionario}`,
+                {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${token}`
+                    }
+                }
+            );
+
+            if (!response.ok) {
+                throw new Error("Error al obtener el cuestionario");
+            }
+
+            const data = await response.json();
+            console.log("Cuestionario data:", data);
+
+            // Cargar información general
+            setInfoGeneral({
+                objetivo: data.objetivo || "",
+                audiencia: data.audiencia_objetivo || "",
+                responsable: data.responsable || "",
+                metodo: data.metodo_distribucion || "",
+                fechaDistribucion: data.fecha_distribucion ? data.fecha_distribucion.split("T")[0] : "",
+                fechaLimite: data.fecha_limite ? data.fecha_limite.split("T")[0] : "",
+                respuestasRecibidas: data.respuestas_recibidas || 0,
+                instrucciones: data.instrucciones || ""
+            });
+
+            // Cargar preguntas con sus opciones
+            if (data.pregunta_cuestionario && data.pregunta_cuestionario.length > 0) {
+                const preguntasMapeadas: PreguntaCuestionario[] = data.pregunta_cuestionario.map((p: any, index: number) => ({
+                    id_pregunta: p.id_pregunta,
+                    textoPregunta: p.pregunta || "",
+                    tipo: mapTipoPregunta(p.tipo_pregunta),
+                    opciones: (p.opcion_respuesta || []).map((op: any, i: number) => ({
+                        id: i + 1,
+                        texto: op.texto_opcion
+                    })),
+                    escalaMin: p.valor_minimo ?? 1,
+                    escalaMax: p.valor_maximo ?? 5,
+                    etiquetaMin: p.etiqueta_minima || "",
+                    etiquetaMax: p.etiqueta_maxima || "",
+                    contraido: false
+                }));
+                setPreguntas(preguntasMapeadas);
+            }
+        } catch (err) {
+            console.error("Error en la petición:", err);
+        }
+    };
+
+    // Guardar los cambios del cuestionario
+    const handleSubmit = async () => {
+        const body = {
+            objetivo: infoGeneral.objetivo,
+            audiencia_objetivo: infoGeneral.audiencia,
+            responsable: infoGeneral.responsable,
+            metodo_distribucion: infoGeneral.metodo,
+            fecha_distribucion: infoGeneral.fechaDistribucion || null,
+            fecha_limite: infoGeneral.fechaLimite || null,
+            respuestas_recibidas: infoGeneral.respuestasRecibidas,
+            instrucciones: infoGeneral.instrucciones,
+            preguntas: preguntas.map(p => ({
+                textoPregunta: p.textoPregunta,
+                tipo: p.tipo,
+                escalaMin: p.escalaMin,
+                escalaMax: p.escalaMax,
+                etiquetaMin: p.etiquetaMin,
+                etiquetaMax: p.etiquetaMax,
+                opciones: p.opciones
+            }))
+        };
+
+        try {
+            const response = await fetch(
+                `${API_URL}/cuestionarios/${tecnica.cuestionarioData.id_cuestionario}`,
+                {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${token}`
+                    },
+                    body: JSON.stringify(body)
+                }
+            );
+
+            if (!response.ok) {
+                throw new Error("Error al actualizar el cuestionario");
+            }
+
+            const data = await response.json();
+            console.log("Cuestionario actualizado:", data);
+
+            // Recargar datos
+            await getCuestionario();
+        } catch (error) {
+            console.error("Error al guardar:", error);
+        }
+    };
+
+    useEffect(() => {
+        getCuestionario();
+    }, []);
+
     return (
-        <>
+        <form action={handleSubmit}>
             <section className="cuestionario-informacion-section">
                 <header className="header-cuestionario-section">
                     <h2>Información General del Cuestionario</h2>
@@ -366,6 +489,15 @@ export default function CuestionarioForm() {
                     ))}
                 </div>
             </section>
-        </>
+            <div className="buttons-techniques-section">
+                <button className="button-cancel-changes">Cancelar Cambios</button>
+                <button
+                    className="button-confirm-changes"
+                    type="submit"
+                >
+                    Guardar Cambios
+                </button>
+            </div>
+        </form>
     );
 }

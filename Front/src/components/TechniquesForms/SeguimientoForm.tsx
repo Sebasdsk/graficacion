@@ -1,6 +1,6 @@
 import { Plus, Trash } from "@boxicons/react";
 import "./SeguimientoForm.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface Etapa {
     id_etapa: number;
@@ -9,14 +9,20 @@ interface Etapa {
     descripcion: string;
     entradas: string;
     salidas: string;
+    cuelloBotella: string;
+    mejoraPropuesta: string;
 }
 
-export default function SeguimientoForm() {
-    const [descripcionFlujo, setDescripcionFlujo] = useState("");
-    const [cuellosBotella, setCuellosBotella] = useState("");
-    const [mejorasPropuestas, setMejorasPropuestas] = useState("");
+interface TecnicaProps {
+    tecnica: any;
+}
 
+export default function SeguimientoForm({ tecnica }: TecnicaProps) {
+    const [descripcionFlujo, setDescripcionFlujo] = useState("");
     const [etapas, setEtapas] = useState<Etapa[]>([]);
+
+    const token = localStorage.getItem("token");
+    const API_URL = import.meta.env.VITE_API_URL;
 
     // Función que agrega una nueva etapa a la lista de etapas
     const agregarEtapa = () => {
@@ -27,7 +33,9 @@ export default function SeguimientoForm() {
             rolResponsable: "",
             descripcion: "",
             entradas: "",
-            salidas: ""
+            salidas: "",
+            cuelloBotella: "",
+            mejoraPropuesta: ""
         };
         setEtapas([...etapas, nuevaEtapa]);
     };
@@ -37,13 +45,96 @@ export default function SeguimientoForm() {
         setEtapas(etapas.filter(e => e.id_etapa !== id));
     };
 
-    // Funcuión que actualiza un campo específico de una etapa por su id
+    // Función que actualiza un campo específico de una etapa por su id
     const actualizarEtapa = (id: number, campo: keyof Etapa, valor: string) => {
         setEtapas(etapas.map(e => e.id_etapa === id ? { ...e, [campo]: valor } : e));
     };
 
+    // Obtener los datos del seguimiento desde el backend
+    const getSeguimiento = async () => {
+        try {
+            const response = await fetch(
+                `${API_URL}/seguimiento/${tecnica.seguimientoData.id_seguimiento}`,
+                {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${token}`
+                    }
+                }
+            );
+
+            if (!response.ok) {
+                throw new Error("Error al obtener el seguimiento transaccional");
+            }
+
+            const data = await response.json();
+            setDescripcionFlujo(data.descripcion_flujo || "");
+
+            if (data.etapa_proceso && data.etapa_proceso.length > 0) {
+                const etapasMapeadas: Etapa[] = data.etapa_proceso.map((e: any) => ({
+                    id_etapa: e.id_etapa,
+                    nombre: e.nombre_etapa || "",
+                    rolResponsable: "", // En la DB es un id_rol, el UI usa texto
+                    descripcion: e.descripcion || "",
+                    entradas: e.entradas || "",
+                    salidas: e.salidas || "",
+                    cuelloBotella: e.cuello_botella || "",
+                    mejoraPropuesta: e.mejora_propuesta || ""
+                }));
+                setEtapas(etapasMapeadas);
+            }
+        } catch (err) {
+            console.error("Error en la petición:", err);
+        }
+    };
+
+    // Guardar los cambios del seguimiento
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        const body = {
+            descripcion_flujo: descripcionFlujo,
+            etapas: etapas.map(e => ({
+                nombre: e.nombre,
+                descripcion: e.descripcion,
+                entradas: e.entradas,
+                salidas: e.salidas,
+                cuello_botella: e.cuelloBotella,
+                mejora_propuesta: e.mejoraPropuesta
+            }))
+        };
+
+        try {
+            const response = await fetch(
+                `${API_URL}/seguimiento/${tecnica.seguimientoData.id_seguimiento}`,
+                {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${token}`
+                    },
+                    body: JSON.stringify(body)
+                }
+            );
+
+            if (!response.ok) {
+                throw new Error("Error al actualizar el seguimiento transaccional");
+            }
+
+            const data = await response.json();
+            console.log("Seguimiento actualizado:", data);
+            await getSeguimiento();
+        } catch (error) {
+            console.error("Error al guardar:", error);
+        }
+    };
+
+    useEffect(() => {
+        getSeguimiento();
+    }, []);
+
     return (
-        <>
+        <form onSubmit={handleSubmit}>
             <section className="seguimiento-informacion-section">
                 <h2>Información del Proceso</h2>
                 <div className="input-container-seguimiento">
@@ -101,7 +192,7 @@ export default function SeguimientoForm() {
                                         />
                                     </div>
                                     <div className="input-container-seguimiento">
-                                        <label>Rol Responsable</label>
+                                        <label>Rol Responsable (Opcional)</label>
                                         <input
                                             type="text"
                                             placeholder="Ej: Gerente de Operaciones"
@@ -138,33 +229,41 @@ export default function SeguimientoForm() {
                                         />
                                     </div>
                                 </div>
+                                <div className="etapa-row">
+                                    <div className="input-container-seguimiento">
+                                        <label>Cuello de Botella</label>
+                                        <input
+                                            type="text"
+                                            placeholder="Identifica obstáculos..."
+                                            value={etapa.cuelloBotella}
+                                            onChange={(e) => actualizarEtapa(etapa.id_etapa, "cuelloBotella", e.target.value)}
+                                        />
+                                    </div>
+                                    <div className="input-container-seguimiento">
+                                        <label>Mejora Propuesta</label>
+                                        <input
+                                            type="text"
+                                            placeholder="Propón una solución..."
+                                            value={etapa.mejoraPropuesta}
+                                            onChange={(e) => actualizarEtapa(etapa.id_etapa, "mejoraPropuesta", e.target.value)}
+                                        />
+                                    </div>
+                                </div>
                             </div>
                         </article>
                     ))}
                 </div>
             </section>
 
-            <section className="seguimiento-cuellos-section">
-                <h2>Cuellos de Botella Identificados</h2>
-                <div className="input-container-seguimiento">
-                    <textarea
-                        placeholder="Describe los cuellos de botella encontrados..."
-                        value={cuellosBotella}
-                        onChange={(e) => setCuellosBotella(e.target.value)}
-                    />
-                </div>
-            </section>
-
-            <section className="seguimiento-mejoras-section">
-                <h2>Mejoras Propuestas</h2>
-                <div className="input-container-seguimiento">
-                    <textarea
-                        placeholder="Describe las mejoras sugeridas..."
-                        value={mejorasPropuestas}
-                        onChange={(e) => setMejorasPropuestas(e.target.value)}
-                    />
-                </div>
-            </section>
-        </>
+            <div className="buttons-techniques-section">
+                <button type="button" className="button-cancel-changes" onClick={() => getSeguimiento()}>Cancelar Cambios</button>
+                <button
+                    className="button-confirm-changes"
+                    type="submit"
+                >
+                    Guardar Cambios
+                </button>
+            </div>
+        </form>
     );
 }

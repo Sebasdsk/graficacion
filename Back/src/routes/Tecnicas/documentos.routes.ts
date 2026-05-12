@@ -12,7 +12,7 @@ router.post('/:id_subproceso', async (req: Request, res: Response) => {
     // Crea la técnica base
     const tecnicaRecoleccion = await prisma.tecnica_recoleccion.create({
       data: {
-        id_tecnica_catalogo: Number(6), // 6 = Documentos
+        id_tecnica_catalogo: Number(5),
         titulo: titulo,
         descripcion: descripcion,
         id_subproceso: Number(id_subproceso)
@@ -59,27 +59,69 @@ router.get('/:id', async (req: Request, res: Response) => {
   }
 });
 
-// Actualizar documento
+// Actualizar documento (info general + hallazgos + requisitos)
 router.put('/:id', async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const { nombre_documento, tipo_documento, fuente, fecha_analisis, estatus, observaciones } = req.body;
+    const { nombre_documento, tipo_documento, fuente, fecha_analisis, estatus, observaciones, hallazgos, requisitos } = req.body;
 
-    const documento = await prisma.analisis_documento.update({
-      where: {
-        id_analisis_documento: Number(id)
-      },
+    // Actualizar información general del documento
+    await prisma.analisis_documento.update({
+      where: { id_analisis_documento: Number(id) },
       data: {
-        ...(nombre_documento && { nombre_documento }),
-        ...(tipo_documento && { tipo_documento }),
-        ...(fuente && { fuente }),
+        ...(nombre_documento !== undefined && { nombre_documento }),
+        ...(tipo_documento !== undefined && { tipo_documento }),
+        ...(fuente !== undefined && { fuente }),
         ...(fecha_analisis && { fecha_analisis: new Date(fecha_analisis) }),
-        ...(estatus && { estatus }),
-        ...(observaciones && { observaciones })
+        ...(estatus !== undefined && { estatus }),
+        ...(observaciones !== undefined && { observaciones })
       }
     });
 
-    res.json(documento);
+    // Actualizar hallazgos (delete old + create new)
+    if (hallazgos !== undefined) {
+      await prisma.hallazgo_documento.deleteMany({
+        where: { id_analisis_documento: Number(id) }
+      });
+
+      if (hallazgos.length > 0) {
+        await prisma.hallazgo_documento.createMany({
+          data: hallazgos.map((h: any) => ({
+            id_analisis_documento: Number(id),
+            descripcion: h.texto,
+            pagina: h.pagina ? Number(h.pagina) : null
+          }))
+        });
+      }
+    }
+
+    // Actualizar requisitos (delete old + create new)
+    if (requisitos !== undefined) {
+      await prisma.requisito_documento.deleteMany({
+        where: { id_analisis_documento: Number(id) }
+      });
+
+      if (requisitos.length > 0) {
+        await prisma.requisito_documento.createMany({
+          data: requisitos.map((r: any) => ({
+            id_analisis_documento: Number(id),
+            descripcion: r.texto,
+            tipo_requisito: r.tipo || null
+          }))
+        });
+      }
+    }
+
+    // Devolver el documento actualizado con todas sus relaciones
+    const documentoActualizado = await prisma.analisis_documento.findUnique({
+      where: { id_analisis_documento: Number(id) },
+      include: {
+        hallazgo_documento: true,
+        requisito_documento: true
+      }
+    });
+
+    res.json(documentoActualizado);
   } catch (error: any) {
     res.status(400).json({ error: error.message });
   }

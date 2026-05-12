@@ -10,7 +10,7 @@ const iconDictionary: Record<TipoTecnica["nombre"], JSX.Element> = {
     "Observación": <Eye />,
     "Documentos": <FileDetail />,
     "Focus Group": <LightBulb />,
-    "Seguimiento Transaccional": <TrendingUp />
+    "Seguimiento Transacional": <TrendingUp />
 };
 
 // Función que devuelve el icono correspondiente a un tipo de técnica

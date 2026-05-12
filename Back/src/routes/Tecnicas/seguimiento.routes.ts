@@ -50,7 +50,12 @@ router.get('/:id', async (req: Request, res: Response) => {
   try {
     const seguimiento = await prisma.seguimiento_transaccional.findUnique({
       where: { id_seguimiento: Number(req.params.id) },
-      include: { tecnica_recoleccion: true, etapa_proceso: true }
+      include: { 
+        tecnica_recoleccion: true, 
+        etapa_proceso: {
+          orderBy: { id_etapa: 'asc' }
+        }
+      }
     });
     if (!seguimiento) return res.status(404).json({ error: 'Seguimiento no encontrado' });
     res.json(seguimiento);
@@ -63,18 +68,45 @@ router.get('/:id', async (req: Request, res: Response) => {
 router.put('/:id', async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const { descripcion_flujo } = req.body;
+    const { descripcion_flujo, etapas } = req.body;
 
     const seguimiento = await prisma.seguimiento_transaccional.update({
       where: {
         id_seguimiento: Number(id)
       },
       data: {
-        ...(descripcion_flujo && { descripcion_flujo })
+        ...(descripcion_flujo !== undefined && { descripcion_flujo })
       }
     });
 
-    res.json(seguimiento);
+    if (etapas && Array.isArray(etapas)) {
+      // Eliminar etapas anteriores
+      await prisma.etapa_proceso.deleteMany({
+        where: { id_seguimiento: Number(id) }
+      });
+
+      // Crear nuevas etapas
+      if (etapas.length > 0) {
+        await prisma.etapa_proceso.createMany({
+          data: etapas.map((e: any) => ({
+            id_seguimiento: Number(id),
+            nombre_etapa: e.nombre || "",
+            descripcion: e.descripcion || "",
+            entradas: e.entradas || "",
+            salidas: e.salidas || "",
+            cuello_botella: e.cuello_botella || "",
+            mejora_propuesta: e.mejora_propuesta || ""
+          }))
+        });
+      }
+    }
+
+    const updated = await prisma.seguimiento_transaccional.findUnique({
+      where: { id_seguimiento: Number(id) },
+      include: { etapa_proceso: true }
+    });
+
+    res.json(updated);
   } catch (error: any) {
     res.status(400).json({ error: error.message });
   }

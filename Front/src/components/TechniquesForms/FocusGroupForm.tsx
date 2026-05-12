@@ -17,7 +17,11 @@ interface Idea {
     votos: number;
 }
 
-export default function FocusGroupForm() {
+interface TecnicaProps {
+    tecnica: any;
+}
+
+export default function FocusGroupForm({ tecnica }: TecnicaProps) {
     const { id_project } = useParams();
     const [tema, setTema] = useState<string>("");
     const [fecha, setFecha] = useState<string>("");
@@ -27,6 +31,9 @@ export default function FocusGroupForm() {
     const [participantes, setParticipantes] = useState<Participante[]>([]);
     const [roles, setRoles] = useState<Rol[]>([]);
     const [ideas, setIdeas] = useState<Idea[]>([]);
+
+    const API_URL = import.meta.env.VITE_API_URL;
+    const token = localStorage.getItem("token");
 
     // Función para agregar un nuevo participante en blanco al Focus group
     const agregarParticipante = () => {
@@ -41,8 +48,8 @@ export default function FocusGroupForm() {
 
     // Función para actualizar un participante del Focus group
     const actualizarParticipante = (id: number, campo: keyof Participante, valor: any) => {
-        setParticipantes(prevParticipantes => 
-            prevParticipantes.map(p => 
+        setParticipantes(prevParticipantes =>
+            prevParticipantes.map(p =>
                 p.id === id ? { ...p, [campo]: valor } : p
             )
         );
@@ -104,9 +111,6 @@ export default function FocusGroupForm() {
         return filterStakeholders(participantes, stakeholdersDelRol, p.id);
     };
 
-    const API_URL = import.meta.env.VITE_API_URL;
-    const token = localStorage.getItem("token");
-
     const getRoles = async () => {
         const response = await fetch(`${API_URL}/roles/proyecto/${id_project}`, {
             method: "GET",
@@ -119,12 +123,107 @@ export default function FocusGroupForm() {
         setRoles(data);
     };
 
+    // Obtener los datos del Focus Group desde el backend
+    const getFocusGroup = async () => {
+        try {
+            const response = await fetch(
+                `${API_URL}/focusGroup/${tecnica.focusGroupData.id_focus}`,
+                {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${token}`
+                    }
+                }
+            );
+
+            if (!response.ok) {
+                throw new Error("Error al obtener el Focus Group");
+            }
+
+            const data = await response.json();
+            console.log("Focus Group data:", data);
+
+            // Cargar datos básicos
+            setTema(data.tema || "");
+            setFecha(data.fecha ? data.fecha.split("T")[0] : "");
+            setDuracion(String(data.duracion || ""));
+            setConclusiones(data.conclusiones || "");
+
+            // Cargar participantes
+            if (data.participante_focus_group && data.participante_focus_group.length > 0) {
+                const participantesMapeados = data.participante_focus_group.map((p: any, index: number) => ({
+                    id: index + 1,
+                    stakeholder: p.id_stakeholder,
+                    rol: p.stakeholder?.id_rol || null
+                }));
+                setParticipantes(participantesMapeados);
+            }
+
+            // Cargar ideas generadas
+            if (data.idea_generada && data.idea_generada.length > 0) {
+                const ideasMapeadas = data.idea_generada.map((i: any, index: number) => ({
+                    id: index + 1,
+                    texto: i.idea || "",
+                    votos: i.puntucacion || 0
+                }));
+                setIdeas(ideasMapeadas);
+            }
+        } catch (err) {
+            console.error("Error en la petición:", err);
+        }
+    };
+
+    // Guardar los cambios del Focus Group
+    const handleSubmit = async () => {
+        const body = {
+            tema,
+            fecha,
+            duracion: duracion ? Number(duracion) : 0,
+            conclusiones,
+            participantes: participantes.map(p => ({
+                stakeholder: p.stakeholder
+            })),
+            ideas: ideas.map(i => ({
+                texto: i.texto,
+                votos: i.votos
+            }))
+        };
+
+        try {
+            const response = await fetch(
+                `${API_URL}/focusGroup/${tecnica.focusGroupData.id_focus}`,
+                {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${token}`
+                    },
+                    body: JSON.stringify(body)
+                }
+            );
+
+            if (!response.ok) {
+                throw new Error("Error al actualizar el Focus Group");
+            }
+
+            const data = await response.json();
+            console.log("Focus Group actualizado:", data);
+
+            // Recargar datos
+            await getFocusGroup();
+        } catch (error) {
+            console.error("Error al guardar:", error);
+        }
+    };
+
     useEffect(() => {
         getRoles();
+        getFocusGroup();
     }, []);
 
     return (
-        <>
+        <form action={handleSubmit}>
             <section className="focus-informacion-section">
                 <h2>Información del Focus Group</h2>
                 <div className="input-container-focus">
@@ -148,11 +247,12 @@ export default function FocusGroupForm() {
                         />
                     </div>
                     <div className="input-container-focus">
-                        <label htmlFor="duracion">Duración</label>
+                        <label htmlFor="duracion">Duración (minutos)</label>
                         <input
-                            type="text"
+                            type="number"
                             id="duracion"
-                            placeholder="Ej: 1.5 horas"
+                            placeholder="Ej: 90"
+                            min={0}
                             value={duracion}
                             onChange={(e) => setDuracion(e.target.value)}
                         />
@@ -243,7 +343,16 @@ export default function FocusGroupForm() {
                     />
                 </div>
             </section>
-        </>
+            <div className="buttons-techniques-section">
+                <button className="button-cancel-changes">Cancelar Cambios</button>
+                <button
+                    className="button-confirm-changes"
+                    type="submit"
+                >
+                    Guardar Cambios
+                </button>
+            </div>
+        </form>
     );
 }
 
@@ -257,7 +366,7 @@ interface ParticipanteItemProps {
     getStakeholdersDisponibles: (p: Participante) => Stakeholder[];
 }
 
-function ParticipanteItem ({
+function ParticipanteItem({
     p,
     roles,
     setParticipantes,
@@ -272,22 +381,22 @@ function ParticipanteItem ({
             <select
                 value={p.rol ?? ""}
                 onChange={(e) => {
-                const nuevoRol = e.target.value ? Number(e.target.value) : null;
+                    const nuevoRol = e.target.value ? Number(e.target.value) : null;
 
-                setParticipantes(prev =>
-                    prev.map(part =>
-                    part.id === p.id
-                        ? { ...part, rol: nuevoRol, stakeholder: null }
-                        : part
-                    )
-                );
+                    setParticipantes(prev =>
+                        prev.map(part =>
+                            part.id === p.id
+                                ? { ...part, rol: nuevoRol, stakeholder: null }
+                                : part
+                        )
+                    );
                 }}
             >
                 <option value="">--Selecciona un rol--</option>
                 {roles.map(rol => (
-                <option key={rol.id_rol} value={rol.id_rol}>
-                    {rol.nombre}
-                </option>
+                    <option key={rol.id_rol} value={rol.id_rol}>
+                        {rol.nombre}
+                    </option>
                 ))}
             </select>
 
@@ -303,21 +412,21 @@ function ParticipanteItem ({
                 disabled={!p.rol}
             >
                 {stakeholdersDisponibles.length === 0 ? (
-                <option value="">--No hay stakeholders disponibles--</option>
+                    <option value="">--No hay stakeholders disponibles--</option>
                 ) : (
-                <>
-                    <option value="">--Selecciona un stakeholder--</option>
-                    {stakeholdersDisponibles.map(stake => (
-                    <option key={stake.id_stakeholder} value={stake.id_stakeholder}>
-                        {stake.nombre}
-                    </option>
-                    ))}
-                </>
+                    <>
+                        <option value="">--Selecciona un stakeholder--</option>
+                        {stakeholdersDisponibles.map(stake => (
+                            <option key={stake.id_stakeholder} value={stake.id_stakeholder}>
+                                {stake.nombre}
+                            </option>
+                        ))}
+                    </>
                 )}
             </select>
 
             <button
-                type="button" 
+                type="button"
                 className="button-delete-item"
                 onClick={() => eliminarParticipante(p.id)}
             >

@@ -1,6 +1,6 @@
 import { Plus, Trash } from "@boxicons/react";
 import "./DocumentoForm.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export interface HallazgoClave {
     id_hallazgo: number;
@@ -14,15 +14,24 @@ export interface RequisitoIdentificado {
     tipo: string;
 }
 
-export default function DocumentoForm() {
+interface TecnicaProps {
+    tecnica: any;
+}
+
+export default function DocumentoForm({ tecnica }: TecnicaProps) {
     const [nombreDocumento, setNombreDocumento] = useState("");
     const [tipoDocumento, setTipoDocumento] = useState("");
     const [fuente, setFuente] = useState("");
     const [fechaAnalisis, setFechaAnalisis] = useState("");
+    const [observaciones, setObservaciones] = useState("");
 
     const [hallazgosList, setHallazgosList] = useState<HallazgoClave[]>([]);
     const [requisitosList, setRequisitosList] = useState<RequisitoIdentificado[]>([]);
 
+    const token = localStorage.getItem("token");
+    const API_URL = import.meta.env.VITE_API_URL;
+
+    // ── Hallazgos ──────────────────────────────────────────────
     const agregarHallazgo = () => {
         const nuevoId = hallazgosList.length > 0 ? Math.max(...hallazgosList.map(h => h.id_hallazgo)) + 1 : 1;
         setHallazgosList(prev => [...prev, { id_hallazgo: nuevoId, texto: "", pagina: "" }]);
@@ -32,6 +41,7 @@ export default function DocumentoForm() {
         setHallazgosList(prev => prev.filter(h => h.id_hallazgo !== id));
     };
 
+    // ── Requisitos ─────────────────────────────────────────────
     const agregarRequisito = () => {
         const nuevoId = requisitosList.length > 0 ? Math.max(...requisitosList.map(r => r.id_requisito)) + 1 : 1;
         setRequisitosList(prev => [...prev, { id_requisito: nuevoId, texto: "", tipo: "" }]);
@@ -41,8 +51,108 @@ export default function DocumentoForm() {
         setRequisitosList(prev => prev.filter(r => r.id_requisito !== id));
     };
 
+    // ── GET datos del backend ──────────────────────────────────
+    const getDocumento = async () => {
+        try {
+            const response = await fetch(
+                `${API_URL}/documentos/${tecnica.documentoData.id_analisis_documento}`,
+                {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${token}`
+                    }
+                }
+            );
+
+            if (!response.ok) throw new Error("Error al obtener el documento");
+
+            const data = await response.json();
+            console.log("Documento data:", data);
+
+            // Info general
+            setNombreDocumento(data.nombre_documento || "");
+            setTipoDocumento(data.tipo_documento || "");
+            setFuente(data.fuente || "");
+            setFechaAnalisis(data.fecha_analisis ? data.fecha_analisis.split("T")[0] : "");
+            setObservaciones(data.observaciones || "");
+
+            // Hallazgos
+            if (data.hallazgo_documento?.length > 0) {
+                setHallazgosList(
+                    data.hallazgo_documento.map((h: any, i: number) => ({
+                        id_hallazgo: i + 1,
+                        texto: h.descripcion || "",
+                        pagina: h.pagina !== null ? String(h.pagina) : ""
+                    }))
+                );
+            }
+
+            // Requisitos
+            if (data.requisito_documento?.length > 0) {
+                setRequisitosList(
+                    data.requisito_documento.map((r: any, i: number) => ({
+                        id_requisito: i + 1,
+                        texto: r.descripcion || "",
+                        tipo: r.tipo_requisito || ""
+                    }))
+                );
+            }
+        } catch (err) {
+            console.error("Error en la petición:", err);
+        }
+    };
+
+    // ── PUT guardar cambios ────────────────────────────────────
+    const handleSubmit = async () => {
+        const body = {
+            nombre_documento: nombreDocumento,
+            tipo_documento: tipoDocumento,
+            fuente,
+            fecha_analisis: fechaAnalisis || null,
+            observaciones,
+            hallazgos: hallazgosList.map(h => ({
+                texto: h.texto,
+                pagina: h.pagina
+            })),
+            requisitos: requisitosList.map(r => ({
+                texto: r.texto,
+                tipo: r.tipo
+            }))
+        };
+
+        try {
+            const response = await fetch(
+                `${API_URL}/documentos/${tecnica.documentoData.id_analisis_documento}`,
+                {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${token}`
+                    },
+                    body: JSON.stringify(body)
+                }
+            );
+
+            if (!response.ok) throw new Error("Error al actualizar el documento");
+
+            const data = await response.json();
+            console.log("Documento actualizado:", data);
+
+            // Recargar datos
+            await getDocumento();
+        } catch (error) {
+            console.error("Error al guardar:", error);
+        }
+    };
+
+    useEffect(() => {
+        getDocumento();
+    }, []);
+
     return (
-        <>
+        <form action={handleSubmit}>
+            {/* ── Información general ── */}
             <section className="documento-informacion-section">
                 <header className="header-documento-section">
                     <h2>Información del Documento</h2>
@@ -83,7 +193,7 @@ export default function DocumentoForm() {
                         />
                     </div>
                     <div className="input-container">
-                        <label htmlFor="fecha-analisis" >Fecha de Análisis</label>
+                        <label htmlFor="fecha-analisis">Fecha de Análisis</label>
                         <input
                             type="date"
                             id="fecha-analisis"
@@ -92,8 +202,19 @@ export default function DocumentoForm() {
                         />
                     </div>
                 </div>
+
+                <div className="input-container full-width">
+                    <label htmlFor="observaciones">Observaciones Generales</label>
+                    <textarea
+                        id="observaciones"
+                        placeholder="Observaciones o notas adicionales sobre el documento..."
+                        value={observaciones}
+                        onChange={(e) => setObservaciones(e.target.value)}
+                    />
+                </div>
             </section>
 
+            {/* ── Hallazgos clave ── */}
             <section className="hallazgos-clave-section">
                 <header className="header-items-section">
                     <h2>Hallazgos Clave</h2>
@@ -118,12 +239,13 @@ export default function DocumentoForm() {
                                 placeholder="Hallazgo..."
                                 value={hallazgo.texto}
                                 onChange={(e) => {
-                                    const nuevos = hallazgosList.map(item =>
-                                        item.id_hallazgo === hallazgo.id_hallazgo
-                                            ? { ...item, texto: e.target.value }
-                                            : item
+                                    setHallazgosList(prev =>
+                                        prev.map(item =>
+                                            item.id_hallazgo === hallazgo.id_hallazgo
+                                                ? { ...item, texto: e.target.value }
+                                                : item
+                                        )
                                     );
-                                    setHallazgosList(nuevos);
                                 }}
                             />
                             <input
@@ -132,12 +254,13 @@ export default function DocumentoForm() {
                                 placeholder="Página"
                                 value={hallazgo.pagina}
                                 onChange={(e) => {
-                                    const nuevos = hallazgosList.map(item =>
-                                        item.id_hallazgo === hallazgo.id_hallazgo
-                                            ? { ...item, pagina: e.target.value }
-                                            : item
+                                    setHallazgosList(prev =>
+                                        prev.map(item =>
+                                            item.id_hallazgo === hallazgo.id_hallazgo
+                                                ? { ...item, pagina: e.target.value }
+                                                : item
+                                        )
                                     );
-                                    setHallazgosList(nuevos);
                                 }}
                             />
                             <button
@@ -152,6 +275,7 @@ export default function DocumentoForm() {
                 </div>
             </section>
 
+            {/* ── Requisitos identificados ── */}
             <section className="requisitos-identificados-section">
                 <header className="header-items-section">
                     <h2>Requisitos Identificados</h2>
@@ -176,12 +300,13 @@ export default function DocumentoForm() {
                                 placeholder="Requisito..."
                                 value={requisito.texto}
                                 onChange={(e) => {
-                                    const nuevos = requisitosList.map(item =>
-                                        item.id_requisito === requisito.id_requisito
-                                            ? { ...item, texto: e.target.value }
-                                            : item
+                                    setRequisitosList(prev =>
+                                        prev.map(item =>
+                                            item.id_requisito === requisito.id_requisito
+                                                ? { ...item, texto: e.target.value }
+                                                : item
+                                        )
                                     );
-                                    setRequisitosList(nuevos);
                                 }}
                             />
                             <input
@@ -190,12 +315,13 @@ export default function DocumentoForm() {
                                 placeholder="Tipo"
                                 value={requisito.tipo}
                                 onChange={(e) => {
-                                    const nuevos = requisitosList.map(item =>
-                                        item.id_requisito === requisito.id_requisito
-                                            ? { ...item, tipo: e.target.value }
-                                            : item
+                                    setRequisitosList(prev =>
+                                        prev.map(item =>
+                                            item.id_requisito === requisito.id_requisito
+                                                ? { ...item, tipo: e.target.value }
+                                                : item
+                                        )
                                     );
-                                    setRequisitosList(nuevos);
                                 }}
                             />
                             <button
@@ -209,6 +335,17 @@ export default function DocumentoForm() {
                     ))}
                 </div>
             </section>
-        </>
+
+            {/* ── Botones ── */}
+            <div className="buttons-techniques-section">
+                <button className="button-cancel-changes">Cancelar Cambios</button>
+                <button
+                    className="button-confirm-changes"
+                    type="submit"
+                >
+                    Guardar Cambios
+                </button>
+            </div>
+        </form>
     );
 }
