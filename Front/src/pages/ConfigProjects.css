@@ -126,6 +126,10 @@
     background-color: var(--container);
 }
 
+.sidebar > * {
+    min-width: 20dvh;
+}
+
 .button-container {
     width: 100%;
     font-size: .8rem;
@@ -200,6 +204,23 @@
 }
 
 .sidebar-button-menu.option-selected {
+    background-color: #cdcdcd;
+}
+
+.button-logout-sidebar {
+    padding: .6rem;
+    background-color: transparent;
+    display: flex;
+    gap: .5rem;
+    border-radius: 8px;
+    border: none;
+    transition: all .1s ease;
+    width: 100%;
+    text-align: left;
+    font-size: .8rem;
+}
+
+.button-logout-sidebar:hover {
     background-color: #cdcdcd;
 }
 

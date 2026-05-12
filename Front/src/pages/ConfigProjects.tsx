@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from "react-router";
 import { useEffect, useState, type SetStateAction } from "react";
-import { DashboardAlt, ArrowLeftStroke, Calendar, Pencil, Community, Workflow } from "@boxicons/react";
+import { DashboardAlt, ArrowLeftStroke, Calendar, Pencil, Community, Workflow, ArrowOutLeftSquareHalf } from "@boxicons/react";
 import ResumeProject from "../components/ConfigProjectsComponents/ResumeProject";
 import EditProject from "../Modals/ModalChildrens/ProjectsModals/EditProject";
 import Process from "../components/ProcessesComponents/Processes";
@@ -46,44 +46,59 @@ export default function ConfigProjects() {
         return statusClasses[estatus] || "planificacion"
     };
 
-    useEffect(() => {
-        const getProject = async () => {
-            const token = localStorage.getItem("token");
+    const token = localStorage.getItem("token");
 
-            try {
-                if (!id_project) throw new Error("No se proporcionó un id de proyecto para la petición.");
-                if (!token) throw new Error("El token no fue proporcionado");
+    const getProject = async () => {
+        try {
+            if (!id_project) throw new Error("No se proporcionó un id de proyecto para la petición.");
+            if (!token) throw new Error("El token no fue proporcionado");
 
-                // Obtiene la info del proyecto seleccionado por su id
-                const dataProject = await consultOneProject(id_project, token);
-                if (!dataProject) {
-                    navigate("/login");
-                    throw new Error("No se pudo obtener la información del proyecto");
-                }
-
-                const dateClean = dataProject.fecha_inicio.split("T")[0];
-                setProject({
-                    id_proyecto: dataProject.id_proyecto,
-                    nombre: dataProject.nombre,
-                    descripcion: dataProject.descripcion,
-                    fecha_inicio: dateClean,
-                    estatus: dataProject.estatus,
-                });
-
-                setProjectId(dataProject.id_proyecto);
-                setProjectStatus(dataProject.estatus);
-            } catch (err) {
-                console.error(err);
-                alert("Error al obtener el proyecto");
+            // Obtiene la info del proyecto seleccionado por su id
+            const dataProject = await consultOneProject(id_project, token);
+            console.log(dataProject);
+            if (!dataProject) {
+                navigate("/login");
+                throw new Error("No se pudo obtener la información del proyecto");
             }
-        }
 
+            const dateClean = dataProject.fecha_inicio.split("T")[0];
+            setProject({
+                id_proyecto: dataProject.id_proyecto,
+                nombre: dataProject.nombre,
+                descripcion: dataProject.descripcion,
+                fecha_inicio: dateClean,
+                estatus: dataProject.estatus,
+                rol: dataProject.rol,
+                proceso: dataProject.proceso
+            });
+
+            setProjectId(dataProject.id_proyecto);
+            setProjectStatus(dataProject.estatus);
+        } catch (err) {
+            console.error(err);
+            alert("Error al obtener el proyecto");
+        }
+    }
+
+    const totalRoles = project?.rol.length ?? 0;
+    const totalProcesos = project?.proceso.length ?? 0;
+    const totalStakeholders = project?.rol.reduce((acc, r) => acc + r.stakeholder.length, 0);
+    const totalSubprocesos = project?.proceso.reduce((acc, p) => acc + p.subproceso.length, 0);
+
+    useEffect(() => {
         getProject();
     }, []);
 
     return (
         <main className={`configurate-container ${collapsed ? "collapsed" : ""} ${mobileOpen ? "mobile-open" : ""}`}>
-            <ProjectSideBar option={option} setOption={setOption} />
+            <ProjectSideBar
+                option={option}
+                setOption={setOption}
+                totalProcesos={totalProcesos}
+                totalRoles={totalRoles}
+                totalSubprocesos={totalSubprocesos ?? 0}
+                totalStakeholders={totalStakeholders ?? 0}
+            />
             {mobileOpen && <div
                 className="backdrop"
                 onClick={() => setMobileOpen(!mobileOpen)}
@@ -133,7 +148,12 @@ export default function ConfigProjects() {
                             </button>
                         </div>
                     </header>
-                    <ResumeProject />
+                    <ResumeProject
+                        totalProcesos={totalProcesos}
+                        totalRoles={totalRoles}
+                        totalStakeholders={totalStakeholders ?? 0}
+                        totalSubprocesos={totalSubprocesos ?? 0}
+                    />
                     <div className="buttons-menu">
                         <button
                             className={`button-menu ${option === "Roles" ? "selected" : ""}`}
@@ -178,12 +198,20 @@ interface OptionsProjectsProp {
     setOption: React.Dispatch<SetStateAction<OptionsProjects>>
 }
 
-function ProjectSideBar({ option, setOption }: OptionsProjectsProp) {
-    // Mock data
-    const totalRoles = 0;
-    const totalStakeholders = 0;
-    const totalProcesos = 0;
-    const totalSubprocesos = 0;
+interface EntitiesProjectProp {
+    totalRoles: number;
+    totalProcesos: number;
+    totalStakeholders: number;
+    totalSubprocesos: number;
+}
+
+function ProjectSideBar({ option, setOption, totalRoles, totalProcesos, totalStakeholders, totalSubprocesos }: OptionsProjectsProp & EntitiesProjectProp) {
+    const navigate = useNavigate();
+
+    const logOut = () => {
+        localStorage.removeItem("token");
+        navigate("/login");
+    }
 
     return (
         <aside className="sidebar">
@@ -238,6 +266,12 @@ function ProjectSideBar({ option, setOption }: OptionsProjectsProp) {
                 </button>
             </section>
             <FlowticCard />
+            <div className="container-button-logout-sidebar">
+                <button onClick={logOut} className="button-logout-sidebar">
+                    <ArrowOutLeftSquareHalf size="xs"/>
+                    Cerrar Sesión
+                </button>
+            </div>
         </aside>
     );
 }

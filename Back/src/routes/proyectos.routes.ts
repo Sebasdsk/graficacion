@@ -132,6 +132,18 @@ router.get('/ver/:id', verifyToken, async (req: any, res: Response): Promise<any
             where: {
                 id_proyecto: Number(id),
                 id_usuario_creador: id_usuario
+            },
+            include: {
+                rol: {
+                    include: {
+                        stakeholder: true
+                    }
+                },
+                proceso: {
+                    include: {
+                        subproceso: true
+                    }
+                }
             }
         });
 
