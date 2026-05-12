@@ -35,14 +35,14 @@
     display: flex;
     flex-direction: column;
     border-right: 1px solid var(--border-container);
-    width: 18dvw;
+    width: 30dvh;
     transition: width 0.3s ease;
     background-color: var(--container);
     overflow: hidden;
 }
 
 .dashboard-sidebar > * {
-    min-width: 18dvw;
+    min-width: 10dvh;
 }
 
 
@@ -162,6 +162,29 @@
 }
 
 .button-last-proyect:hover {
+    background-color: #cdcdcd;
+}
+
+.container-button-logout-sidebar {
+    margin-top: auto;
+    padding: .9rem;
+    display: flex;
+    border-top: 1px solid var(--border-container);
+}
+
+.button-logout-sidebar {
+    padding: .6rem;
+    background-color: transparent;
+    display: flex;
+    gap: .5rem;
+    border-radius: 8px;
+    border: none;
+    transition: all .1s ease;
+    width: 100%;
+    text-align: left;
+}
+
+.button-logout-sidebar:hover {
     background-color: #cdcdcd;
 }
 

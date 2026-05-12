@@ -3,7 +3,7 @@ import HeaderDashboard from "../components/HeaderDashboard"
 import Projects from "../components/ProjectsComponents/Projects";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
-import { DashboardAlt, FolderMinus } from "@boxicons/react";
+import { DashboardAlt, FolderMinus, ArrowOutLeftSquareHalf } from "@boxicons/react";
 import consultAllProjects from "../services/consultAllProjects";
 import { counterStatusProjects } from "../utils/counterStatusProjects";
 import type { Proyecto } from "../Types/Proyectos";
@@ -123,6 +123,12 @@ function DashboardSidebar({totalProyectos, planificacion, progreso, completado, 
     const handleNavigation = (id_proyecto: number) => {
         navigate(`/config-projects/${id_proyecto}`)
     }
+
+    const logOut = () => {
+        localStorage.removeItem("token");
+        navigate("/login");
+    }
+
     return (
         <aside className="dashboard-sidebar">
             <header className="header-sidebar">
@@ -171,6 +177,12 @@ function DashboardSidebar({totalProyectos, planificacion, progreso, completado, 
                         onClick={() => handleNavigation(p.id_proyecto)}><FolderMinus size="xs"/> {p.nombre}</button>
                 ))}
             </section>
+            <div className="container-button-logout-sidebar">
+                <button onClick={logOut} className="button-logout-sidebar">
+                    <ArrowOutLeftSquareHalf size="xs"/>
+                    Cerrar Sesión
+                </button>
+            </div>
         </aside>
     );
 }
