@@ -236,7 +236,42 @@
     transform: scale(1.1);
 }
 
+.respuesta-opciones {
+    display: flex;
+    flex-direction: column;
+    gap: .8rem;
+}
+
+.radio-option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 15px;
+    color: #474747;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.radio-option input[type="radio"] {
+    width: 16px;
+    height: 16px;
+    accent-color: #5DC757;
+    cursor: pointer;
+}
+
 .escala-row {
     display: flex;
     gap: 1.5rem;
+}
+
+.button-confirm-responses {
+    padding: .4rem;
+    border-radius: 8px;
+    border: 1px solid var(--border-container);
+    background: var(--container);
+    transition: all .1s ease;
+}
+
+.button-confirm-responses:hover {
+    background: #ececec;
 }

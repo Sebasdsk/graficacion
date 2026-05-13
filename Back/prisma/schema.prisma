@@ -360,11 +360,11 @@ model requisito_documento {
 model respuesta_cuestionario {
   id_respuesta      Int                 @id @default(autoincrement())
   id_cuestionario   Int
-  id_stakeholder    Int
+  id_stakeholder    Int?
   fecha_respuesta   DateTime?           @default(now()) @db.Timestamp(6)
   detalle_respuesta detalle_respuesta[]
   cuestionario      cuestionario        @relation(fields: [id_cuestionario], references: [id_cuestionario], onDelete: Cascade, onUpdate: NoAction, map: "fk_respuesta_cuestionario")
-  stakeholder       stakeholder         @relation(fields: [id_stakeholder], references: [id_stakeholder], onDelete: Cascade, onUpdate: NoAction, map: "fk_respuesta_stakeholder")
+  stakeholder       stakeholder?        @relation(fields: [id_stakeholder], references: [id_stakeholder], onDelete: Cascade, onUpdate: NoAction, map: "fk_respuesta_stakeholder")
 }
 
 model seguimiento_transaccional {

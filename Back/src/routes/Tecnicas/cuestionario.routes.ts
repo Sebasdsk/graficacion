@@ -55,7 +55,8 @@ router.get('/:id', async (req: Request, res: Response) => {
         pregunta_cuestionario: {
           orderBy: { orden_pregunta: 'asc' },
           include: {
-            opcion_respuesta: true
+            opcion_respuesta: true,
+            detalle_respuesta: true,
           }
         }
       }
@@ -74,22 +75,21 @@ router.put('/:id', async (req: Request, res: Response) => {
     const {
       objetivo, audiencia_objetivo, responsable, metodo_distribucion,
       fecha_distribucion, fecha_limite, respuestas_recibidas,
-      instrucciones, estatus, preguntas
+      instrucciones, preguntas, respuestas
     } = req.body;
 
     // Actualizar información general del cuestionario
     await prisma.cuestionario.update({
       where: { id_cuestionario: Number(id) },
       data: {
-        ...(objetivo !== undefined && { objetivo }),
-        ...(audiencia_objetivo !== undefined && { audiencia_objetivo }),
-        ...(responsable !== undefined && { responsable }),
-        ...(metodo_distribucion !== undefined && { metodo_distribucion }),
-        ...(fecha_distribucion && { fecha_distribucion: new Date(fecha_distribucion) }),
-        ...(fecha_limite && { fecha_limite: new Date(fecha_limite) }),
-        ...(respuestas_recibidas !== undefined && { respuestas_recibidas: Number(respuestas_recibidas) }),
-        ...(instrucciones !== undefined && { instrucciones }),
-        ...(estatus !== undefined && { estatus })
+        objetivo: objetivo,
+        audiencia_objetivo: audiencia_objetivo,
+        responsable: responsable,
+        metodo_distribucion: metodo_distribucion,
+        fecha_distribucion: new Date(fecha_distribucion),
+        fecha_limite: new Date(fecha_limite),
+        respuestas_recibidas: Number(respuestas_recibidas),
+        instrucciones: instrucciones
       }
     });
 
@@ -134,19 +134,81 @@ router.put('/:id', async (req: Request, res: Response) => {
       }
     }
 
+    // Registrar respuestas
+    if (respuestas !== undefined && respuestas.length > 0) {
+      // Crear respuesta general
+      const nuevaRespuesta = await prisma.respuesta_cuestionario.create({
+        data: {
+          id_cuestionario: Number(id)
+        }
+      });
+      // Crear detalles
+      for (const r of respuestas) {
+        await prisma.detalle_respuesta.create({
+          data: {
+            id_respuesta: nuevaRespuesta.id_respuesta,
+            id_pregunta: r.id_pregunta,
+            respuesta_texto: r.respuesta_texto || null,
+            respuesta_numero: r.respuesta_numero || null,
+            id_opcion: r.id_opcion || null
+          }
+        });
+      }
+    }
+
     // Devolver el cuestionario actualizado con todas sus relaciones
     const cuestionarioActualizado = await prisma.cuestionario.findUnique({
       where: { id_cuestionario: Number(id) },
       include: {
         pregunta_cuestionario: {
           orderBy: { orden_pregunta: 'asc' },
-          include: { opcion_respuesta: true }
+          include: {
+            opcion_respuesta: true,
+            detalle_respuesta: true
+          }
         }
       }
     });
 
     res.json(cuestionarioActualizado);
   } catch (error: any) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
+// Método para guardar las respuestas del cuestionario
+router.post('/:id/responder', async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const {
+      respuestas
+    } = req.body;
+
+    // Crear respuesta general
+    const nuevaRespuesta =
+      await prisma.respuesta_cuestionario.create({
+        data: {
+          id_cuestionario: Number(id)
+        }
+      });
+
+    // Crear detalles
+    for (const r of respuestas) {
+      const detalle =await prisma.detalle_respuesta.create({
+        data: {
+          id_respuesta: nuevaRespuesta.id_respuesta,
+          id_pregunta: r.id_pregunta,
+          respuesta_texto: r.respuesta_texto || null,
+          respuesta_numero: r.respuesta_numero || null,
+          id_opcion: r.id_opcion || null
+        }
+      });
+    }
+    
+
+    res.json({ message: 'Respuestas registradas' });
+  } catch (error: any) {
+    console.error(error);
     res.status(400).json({ error: error.message });
   }
 });

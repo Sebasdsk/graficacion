@@ -184,7 +184,7 @@ export type respuesta_cuestionarioGroupByArgs<ExtArgs extends runtime.Types.Exte
 export type Respuesta_cuestionarioGroupByOutputType = {
   id_respuesta: number
   id_cuestionario: number
-  id_stakeholder: number
+  id_stakeholder: number | null
   fecha_respuesta: Date | null
   _count: Respuesta_cuestionarioCountAggregateOutputType | null
   _avg: Respuesta_cuestionarioAvgAggregateOutputType | null
@@ -214,17 +214,17 @@ export type respuesta_cuestionarioWhereInput = {
   NOT?: Prisma.respuesta_cuestionarioWhereInput | Prisma.respuesta_cuestionarioWhereInput[]
   id_respuesta?: Prisma.IntFilter<"respuesta_cuestionario"> | number
   id_cuestionario?: Prisma.IntFilter<"respuesta_cuestionario"> | number
-  id_stakeholder?: Prisma.IntFilter<"respuesta_cuestionario"> | number
+  id_stakeholder?: Prisma.IntNullableFilter<"respuesta_cuestionario"> | number | null
   fecha_respuesta?: Prisma.DateTimeNullableFilter<"respuesta_cuestionario"> | Date | string | null
   detalle_respuesta?: Prisma.Detalle_respuestaListRelationFilter
   cuestionario?: Prisma.XOR<Prisma.CuestionarioScalarRelationFilter, Prisma.cuestionarioWhereInput>
-  stakeholder?: Prisma.XOR<Prisma.StakeholderScalarRelationFilter, Prisma.stakeholderWhereInput>
+  stakeholder?: Prisma.XOR<Prisma.StakeholderNullableScalarRelationFilter, Prisma.stakeholderWhereInput> | null
 }
 
 export type respuesta_cuestionarioOrderByWithRelationInput = {
   id_respuesta?: Prisma.SortOrder
   id_cuestionario?: Prisma.SortOrder
-  id_stakeholder?: Prisma.SortOrder
+  id_stakeholder?: Prisma.SortOrderInput | Prisma.SortOrder
   fecha_respuesta?: Prisma.SortOrderInput | Prisma.SortOrder
   detalle_respuesta?: Prisma.detalle_respuestaOrderByRelationAggregateInput
   cuestionario?: Prisma.cuestionarioOrderByWithRelationInput
@@ -237,17 +237,17 @@ export type respuesta_cuestionarioWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.respuesta_cuestionarioWhereInput[]
   NOT?: Prisma.respuesta_cuestionarioWhereInput | Prisma.respuesta_cuestionarioWhereInput[]
   id_cuestionario?: Prisma.IntFilter<"respuesta_cuestionario"> | number
-  id_stakeholder?: Prisma.IntFilter<"respuesta_cuestionario"> | number
+  id_stakeholder?: Prisma.IntNullableFilter<"respuesta_cuestionario"> | number | null
   fecha_respuesta?: Prisma.DateTimeNullableFilter<"respuesta_cuestionario"> | Date | string | null
   detalle_respuesta?: Prisma.Detalle_respuestaListRelationFilter
   cuestionario?: Prisma.XOR<Prisma.CuestionarioScalarRelationFilter, Prisma.cuestionarioWhereInput>
-  stakeholder?: Prisma.XOR<Prisma.StakeholderScalarRelationFilter, Prisma.stakeholderWhereInput>
+  stakeholder?: Prisma.XOR<Prisma.StakeholderNullableScalarRelationFilter, Prisma.stakeholderWhereInput> | null
 }, "id_respuesta">
 
 export type respuesta_cuestionarioOrderByWithAggregationInput = {
   id_respuesta?: Prisma.SortOrder
   id_cuestionario?: Prisma.SortOrder
-  id_stakeholder?: Prisma.SortOrder
+  id_stakeholder?: Prisma.SortOrderInput | Prisma.SortOrder
   fecha_respuesta?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.respuesta_cuestionarioCountOrderByAggregateInput
   _avg?: Prisma.respuesta_cuestionarioAvgOrderByAggregateInput
@@ -262,7 +262,7 @@ export type respuesta_cuestionarioScalarWhereWithAggregatesInput = {
   NOT?: Prisma.respuesta_cuestionarioScalarWhereWithAggregatesInput | Prisma.respuesta_cuestionarioScalarWhereWithAggregatesInput[]
   id_respuesta?: Prisma.IntWithAggregatesFilter<"respuesta_cuestionario"> | number
   id_cuestionario?: Prisma.IntWithAggregatesFilter<"respuesta_cuestionario"> | number
-  id_stakeholder?: Prisma.IntWithAggregatesFilter<"respuesta_cuestionario"> | number
+  id_stakeholder?: Prisma.IntNullableWithAggregatesFilter<"respuesta_cuestionario"> | number | null
   fecha_respuesta?: Prisma.DateTimeNullableWithAggregatesFilter<"respuesta_cuestionario"> | Date | string | null
 }
 
@@ -270,13 +270,13 @@ export type respuesta_cuestionarioCreateInput = {
   fecha_respuesta?: Date | string | null
   detalle_respuesta?: Prisma.detalle_respuestaCreateNestedManyWithoutRespuesta_cuestionarioInput
   cuestionario: Prisma.cuestionarioCreateNestedOneWithoutRespuesta_cuestionarioInput
-  stakeholder: Prisma.stakeholderCreateNestedOneWithoutRespuesta_cuestionarioInput
+  stakeholder?: Prisma.stakeholderCreateNestedOneWithoutRespuesta_cuestionarioInput
 }
 
 export type respuesta_cuestionarioUncheckedCreateInput = {
   id_respuesta?: number
   id_cuestionario: number
-  id_stakeholder: number
+  id_stakeholder?: number | null
   fecha_respuesta?: Date | string | null
   detalle_respuesta?: Prisma.detalle_respuestaUncheckedCreateNestedManyWithoutRespuesta_cuestionarioInput
 }
@@ -285,13 +285,13 @@ export type respuesta_cuestionarioUpdateInput = {
   fecha_respuesta?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   detalle_respuesta?: Prisma.detalle_respuestaUpdateManyWithoutRespuesta_cuestionarioNestedInput
   cuestionario?: Prisma.cuestionarioUpdateOneRequiredWithoutRespuesta_cuestionarioNestedInput
-  stakeholder?: Prisma.stakeholderUpdateOneRequiredWithoutRespuesta_cuestionarioNestedInput
+  stakeholder?: Prisma.stakeholderUpdateOneWithoutRespuesta_cuestionarioNestedInput
 }
 
 export type respuesta_cuestionarioUncheckedUpdateInput = {
   id_respuesta?: Prisma.IntFieldUpdateOperationsInput | number
   id_cuestionario?: Prisma.IntFieldUpdateOperationsInput | number
-  id_stakeholder?: Prisma.IntFieldUpdateOperationsInput | number
+  id_stakeholder?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   fecha_respuesta?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   detalle_respuesta?: Prisma.detalle_respuestaUncheckedUpdateManyWithoutRespuesta_cuestionarioNestedInput
 }
@@ -299,7 +299,7 @@ export type respuesta_cuestionarioUncheckedUpdateInput = {
 export type respuesta_cuestionarioCreateManyInput = {
   id_respuesta?: number
   id_cuestionario: number
-  id_stakeholder: number
+  id_stakeholder?: number | null
   fecha_respuesta?: Date | string | null
 }
 
@@ -310,7 +310,7 @@ export type respuesta_cuestionarioUpdateManyMutationInput = {
 export type respuesta_cuestionarioUncheckedUpdateManyInput = {
   id_respuesta?: Prisma.IntFieldUpdateOperationsInput | number
   id_cuestionario?: Prisma.IntFieldUpdateOperationsInput | number
-  id_stakeholder?: Prisma.IntFieldUpdateOperationsInput | number
+  id_stakeholder?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   fecha_respuesta?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
@@ -505,19 +505,19 @@ export type respuesta_cuestionarioScalarWhereInput = {
   NOT?: Prisma.respuesta_cuestionarioScalarWhereInput | Prisma.respuesta_cuestionarioScalarWhereInput[]
   id_respuesta?: Prisma.IntFilter<"respuesta_cuestionario"> | number
   id_cuestionario?: Prisma.IntFilter<"respuesta_cuestionario"> | number
-  id_stakeholder?: Prisma.IntFilter<"respuesta_cuestionario"> | number
+  id_stakeholder?: Prisma.IntNullableFilter<"respuesta_cuestionario"> | number | null
   fecha_respuesta?: Prisma.DateTimeNullableFilter<"respuesta_cuestionario"> | Date | string | null
 }
 
 export type respuesta_cuestionarioCreateWithoutCuestionarioInput = {
   fecha_respuesta?: Date | string | null
   detalle_respuesta?: Prisma.detalle_respuestaCreateNestedManyWithoutRespuesta_cuestionarioInput
-  stakeholder: Prisma.stakeholderCreateNestedOneWithoutRespuesta_cuestionarioInput
+  stakeholder?: Prisma.stakeholderCreateNestedOneWithoutRespuesta_cuestionarioInput
 }
 
 export type respuesta_cuestionarioUncheckedCreateWithoutCuestionarioInput = {
   id_respuesta?: number
-  id_stakeholder: number
+  id_stakeholder?: number | null
   fecha_respuesta?: Date | string | null
   detalle_respuesta?: Prisma.detalle_respuestaUncheckedCreateNestedManyWithoutRespuesta_cuestionarioInput
 }
@@ -551,13 +551,13 @@ export type respuesta_cuestionarioUpdateManyWithWhereWithoutCuestionarioInput = 
 export type respuesta_cuestionarioCreateWithoutDetalle_respuestaInput = {
   fecha_respuesta?: Date | string | null
   cuestionario: Prisma.cuestionarioCreateNestedOneWithoutRespuesta_cuestionarioInput
-  stakeholder: Prisma.stakeholderCreateNestedOneWithoutRespuesta_cuestionarioInput
+  stakeholder?: Prisma.stakeholderCreateNestedOneWithoutRespuesta_cuestionarioInput
 }
 
 export type respuesta_cuestionarioUncheckedCreateWithoutDetalle_respuestaInput = {
   id_respuesta?: number
   id_cuestionario: number
-  id_stakeholder: number
+  id_stakeholder?: number | null
   fecha_respuesta?: Date | string | null
 }
 
@@ -580,13 +580,13 @@ export type respuesta_cuestionarioUpdateToOneWithWhereWithoutDetalle_respuestaIn
 export type respuesta_cuestionarioUpdateWithoutDetalle_respuestaInput = {
   fecha_respuesta?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   cuestionario?: Prisma.cuestionarioUpdateOneRequiredWithoutRespuesta_cuestionarioNestedInput
-  stakeholder?: Prisma.stakeholderUpdateOneRequiredWithoutRespuesta_cuestionarioNestedInput
+  stakeholder?: Prisma.stakeholderUpdateOneWithoutRespuesta_cuestionarioNestedInput
 }
 
 export type respuesta_cuestionarioUncheckedUpdateWithoutDetalle_respuestaInput = {
   id_respuesta?: Prisma.IntFieldUpdateOperationsInput | number
   id_cuestionario?: Prisma.IntFieldUpdateOperationsInput | number
-  id_stakeholder?: Prisma.IntFieldUpdateOperationsInput | number
+  id_stakeholder?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   fecha_respuesta?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
@@ -617,26 +617,26 @@ export type respuesta_cuestionarioUncheckedUpdateManyWithoutStakeholderInput = {
 
 export type respuesta_cuestionarioCreateManyCuestionarioInput = {
   id_respuesta?: number
-  id_stakeholder: number
+  id_stakeholder?: number | null
   fecha_respuesta?: Date | string | null
 }
 
 export type respuesta_cuestionarioUpdateWithoutCuestionarioInput = {
   fecha_respuesta?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   detalle_respuesta?: Prisma.detalle_respuestaUpdateManyWithoutRespuesta_cuestionarioNestedInput
-  stakeholder?: Prisma.stakeholderUpdateOneRequiredWithoutRespuesta_cuestionarioNestedInput
+  stakeholder?: Prisma.stakeholderUpdateOneWithoutRespuesta_cuestionarioNestedInput
 }
 
 export type respuesta_cuestionarioUncheckedUpdateWithoutCuestionarioInput = {
   id_respuesta?: Prisma.IntFieldUpdateOperationsInput | number
-  id_stakeholder?: Prisma.IntFieldUpdateOperationsInput | number
+  id_stakeholder?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   fecha_respuesta?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   detalle_respuesta?: Prisma.detalle_respuestaUncheckedUpdateManyWithoutRespuesta_cuestionarioNestedInput
 }
 
 export type respuesta_cuestionarioUncheckedUpdateManyWithoutCuestionarioInput = {
   id_respuesta?: Prisma.IntFieldUpdateOperationsInput | number
-  id_stakeholder?: Prisma.IntFieldUpdateOperationsInput | number
+  id_stakeholder?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   fecha_respuesta?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
@@ -678,7 +678,7 @@ export type respuesta_cuestionarioSelect<ExtArgs extends runtime.Types.Extension
   fecha_respuesta?: boolean
   detalle_respuesta?: boolean | Prisma.respuesta_cuestionario$detalle_respuestaArgs<ExtArgs>
   cuestionario?: boolean | Prisma.cuestionarioDefaultArgs<ExtArgs>
-  stakeholder?: boolean | Prisma.stakeholderDefaultArgs<ExtArgs>
+  stakeholder?: boolean | Prisma.respuesta_cuestionario$stakeholderArgs<ExtArgs>
   _count?: boolean | Prisma.Respuesta_cuestionarioCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["respuesta_cuestionario"]>
 
@@ -688,7 +688,7 @@ export type respuesta_cuestionarioSelectCreateManyAndReturn<ExtArgs extends runt
   id_stakeholder?: boolean
   fecha_respuesta?: boolean
   cuestionario?: boolean | Prisma.cuestionarioDefaultArgs<ExtArgs>
-  stakeholder?: boolean | Prisma.stakeholderDefaultArgs<ExtArgs>
+  stakeholder?: boolean | Prisma.respuesta_cuestionario$stakeholderArgs<ExtArgs>
 }, ExtArgs["result"]["respuesta_cuestionario"]>
 
 export type respuesta_cuestionarioSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -697,7 +697,7 @@ export type respuesta_cuestionarioSelectUpdateManyAndReturn<ExtArgs extends runt
   id_stakeholder?: boolean
   fecha_respuesta?: boolean
   cuestionario?: boolean | Prisma.cuestionarioDefaultArgs<ExtArgs>
-  stakeholder?: boolean | Prisma.stakeholderDefaultArgs<ExtArgs>
+  stakeholder?: boolean | Prisma.respuesta_cuestionario$stakeholderArgs<ExtArgs>
 }, ExtArgs["result"]["respuesta_cuestionario"]>
 
 export type respuesta_cuestionarioSelectScalar = {
@@ -711,16 +711,16 @@ export type respuesta_cuestionarioOmit<ExtArgs extends runtime.Types.Extensions.
 export type respuesta_cuestionarioInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   detalle_respuesta?: boolean | Prisma.respuesta_cuestionario$detalle_respuestaArgs<ExtArgs>
   cuestionario?: boolean | Prisma.cuestionarioDefaultArgs<ExtArgs>
-  stakeholder?: boolean | Prisma.stakeholderDefaultArgs<ExtArgs>
+  stakeholder?: boolean | Prisma.respuesta_cuestionario$stakeholderArgs<ExtArgs>
   _count?: boolean | Prisma.Respuesta_cuestionarioCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type respuesta_cuestionarioIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   cuestionario?: boolean | Prisma.cuestionarioDefaultArgs<ExtArgs>
-  stakeholder?: boolean | Prisma.stakeholderDefaultArgs<ExtArgs>
+  stakeholder?: boolean | Prisma.respuesta_cuestionario$stakeholderArgs<ExtArgs>
 }
 export type respuesta_cuestionarioIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   cuestionario?: boolean | Prisma.cuestionarioDefaultArgs<ExtArgs>
-  stakeholder?: boolean | Prisma.stakeholderDefaultArgs<ExtArgs>
+  stakeholder?: boolean | Prisma.respuesta_cuestionario$stakeholderArgs<ExtArgs>
 }
 
 export type $respuesta_cuestionarioPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -728,12 +728,12 @@ export type $respuesta_cuestionarioPayload<ExtArgs extends runtime.Types.Extensi
   objects: {
     detalle_respuesta: Prisma.$detalle_respuestaPayload<ExtArgs>[]
     cuestionario: Prisma.$cuestionarioPayload<ExtArgs>
-    stakeholder: Prisma.$stakeholderPayload<ExtArgs>
+    stakeholder: Prisma.$stakeholderPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id_respuesta: number
     id_cuestionario: number
-    id_stakeholder: number
+    id_stakeholder: number | null
     fecha_respuesta: Date | null
   }, ExtArgs["result"]["respuesta_cuestionario"]>
   composites: {}
@@ -1131,7 +1131,7 @@ export interface Prisma__respuesta_cuestionarioClient<T, Null = never, ExtArgs e
   readonly [Symbol.toStringTag]: "PrismaPromise"
   detalle_respuesta<T extends Prisma.respuesta_cuestionario$detalle_respuestaArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.respuesta_cuestionario$detalle_respuestaArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$detalle_respuestaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   cuestionario<T extends Prisma.cuestionarioDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.cuestionarioDefaultArgs<ExtArgs>>): Prisma.Prisma__cuestionarioClient<runtime.Types.Result.GetResult<Prisma.$cuestionarioPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  stakeholder<T extends Prisma.stakeholderDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.stakeholderDefaultArgs<ExtArgs>>): Prisma.Prisma__stakeholderClient<runtime.Types.Result.GetResult<Prisma.$stakeholderPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  stakeholder<T extends Prisma.respuesta_cuestionario$stakeholderArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.respuesta_cuestionario$stakeholderArgs<ExtArgs>>): Prisma.Prisma__stakeholderClient<runtime.Types.Result.GetResult<Prisma.$stakeholderPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1587,6 +1587,25 @@ export type respuesta_cuestionario$detalle_respuestaArgs<ExtArgs extends runtime
   take?: number
   skip?: number
   distinct?: Prisma.Detalle_respuestaScalarFieldEnum | Prisma.Detalle_respuestaScalarFieldEnum[]
+}
+
+/**
+ * respuesta_cuestionario.stakeholder
+ */
+export type respuesta_cuestionario$stakeholderArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the stakeholder
+   */
+  select?: Prisma.stakeholderSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the stakeholder
+   */
+  omit?: Prisma.stakeholderOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.stakeholderInclude<ExtArgs> | null
+  where?: Prisma.stakeholderWhereInput
 }
 
 /**

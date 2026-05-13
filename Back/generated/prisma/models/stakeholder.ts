@@ -587,10 +587,12 @@ export type stakeholderCreateNestedOneWithoutRespuesta_cuestionarioInput = {
   connect?: Prisma.stakeholderWhereUniqueInput
 }
 
-export type stakeholderUpdateOneRequiredWithoutRespuesta_cuestionarioNestedInput = {
+export type stakeholderUpdateOneWithoutRespuesta_cuestionarioNestedInput = {
   create?: Prisma.XOR<Prisma.stakeholderCreateWithoutRespuesta_cuestionarioInput, Prisma.stakeholderUncheckedCreateWithoutRespuesta_cuestionarioInput>
   connectOrCreate?: Prisma.stakeholderCreateOrConnectWithoutRespuesta_cuestionarioInput
   upsert?: Prisma.stakeholderUpsertWithoutRespuesta_cuestionarioInput
+  disconnect?: Prisma.stakeholderWhereInput | boolean
+  delete?: Prisma.stakeholderWhereInput | boolean
   connect?: Prisma.stakeholderWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.stakeholderUpdateToOneWithWhereWithoutRespuesta_cuestionarioInput, Prisma.stakeholderUpdateWithoutRespuesta_cuestionarioInput>, Prisma.stakeholderUncheckedUpdateWithoutRespuesta_cuestionarioInput>
 }
