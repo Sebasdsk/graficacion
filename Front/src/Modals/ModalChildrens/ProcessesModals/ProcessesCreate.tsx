@@ -113,6 +113,7 @@ export default function ProcessesCreate({ setCreateProcess, setProcesos }: OpenC
                         id="rol-participante"
                         value={rolParticipante}
                         onChange={(e) => setRolParticipante(e.target.value)}
+                        required
                     >
                         {roles.length === 0 && (
                             <option value="">-- No hay roles en el proyecto --</option>

@@ -14,7 +14,8 @@ router.get('/proyecto/:id_proyecto', verifyToken, async (req: any, res: Response
                 id_proyecto: Number(id_proyecto)
             },
             include: {
-                subproceso: true 
+                subproceso: true,
+                rol: true
             },
         });
 

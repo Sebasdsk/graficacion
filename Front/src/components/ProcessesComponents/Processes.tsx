@@ -10,6 +10,7 @@ import ModalCreate from "../../Modals/ModalCreate";
 import type { Proceso, Subproceso } from "../../Types/Procesos";
 import { ProjectIdContext } from "../../pages/ConfigProjects";
 import { useNavigate } from "react-router";
+import type { Rol } from "../../Types/Roles";
 
 // Contenedor principal de los procesos
 export default function Processes() {
@@ -135,6 +136,7 @@ function ProccessesList({ procesos, setSelectedProcessId, setSelectedDeleteId }:
                     nombre={p.nombre}
                     descripcion={p.descripcion}
                     subprocesos={p.subproceso}
+                    rol={p.rol}
                     setSelectedProcessId={setSelectedProcessId}
                     setSelectedDeleteId={setSelectedDeleteId}
                 />
@@ -147,12 +149,13 @@ interface ProcessProp {
     id_proceso: number;
     nombre: string;
     descripcion: string;
+    rol: Rol;
     subprocesos?: Subproceso[];
     setSelectedDeleteId: React.Dispatch<React.SetStateAction<number | null>>;
 }
 
 // Cada proceso por separado
-function Process({ id_proceso, nombre, descripcion, subprocesos, setSelectedProcessId, setSelectedDeleteId }: ProcessProp & SetSelectedProcessId) {
+function Process({ id_proceso, nombre, descripcion, rol, subprocesos, setSelectedProcessId, setSelectedDeleteId }: ProcessProp & SetSelectedProcessId) {
     // Aqui se evita que haya valor undefined en caso de no haber subprocesos relacionados al proceso
     const safeSubprocesses = subprocesos || [];
     const [subprocessList, setSubprocessList] = useState<Subproceso[]>(safeSubprocesses);
@@ -185,6 +188,10 @@ function Process({ id_proceso, nombre, descripcion, subprocesos, setSelectedProc
                     </div>
                 </div>
             </header>
+            <div className="rol-participante">
+                <small>Rol participante:</small>
+                {rol.nombre}
+            </div>
             <div className="process-body">
                 <SubprocessList
                     subprocesosList={subprocessList}
