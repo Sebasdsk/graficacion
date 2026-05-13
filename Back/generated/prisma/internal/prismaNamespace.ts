@@ -404,7 +404,6 @@ export const ModelName = {
   observacion_detalle: 'observacion_detalle',
   analisis_documento: 'analisis_documento',
   cuestionario: 'cuestionario',
-  detalle_respuesta: 'detalle_respuesta',
   etapa_proceso: 'etapa_proceso',
   focus_group: 'focus_group',
   hallazgo_documento: 'hallazgo_documento',
@@ -430,7 +429,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "diagrama_uml" | "entrevista" | "equipo_proyecto" | "observacion" | "pregunta_entrevista" | "proceso" | "proyecto" | "proyecto_participante" | "requerimiento" | "rol" | "stakeholder" | "subproceso" | "tecnica_recoleccion" | "usuario" | "tecnica_recoleccion_catalogo" | "criterio_aceptacion" | "historia_usuario" | "observacion_detalle" | "analisis_documento" | "cuestionario" | "detalle_respuesta" | "etapa_proceso" | "focus_group" | "hallazgo_documento" | "idea_generada" | "opcion_respuesta" | "participante_focus_group" | "pregunta_cuestionario" | "requisito_documento" | "respuesta_cuestionario" | "seguimiento_transaccional"
+    modelProps: "diagrama_uml" | "entrevista" | "equipo_proyecto" | "observacion" | "pregunta_entrevista" | "proceso" | "proyecto" | "proyecto_participante" | "requerimiento" | "rol" | "stakeholder" | "subproceso" | "tecnica_recoleccion" | "usuario" | "tecnica_recoleccion_catalogo" | "criterio_aceptacion" | "historia_usuario" | "observacion_detalle" | "analisis_documento" | "cuestionario" | "etapa_proceso" | "focus_group" | "hallazgo_documento" | "idea_generada" | "opcion_respuesta" | "participante_focus_group" | "pregunta_cuestionario" | "requisito_documento" | "respuesta_cuestionario" | "seguimiento_transaccional"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1914,80 +1913,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
-    detalle_respuesta: {
-      payload: Prisma.$detalle_respuestaPayload<ExtArgs>
-      fields: Prisma.detalle_respuestaFieldRefs
-      operations: {
-        findUnique: {
-          args: Prisma.detalle_respuestaFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$detalle_respuestaPayload> | null
-        }
-        findUniqueOrThrow: {
-          args: Prisma.detalle_respuestaFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$detalle_respuestaPayload>
-        }
-        findFirst: {
-          args: Prisma.detalle_respuestaFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$detalle_respuestaPayload> | null
-        }
-        findFirstOrThrow: {
-          args: Prisma.detalle_respuestaFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$detalle_respuestaPayload>
-        }
-        findMany: {
-          args: Prisma.detalle_respuestaFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$detalle_respuestaPayload>[]
-        }
-        create: {
-          args: Prisma.detalle_respuestaCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$detalle_respuestaPayload>
-        }
-        createMany: {
-          args: Prisma.detalle_respuestaCreateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        createManyAndReturn: {
-          args: Prisma.detalle_respuestaCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$detalle_respuestaPayload>[]
-        }
-        delete: {
-          args: Prisma.detalle_respuestaDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$detalle_respuestaPayload>
-        }
-        update: {
-          args: Prisma.detalle_respuestaUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$detalle_respuestaPayload>
-        }
-        deleteMany: {
-          args: Prisma.detalle_respuestaDeleteManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateMany: {
-          args: Prisma.detalle_respuestaUpdateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.detalle_respuestaUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$detalle_respuestaPayload>[]
-        }
-        upsert: {
-          args: Prisma.detalle_respuestaUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$detalle_respuestaPayload>
-        }
-        aggregate: {
-          args: Prisma.Detalle_respuestaAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateDetalle_respuesta>
-        }
-        groupBy: {
-          args: Prisma.detalle_respuestaGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.Detalle_respuestaGroupByOutputType>[]
-        }
-        count: {
-          args: Prisma.detalle_respuestaCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.Detalle_respuestaCountAggregateOutputType> | number
-        }
-      }
-    }
     etapa_proceso: {
       payload: Prisma.$etapa_procesoPayload<ExtArgs>
       fields: Prisma.etapa_procesoFieldRefs
@@ -3011,18 +2936,6 @@ export const CuestionarioScalarFieldEnum = {
 export type CuestionarioScalarFieldEnum = (typeof CuestionarioScalarFieldEnum)[keyof typeof CuestionarioScalarFieldEnum]
 
 
-export const Detalle_respuestaScalarFieldEnum = {
-  id_detalle_respuesta: 'id_detalle_respuesta',
-  id_respuesta: 'id_respuesta',
-  id_pregunta: 'id_pregunta',
-  respuesta_texto: 'respuesta_texto',
-  respuesta_numero: 'respuesta_numero',
-  id_opcion: 'id_opcion'
-} as const
-
-export type Detalle_respuestaScalarFieldEnum = (typeof Detalle_respuestaScalarFieldEnum)[keyof typeof Detalle_respuestaScalarFieldEnum]
-
-
 export const Etapa_procesoScalarFieldEnum = {
   id_etapa: 'id_etapa',
   id_seguimiento: 'id_seguimiento',
@@ -3118,7 +3031,10 @@ export type Requisito_documentoScalarFieldEnum = (typeof Requisito_documentoScal
 export const Respuesta_cuestionarioScalarFieldEnum = {
   id_respuesta: 'id_respuesta',
   id_cuestionario: 'id_cuestionario',
-  id_stakeholder: 'id_stakeholder',
+  id_pregunta: 'id_pregunta',
+  id_opcion: 'id_opcion',
+  respuesta_texto: 'respuesta_texto',
+  respuesta_numero: 'respuesta_numero',
   fecha_respuesta: 'fecha_respuesta'
 } as const
 
@@ -3384,7 +3300,6 @@ export type GlobalOmitConfig = {
   observacion_detalle?: Prisma.observacion_detalleOmit
   analisis_documento?: Prisma.analisis_documentoOmit
   cuestionario?: Prisma.cuestionarioOmit
-  detalle_respuesta?: Prisma.detalle_respuestaOmit
   etapa_proceso?: Prisma.etapa_procesoOmit
   focus_group?: Prisma.focus_groupOmit
   hallazgo_documento?: Prisma.hallazgo_documentoOmit

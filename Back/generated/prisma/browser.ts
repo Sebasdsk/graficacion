@@ -118,11 +118,6 @@ export type analisis_documento = Prisma.analisis_documentoModel
  */
 export type cuestionario = Prisma.cuestionarioModel
 /**
- * Model detalle_respuesta
- * 
- */
-export type detalle_respuesta = Prisma.detalle_respuestaModel
-/**
  * Model etapa_proceso
  * 
  */

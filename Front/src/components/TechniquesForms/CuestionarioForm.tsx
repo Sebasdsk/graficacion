@@ -186,7 +186,7 @@ export default function CuestionarioForm({ tecnica }: TecnicaProps) {
                 data.pregunta_cuestionario.map((p: any) => {
                     // Obtener primera respuesta
                     const respuesta =
-                        p.detalle_respuesta?.[0];
+                        p.respuesta_cuestionario?.[0];
                     return {
                         id_pregunta: p.id_pregunta,
                         textoPregunta: p.pregunta || "",
@@ -252,7 +252,8 @@ export default function CuestionarioForm({ tecnica }: TecnicaProps) {
     };
 
     // Guardar los cambios del cuestionario
-    const handleSubmit = async () => {
+    const handleSubmit = async (e?: React.FormEvent) => {
+        if (e) e.preventDefault();
         const body = {
             objetivo: infoGeneral.objetivo,
             audiencia_objetivo: infoGeneral.audiencia,
@@ -263,13 +264,17 @@ export default function CuestionarioForm({ tecnica }: TecnicaProps) {
             respuestas_recibidas: infoGeneral.respuestasRecibidas,
             instrucciones: infoGeneral.instrucciones,
             preguntas: preguntas.map(p => ({
+                id_pregunta: p.id_pregunta,
                 textoPregunta: p.textoPregunta,
                 tipo: p.tipo,
                 escalaMin: p.escalaMin,
                 escalaMax: p.escalaMax,
                 etiquetaMin: p.etiquetaMin,
                 etiquetaMax: p.etiquetaMax,
-                opciones: p.opciones,
+                opciones: p.opciones.map(o => ({
+                    id_opcion: o.id,
+                    texto: o.texto
+                })),
             })) 
         };
 
@@ -307,7 +312,7 @@ export default function CuestionarioForm({ tecnica }: TecnicaProps) {
     }, []);
 
     return (
-        <form action={handleSubmit}>
+        <form onSubmit={handleSubmit}>
             <section className="cuestionario-informacion-section">
                 <header className="header-cuestionario-section">
                     <h2>Información General del Cuestionario</h2>

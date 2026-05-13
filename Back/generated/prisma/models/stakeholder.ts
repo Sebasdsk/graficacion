@@ -233,7 +233,6 @@ export type stakeholderWhereInput = {
   focus_group?: Prisma.Focus_groupListRelationFilter
   observacion?: Prisma.ObservacionListRelationFilter
   participante_focus_group?: Prisma.Participante_focus_groupListRelationFilter
-  respuesta_cuestionario?: Prisma.Respuesta_cuestionarioListRelationFilter
   rol?: Prisma.XOR<Prisma.RolNullableScalarRelationFilter, Prisma.rolWhereInput> | null
   tecnica_recoleccion?: Prisma.Tecnica_recoleccionListRelationFilter
 }
@@ -250,7 +249,6 @@ export type stakeholderOrderByWithRelationInput = {
   focus_group?: Prisma.focus_groupOrderByRelationAggregateInput
   observacion?: Prisma.observacionOrderByRelationAggregateInput
   participante_focus_group?: Prisma.participante_focus_groupOrderByRelationAggregateInput
-  respuesta_cuestionario?: Prisma.respuesta_cuestionarioOrderByRelationAggregateInput
   rol?: Prisma.rolOrderByWithRelationInput
   tecnica_recoleccion?: Prisma.tecnica_recoleccionOrderByRelationAggregateInput
 }
@@ -270,7 +268,6 @@ export type stakeholderWhereUniqueInput = Prisma.AtLeast<{
   focus_group?: Prisma.Focus_groupListRelationFilter
   observacion?: Prisma.ObservacionListRelationFilter
   participante_focus_group?: Prisma.Participante_focus_groupListRelationFilter
-  respuesta_cuestionario?: Prisma.Respuesta_cuestionarioListRelationFilter
   rol?: Prisma.XOR<Prisma.RolNullableScalarRelationFilter, Prisma.rolWhereInput> | null
   tecnica_recoleccion?: Prisma.Tecnica_recoleccionListRelationFilter
 }, "id_stakeholder">
@@ -311,7 +308,6 @@ export type stakeholderCreateInput = {
   focus_group?: Prisma.focus_groupCreateNestedManyWithoutStakeholderInput
   observacion?: Prisma.observacionCreateNestedManyWithoutStakeholderInput
   participante_focus_group?: Prisma.participante_focus_groupCreateNestedManyWithoutStakeholderInput
-  respuesta_cuestionario?: Prisma.respuesta_cuestionarioCreateNestedManyWithoutStakeholderInput
   rol?: Prisma.rolCreateNestedOneWithoutStakeholderInput
   tecnica_recoleccion?: Prisma.tecnica_recoleccionCreateNestedManyWithoutStakeholderInput
 }
@@ -328,7 +324,6 @@ export type stakeholderUncheckedCreateInput = {
   focus_group?: Prisma.focus_groupUncheckedCreateNestedManyWithoutStakeholderInput
   observacion?: Prisma.observacionUncheckedCreateNestedManyWithoutStakeholderInput
   participante_focus_group?: Prisma.participante_focus_groupUncheckedCreateNestedManyWithoutStakeholderInput
-  respuesta_cuestionario?: Prisma.respuesta_cuestionarioUncheckedCreateNestedManyWithoutStakeholderInput
   tecnica_recoleccion?: Prisma.tecnica_recoleccionUncheckedCreateNestedManyWithoutStakeholderInput
 }
 
@@ -342,7 +337,6 @@ export type stakeholderUpdateInput = {
   focus_group?: Prisma.focus_groupUpdateManyWithoutStakeholderNestedInput
   observacion?: Prisma.observacionUpdateManyWithoutStakeholderNestedInput
   participante_focus_group?: Prisma.participante_focus_groupUpdateManyWithoutStakeholderNestedInput
-  respuesta_cuestionario?: Prisma.respuesta_cuestionarioUpdateManyWithoutStakeholderNestedInput
   rol?: Prisma.rolUpdateOneWithoutStakeholderNestedInput
   tecnica_recoleccion?: Prisma.tecnica_recoleccionUpdateManyWithoutStakeholderNestedInput
 }
@@ -359,7 +353,6 @@ export type stakeholderUncheckedUpdateInput = {
   focus_group?: Prisma.focus_groupUncheckedUpdateManyWithoutStakeholderNestedInput
   observacion?: Prisma.observacionUncheckedUpdateManyWithoutStakeholderNestedInput
   participante_focus_group?: Prisma.participante_focus_groupUncheckedUpdateManyWithoutStakeholderNestedInput
-  respuesta_cuestionario?: Prisma.respuesta_cuestionarioUncheckedUpdateManyWithoutStakeholderNestedInput
   tecnica_recoleccion?: Prisma.tecnica_recoleccionUncheckedUpdateManyWithoutStakeholderNestedInput
 }
 
@@ -581,22 +574,6 @@ export type stakeholderUpdateOneRequiredWithoutParticipante_focus_groupNestedInp
   update?: Prisma.XOR<Prisma.XOR<Prisma.stakeholderUpdateToOneWithWhereWithoutParticipante_focus_groupInput, Prisma.stakeholderUpdateWithoutParticipante_focus_groupInput>, Prisma.stakeholderUncheckedUpdateWithoutParticipante_focus_groupInput>
 }
 
-export type stakeholderCreateNestedOneWithoutRespuesta_cuestionarioInput = {
-  create?: Prisma.XOR<Prisma.stakeholderCreateWithoutRespuesta_cuestionarioInput, Prisma.stakeholderUncheckedCreateWithoutRespuesta_cuestionarioInput>
-  connectOrCreate?: Prisma.stakeholderCreateOrConnectWithoutRespuesta_cuestionarioInput
-  connect?: Prisma.stakeholderWhereUniqueInput
-}
-
-export type stakeholderUpdateOneWithoutRespuesta_cuestionarioNestedInput = {
-  create?: Prisma.XOR<Prisma.stakeholderCreateWithoutRespuesta_cuestionarioInput, Prisma.stakeholderUncheckedCreateWithoutRespuesta_cuestionarioInput>
-  connectOrCreate?: Prisma.stakeholderCreateOrConnectWithoutRespuesta_cuestionarioInput
-  upsert?: Prisma.stakeholderUpsertWithoutRespuesta_cuestionarioInput
-  disconnect?: Prisma.stakeholderWhereInput | boolean
-  delete?: Prisma.stakeholderWhereInput | boolean
-  connect?: Prisma.stakeholderWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.stakeholderUpdateToOneWithWhereWithoutRespuesta_cuestionarioInput, Prisma.stakeholderUpdateWithoutRespuesta_cuestionarioInput>, Prisma.stakeholderUncheckedUpdateWithoutRespuesta_cuestionarioInput>
-}
-
 export type stakeholderCreateWithoutEntrevistaInput = {
   nombre: string
   area?: string | null
@@ -606,7 +583,6 @@ export type stakeholderCreateWithoutEntrevistaInput = {
   focus_group?: Prisma.focus_groupCreateNestedManyWithoutStakeholderInput
   observacion?: Prisma.observacionCreateNestedManyWithoutStakeholderInput
   participante_focus_group?: Prisma.participante_focus_groupCreateNestedManyWithoutStakeholderInput
-  respuesta_cuestionario?: Prisma.respuesta_cuestionarioCreateNestedManyWithoutStakeholderInput
   rol?: Prisma.rolCreateNestedOneWithoutStakeholderInput
   tecnica_recoleccion?: Prisma.tecnica_recoleccionCreateNestedManyWithoutStakeholderInput
 }
@@ -622,7 +598,6 @@ export type stakeholderUncheckedCreateWithoutEntrevistaInput = {
   focus_group?: Prisma.focus_groupUncheckedCreateNestedManyWithoutStakeholderInput
   observacion?: Prisma.observacionUncheckedCreateNestedManyWithoutStakeholderInput
   participante_focus_group?: Prisma.participante_focus_groupUncheckedCreateNestedManyWithoutStakeholderInput
-  respuesta_cuestionario?: Prisma.respuesta_cuestionarioUncheckedCreateNestedManyWithoutStakeholderInput
   tecnica_recoleccion?: Prisma.tecnica_recoleccionUncheckedCreateNestedManyWithoutStakeholderInput
 }
 
@@ -651,7 +626,6 @@ export type stakeholderUpdateWithoutEntrevistaInput = {
   focus_group?: Prisma.focus_groupUpdateManyWithoutStakeholderNestedInput
   observacion?: Prisma.observacionUpdateManyWithoutStakeholderNestedInput
   participante_focus_group?: Prisma.participante_focus_groupUpdateManyWithoutStakeholderNestedInput
-  respuesta_cuestionario?: Prisma.respuesta_cuestionarioUpdateManyWithoutStakeholderNestedInput
   rol?: Prisma.rolUpdateOneWithoutStakeholderNestedInput
   tecnica_recoleccion?: Prisma.tecnica_recoleccionUpdateManyWithoutStakeholderNestedInput
 }
@@ -667,7 +641,6 @@ export type stakeholderUncheckedUpdateWithoutEntrevistaInput = {
   focus_group?: Prisma.focus_groupUncheckedUpdateManyWithoutStakeholderNestedInput
   observacion?: Prisma.observacionUncheckedUpdateManyWithoutStakeholderNestedInput
   participante_focus_group?: Prisma.participante_focus_groupUncheckedUpdateManyWithoutStakeholderNestedInput
-  respuesta_cuestionario?: Prisma.respuesta_cuestionarioUncheckedUpdateManyWithoutStakeholderNestedInput
   tecnica_recoleccion?: Prisma.tecnica_recoleccionUncheckedUpdateManyWithoutStakeholderNestedInput
 }
 
@@ -680,7 +653,6 @@ export type stakeholderCreateWithoutObservacionInput = {
   entrevista?: Prisma.entrevistaCreateNestedManyWithoutStakeholderInput
   focus_group?: Prisma.focus_groupCreateNestedManyWithoutStakeholderInput
   participante_focus_group?: Prisma.participante_focus_groupCreateNestedManyWithoutStakeholderInput
-  respuesta_cuestionario?: Prisma.respuesta_cuestionarioCreateNestedManyWithoutStakeholderInput
   rol?: Prisma.rolCreateNestedOneWithoutStakeholderInput
   tecnica_recoleccion?: Prisma.tecnica_recoleccionCreateNestedManyWithoutStakeholderInput
 }
@@ -696,7 +668,6 @@ export type stakeholderUncheckedCreateWithoutObservacionInput = {
   entrevista?: Prisma.entrevistaUncheckedCreateNestedManyWithoutStakeholderInput
   focus_group?: Prisma.focus_groupUncheckedCreateNestedManyWithoutStakeholderInput
   participante_focus_group?: Prisma.participante_focus_groupUncheckedCreateNestedManyWithoutStakeholderInput
-  respuesta_cuestionario?: Prisma.respuesta_cuestionarioUncheckedCreateNestedManyWithoutStakeholderInput
   tecnica_recoleccion?: Prisma.tecnica_recoleccionUncheckedCreateNestedManyWithoutStakeholderInput
 }
 
@@ -725,7 +696,6 @@ export type stakeholderUpdateWithoutObservacionInput = {
   entrevista?: Prisma.entrevistaUpdateManyWithoutStakeholderNestedInput
   focus_group?: Prisma.focus_groupUpdateManyWithoutStakeholderNestedInput
   participante_focus_group?: Prisma.participante_focus_groupUpdateManyWithoutStakeholderNestedInput
-  respuesta_cuestionario?: Prisma.respuesta_cuestionarioUpdateManyWithoutStakeholderNestedInput
   rol?: Prisma.rolUpdateOneWithoutStakeholderNestedInput
   tecnica_recoleccion?: Prisma.tecnica_recoleccionUpdateManyWithoutStakeholderNestedInput
 }
@@ -741,7 +711,6 @@ export type stakeholderUncheckedUpdateWithoutObservacionInput = {
   entrevista?: Prisma.entrevistaUncheckedUpdateManyWithoutStakeholderNestedInput
   focus_group?: Prisma.focus_groupUncheckedUpdateManyWithoutStakeholderNestedInput
   participante_focus_group?: Prisma.participante_focus_groupUncheckedUpdateManyWithoutStakeholderNestedInput
-  respuesta_cuestionario?: Prisma.respuesta_cuestionarioUncheckedUpdateManyWithoutStakeholderNestedInput
   tecnica_recoleccion?: Prisma.tecnica_recoleccionUncheckedUpdateManyWithoutStakeholderNestedInput
 }
 
@@ -755,7 +724,6 @@ export type stakeholderCreateWithoutRolInput = {
   focus_group?: Prisma.focus_groupCreateNestedManyWithoutStakeholderInput
   observacion?: Prisma.observacionCreateNestedManyWithoutStakeholderInput
   participante_focus_group?: Prisma.participante_focus_groupCreateNestedManyWithoutStakeholderInput
-  respuesta_cuestionario?: Prisma.respuesta_cuestionarioCreateNestedManyWithoutStakeholderInput
   tecnica_recoleccion?: Prisma.tecnica_recoleccionCreateNestedManyWithoutStakeholderInput
 }
 
@@ -770,7 +738,6 @@ export type stakeholderUncheckedCreateWithoutRolInput = {
   focus_group?: Prisma.focus_groupUncheckedCreateNestedManyWithoutStakeholderInput
   observacion?: Prisma.observacionUncheckedCreateNestedManyWithoutStakeholderInput
   participante_focus_group?: Prisma.participante_focus_groupUncheckedCreateNestedManyWithoutStakeholderInput
-  respuesta_cuestionario?: Prisma.respuesta_cuestionarioUncheckedCreateNestedManyWithoutStakeholderInput
   tecnica_recoleccion?: Prisma.tecnica_recoleccionUncheckedCreateNestedManyWithoutStakeholderInput
 }
 
@@ -822,7 +789,6 @@ export type stakeholderCreateWithoutTecnica_recoleccionInput = {
   focus_group?: Prisma.focus_groupCreateNestedManyWithoutStakeholderInput
   observacion?: Prisma.observacionCreateNestedManyWithoutStakeholderInput
   participante_focus_group?: Prisma.participante_focus_groupCreateNestedManyWithoutStakeholderInput
-  respuesta_cuestionario?: Prisma.respuesta_cuestionarioCreateNestedManyWithoutStakeholderInput
   rol?: Prisma.rolCreateNestedOneWithoutStakeholderInput
 }
 
@@ -838,7 +804,6 @@ export type stakeholderUncheckedCreateWithoutTecnica_recoleccionInput = {
   focus_group?: Prisma.focus_groupUncheckedCreateNestedManyWithoutStakeholderInput
   observacion?: Prisma.observacionUncheckedCreateNestedManyWithoutStakeholderInput
   participante_focus_group?: Prisma.participante_focus_groupUncheckedCreateNestedManyWithoutStakeholderInput
-  respuesta_cuestionario?: Prisma.respuesta_cuestionarioUncheckedCreateNestedManyWithoutStakeholderInput
 }
 
 export type stakeholderCreateOrConnectWithoutTecnica_recoleccionInput = {
@@ -867,7 +832,6 @@ export type stakeholderUpdateWithoutTecnica_recoleccionInput = {
   focus_group?: Prisma.focus_groupUpdateManyWithoutStakeholderNestedInput
   observacion?: Prisma.observacionUpdateManyWithoutStakeholderNestedInput
   participante_focus_group?: Prisma.participante_focus_groupUpdateManyWithoutStakeholderNestedInput
-  respuesta_cuestionario?: Prisma.respuesta_cuestionarioUpdateManyWithoutStakeholderNestedInput
   rol?: Prisma.rolUpdateOneWithoutStakeholderNestedInput
 }
 
@@ -883,7 +847,6 @@ export type stakeholderUncheckedUpdateWithoutTecnica_recoleccionInput = {
   focus_group?: Prisma.focus_groupUncheckedUpdateManyWithoutStakeholderNestedInput
   observacion?: Prisma.observacionUncheckedUpdateManyWithoutStakeholderNestedInput
   participante_focus_group?: Prisma.participante_focus_groupUncheckedUpdateManyWithoutStakeholderNestedInput
-  respuesta_cuestionario?: Prisma.respuesta_cuestionarioUncheckedUpdateManyWithoutStakeholderNestedInput
 }
 
 export type stakeholderCreateWithoutCuestionarioInput = {
@@ -895,7 +858,6 @@ export type stakeholderCreateWithoutCuestionarioInput = {
   focus_group?: Prisma.focus_groupCreateNestedManyWithoutStakeholderInput
   observacion?: Prisma.observacionCreateNestedManyWithoutStakeholderInput
   participante_focus_group?: Prisma.participante_focus_groupCreateNestedManyWithoutStakeholderInput
-  respuesta_cuestionario?: Prisma.respuesta_cuestionarioCreateNestedManyWithoutStakeholderInput
   rol?: Prisma.rolCreateNestedOneWithoutStakeholderInput
   tecnica_recoleccion?: Prisma.tecnica_recoleccionCreateNestedManyWithoutStakeholderInput
 }
@@ -911,7 +873,6 @@ export type stakeholderUncheckedCreateWithoutCuestionarioInput = {
   focus_group?: Prisma.focus_groupUncheckedCreateNestedManyWithoutStakeholderInput
   observacion?: Prisma.observacionUncheckedCreateNestedManyWithoutStakeholderInput
   participante_focus_group?: Prisma.participante_focus_groupUncheckedCreateNestedManyWithoutStakeholderInput
-  respuesta_cuestionario?: Prisma.respuesta_cuestionarioUncheckedCreateNestedManyWithoutStakeholderInput
   tecnica_recoleccion?: Prisma.tecnica_recoleccionUncheckedCreateNestedManyWithoutStakeholderInput
 }
 
@@ -940,7 +901,6 @@ export type stakeholderUpdateWithoutCuestionarioInput = {
   focus_group?: Prisma.focus_groupUpdateManyWithoutStakeholderNestedInput
   observacion?: Prisma.observacionUpdateManyWithoutStakeholderNestedInput
   participante_focus_group?: Prisma.participante_focus_groupUpdateManyWithoutStakeholderNestedInput
-  respuesta_cuestionario?: Prisma.respuesta_cuestionarioUpdateManyWithoutStakeholderNestedInput
   rol?: Prisma.rolUpdateOneWithoutStakeholderNestedInput
   tecnica_recoleccion?: Prisma.tecnica_recoleccionUpdateManyWithoutStakeholderNestedInput
 }
@@ -956,7 +916,6 @@ export type stakeholderUncheckedUpdateWithoutCuestionarioInput = {
   focus_group?: Prisma.focus_groupUncheckedUpdateManyWithoutStakeholderNestedInput
   observacion?: Prisma.observacionUncheckedUpdateManyWithoutStakeholderNestedInput
   participante_focus_group?: Prisma.participante_focus_groupUncheckedUpdateManyWithoutStakeholderNestedInput
-  respuesta_cuestionario?: Prisma.respuesta_cuestionarioUncheckedUpdateManyWithoutStakeholderNestedInput
   tecnica_recoleccion?: Prisma.tecnica_recoleccionUncheckedUpdateManyWithoutStakeholderNestedInput
 }
 
@@ -969,7 +928,6 @@ export type stakeholderCreateWithoutFocus_groupInput = {
   entrevista?: Prisma.entrevistaCreateNestedManyWithoutStakeholderInput
   observacion?: Prisma.observacionCreateNestedManyWithoutStakeholderInput
   participante_focus_group?: Prisma.participante_focus_groupCreateNestedManyWithoutStakeholderInput
-  respuesta_cuestionario?: Prisma.respuesta_cuestionarioCreateNestedManyWithoutStakeholderInput
   rol?: Prisma.rolCreateNestedOneWithoutStakeholderInput
   tecnica_recoleccion?: Prisma.tecnica_recoleccionCreateNestedManyWithoutStakeholderInput
 }
@@ -985,7 +943,6 @@ export type stakeholderUncheckedCreateWithoutFocus_groupInput = {
   entrevista?: Prisma.entrevistaUncheckedCreateNestedManyWithoutStakeholderInput
   observacion?: Prisma.observacionUncheckedCreateNestedManyWithoutStakeholderInput
   participante_focus_group?: Prisma.participante_focus_groupUncheckedCreateNestedManyWithoutStakeholderInput
-  respuesta_cuestionario?: Prisma.respuesta_cuestionarioUncheckedCreateNestedManyWithoutStakeholderInput
   tecnica_recoleccion?: Prisma.tecnica_recoleccionUncheckedCreateNestedManyWithoutStakeholderInput
 }
 
@@ -1014,7 +971,6 @@ export type stakeholderUpdateWithoutFocus_groupInput = {
   entrevista?: Prisma.entrevistaUpdateManyWithoutStakeholderNestedInput
   observacion?: Prisma.observacionUpdateManyWithoutStakeholderNestedInput
   participante_focus_group?: Prisma.participante_focus_groupUpdateManyWithoutStakeholderNestedInput
-  respuesta_cuestionario?: Prisma.respuesta_cuestionarioUpdateManyWithoutStakeholderNestedInput
   rol?: Prisma.rolUpdateOneWithoutStakeholderNestedInput
   tecnica_recoleccion?: Prisma.tecnica_recoleccionUpdateManyWithoutStakeholderNestedInput
 }
@@ -1030,7 +986,6 @@ export type stakeholderUncheckedUpdateWithoutFocus_groupInput = {
   entrevista?: Prisma.entrevistaUncheckedUpdateManyWithoutStakeholderNestedInput
   observacion?: Prisma.observacionUncheckedUpdateManyWithoutStakeholderNestedInput
   participante_focus_group?: Prisma.participante_focus_groupUncheckedUpdateManyWithoutStakeholderNestedInput
-  respuesta_cuestionario?: Prisma.respuesta_cuestionarioUncheckedUpdateManyWithoutStakeholderNestedInput
   tecnica_recoleccion?: Prisma.tecnica_recoleccionUncheckedUpdateManyWithoutStakeholderNestedInput
 }
 
@@ -1043,7 +998,6 @@ export type stakeholderCreateWithoutParticipante_focus_groupInput = {
   entrevista?: Prisma.entrevistaCreateNestedManyWithoutStakeholderInput
   focus_group?: Prisma.focus_groupCreateNestedManyWithoutStakeholderInput
   observacion?: Prisma.observacionCreateNestedManyWithoutStakeholderInput
-  respuesta_cuestionario?: Prisma.respuesta_cuestionarioCreateNestedManyWithoutStakeholderInput
   rol?: Prisma.rolCreateNestedOneWithoutStakeholderInput
   tecnica_recoleccion?: Prisma.tecnica_recoleccionCreateNestedManyWithoutStakeholderInput
 }
@@ -1059,7 +1013,6 @@ export type stakeholderUncheckedCreateWithoutParticipante_focus_groupInput = {
   entrevista?: Prisma.entrevistaUncheckedCreateNestedManyWithoutStakeholderInput
   focus_group?: Prisma.focus_groupUncheckedCreateNestedManyWithoutStakeholderInput
   observacion?: Prisma.observacionUncheckedCreateNestedManyWithoutStakeholderInput
-  respuesta_cuestionario?: Prisma.respuesta_cuestionarioUncheckedCreateNestedManyWithoutStakeholderInput
   tecnica_recoleccion?: Prisma.tecnica_recoleccionUncheckedCreateNestedManyWithoutStakeholderInput
 }
 
@@ -1088,7 +1041,6 @@ export type stakeholderUpdateWithoutParticipante_focus_groupInput = {
   entrevista?: Prisma.entrevistaUpdateManyWithoutStakeholderNestedInput
   focus_group?: Prisma.focus_groupUpdateManyWithoutStakeholderNestedInput
   observacion?: Prisma.observacionUpdateManyWithoutStakeholderNestedInput
-  respuesta_cuestionario?: Prisma.respuesta_cuestionarioUpdateManyWithoutStakeholderNestedInput
   rol?: Prisma.rolUpdateOneWithoutStakeholderNestedInput
   tecnica_recoleccion?: Prisma.tecnica_recoleccionUpdateManyWithoutStakeholderNestedInput
 }
@@ -1104,81 +1056,6 @@ export type stakeholderUncheckedUpdateWithoutParticipante_focus_groupInput = {
   entrevista?: Prisma.entrevistaUncheckedUpdateManyWithoutStakeholderNestedInput
   focus_group?: Prisma.focus_groupUncheckedUpdateManyWithoutStakeholderNestedInput
   observacion?: Prisma.observacionUncheckedUpdateManyWithoutStakeholderNestedInput
-  respuesta_cuestionario?: Prisma.respuesta_cuestionarioUncheckedUpdateManyWithoutStakeholderNestedInput
-  tecnica_recoleccion?: Prisma.tecnica_recoleccionUncheckedUpdateManyWithoutStakeholderNestedInput
-}
-
-export type stakeholderCreateWithoutRespuesta_cuestionarioInput = {
-  nombre: string
-  area?: string | null
-  contacto_email?: string | null
-  estatus?: string | null
-  cuestionario?: Prisma.cuestionarioCreateNestedManyWithoutStakeholderInput
-  entrevista?: Prisma.entrevistaCreateNestedManyWithoutStakeholderInput
-  focus_group?: Prisma.focus_groupCreateNestedManyWithoutStakeholderInput
-  observacion?: Prisma.observacionCreateNestedManyWithoutStakeholderInput
-  participante_focus_group?: Prisma.participante_focus_groupCreateNestedManyWithoutStakeholderInput
-  rol?: Prisma.rolCreateNestedOneWithoutStakeholderInput
-  tecnica_recoleccion?: Prisma.tecnica_recoleccionCreateNestedManyWithoutStakeholderInput
-}
-
-export type stakeholderUncheckedCreateWithoutRespuesta_cuestionarioInput = {
-  id_stakeholder?: number
-  nombre: string
-  area?: string | null
-  contacto_email?: string | null
-  estatus?: string | null
-  id_rol?: number | null
-  cuestionario?: Prisma.cuestionarioUncheckedCreateNestedManyWithoutStakeholderInput
-  entrevista?: Prisma.entrevistaUncheckedCreateNestedManyWithoutStakeholderInput
-  focus_group?: Prisma.focus_groupUncheckedCreateNestedManyWithoutStakeholderInput
-  observacion?: Prisma.observacionUncheckedCreateNestedManyWithoutStakeholderInput
-  participante_focus_group?: Prisma.participante_focus_groupUncheckedCreateNestedManyWithoutStakeholderInput
-  tecnica_recoleccion?: Prisma.tecnica_recoleccionUncheckedCreateNestedManyWithoutStakeholderInput
-}
-
-export type stakeholderCreateOrConnectWithoutRespuesta_cuestionarioInput = {
-  where: Prisma.stakeholderWhereUniqueInput
-  create: Prisma.XOR<Prisma.stakeholderCreateWithoutRespuesta_cuestionarioInput, Prisma.stakeholderUncheckedCreateWithoutRespuesta_cuestionarioInput>
-}
-
-export type stakeholderUpsertWithoutRespuesta_cuestionarioInput = {
-  update: Prisma.XOR<Prisma.stakeholderUpdateWithoutRespuesta_cuestionarioInput, Prisma.stakeholderUncheckedUpdateWithoutRespuesta_cuestionarioInput>
-  create: Prisma.XOR<Prisma.stakeholderCreateWithoutRespuesta_cuestionarioInput, Prisma.stakeholderUncheckedCreateWithoutRespuesta_cuestionarioInput>
-  where?: Prisma.stakeholderWhereInput
-}
-
-export type stakeholderUpdateToOneWithWhereWithoutRespuesta_cuestionarioInput = {
-  where?: Prisma.stakeholderWhereInput
-  data: Prisma.XOR<Prisma.stakeholderUpdateWithoutRespuesta_cuestionarioInput, Prisma.stakeholderUncheckedUpdateWithoutRespuesta_cuestionarioInput>
-}
-
-export type stakeholderUpdateWithoutRespuesta_cuestionarioInput = {
-  nombre?: Prisma.StringFieldUpdateOperationsInput | string
-  area?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  contacto_email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  estatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  cuestionario?: Prisma.cuestionarioUpdateManyWithoutStakeholderNestedInput
-  entrevista?: Prisma.entrevistaUpdateManyWithoutStakeholderNestedInput
-  focus_group?: Prisma.focus_groupUpdateManyWithoutStakeholderNestedInput
-  observacion?: Prisma.observacionUpdateManyWithoutStakeholderNestedInput
-  participante_focus_group?: Prisma.participante_focus_groupUpdateManyWithoutStakeholderNestedInput
-  rol?: Prisma.rolUpdateOneWithoutStakeholderNestedInput
-  tecnica_recoleccion?: Prisma.tecnica_recoleccionUpdateManyWithoutStakeholderNestedInput
-}
-
-export type stakeholderUncheckedUpdateWithoutRespuesta_cuestionarioInput = {
-  id_stakeholder?: Prisma.IntFieldUpdateOperationsInput | number
-  nombre?: Prisma.StringFieldUpdateOperationsInput | string
-  area?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  contacto_email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  estatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  id_rol?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  cuestionario?: Prisma.cuestionarioUncheckedUpdateManyWithoutStakeholderNestedInput
-  entrevista?: Prisma.entrevistaUncheckedUpdateManyWithoutStakeholderNestedInput
-  focus_group?: Prisma.focus_groupUncheckedUpdateManyWithoutStakeholderNestedInput
-  observacion?: Prisma.observacionUncheckedUpdateManyWithoutStakeholderNestedInput
-  participante_focus_group?: Prisma.participante_focus_groupUncheckedUpdateManyWithoutStakeholderNestedInput
   tecnica_recoleccion?: Prisma.tecnica_recoleccionUncheckedUpdateManyWithoutStakeholderNestedInput
 }
 
@@ -1200,7 +1077,6 @@ export type stakeholderUpdateWithoutRolInput = {
   focus_group?: Prisma.focus_groupUpdateManyWithoutStakeholderNestedInput
   observacion?: Prisma.observacionUpdateManyWithoutStakeholderNestedInput
   participante_focus_group?: Prisma.participante_focus_groupUpdateManyWithoutStakeholderNestedInput
-  respuesta_cuestionario?: Prisma.respuesta_cuestionarioUpdateManyWithoutStakeholderNestedInput
   tecnica_recoleccion?: Prisma.tecnica_recoleccionUpdateManyWithoutStakeholderNestedInput
 }
 
@@ -1215,7 +1091,6 @@ export type stakeholderUncheckedUpdateWithoutRolInput = {
   focus_group?: Prisma.focus_groupUncheckedUpdateManyWithoutStakeholderNestedInput
   observacion?: Prisma.observacionUncheckedUpdateManyWithoutStakeholderNestedInput
   participante_focus_group?: Prisma.participante_focus_groupUncheckedUpdateManyWithoutStakeholderNestedInput
-  respuesta_cuestionario?: Prisma.respuesta_cuestionarioUncheckedUpdateManyWithoutStakeholderNestedInput
   tecnica_recoleccion?: Prisma.tecnica_recoleccionUncheckedUpdateManyWithoutStakeholderNestedInput
 }
 
@@ -1238,7 +1113,6 @@ export type StakeholderCountOutputType = {
   focus_group: number
   observacion: number
   participante_focus_group: number
-  respuesta_cuestionario: number
   tecnica_recoleccion: number
 }
 
@@ -1248,7 +1122,6 @@ export type StakeholderCountOutputTypeSelect<ExtArgs extends runtime.Types.Exten
   focus_group?: boolean | StakeholderCountOutputTypeCountFocus_groupArgs
   observacion?: boolean | StakeholderCountOutputTypeCountObservacionArgs
   participante_focus_group?: boolean | StakeholderCountOutputTypeCountParticipante_focus_groupArgs
-  respuesta_cuestionario?: boolean | StakeholderCountOutputTypeCountRespuesta_cuestionarioArgs
   tecnica_recoleccion?: boolean | StakeholderCountOutputTypeCountTecnica_recoleccionArgs
 }
 
@@ -1300,13 +1173,6 @@ export type StakeholderCountOutputTypeCountParticipante_focus_groupArgs<ExtArgs 
 /**
  * StakeholderCountOutputType without action
  */
-export type StakeholderCountOutputTypeCountRespuesta_cuestionarioArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.respuesta_cuestionarioWhereInput
-}
-
-/**
- * StakeholderCountOutputType without action
- */
 export type StakeholderCountOutputTypeCountTecnica_recoleccionArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.tecnica_recoleccionWhereInput
 }
@@ -1324,7 +1190,6 @@ export type stakeholderSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   focus_group?: boolean | Prisma.stakeholder$focus_groupArgs<ExtArgs>
   observacion?: boolean | Prisma.stakeholder$observacionArgs<ExtArgs>
   participante_focus_group?: boolean | Prisma.stakeholder$participante_focus_groupArgs<ExtArgs>
-  respuesta_cuestionario?: boolean | Prisma.stakeholder$respuesta_cuestionarioArgs<ExtArgs>
   rol?: boolean | Prisma.stakeholder$rolArgs<ExtArgs>
   tecnica_recoleccion?: boolean | Prisma.stakeholder$tecnica_recoleccionArgs<ExtArgs>
   _count?: boolean | Prisma.StakeholderCountOutputTypeDefaultArgs<ExtArgs>
@@ -1366,7 +1231,6 @@ export type stakeholderInclude<ExtArgs extends runtime.Types.Extensions.Internal
   focus_group?: boolean | Prisma.stakeholder$focus_groupArgs<ExtArgs>
   observacion?: boolean | Prisma.stakeholder$observacionArgs<ExtArgs>
   participante_focus_group?: boolean | Prisma.stakeholder$participante_focus_groupArgs<ExtArgs>
-  respuesta_cuestionario?: boolean | Prisma.stakeholder$respuesta_cuestionarioArgs<ExtArgs>
   rol?: boolean | Prisma.stakeholder$rolArgs<ExtArgs>
   tecnica_recoleccion?: boolean | Prisma.stakeholder$tecnica_recoleccionArgs<ExtArgs>
   _count?: boolean | Prisma.StakeholderCountOutputTypeDefaultArgs<ExtArgs>
@@ -1386,7 +1250,6 @@ export type $stakeholderPayload<ExtArgs extends runtime.Types.Extensions.Interna
     focus_group: Prisma.$focus_groupPayload<ExtArgs>[]
     observacion: Prisma.$observacionPayload<ExtArgs>[]
     participante_focus_group: Prisma.$participante_focus_groupPayload<ExtArgs>[]
-    respuesta_cuestionario: Prisma.$respuesta_cuestionarioPayload<ExtArgs>[]
     rol: Prisma.$rolPayload<ExtArgs> | null
     tecnica_recoleccion: Prisma.$tecnica_recoleccionPayload<ExtArgs>[]
   }
@@ -1796,7 +1659,6 @@ export interface Prisma__stakeholderClient<T, Null = never, ExtArgs extends runt
   focus_group<T extends Prisma.stakeholder$focus_groupArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.stakeholder$focus_groupArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$focus_groupPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   observacion<T extends Prisma.stakeholder$observacionArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.stakeholder$observacionArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$observacionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   participante_focus_group<T extends Prisma.stakeholder$participante_focus_groupArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.stakeholder$participante_focus_groupArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$participante_focus_groupPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  respuesta_cuestionario<T extends Prisma.stakeholder$respuesta_cuestionarioArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.stakeholder$respuesta_cuestionarioArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$respuesta_cuestionarioPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   rol<T extends Prisma.stakeholder$rolArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.stakeholder$rolArgs<ExtArgs>>): Prisma.Prisma__rolClient<runtime.Types.Result.GetResult<Prisma.$rolPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   tecnica_recoleccion<T extends Prisma.stakeholder$tecnica_recoleccionArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.stakeholder$tecnica_recoleccionArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$tecnica_recoleccionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
@@ -2352,30 +2214,6 @@ export type stakeholder$participante_focus_groupArgs<ExtArgs extends runtime.Typ
   take?: number
   skip?: number
   distinct?: Prisma.Participante_focus_groupScalarFieldEnum | Prisma.Participante_focus_groupScalarFieldEnum[]
-}
-
-/**
- * stakeholder.respuesta_cuestionario
- */
-export type stakeholder$respuesta_cuestionarioArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the respuesta_cuestionario
-   */
-  select?: Prisma.respuesta_cuestionarioSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the respuesta_cuestionario
-   */
-  omit?: Prisma.respuesta_cuestionarioOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.respuesta_cuestionarioInclude<ExtArgs> | null
-  where?: Prisma.respuesta_cuestionarioWhereInput
-  orderBy?: Prisma.respuesta_cuestionarioOrderByWithRelationInput | Prisma.respuesta_cuestionarioOrderByWithRelationInput[]
-  cursor?: Prisma.respuesta_cuestionarioWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.Respuesta_cuestionarioScalarFieldEnum | Prisma.Respuesta_cuestionarioScalarFieldEnum[]
 }
 
 /**
