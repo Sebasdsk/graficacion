@@ -29,8 +29,17 @@ export default function CreateNewTechnique({ onClose }: CreateNewTechniqueProps)
             endpoint = `${API_URL}/observaciones/${id_subproceso}`;
         } else if (techniqueType === "historiasUsuario") {
             endpoint = `${API_URL}/historiasUsuario/crear_historia/${id_subproceso}`;
+        } else if (techniqueType === "entrevista") {
+            endpoint = `${API_URL}/entrevista/crear_entrevista/${id_subproceso}`;
+        } else if (techniqueType === "focusGroup") {
+            endpoint = `${API_URL}/focusGroup/${id_subproceso}`;
+        } else if (techniqueType === "cuestionario") {
+            endpoint = `${API_URL}/cuestionarios/${id_subproceso}`;
+        } else if (techniqueType === "documentos") {
+            endpoint = `${API_URL}/documentos/${id_subproceso}`;
+        } else if (techniqueType === "seguimientoTransacional") {
+            endpoint = `${API_URL}/seguimiento/${id_subproceso}`;
         } else {
-            // Por el momento solo estas dos técnicas están solicitadas
             alert("Endpoint no implementado para esta técnica aún.");
             setLoading(false);
             return;

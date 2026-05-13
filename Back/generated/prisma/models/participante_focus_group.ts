@@ -42,21 +42,18 @@ export type Participante_focus_groupMinAggregateOutputType = {
   id_participante: number | null
   id_focus: number | null
   id_stakeholder: number | null
-  contribuciones: string | null
 }
 
 export type Participante_focus_groupMaxAggregateOutputType = {
   id_participante: number | null
   id_focus: number | null
   id_stakeholder: number | null
-  contribuciones: string | null
 }
 
 export type Participante_focus_groupCountAggregateOutputType = {
   id_participante: number
   id_focus: number
   id_stakeholder: number
-  contribuciones: number
   _all: number
 }
 
@@ -77,21 +74,18 @@ export type Participante_focus_groupMinAggregateInputType = {
   id_participante?: true
   id_focus?: true
   id_stakeholder?: true
-  contribuciones?: true
 }
 
 export type Participante_focus_groupMaxAggregateInputType = {
   id_participante?: true
   id_focus?: true
   id_stakeholder?: true
-  contribuciones?: true
 }
 
 export type Participante_focus_groupCountAggregateInputType = {
   id_participante?: true
   id_focus?: true
   id_stakeholder?: true
-  contribuciones?: true
   _all?: true
 }
 
@@ -185,7 +179,6 @@ export type Participante_focus_groupGroupByOutputType = {
   id_participante: number
   id_focus: number
   id_stakeholder: number
-  contribuciones: string | null
   _count: Participante_focus_groupCountAggregateOutputType | null
   _avg: Participante_focus_groupAvgAggregateOutputType | null
   _sum: Participante_focus_groupSumAggregateOutputType | null
@@ -215,7 +208,6 @@ export type participante_focus_groupWhereInput = {
   id_participante?: Prisma.IntFilter<"participante_focus_group"> | number
   id_focus?: Prisma.IntFilter<"participante_focus_group"> | number
   id_stakeholder?: Prisma.IntFilter<"participante_focus_group"> | number
-  contribuciones?: Prisma.StringNullableFilter<"participante_focus_group"> | string | null
   focus_group?: Prisma.XOR<Prisma.Focus_groupScalarRelationFilter, Prisma.focus_groupWhereInput>
   stakeholder?: Prisma.XOR<Prisma.StakeholderScalarRelationFilter, Prisma.stakeholderWhereInput>
 }
@@ -224,7 +216,6 @@ export type participante_focus_groupOrderByWithRelationInput = {
   id_participante?: Prisma.SortOrder
   id_focus?: Prisma.SortOrder
   id_stakeholder?: Prisma.SortOrder
-  contribuciones?: Prisma.SortOrderInput | Prisma.SortOrder
   focus_group?: Prisma.focus_groupOrderByWithRelationInput
   stakeholder?: Prisma.stakeholderOrderByWithRelationInput
 }
@@ -236,7 +227,6 @@ export type participante_focus_groupWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.participante_focus_groupWhereInput | Prisma.participante_focus_groupWhereInput[]
   id_focus?: Prisma.IntFilter<"participante_focus_group"> | number
   id_stakeholder?: Prisma.IntFilter<"participante_focus_group"> | number
-  contribuciones?: Prisma.StringNullableFilter<"participante_focus_group"> | string | null
   focus_group?: Prisma.XOR<Prisma.Focus_groupScalarRelationFilter, Prisma.focus_groupWhereInput>
   stakeholder?: Prisma.XOR<Prisma.StakeholderScalarRelationFilter, Prisma.stakeholderWhereInput>
 }, "id_participante">
@@ -245,7 +235,6 @@ export type participante_focus_groupOrderByWithAggregationInput = {
   id_participante?: Prisma.SortOrder
   id_focus?: Prisma.SortOrder
   id_stakeholder?: Prisma.SortOrder
-  contribuciones?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.participante_focus_groupCountOrderByAggregateInput
   _avg?: Prisma.participante_focus_groupAvgOrderByAggregateInput
   _max?: Prisma.participante_focus_groupMaxOrderByAggregateInput
@@ -260,51 +249,44 @@ export type participante_focus_groupScalarWhereWithAggregatesInput = {
   id_participante?: Prisma.IntWithAggregatesFilter<"participante_focus_group"> | number
   id_focus?: Prisma.IntWithAggregatesFilter<"participante_focus_group"> | number
   id_stakeholder?: Prisma.IntWithAggregatesFilter<"participante_focus_group"> | number
-  contribuciones?: Prisma.StringNullableWithAggregatesFilter<"participante_focus_group"> | string | null
 }
 
 export type participante_focus_groupCreateInput = {
-  contribuciones?: string | null
-  focus_group: Prisma.focus_groupCreateNestedOneWithoutParticipantesInput
-  stakeholder: Prisma.stakeholderCreateNestedOneWithoutParticipacioneInput
+  focus_group: Prisma.focus_groupCreateNestedOneWithoutParticipante_focus_groupInput
+  stakeholder: Prisma.stakeholderCreateNestedOneWithoutParticipante_focus_groupInput
 }
 
 export type participante_focus_groupUncheckedCreateInput = {
   id_participante?: number
   id_focus: number
   id_stakeholder: number
-  contribuciones?: string | null
 }
 
 export type participante_focus_groupUpdateInput = {
-  contribuciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  focus_group?: Prisma.focus_groupUpdateOneRequiredWithoutParticipantesNestedInput
-  stakeholder?: Prisma.stakeholderUpdateOneRequiredWithoutParticipacioneNestedInput
+  focus_group?: Prisma.focus_groupUpdateOneRequiredWithoutParticipante_focus_groupNestedInput
+  stakeholder?: Prisma.stakeholderUpdateOneRequiredWithoutParticipante_focus_groupNestedInput
 }
 
 export type participante_focus_groupUncheckedUpdateInput = {
   id_participante?: Prisma.IntFieldUpdateOperationsInput | number
   id_focus?: Prisma.IntFieldUpdateOperationsInput | number
   id_stakeholder?: Prisma.IntFieldUpdateOperationsInput | number
-  contribuciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type participante_focus_groupCreateManyInput = {
   id_participante?: number
   id_focus: number
   id_stakeholder: number
-  contribuciones?: string | null
 }
 
 export type participante_focus_groupUpdateManyMutationInput = {
-  contribuciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+
 }
 
 export type participante_focus_groupUncheckedUpdateManyInput = {
   id_participante?: Prisma.IntFieldUpdateOperationsInput | number
   id_focus?: Prisma.IntFieldUpdateOperationsInput | number
   id_stakeholder?: Prisma.IntFieldUpdateOperationsInput | number
-  contribuciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type Participante_focus_groupListRelationFilter = {
@@ -321,7 +303,6 @@ export type participante_focus_groupCountOrderByAggregateInput = {
   id_participante?: Prisma.SortOrder
   id_focus?: Prisma.SortOrder
   id_stakeholder?: Prisma.SortOrder
-  contribuciones?: Prisma.SortOrder
 }
 
 export type participante_focus_groupAvgOrderByAggregateInput = {
@@ -334,62 +315,18 @@ export type participante_focus_groupMaxOrderByAggregateInput = {
   id_participante?: Prisma.SortOrder
   id_focus?: Prisma.SortOrder
   id_stakeholder?: Prisma.SortOrder
-  contribuciones?: Prisma.SortOrder
 }
 
 export type participante_focus_groupMinOrderByAggregateInput = {
   id_participante?: Prisma.SortOrder
   id_focus?: Prisma.SortOrder
   id_stakeholder?: Prisma.SortOrder
-  contribuciones?: Prisma.SortOrder
 }
 
 export type participante_focus_groupSumOrderByAggregateInput = {
   id_participante?: Prisma.SortOrder
   id_focus?: Prisma.SortOrder
   id_stakeholder?: Prisma.SortOrder
-}
-
-export type participante_focus_groupCreateNestedManyWithoutFocus_groupInput = {
-  create?: Prisma.XOR<Prisma.participante_focus_groupCreateWithoutFocus_groupInput, Prisma.participante_focus_groupUncheckedCreateWithoutFocus_groupInput> | Prisma.participante_focus_groupCreateWithoutFocus_groupInput[] | Prisma.participante_focus_groupUncheckedCreateWithoutFocus_groupInput[]
-  connectOrCreate?: Prisma.participante_focus_groupCreateOrConnectWithoutFocus_groupInput | Prisma.participante_focus_groupCreateOrConnectWithoutFocus_groupInput[]
-  createMany?: Prisma.participante_focus_groupCreateManyFocus_groupInputEnvelope
-  connect?: Prisma.participante_focus_groupWhereUniqueInput | Prisma.participante_focus_groupWhereUniqueInput[]
-}
-
-export type participante_focus_groupUncheckedCreateNestedManyWithoutFocus_groupInput = {
-  create?: Prisma.XOR<Prisma.participante_focus_groupCreateWithoutFocus_groupInput, Prisma.participante_focus_groupUncheckedCreateWithoutFocus_groupInput> | Prisma.participante_focus_groupCreateWithoutFocus_groupInput[] | Prisma.participante_focus_groupUncheckedCreateWithoutFocus_groupInput[]
-  connectOrCreate?: Prisma.participante_focus_groupCreateOrConnectWithoutFocus_groupInput | Prisma.participante_focus_groupCreateOrConnectWithoutFocus_groupInput[]
-  createMany?: Prisma.participante_focus_groupCreateManyFocus_groupInputEnvelope
-  connect?: Prisma.participante_focus_groupWhereUniqueInput | Prisma.participante_focus_groupWhereUniqueInput[]
-}
-
-export type participante_focus_groupUpdateManyWithoutFocus_groupNestedInput = {
-  create?: Prisma.XOR<Prisma.participante_focus_groupCreateWithoutFocus_groupInput, Prisma.participante_focus_groupUncheckedCreateWithoutFocus_groupInput> | Prisma.participante_focus_groupCreateWithoutFocus_groupInput[] | Prisma.participante_focus_groupUncheckedCreateWithoutFocus_groupInput[]
-  connectOrCreate?: Prisma.participante_focus_groupCreateOrConnectWithoutFocus_groupInput | Prisma.participante_focus_groupCreateOrConnectWithoutFocus_groupInput[]
-  upsert?: Prisma.participante_focus_groupUpsertWithWhereUniqueWithoutFocus_groupInput | Prisma.participante_focus_groupUpsertWithWhereUniqueWithoutFocus_groupInput[]
-  createMany?: Prisma.participante_focus_groupCreateManyFocus_groupInputEnvelope
-  set?: Prisma.participante_focus_groupWhereUniqueInput | Prisma.participante_focus_groupWhereUniqueInput[]
-  disconnect?: Prisma.participante_focus_groupWhereUniqueInput | Prisma.participante_focus_groupWhereUniqueInput[]
-  delete?: Prisma.participante_focus_groupWhereUniqueInput | Prisma.participante_focus_groupWhereUniqueInput[]
-  connect?: Prisma.participante_focus_groupWhereUniqueInput | Prisma.participante_focus_groupWhereUniqueInput[]
-  update?: Prisma.participante_focus_groupUpdateWithWhereUniqueWithoutFocus_groupInput | Prisma.participante_focus_groupUpdateWithWhereUniqueWithoutFocus_groupInput[]
-  updateMany?: Prisma.participante_focus_groupUpdateManyWithWhereWithoutFocus_groupInput | Prisma.participante_focus_groupUpdateManyWithWhereWithoutFocus_groupInput[]
-  deleteMany?: Prisma.participante_focus_groupScalarWhereInput | Prisma.participante_focus_groupScalarWhereInput[]
-}
-
-export type participante_focus_groupUncheckedUpdateManyWithoutFocus_groupNestedInput = {
-  create?: Prisma.XOR<Prisma.participante_focus_groupCreateWithoutFocus_groupInput, Prisma.participante_focus_groupUncheckedCreateWithoutFocus_groupInput> | Prisma.participante_focus_groupCreateWithoutFocus_groupInput[] | Prisma.participante_focus_groupUncheckedCreateWithoutFocus_groupInput[]
-  connectOrCreate?: Prisma.participante_focus_groupCreateOrConnectWithoutFocus_groupInput | Prisma.participante_focus_groupCreateOrConnectWithoutFocus_groupInput[]
-  upsert?: Prisma.participante_focus_groupUpsertWithWhereUniqueWithoutFocus_groupInput | Prisma.participante_focus_groupUpsertWithWhereUniqueWithoutFocus_groupInput[]
-  createMany?: Prisma.participante_focus_groupCreateManyFocus_groupInputEnvelope
-  set?: Prisma.participante_focus_groupWhereUniqueInput | Prisma.participante_focus_groupWhereUniqueInput[]
-  disconnect?: Prisma.participante_focus_groupWhereUniqueInput | Prisma.participante_focus_groupWhereUniqueInput[]
-  delete?: Prisma.participante_focus_groupWhereUniqueInput | Prisma.participante_focus_groupWhereUniqueInput[]
-  connect?: Prisma.participante_focus_groupWhereUniqueInput | Prisma.participante_focus_groupWhereUniqueInput[]
-  update?: Prisma.participante_focus_groupUpdateWithWhereUniqueWithoutFocus_groupInput | Prisma.participante_focus_groupUpdateWithWhereUniqueWithoutFocus_groupInput[]
-  updateMany?: Prisma.participante_focus_groupUpdateManyWithWhereWithoutFocus_groupInput | Prisma.participante_focus_groupUpdateManyWithWhereWithoutFocus_groupInput[]
-  deleteMany?: Prisma.participante_focus_groupScalarWhereInput | Prisma.participante_focus_groupScalarWhereInput[]
 }
 
 export type participante_focus_groupCreateNestedManyWithoutStakeholderInput = {
@@ -434,62 +371,55 @@ export type participante_focus_groupUncheckedUpdateManyWithoutStakeholderNestedI
   deleteMany?: Prisma.participante_focus_groupScalarWhereInput | Prisma.participante_focus_groupScalarWhereInput[]
 }
 
-export type participante_focus_groupCreateWithoutFocus_groupInput = {
-  contribuciones?: string | null
-  stakeholder: Prisma.stakeholderCreateNestedOneWithoutParticipacioneInput
+export type participante_focus_groupCreateNestedManyWithoutFocus_groupInput = {
+  create?: Prisma.XOR<Prisma.participante_focus_groupCreateWithoutFocus_groupInput, Prisma.participante_focus_groupUncheckedCreateWithoutFocus_groupInput> | Prisma.participante_focus_groupCreateWithoutFocus_groupInput[] | Prisma.participante_focus_groupUncheckedCreateWithoutFocus_groupInput[]
+  connectOrCreate?: Prisma.participante_focus_groupCreateOrConnectWithoutFocus_groupInput | Prisma.participante_focus_groupCreateOrConnectWithoutFocus_groupInput[]
+  createMany?: Prisma.participante_focus_groupCreateManyFocus_groupInputEnvelope
+  connect?: Prisma.participante_focus_groupWhereUniqueInput | Prisma.participante_focus_groupWhereUniqueInput[]
 }
 
-export type participante_focus_groupUncheckedCreateWithoutFocus_groupInput = {
-  id_participante?: number
-  id_stakeholder: number
-  contribuciones?: string | null
+export type participante_focus_groupUncheckedCreateNestedManyWithoutFocus_groupInput = {
+  create?: Prisma.XOR<Prisma.participante_focus_groupCreateWithoutFocus_groupInput, Prisma.participante_focus_groupUncheckedCreateWithoutFocus_groupInput> | Prisma.participante_focus_groupCreateWithoutFocus_groupInput[] | Prisma.participante_focus_groupUncheckedCreateWithoutFocus_groupInput[]
+  connectOrCreate?: Prisma.participante_focus_groupCreateOrConnectWithoutFocus_groupInput | Prisma.participante_focus_groupCreateOrConnectWithoutFocus_groupInput[]
+  createMany?: Prisma.participante_focus_groupCreateManyFocus_groupInputEnvelope
+  connect?: Prisma.participante_focus_groupWhereUniqueInput | Prisma.participante_focus_groupWhereUniqueInput[]
 }
 
-export type participante_focus_groupCreateOrConnectWithoutFocus_groupInput = {
-  where: Prisma.participante_focus_groupWhereUniqueInput
-  create: Prisma.XOR<Prisma.participante_focus_groupCreateWithoutFocus_groupInput, Prisma.participante_focus_groupUncheckedCreateWithoutFocus_groupInput>
+export type participante_focus_groupUpdateManyWithoutFocus_groupNestedInput = {
+  create?: Prisma.XOR<Prisma.participante_focus_groupCreateWithoutFocus_groupInput, Prisma.participante_focus_groupUncheckedCreateWithoutFocus_groupInput> | Prisma.participante_focus_groupCreateWithoutFocus_groupInput[] | Prisma.participante_focus_groupUncheckedCreateWithoutFocus_groupInput[]
+  connectOrCreate?: Prisma.participante_focus_groupCreateOrConnectWithoutFocus_groupInput | Prisma.participante_focus_groupCreateOrConnectWithoutFocus_groupInput[]
+  upsert?: Prisma.participante_focus_groupUpsertWithWhereUniqueWithoutFocus_groupInput | Prisma.participante_focus_groupUpsertWithWhereUniqueWithoutFocus_groupInput[]
+  createMany?: Prisma.participante_focus_groupCreateManyFocus_groupInputEnvelope
+  set?: Prisma.participante_focus_groupWhereUniqueInput | Prisma.participante_focus_groupWhereUniqueInput[]
+  disconnect?: Prisma.participante_focus_groupWhereUniqueInput | Prisma.participante_focus_groupWhereUniqueInput[]
+  delete?: Prisma.participante_focus_groupWhereUniqueInput | Prisma.participante_focus_groupWhereUniqueInput[]
+  connect?: Prisma.participante_focus_groupWhereUniqueInput | Prisma.participante_focus_groupWhereUniqueInput[]
+  update?: Prisma.participante_focus_groupUpdateWithWhereUniqueWithoutFocus_groupInput | Prisma.participante_focus_groupUpdateWithWhereUniqueWithoutFocus_groupInput[]
+  updateMany?: Prisma.participante_focus_groupUpdateManyWithWhereWithoutFocus_groupInput | Prisma.participante_focus_groupUpdateManyWithWhereWithoutFocus_groupInput[]
+  deleteMany?: Prisma.participante_focus_groupScalarWhereInput | Prisma.participante_focus_groupScalarWhereInput[]
 }
 
-export type participante_focus_groupCreateManyFocus_groupInputEnvelope = {
-  data: Prisma.participante_focus_groupCreateManyFocus_groupInput | Prisma.participante_focus_groupCreateManyFocus_groupInput[]
-  skipDuplicates?: boolean
-}
-
-export type participante_focus_groupUpsertWithWhereUniqueWithoutFocus_groupInput = {
-  where: Prisma.participante_focus_groupWhereUniqueInput
-  update: Prisma.XOR<Prisma.participante_focus_groupUpdateWithoutFocus_groupInput, Prisma.participante_focus_groupUncheckedUpdateWithoutFocus_groupInput>
-  create: Prisma.XOR<Prisma.participante_focus_groupCreateWithoutFocus_groupInput, Prisma.participante_focus_groupUncheckedCreateWithoutFocus_groupInput>
-}
-
-export type participante_focus_groupUpdateWithWhereUniqueWithoutFocus_groupInput = {
-  where: Prisma.participante_focus_groupWhereUniqueInput
-  data: Prisma.XOR<Prisma.participante_focus_groupUpdateWithoutFocus_groupInput, Prisma.participante_focus_groupUncheckedUpdateWithoutFocus_groupInput>
-}
-
-export type participante_focus_groupUpdateManyWithWhereWithoutFocus_groupInput = {
-  where: Prisma.participante_focus_groupScalarWhereInput
-  data: Prisma.XOR<Prisma.participante_focus_groupUpdateManyMutationInput, Prisma.participante_focus_groupUncheckedUpdateManyWithoutFocus_groupInput>
-}
-
-export type participante_focus_groupScalarWhereInput = {
-  AND?: Prisma.participante_focus_groupScalarWhereInput | Prisma.participante_focus_groupScalarWhereInput[]
-  OR?: Prisma.participante_focus_groupScalarWhereInput[]
-  NOT?: Prisma.participante_focus_groupScalarWhereInput | Prisma.participante_focus_groupScalarWhereInput[]
-  id_participante?: Prisma.IntFilter<"participante_focus_group"> | number
-  id_focus?: Prisma.IntFilter<"participante_focus_group"> | number
-  id_stakeholder?: Prisma.IntFilter<"participante_focus_group"> | number
-  contribuciones?: Prisma.StringNullableFilter<"participante_focus_group"> | string | null
+export type participante_focus_groupUncheckedUpdateManyWithoutFocus_groupNestedInput = {
+  create?: Prisma.XOR<Prisma.participante_focus_groupCreateWithoutFocus_groupInput, Prisma.participante_focus_groupUncheckedCreateWithoutFocus_groupInput> | Prisma.participante_focus_groupCreateWithoutFocus_groupInput[] | Prisma.participante_focus_groupUncheckedCreateWithoutFocus_groupInput[]
+  connectOrCreate?: Prisma.participante_focus_groupCreateOrConnectWithoutFocus_groupInput | Prisma.participante_focus_groupCreateOrConnectWithoutFocus_groupInput[]
+  upsert?: Prisma.participante_focus_groupUpsertWithWhereUniqueWithoutFocus_groupInput | Prisma.participante_focus_groupUpsertWithWhereUniqueWithoutFocus_groupInput[]
+  createMany?: Prisma.participante_focus_groupCreateManyFocus_groupInputEnvelope
+  set?: Prisma.participante_focus_groupWhereUniqueInput | Prisma.participante_focus_groupWhereUniqueInput[]
+  disconnect?: Prisma.participante_focus_groupWhereUniqueInput | Prisma.participante_focus_groupWhereUniqueInput[]
+  delete?: Prisma.participante_focus_groupWhereUniqueInput | Prisma.participante_focus_groupWhereUniqueInput[]
+  connect?: Prisma.participante_focus_groupWhereUniqueInput | Prisma.participante_focus_groupWhereUniqueInput[]
+  update?: Prisma.participante_focus_groupUpdateWithWhereUniqueWithoutFocus_groupInput | Prisma.participante_focus_groupUpdateWithWhereUniqueWithoutFocus_groupInput[]
+  updateMany?: Prisma.participante_focus_groupUpdateManyWithWhereWithoutFocus_groupInput | Prisma.participante_focus_groupUpdateManyWithWhereWithoutFocus_groupInput[]
+  deleteMany?: Prisma.participante_focus_groupScalarWhereInput | Prisma.participante_focus_groupScalarWhereInput[]
 }
 
 export type participante_focus_groupCreateWithoutStakeholderInput = {
-  contribuciones?: string | null
-  focus_group: Prisma.focus_groupCreateNestedOneWithoutParticipantesInput
+  focus_group: Prisma.focus_groupCreateNestedOneWithoutParticipante_focus_groupInput
 }
 
 export type participante_focus_groupUncheckedCreateWithoutStakeholderInput = {
   id_participante?: number
   id_focus: number
-  contribuciones?: string | null
 }
 
 export type participante_focus_groupCreateOrConnectWithoutStakeholderInput = {
@@ -518,50 +448,86 @@ export type participante_focus_groupUpdateManyWithWhereWithoutStakeholderInput =
   data: Prisma.XOR<Prisma.participante_focus_groupUpdateManyMutationInput, Prisma.participante_focus_groupUncheckedUpdateManyWithoutStakeholderInput>
 }
 
-export type participante_focus_groupCreateManyFocus_groupInput = {
+export type participante_focus_groupScalarWhereInput = {
+  AND?: Prisma.participante_focus_groupScalarWhereInput | Prisma.participante_focus_groupScalarWhereInput[]
+  OR?: Prisma.participante_focus_groupScalarWhereInput[]
+  NOT?: Prisma.participante_focus_groupScalarWhereInput | Prisma.participante_focus_groupScalarWhereInput[]
+  id_participante?: Prisma.IntFilter<"participante_focus_group"> | number
+  id_focus?: Prisma.IntFilter<"participante_focus_group"> | number
+  id_stakeholder?: Prisma.IntFilter<"participante_focus_group"> | number
+}
+
+export type participante_focus_groupCreateWithoutFocus_groupInput = {
+  stakeholder: Prisma.stakeholderCreateNestedOneWithoutParticipante_focus_groupInput
+}
+
+export type participante_focus_groupUncheckedCreateWithoutFocus_groupInput = {
   id_participante?: number
   id_stakeholder: number
-  contribuciones?: string | null
 }
 
-export type participante_focus_groupUpdateWithoutFocus_groupInput = {
-  contribuciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  stakeholder?: Prisma.stakeholderUpdateOneRequiredWithoutParticipacioneNestedInput
+export type participante_focus_groupCreateOrConnectWithoutFocus_groupInput = {
+  where: Prisma.participante_focus_groupWhereUniqueInput
+  create: Prisma.XOR<Prisma.participante_focus_groupCreateWithoutFocus_groupInput, Prisma.participante_focus_groupUncheckedCreateWithoutFocus_groupInput>
 }
 
-export type participante_focus_groupUncheckedUpdateWithoutFocus_groupInput = {
-  id_participante?: Prisma.IntFieldUpdateOperationsInput | number
-  id_stakeholder?: Prisma.IntFieldUpdateOperationsInput | number
-  contribuciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+export type participante_focus_groupCreateManyFocus_groupInputEnvelope = {
+  data: Prisma.participante_focus_groupCreateManyFocus_groupInput | Prisma.participante_focus_groupCreateManyFocus_groupInput[]
+  skipDuplicates?: boolean
 }
 
-export type participante_focus_groupUncheckedUpdateManyWithoutFocus_groupInput = {
-  id_participante?: Prisma.IntFieldUpdateOperationsInput | number
-  id_stakeholder?: Prisma.IntFieldUpdateOperationsInput | number
-  contribuciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+export type participante_focus_groupUpsertWithWhereUniqueWithoutFocus_groupInput = {
+  where: Prisma.participante_focus_groupWhereUniqueInput
+  update: Prisma.XOR<Prisma.participante_focus_groupUpdateWithoutFocus_groupInput, Prisma.participante_focus_groupUncheckedUpdateWithoutFocus_groupInput>
+  create: Prisma.XOR<Prisma.participante_focus_groupCreateWithoutFocus_groupInput, Prisma.participante_focus_groupUncheckedCreateWithoutFocus_groupInput>
+}
+
+export type participante_focus_groupUpdateWithWhereUniqueWithoutFocus_groupInput = {
+  where: Prisma.participante_focus_groupWhereUniqueInput
+  data: Prisma.XOR<Prisma.participante_focus_groupUpdateWithoutFocus_groupInput, Prisma.participante_focus_groupUncheckedUpdateWithoutFocus_groupInput>
+}
+
+export type participante_focus_groupUpdateManyWithWhereWithoutFocus_groupInput = {
+  where: Prisma.participante_focus_groupScalarWhereInput
+  data: Prisma.XOR<Prisma.participante_focus_groupUpdateManyMutationInput, Prisma.participante_focus_groupUncheckedUpdateManyWithoutFocus_groupInput>
 }
 
 export type participante_focus_groupCreateManyStakeholderInput = {
   id_participante?: number
   id_focus: number
-  contribuciones?: string | null
 }
 
 export type participante_focus_groupUpdateWithoutStakeholderInput = {
-  contribuciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  focus_group?: Prisma.focus_groupUpdateOneRequiredWithoutParticipantesNestedInput
+  focus_group?: Prisma.focus_groupUpdateOneRequiredWithoutParticipante_focus_groupNestedInput
 }
 
 export type participante_focus_groupUncheckedUpdateWithoutStakeholderInput = {
   id_participante?: Prisma.IntFieldUpdateOperationsInput | number
   id_focus?: Prisma.IntFieldUpdateOperationsInput | number
-  contribuciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type participante_focus_groupUncheckedUpdateManyWithoutStakeholderInput = {
   id_participante?: Prisma.IntFieldUpdateOperationsInput | number
   id_focus?: Prisma.IntFieldUpdateOperationsInput | number
-  contribuciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+}
+
+export type participante_focus_groupCreateManyFocus_groupInput = {
+  id_participante?: number
+  id_stakeholder: number
+}
+
+export type participante_focus_groupUpdateWithoutFocus_groupInput = {
+  stakeholder?: Prisma.stakeholderUpdateOneRequiredWithoutParticipante_focus_groupNestedInput
+}
+
+export type participante_focus_groupUncheckedUpdateWithoutFocus_groupInput = {
+  id_participante?: Prisma.IntFieldUpdateOperationsInput | number
+  id_stakeholder?: Prisma.IntFieldUpdateOperationsInput | number
+}
+
+export type participante_focus_groupUncheckedUpdateManyWithoutFocus_groupInput = {
+  id_participante?: Prisma.IntFieldUpdateOperationsInput | number
+  id_stakeholder?: Prisma.IntFieldUpdateOperationsInput | number
 }
 
 
@@ -570,7 +536,6 @@ export type participante_focus_groupSelect<ExtArgs extends runtime.Types.Extensi
   id_participante?: boolean
   id_focus?: boolean
   id_stakeholder?: boolean
-  contribuciones?: boolean
   focus_group?: boolean | Prisma.focus_groupDefaultArgs<ExtArgs>
   stakeholder?: boolean | Prisma.stakeholderDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["participante_focus_group"]>
@@ -579,7 +544,6 @@ export type participante_focus_groupSelectCreateManyAndReturn<ExtArgs extends ru
   id_participante?: boolean
   id_focus?: boolean
   id_stakeholder?: boolean
-  contribuciones?: boolean
   focus_group?: boolean | Prisma.focus_groupDefaultArgs<ExtArgs>
   stakeholder?: boolean | Prisma.stakeholderDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["participante_focus_group"]>
@@ -588,7 +552,6 @@ export type participante_focus_groupSelectUpdateManyAndReturn<ExtArgs extends ru
   id_participante?: boolean
   id_focus?: boolean
   id_stakeholder?: boolean
-  contribuciones?: boolean
   focus_group?: boolean | Prisma.focus_groupDefaultArgs<ExtArgs>
   stakeholder?: boolean | Prisma.stakeholderDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["participante_focus_group"]>
@@ -597,10 +560,9 @@ export type participante_focus_groupSelectScalar = {
   id_participante?: boolean
   id_focus?: boolean
   id_stakeholder?: boolean
-  contribuciones?: boolean
 }
 
-export type participante_focus_groupOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id_participante" | "id_focus" | "id_stakeholder" | "contribuciones", ExtArgs["result"]["participante_focus_group"]>
+export type participante_focus_groupOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id_participante" | "id_focus" | "id_stakeholder", ExtArgs["result"]["participante_focus_group"]>
 export type participante_focus_groupInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   focus_group?: boolean | Prisma.focus_groupDefaultArgs<ExtArgs>
   stakeholder?: boolean | Prisma.stakeholderDefaultArgs<ExtArgs>
@@ -624,7 +586,6 @@ export type $participante_focus_groupPayload<ExtArgs extends runtime.Types.Exten
     id_participante: number
     id_focus: number
     id_stakeholder: number
-    contribuciones: string | null
   }, ExtArgs["result"]["participante_focus_group"]>
   composites: {}
 }
@@ -1053,7 +1014,6 @@ export interface participante_focus_groupFieldRefs {
   readonly id_participante: Prisma.FieldRef<"participante_focus_group", 'Int'>
   readonly id_focus: Prisma.FieldRef<"participante_focus_group", 'Int'>
   readonly id_stakeholder: Prisma.FieldRef<"participante_focus_group", 'Int'>
-  readonly contribuciones: Prisma.FieldRef<"participante_focus_group", 'String'>
 }
     
 

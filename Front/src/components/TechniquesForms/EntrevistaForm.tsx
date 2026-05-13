@@ -5,13 +5,22 @@ import type { PreguntaEntrevista } from "../../Types/PreguntasEntrevistas";
 import type { Rol } from "../../Types/Roles";
 import { useParams } from "react-router";
 
-export default function EntrevistaForm() {
-    const { id_project } = useParams();
+interface TecnicaProps {
+    tecnica: any;
+}
 
+
+export default function EntrevistaForm({ tecnica }: TecnicaProps) {
+    const { id_project } = useParams();
     const [preguntasEntrevista, setPreguntasEntrevista] = useState<PreguntaEntrevista[]>([]);
     const [roles, setRoles] = useState<Rol[]>([]);
     // State para controlar los roles seleccionados
     const [rolSeleccionado, setRolSeleccionado] = useState<number | null>(null);
+    const [idStakeholder, setIdStakeholder] = useState<number | null>(null);
+    const [fecha, setFecha] = useState("");
+    const [duracion, setDuracion] = useState("");
+    const [notas, setNotas] = useState("");
+
 
     // Obtener stakeholders del rol seleccionado
     const stakeholdersDelRol = rolSeleccionado
@@ -39,10 +48,10 @@ export default function EntrevistaForm() {
         setPreguntasEntrevista(preguntasFiltradas);
     };
 
-    const getRolesAndStakehodlers = async () => {
-        const token = localStorage.getItem("token");
-        const API_URL = import.meta.env.VITE_API_URL;
+    const token = localStorage.getItem("token");
+    const API_URL = import.meta.env.VITE_API_URL;
 
+    const getRolesAndStakehodlers = async () => {
         try {
             const response = await fetch(`${API_URL}/roles/proyecto/${id_project}`, {
                 method: "GET",
@@ -63,12 +72,74 @@ export default function EntrevistaForm() {
         }
     };
 
+    const handleSubmit = async () => {
+        const body = {
+            id_stakeholder: idStakeholder,
+            fecha_entrevista: fecha,
+            duracion: duracion,
+            pregunta_entrevista: preguntasEntrevista,
+            notas: notas
+        };
+
+        try {
+            const response = await fetch(`${API_URL}/entrevistas/actualizar_entrevista/${tecnica.entrevistaData.id_entrevista}`,
+                {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${token}`
+                    },
+                    body: JSON.stringify(body)
+                }
+            );
+
+            if (!response.ok) {
+                throw new Error("Error al actualizar la entrevista");
+            }
+
+            const data = await response.json();
+            console.log(data);
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
+    const getEntrevista = async () => {
+        try {
+            const response = await fetch(`${API_URL}/entrevistas/${tecnica.entrevistaData.id_entrevista}`,
+                {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${token}`
+                    }
+                }
+            );
+
+            if (!response.ok) {
+                throw new Error("Error al obtener la técnica de Observación");
+            }
+
+            const data = await response.json();
+            console.log(data);
+            setRolSeleccionado(data.stakeholder.id_rol);
+            setIdStakeholder(data.id_stakeholder);
+            setFecha(data.fecha_entrevista ? data.fecha_entrevista.split("T")[0] : "");
+            setDuracion(String(data.duracion || ""));
+            setNotas(String(data.notas || ""));
+            setPreguntasEntrevista(data.pregunta_entrevista);
+        } catch (err) {
+            console.error("Error en la petición:", err);
+        }
+    }
+
     useEffect(() => {
         getRolesAndStakehodlers();
+        getEntrevista();
     }, []);
 
     return (
-        <>
+        <form action={handleSubmit}>
             <section className="entrevista-informacion-section">
                 <header className="header-entrevista-section">
                     <h2>Información de la Entrevista</h2>
@@ -93,7 +164,12 @@ export default function EntrevistaForm() {
 
                     <div className="entrevistado-container">
                         <label htmlFor="entrevistado">Entrevistado</label>
-                        <select name="entrevistado" id="entrevistado">
+                        <select
+                            name="entrevistado"
+                            id="entrevistado"
+                            value={idStakeholder || ""}
+                            onChange={(e) => setIdStakeholder(Number(e.target.value))}
+                        >
                             <option value="">-- Selecciona un entrevistado --</option>
                             {stakeholdersDelRol.length > 0 ? (
                                 stakeholdersDelRol.map(s => (
@@ -108,11 +184,23 @@ export default function EntrevistaForm() {
                 <div className="info-entrevista-div">
                     <div className="fecha-container">
                         <label htmlFor="fechaEntrevista">Fecha</label>
-                        <input type="date" id="fechaEntrevista" />
+                        <input
+                            type="date" 
+                            id="fechaEntrevista"
+                            value={fecha}
+                            onChange={(e) => setFecha(e.target.value)}
+                        />
                     </div>
                     <div className="duracion-container">
                         <label htmlFor="duracion">Duración (minutos)</label>
-                        <input type="number" id="duracion" placeholder="Ej: 45" min={0} />
+                        <input
+                            type="number"
+                            id="duracion"
+                            placeholder="Ej: 45"
+                            min={0}
+                            value={duracion}
+                            onChange={(e) => setDuracion(e.target.value)}
+                        />
                     </div>
                 </div>
             </section>
@@ -190,8 +278,19 @@ export default function EntrevistaForm() {
                     name="notas-adicionales"
                     id="notas-entrevista"
                     placeholder="Agrega observaciones, conclusiones o información relevante"
+                    value={notas}
+                    onChange={(e) => setNotas(e.target.value)}
                 />
             </section>
-        </>
+            <div className="buttons-techniques-section">
+                <button className="button-cancel-changes">Cancelar Cambios</button>
+                <button
+                    className="button-confirm-changes"
+                    type="submit"
+                >
+                    Guardar Cambios
+                </button>
+            </div>
+        </form>
     );
 }

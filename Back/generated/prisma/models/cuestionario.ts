@@ -29,21 +29,21 @@ export type AggregateCuestionario = {
 export type CuestionarioAvgAggregateOutputType = {
   id_cuestionario: number | null
   id_tecnica: number | null
-  id_usuario: number | null
+  id_stakeholder: number | null
   respuestas_recibidas: number | null
 }
 
 export type CuestionarioSumAggregateOutputType = {
   id_cuestionario: number | null
   id_tecnica: number | null
-  id_usuario: number | null
+  id_stakeholder: number | null
   respuestas_recibidas: number | null
 }
 
 export type CuestionarioMinAggregateOutputType = {
   id_cuestionario: number | null
   id_tecnica: number | null
-  id_usuario: number | null
+  id_stakeholder: number | null
   objetivo: string | null
   audiencia_objetivo: string | null
   responsable: string | null
@@ -53,12 +53,13 @@ export type CuestionarioMinAggregateOutputType = {
   respuestas_recibidas: number | null
   instrucciones: string | null
   estatus: string | null
+  fecha_creacion: Date | null
 }
 
 export type CuestionarioMaxAggregateOutputType = {
   id_cuestionario: number | null
   id_tecnica: number | null
-  id_usuario: number | null
+  id_stakeholder: number | null
   objetivo: string | null
   audiencia_objetivo: string | null
   responsable: string | null
@@ -68,12 +69,13 @@ export type CuestionarioMaxAggregateOutputType = {
   respuestas_recibidas: number | null
   instrucciones: string | null
   estatus: string | null
+  fecha_creacion: Date | null
 }
 
 export type CuestionarioCountAggregateOutputType = {
   id_cuestionario: number
   id_tecnica: number
-  id_usuario: number
+  id_stakeholder: number
   objetivo: number
   audiencia_objetivo: number
   responsable: number
@@ -83,6 +85,7 @@ export type CuestionarioCountAggregateOutputType = {
   respuestas_recibidas: number
   instrucciones: number
   estatus: number
+  fecha_creacion: number
   _all: number
 }
 
@@ -90,21 +93,21 @@ export type CuestionarioCountAggregateOutputType = {
 export type CuestionarioAvgAggregateInputType = {
   id_cuestionario?: true
   id_tecnica?: true
-  id_usuario?: true
+  id_stakeholder?: true
   respuestas_recibidas?: true
 }
 
 export type CuestionarioSumAggregateInputType = {
   id_cuestionario?: true
   id_tecnica?: true
-  id_usuario?: true
+  id_stakeholder?: true
   respuestas_recibidas?: true
 }
 
 export type CuestionarioMinAggregateInputType = {
   id_cuestionario?: true
   id_tecnica?: true
-  id_usuario?: true
+  id_stakeholder?: true
   objetivo?: true
   audiencia_objetivo?: true
   responsable?: true
@@ -114,12 +117,13 @@ export type CuestionarioMinAggregateInputType = {
   respuestas_recibidas?: true
   instrucciones?: true
   estatus?: true
+  fecha_creacion?: true
 }
 
 export type CuestionarioMaxAggregateInputType = {
   id_cuestionario?: true
   id_tecnica?: true
-  id_usuario?: true
+  id_stakeholder?: true
   objetivo?: true
   audiencia_objetivo?: true
   responsable?: true
@@ -129,12 +133,13 @@ export type CuestionarioMaxAggregateInputType = {
   respuestas_recibidas?: true
   instrucciones?: true
   estatus?: true
+  fecha_creacion?: true
 }
 
 export type CuestionarioCountAggregateInputType = {
   id_cuestionario?: true
   id_tecnica?: true
-  id_usuario?: true
+  id_stakeholder?: true
   objetivo?: true
   audiencia_objetivo?: true
   responsable?: true
@@ -144,6 +149,7 @@ export type CuestionarioCountAggregateInputType = {
   respuestas_recibidas?: true
   instrucciones?: true
   estatus?: true
+  fecha_creacion?: true
   _all?: true
 }
 
@@ -236,16 +242,17 @@ export type cuestionarioGroupByArgs<ExtArgs extends runtime.Types.Extensions.Int
 export type CuestionarioGroupByOutputType = {
   id_cuestionario: number
   id_tecnica: number
-  id_usuario: number
+  id_stakeholder: number | null
   objetivo: string | null
   audiencia_objetivo: string | null
   responsable: string | null
   metodo_distribucion: string | null
   fecha_distribucion: Date | null
   fecha_limite: Date | null
-  respuestas_recibidas: number
+  respuestas_recibidas: number | null
   instrucciones: string | null
   estatus: string
+  fecha_creacion: Date | null
   _count: CuestionarioCountAggregateOutputType | null
   _avg: CuestionarioAvgAggregateOutputType | null
   _sum: CuestionarioSumAggregateOutputType | null
@@ -274,37 +281,41 @@ export type cuestionarioWhereInput = {
   NOT?: Prisma.cuestionarioWhereInput | Prisma.cuestionarioWhereInput[]
   id_cuestionario?: Prisma.IntFilter<"cuestionario"> | number
   id_tecnica?: Prisma.IntFilter<"cuestionario"> | number
-  id_usuario?: Prisma.IntFilter<"cuestionario"> | number
+  id_stakeholder?: Prisma.IntNullableFilter<"cuestionario"> | number | null
   objetivo?: Prisma.StringNullableFilter<"cuestionario"> | string | null
   audiencia_objetivo?: Prisma.StringNullableFilter<"cuestionario"> | string | null
   responsable?: Prisma.StringNullableFilter<"cuestionario"> | string | null
   metodo_distribucion?: Prisma.StringNullableFilter<"cuestionario"> | string | null
   fecha_distribucion?: Prisma.DateTimeNullableFilter<"cuestionario"> | Date | string | null
   fecha_limite?: Prisma.DateTimeNullableFilter<"cuestionario"> | Date | string | null
-  respuestas_recibidas?: Prisma.IntFilter<"cuestionario"> | number
+  respuestas_recibidas?: Prisma.IntNullableFilter<"cuestionario"> | number | null
   instrucciones?: Prisma.StringNullableFilter<"cuestionario"> | string | null
   estatus?: Prisma.StringFilter<"cuestionario"> | string
-  tecnica?: Prisma.XOR<Prisma.Tecnica_recoleccionScalarRelationFilter, Prisma.tecnica_recoleccionWhereInput>
-  usuario?: Prisma.XOR<Prisma.UsuarioScalarRelationFilter, Prisma.usuarioWhereInput>
-  preguntas?: Prisma.Pregunta_cuestionarioListRelationFilter
+  fecha_creacion?: Prisma.DateTimeNullableFilter<"cuestionario"> | Date | string | null
+  stakeholder?: Prisma.XOR<Prisma.StakeholderNullableScalarRelationFilter, Prisma.stakeholderWhereInput> | null
+  tecnica_recoleccion?: Prisma.XOR<Prisma.Tecnica_recoleccionScalarRelationFilter, Prisma.tecnica_recoleccionWhereInput>
+  pregunta_cuestionario?: Prisma.Pregunta_cuestionarioListRelationFilter
+  respuesta_cuestionario?: Prisma.Respuesta_cuestionarioListRelationFilter
 }
 
 export type cuestionarioOrderByWithRelationInput = {
   id_cuestionario?: Prisma.SortOrder
   id_tecnica?: Prisma.SortOrder
-  id_usuario?: Prisma.SortOrder
+  id_stakeholder?: Prisma.SortOrderInput | Prisma.SortOrder
   objetivo?: Prisma.SortOrderInput | Prisma.SortOrder
   audiencia_objetivo?: Prisma.SortOrderInput | Prisma.SortOrder
   responsable?: Prisma.SortOrderInput | Prisma.SortOrder
   metodo_distribucion?: Prisma.SortOrderInput | Prisma.SortOrder
   fecha_distribucion?: Prisma.SortOrderInput | Prisma.SortOrder
   fecha_limite?: Prisma.SortOrderInput | Prisma.SortOrder
-  respuestas_recibidas?: Prisma.SortOrder
+  respuestas_recibidas?: Prisma.SortOrderInput | Prisma.SortOrder
   instrucciones?: Prisma.SortOrderInput | Prisma.SortOrder
   estatus?: Prisma.SortOrder
-  tecnica?: Prisma.tecnica_recoleccionOrderByWithRelationInput
-  usuario?: Prisma.usuarioOrderByWithRelationInput
-  preguntas?: Prisma.pregunta_cuestionarioOrderByRelationAggregateInput
+  fecha_creacion?: Prisma.SortOrderInput | Prisma.SortOrder
+  stakeholder?: Prisma.stakeholderOrderByWithRelationInput
+  tecnica_recoleccion?: Prisma.tecnica_recoleccionOrderByWithRelationInput
+  pregunta_cuestionario?: Prisma.pregunta_cuestionarioOrderByRelationAggregateInput
+  respuesta_cuestionario?: Prisma.respuesta_cuestionarioOrderByRelationAggregateInput
 }
 
 export type cuestionarioWhereUniqueInput = Prisma.AtLeast<{
@@ -313,34 +324,37 @@ export type cuestionarioWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.cuestionarioWhereInput[]
   NOT?: Prisma.cuestionarioWhereInput | Prisma.cuestionarioWhereInput[]
   id_tecnica?: Prisma.IntFilter<"cuestionario"> | number
-  id_usuario?: Prisma.IntFilter<"cuestionario"> | number
+  id_stakeholder?: Prisma.IntNullableFilter<"cuestionario"> | number | null
   objetivo?: Prisma.StringNullableFilter<"cuestionario"> | string | null
   audiencia_objetivo?: Prisma.StringNullableFilter<"cuestionario"> | string | null
   responsable?: Prisma.StringNullableFilter<"cuestionario"> | string | null
   metodo_distribucion?: Prisma.StringNullableFilter<"cuestionario"> | string | null
   fecha_distribucion?: Prisma.DateTimeNullableFilter<"cuestionario"> | Date | string | null
   fecha_limite?: Prisma.DateTimeNullableFilter<"cuestionario"> | Date | string | null
-  respuestas_recibidas?: Prisma.IntFilter<"cuestionario"> | number
+  respuestas_recibidas?: Prisma.IntNullableFilter<"cuestionario"> | number | null
   instrucciones?: Prisma.StringNullableFilter<"cuestionario"> | string | null
   estatus?: Prisma.StringFilter<"cuestionario"> | string
-  tecnica?: Prisma.XOR<Prisma.Tecnica_recoleccionScalarRelationFilter, Prisma.tecnica_recoleccionWhereInput>
-  usuario?: Prisma.XOR<Prisma.UsuarioScalarRelationFilter, Prisma.usuarioWhereInput>
-  preguntas?: Prisma.Pregunta_cuestionarioListRelationFilter
+  fecha_creacion?: Prisma.DateTimeNullableFilter<"cuestionario"> | Date | string | null
+  stakeholder?: Prisma.XOR<Prisma.StakeholderNullableScalarRelationFilter, Prisma.stakeholderWhereInput> | null
+  tecnica_recoleccion?: Prisma.XOR<Prisma.Tecnica_recoleccionScalarRelationFilter, Prisma.tecnica_recoleccionWhereInput>
+  pregunta_cuestionario?: Prisma.Pregunta_cuestionarioListRelationFilter
+  respuesta_cuestionario?: Prisma.Respuesta_cuestionarioListRelationFilter
 }, "id_cuestionario">
 
 export type cuestionarioOrderByWithAggregationInput = {
   id_cuestionario?: Prisma.SortOrder
   id_tecnica?: Prisma.SortOrder
-  id_usuario?: Prisma.SortOrder
+  id_stakeholder?: Prisma.SortOrderInput | Prisma.SortOrder
   objetivo?: Prisma.SortOrderInput | Prisma.SortOrder
   audiencia_objetivo?: Prisma.SortOrderInput | Prisma.SortOrder
   responsable?: Prisma.SortOrderInput | Prisma.SortOrder
   metodo_distribucion?: Prisma.SortOrderInput | Prisma.SortOrder
   fecha_distribucion?: Prisma.SortOrderInput | Prisma.SortOrder
   fecha_limite?: Prisma.SortOrderInput | Prisma.SortOrder
-  respuestas_recibidas?: Prisma.SortOrder
+  respuestas_recibidas?: Prisma.SortOrderInput | Prisma.SortOrder
   instrucciones?: Prisma.SortOrderInput | Prisma.SortOrder
   estatus?: Prisma.SortOrder
+  fecha_creacion?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.cuestionarioCountOrderByAggregateInput
   _avg?: Prisma.cuestionarioAvgOrderByAggregateInput
   _max?: Prisma.cuestionarioMaxOrderByAggregateInput
@@ -354,16 +368,17 @@ export type cuestionarioScalarWhereWithAggregatesInput = {
   NOT?: Prisma.cuestionarioScalarWhereWithAggregatesInput | Prisma.cuestionarioScalarWhereWithAggregatesInput[]
   id_cuestionario?: Prisma.IntWithAggregatesFilter<"cuestionario"> | number
   id_tecnica?: Prisma.IntWithAggregatesFilter<"cuestionario"> | number
-  id_usuario?: Prisma.IntWithAggregatesFilter<"cuestionario"> | number
+  id_stakeholder?: Prisma.IntNullableWithAggregatesFilter<"cuestionario"> | number | null
   objetivo?: Prisma.StringNullableWithAggregatesFilter<"cuestionario"> | string | null
   audiencia_objetivo?: Prisma.StringNullableWithAggregatesFilter<"cuestionario"> | string | null
   responsable?: Prisma.StringNullableWithAggregatesFilter<"cuestionario"> | string | null
   metodo_distribucion?: Prisma.StringNullableWithAggregatesFilter<"cuestionario"> | string | null
   fecha_distribucion?: Prisma.DateTimeNullableWithAggregatesFilter<"cuestionario"> | Date | string | null
   fecha_limite?: Prisma.DateTimeNullableWithAggregatesFilter<"cuestionario"> | Date | string | null
-  respuestas_recibidas?: Prisma.IntWithAggregatesFilter<"cuestionario"> | number
+  respuestas_recibidas?: Prisma.IntNullableWithAggregatesFilter<"cuestionario"> | number | null
   instrucciones?: Prisma.StringNullableWithAggregatesFilter<"cuestionario"> | string | null
   estatus?: Prisma.StringWithAggregatesFilter<"cuestionario"> | string
+  fecha_creacion?: Prisma.DateTimeNullableWithAggregatesFilter<"cuestionario"> | Date | string | null
 }
 
 export type cuestionarioCreateInput = {
@@ -373,28 +388,32 @@ export type cuestionarioCreateInput = {
   metodo_distribucion?: string | null
   fecha_distribucion?: Date | string | null
   fecha_limite?: Date | string | null
-  respuestas_recibidas?: number
+  respuestas_recibidas?: number | null
   instrucciones?: string | null
   estatus?: string
-  tecnica: Prisma.tecnica_recoleccionCreateNestedOneWithoutCuestionarioInput
-  usuario: Prisma.usuarioCreateNestedOneWithoutCuestionarioInput
-  preguntas?: Prisma.pregunta_cuestionarioCreateNestedManyWithoutCuestionarioInput
+  fecha_creacion?: Date | string | null
+  stakeholder?: Prisma.stakeholderCreateNestedOneWithoutCuestionarioInput
+  tecnica_recoleccion: Prisma.tecnica_recoleccionCreateNestedOneWithoutCuestionarioInput
+  pregunta_cuestionario?: Prisma.pregunta_cuestionarioCreateNestedManyWithoutCuestionarioInput
+  respuesta_cuestionario?: Prisma.respuesta_cuestionarioCreateNestedManyWithoutCuestionarioInput
 }
 
 export type cuestionarioUncheckedCreateInput = {
   id_cuestionario?: number
   id_tecnica: number
-  id_usuario: number
+  id_stakeholder?: number | null
   objetivo?: string | null
   audiencia_objetivo?: string | null
   responsable?: string | null
   metodo_distribucion?: string | null
   fecha_distribucion?: Date | string | null
   fecha_limite?: Date | string | null
-  respuestas_recibidas?: number
+  respuestas_recibidas?: number | null
   instrucciones?: string | null
   estatus?: string
-  preguntas?: Prisma.pregunta_cuestionarioUncheckedCreateNestedManyWithoutCuestionarioInput
+  fecha_creacion?: Date | string | null
+  pregunta_cuestionario?: Prisma.pregunta_cuestionarioUncheckedCreateNestedManyWithoutCuestionarioInput
+  respuesta_cuestionario?: Prisma.respuesta_cuestionarioUncheckedCreateNestedManyWithoutCuestionarioInput
 }
 
 export type cuestionarioUpdateInput = {
@@ -404,43 +423,48 @@ export type cuestionarioUpdateInput = {
   metodo_distribucion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fecha_distribucion?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   fecha_limite?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  respuestas_recibidas?: Prisma.IntFieldUpdateOperationsInput | number
+  respuestas_recibidas?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   instrucciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estatus?: Prisma.StringFieldUpdateOperationsInput | string
-  tecnica?: Prisma.tecnica_recoleccionUpdateOneRequiredWithoutCuestionarioNestedInput
-  usuario?: Prisma.usuarioUpdateOneRequiredWithoutCuestionarioNestedInput
-  preguntas?: Prisma.pregunta_cuestionarioUpdateManyWithoutCuestionarioNestedInput
+  fecha_creacion?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  stakeholder?: Prisma.stakeholderUpdateOneWithoutCuestionarioNestedInput
+  tecnica_recoleccion?: Prisma.tecnica_recoleccionUpdateOneRequiredWithoutCuestionarioNestedInput
+  pregunta_cuestionario?: Prisma.pregunta_cuestionarioUpdateManyWithoutCuestionarioNestedInput
+  respuesta_cuestionario?: Prisma.respuesta_cuestionarioUpdateManyWithoutCuestionarioNestedInput
 }
 
 export type cuestionarioUncheckedUpdateInput = {
   id_cuestionario?: Prisma.IntFieldUpdateOperationsInput | number
   id_tecnica?: Prisma.IntFieldUpdateOperationsInput | number
-  id_usuario?: Prisma.IntFieldUpdateOperationsInput | number
+  id_stakeholder?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   objetivo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   audiencia_objetivo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   responsable?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metodo_distribucion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fecha_distribucion?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   fecha_limite?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  respuestas_recibidas?: Prisma.IntFieldUpdateOperationsInput | number
+  respuestas_recibidas?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   instrucciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estatus?: Prisma.StringFieldUpdateOperationsInput | string
-  preguntas?: Prisma.pregunta_cuestionarioUncheckedUpdateManyWithoutCuestionarioNestedInput
+  fecha_creacion?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pregunta_cuestionario?: Prisma.pregunta_cuestionarioUncheckedUpdateManyWithoutCuestionarioNestedInput
+  respuesta_cuestionario?: Prisma.respuesta_cuestionarioUncheckedUpdateManyWithoutCuestionarioNestedInput
 }
 
 export type cuestionarioCreateManyInput = {
   id_cuestionario?: number
   id_tecnica: number
-  id_usuario: number
+  id_stakeholder?: number | null
   objetivo?: string | null
   audiencia_objetivo?: string | null
   responsable?: string | null
   metodo_distribucion?: string | null
   fecha_distribucion?: Date | string | null
   fecha_limite?: Date | string | null
-  respuestas_recibidas?: number
+  respuestas_recibidas?: number | null
   instrucciones?: string | null
   estatus?: string
+  fecha_creacion?: Date | string | null
 }
 
 export type cuestionarioUpdateManyMutationInput = {
@@ -450,88 +474,26 @@ export type cuestionarioUpdateManyMutationInput = {
   metodo_distribucion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fecha_distribucion?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   fecha_limite?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  respuestas_recibidas?: Prisma.IntFieldUpdateOperationsInput | number
+  respuestas_recibidas?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   instrucciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estatus?: Prisma.StringFieldUpdateOperationsInput | string
+  fecha_creacion?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type cuestionarioUncheckedUpdateManyInput = {
   id_cuestionario?: Prisma.IntFieldUpdateOperationsInput | number
   id_tecnica?: Prisma.IntFieldUpdateOperationsInput | number
-  id_usuario?: Prisma.IntFieldUpdateOperationsInput | number
+  id_stakeholder?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   objetivo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   audiencia_objetivo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   responsable?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metodo_distribucion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fecha_distribucion?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   fecha_limite?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  respuestas_recibidas?: Prisma.IntFieldUpdateOperationsInput | number
+  respuestas_recibidas?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   instrucciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estatus?: Prisma.StringFieldUpdateOperationsInput | string
-}
-
-export type cuestionarioCountOrderByAggregateInput = {
-  id_cuestionario?: Prisma.SortOrder
-  id_tecnica?: Prisma.SortOrder
-  id_usuario?: Prisma.SortOrder
-  objetivo?: Prisma.SortOrder
-  audiencia_objetivo?: Prisma.SortOrder
-  responsable?: Prisma.SortOrder
-  metodo_distribucion?: Prisma.SortOrder
-  fecha_distribucion?: Prisma.SortOrder
-  fecha_limite?: Prisma.SortOrder
-  respuestas_recibidas?: Prisma.SortOrder
-  instrucciones?: Prisma.SortOrder
-  estatus?: Prisma.SortOrder
-}
-
-export type cuestionarioAvgOrderByAggregateInput = {
-  id_cuestionario?: Prisma.SortOrder
-  id_tecnica?: Prisma.SortOrder
-  id_usuario?: Prisma.SortOrder
-  respuestas_recibidas?: Prisma.SortOrder
-}
-
-export type cuestionarioMaxOrderByAggregateInput = {
-  id_cuestionario?: Prisma.SortOrder
-  id_tecnica?: Prisma.SortOrder
-  id_usuario?: Prisma.SortOrder
-  objetivo?: Prisma.SortOrder
-  audiencia_objetivo?: Prisma.SortOrder
-  responsable?: Prisma.SortOrder
-  metodo_distribucion?: Prisma.SortOrder
-  fecha_distribucion?: Prisma.SortOrder
-  fecha_limite?: Prisma.SortOrder
-  respuestas_recibidas?: Prisma.SortOrder
-  instrucciones?: Prisma.SortOrder
-  estatus?: Prisma.SortOrder
-}
-
-export type cuestionarioMinOrderByAggregateInput = {
-  id_cuestionario?: Prisma.SortOrder
-  id_tecnica?: Prisma.SortOrder
-  id_usuario?: Prisma.SortOrder
-  objetivo?: Prisma.SortOrder
-  audiencia_objetivo?: Prisma.SortOrder
-  responsable?: Prisma.SortOrder
-  metodo_distribucion?: Prisma.SortOrder
-  fecha_distribucion?: Prisma.SortOrder
-  fecha_limite?: Prisma.SortOrder
-  respuestas_recibidas?: Prisma.SortOrder
-  instrucciones?: Prisma.SortOrder
-  estatus?: Prisma.SortOrder
-}
-
-export type cuestionarioSumOrderByAggregateInput = {
-  id_cuestionario?: Prisma.SortOrder
-  id_tecnica?: Prisma.SortOrder
-  id_usuario?: Prisma.SortOrder
-  respuestas_recibidas?: Prisma.SortOrder
-}
-
-export type CuestionarioScalarRelationFilter = {
-  is?: Prisma.cuestionarioWhereInput
-  isNot?: Prisma.cuestionarioWhereInput
+  fecha_creacion?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type CuestionarioListRelationFilter = {
@@ -544,231 +506,242 @@ export type cuestionarioOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
-export type cuestionarioCreateNestedOneWithoutPreguntasInput = {
-  create?: Prisma.XOR<Prisma.cuestionarioCreateWithoutPreguntasInput, Prisma.cuestionarioUncheckedCreateWithoutPreguntasInput>
-  connectOrCreate?: Prisma.cuestionarioCreateOrConnectWithoutPreguntasInput
+export type cuestionarioCountOrderByAggregateInput = {
+  id_cuestionario?: Prisma.SortOrder
+  id_tecnica?: Prisma.SortOrder
+  id_stakeholder?: Prisma.SortOrder
+  objetivo?: Prisma.SortOrder
+  audiencia_objetivo?: Prisma.SortOrder
+  responsable?: Prisma.SortOrder
+  metodo_distribucion?: Prisma.SortOrder
+  fecha_distribucion?: Prisma.SortOrder
+  fecha_limite?: Prisma.SortOrder
+  respuestas_recibidas?: Prisma.SortOrder
+  instrucciones?: Prisma.SortOrder
+  estatus?: Prisma.SortOrder
+  fecha_creacion?: Prisma.SortOrder
+}
+
+export type cuestionarioAvgOrderByAggregateInput = {
+  id_cuestionario?: Prisma.SortOrder
+  id_tecnica?: Prisma.SortOrder
+  id_stakeholder?: Prisma.SortOrder
+  respuestas_recibidas?: Prisma.SortOrder
+}
+
+export type cuestionarioMaxOrderByAggregateInput = {
+  id_cuestionario?: Prisma.SortOrder
+  id_tecnica?: Prisma.SortOrder
+  id_stakeholder?: Prisma.SortOrder
+  objetivo?: Prisma.SortOrder
+  audiencia_objetivo?: Prisma.SortOrder
+  responsable?: Prisma.SortOrder
+  metodo_distribucion?: Prisma.SortOrder
+  fecha_distribucion?: Prisma.SortOrder
+  fecha_limite?: Prisma.SortOrder
+  respuestas_recibidas?: Prisma.SortOrder
+  instrucciones?: Prisma.SortOrder
+  estatus?: Prisma.SortOrder
+  fecha_creacion?: Prisma.SortOrder
+}
+
+export type cuestionarioMinOrderByAggregateInput = {
+  id_cuestionario?: Prisma.SortOrder
+  id_tecnica?: Prisma.SortOrder
+  id_stakeholder?: Prisma.SortOrder
+  objetivo?: Prisma.SortOrder
+  audiencia_objetivo?: Prisma.SortOrder
+  responsable?: Prisma.SortOrder
+  metodo_distribucion?: Prisma.SortOrder
+  fecha_distribucion?: Prisma.SortOrder
+  fecha_limite?: Prisma.SortOrder
+  respuestas_recibidas?: Prisma.SortOrder
+  instrucciones?: Prisma.SortOrder
+  estatus?: Prisma.SortOrder
+  fecha_creacion?: Prisma.SortOrder
+}
+
+export type cuestionarioSumOrderByAggregateInput = {
+  id_cuestionario?: Prisma.SortOrder
+  id_tecnica?: Prisma.SortOrder
+  id_stakeholder?: Prisma.SortOrder
+  respuestas_recibidas?: Prisma.SortOrder
+}
+
+export type CuestionarioScalarRelationFilter = {
+  is?: Prisma.cuestionarioWhereInput
+  isNot?: Prisma.cuestionarioWhereInput
+}
+
+export type cuestionarioCreateNestedManyWithoutStakeholderInput = {
+  create?: Prisma.XOR<Prisma.cuestionarioCreateWithoutStakeholderInput, Prisma.cuestionarioUncheckedCreateWithoutStakeholderInput> | Prisma.cuestionarioCreateWithoutStakeholderInput[] | Prisma.cuestionarioUncheckedCreateWithoutStakeholderInput[]
+  connectOrCreate?: Prisma.cuestionarioCreateOrConnectWithoutStakeholderInput | Prisma.cuestionarioCreateOrConnectWithoutStakeholderInput[]
+  createMany?: Prisma.cuestionarioCreateManyStakeholderInputEnvelope
+  connect?: Prisma.cuestionarioWhereUniqueInput | Prisma.cuestionarioWhereUniqueInput[]
+}
+
+export type cuestionarioUncheckedCreateNestedManyWithoutStakeholderInput = {
+  create?: Prisma.XOR<Prisma.cuestionarioCreateWithoutStakeholderInput, Prisma.cuestionarioUncheckedCreateWithoutStakeholderInput> | Prisma.cuestionarioCreateWithoutStakeholderInput[] | Prisma.cuestionarioUncheckedCreateWithoutStakeholderInput[]
+  connectOrCreate?: Prisma.cuestionarioCreateOrConnectWithoutStakeholderInput | Prisma.cuestionarioCreateOrConnectWithoutStakeholderInput[]
+  createMany?: Prisma.cuestionarioCreateManyStakeholderInputEnvelope
+  connect?: Prisma.cuestionarioWhereUniqueInput | Prisma.cuestionarioWhereUniqueInput[]
+}
+
+export type cuestionarioUpdateManyWithoutStakeholderNestedInput = {
+  create?: Prisma.XOR<Prisma.cuestionarioCreateWithoutStakeholderInput, Prisma.cuestionarioUncheckedCreateWithoutStakeholderInput> | Prisma.cuestionarioCreateWithoutStakeholderInput[] | Prisma.cuestionarioUncheckedCreateWithoutStakeholderInput[]
+  connectOrCreate?: Prisma.cuestionarioCreateOrConnectWithoutStakeholderInput | Prisma.cuestionarioCreateOrConnectWithoutStakeholderInput[]
+  upsert?: Prisma.cuestionarioUpsertWithWhereUniqueWithoutStakeholderInput | Prisma.cuestionarioUpsertWithWhereUniqueWithoutStakeholderInput[]
+  createMany?: Prisma.cuestionarioCreateManyStakeholderInputEnvelope
+  set?: Prisma.cuestionarioWhereUniqueInput | Prisma.cuestionarioWhereUniqueInput[]
+  disconnect?: Prisma.cuestionarioWhereUniqueInput | Prisma.cuestionarioWhereUniqueInput[]
+  delete?: Prisma.cuestionarioWhereUniqueInput | Prisma.cuestionarioWhereUniqueInput[]
+  connect?: Prisma.cuestionarioWhereUniqueInput | Prisma.cuestionarioWhereUniqueInput[]
+  update?: Prisma.cuestionarioUpdateWithWhereUniqueWithoutStakeholderInput | Prisma.cuestionarioUpdateWithWhereUniqueWithoutStakeholderInput[]
+  updateMany?: Prisma.cuestionarioUpdateManyWithWhereWithoutStakeholderInput | Prisma.cuestionarioUpdateManyWithWhereWithoutStakeholderInput[]
+  deleteMany?: Prisma.cuestionarioScalarWhereInput | Prisma.cuestionarioScalarWhereInput[]
+}
+
+export type cuestionarioUncheckedUpdateManyWithoutStakeholderNestedInput = {
+  create?: Prisma.XOR<Prisma.cuestionarioCreateWithoutStakeholderInput, Prisma.cuestionarioUncheckedCreateWithoutStakeholderInput> | Prisma.cuestionarioCreateWithoutStakeholderInput[] | Prisma.cuestionarioUncheckedCreateWithoutStakeholderInput[]
+  connectOrCreate?: Prisma.cuestionarioCreateOrConnectWithoutStakeholderInput | Prisma.cuestionarioCreateOrConnectWithoutStakeholderInput[]
+  upsert?: Prisma.cuestionarioUpsertWithWhereUniqueWithoutStakeholderInput | Prisma.cuestionarioUpsertWithWhereUniqueWithoutStakeholderInput[]
+  createMany?: Prisma.cuestionarioCreateManyStakeholderInputEnvelope
+  set?: Prisma.cuestionarioWhereUniqueInput | Prisma.cuestionarioWhereUniqueInput[]
+  disconnect?: Prisma.cuestionarioWhereUniqueInput | Prisma.cuestionarioWhereUniqueInput[]
+  delete?: Prisma.cuestionarioWhereUniqueInput | Prisma.cuestionarioWhereUniqueInput[]
+  connect?: Prisma.cuestionarioWhereUniqueInput | Prisma.cuestionarioWhereUniqueInput[]
+  update?: Prisma.cuestionarioUpdateWithWhereUniqueWithoutStakeholderInput | Prisma.cuestionarioUpdateWithWhereUniqueWithoutStakeholderInput[]
+  updateMany?: Prisma.cuestionarioUpdateManyWithWhereWithoutStakeholderInput | Prisma.cuestionarioUpdateManyWithWhereWithoutStakeholderInput[]
+  deleteMany?: Prisma.cuestionarioScalarWhereInput | Prisma.cuestionarioScalarWhereInput[]
+}
+
+export type cuestionarioCreateNestedManyWithoutTecnica_recoleccionInput = {
+  create?: Prisma.XOR<Prisma.cuestionarioCreateWithoutTecnica_recoleccionInput, Prisma.cuestionarioUncheckedCreateWithoutTecnica_recoleccionInput> | Prisma.cuestionarioCreateWithoutTecnica_recoleccionInput[] | Prisma.cuestionarioUncheckedCreateWithoutTecnica_recoleccionInput[]
+  connectOrCreate?: Prisma.cuestionarioCreateOrConnectWithoutTecnica_recoleccionInput | Prisma.cuestionarioCreateOrConnectWithoutTecnica_recoleccionInput[]
+  createMany?: Prisma.cuestionarioCreateManyTecnica_recoleccionInputEnvelope
+  connect?: Prisma.cuestionarioWhereUniqueInput | Prisma.cuestionarioWhereUniqueInput[]
+}
+
+export type cuestionarioUncheckedCreateNestedManyWithoutTecnica_recoleccionInput = {
+  create?: Prisma.XOR<Prisma.cuestionarioCreateWithoutTecnica_recoleccionInput, Prisma.cuestionarioUncheckedCreateWithoutTecnica_recoleccionInput> | Prisma.cuestionarioCreateWithoutTecnica_recoleccionInput[] | Prisma.cuestionarioUncheckedCreateWithoutTecnica_recoleccionInput[]
+  connectOrCreate?: Prisma.cuestionarioCreateOrConnectWithoutTecnica_recoleccionInput | Prisma.cuestionarioCreateOrConnectWithoutTecnica_recoleccionInput[]
+  createMany?: Prisma.cuestionarioCreateManyTecnica_recoleccionInputEnvelope
+  connect?: Prisma.cuestionarioWhereUniqueInput | Prisma.cuestionarioWhereUniqueInput[]
+}
+
+export type cuestionarioUpdateManyWithoutTecnica_recoleccionNestedInput = {
+  create?: Prisma.XOR<Prisma.cuestionarioCreateWithoutTecnica_recoleccionInput, Prisma.cuestionarioUncheckedCreateWithoutTecnica_recoleccionInput> | Prisma.cuestionarioCreateWithoutTecnica_recoleccionInput[] | Prisma.cuestionarioUncheckedCreateWithoutTecnica_recoleccionInput[]
+  connectOrCreate?: Prisma.cuestionarioCreateOrConnectWithoutTecnica_recoleccionInput | Prisma.cuestionarioCreateOrConnectWithoutTecnica_recoleccionInput[]
+  upsert?: Prisma.cuestionarioUpsertWithWhereUniqueWithoutTecnica_recoleccionInput | Prisma.cuestionarioUpsertWithWhereUniqueWithoutTecnica_recoleccionInput[]
+  createMany?: Prisma.cuestionarioCreateManyTecnica_recoleccionInputEnvelope
+  set?: Prisma.cuestionarioWhereUniqueInput | Prisma.cuestionarioWhereUniqueInput[]
+  disconnect?: Prisma.cuestionarioWhereUniqueInput | Prisma.cuestionarioWhereUniqueInput[]
+  delete?: Prisma.cuestionarioWhereUniqueInput | Prisma.cuestionarioWhereUniqueInput[]
+  connect?: Prisma.cuestionarioWhereUniqueInput | Prisma.cuestionarioWhereUniqueInput[]
+  update?: Prisma.cuestionarioUpdateWithWhereUniqueWithoutTecnica_recoleccionInput | Prisma.cuestionarioUpdateWithWhereUniqueWithoutTecnica_recoleccionInput[]
+  updateMany?: Prisma.cuestionarioUpdateManyWithWhereWithoutTecnica_recoleccionInput | Prisma.cuestionarioUpdateManyWithWhereWithoutTecnica_recoleccionInput[]
+  deleteMany?: Prisma.cuestionarioScalarWhereInput | Prisma.cuestionarioScalarWhereInput[]
+}
+
+export type cuestionarioUncheckedUpdateManyWithoutTecnica_recoleccionNestedInput = {
+  create?: Prisma.XOR<Prisma.cuestionarioCreateWithoutTecnica_recoleccionInput, Prisma.cuestionarioUncheckedCreateWithoutTecnica_recoleccionInput> | Prisma.cuestionarioCreateWithoutTecnica_recoleccionInput[] | Prisma.cuestionarioUncheckedCreateWithoutTecnica_recoleccionInput[]
+  connectOrCreate?: Prisma.cuestionarioCreateOrConnectWithoutTecnica_recoleccionInput | Prisma.cuestionarioCreateOrConnectWithoutTecnica_recoleccionInput[]
+  upsert?: Prisma.cuestionarioUpsertWithWhereUniqueWithoutTecnica_recoleccionInput | Prisma.cuestionarioUpsertWithWhereUniqueWithoutTecnica_recoleccionInput[]
+  createMany?: Prisma.cuestionarioCreateManyTecnica_recoleccionInputEnvelope
+  set?: Prisma.cuestionarioWhereUniqueInput | Prisma.cuestionarioWhereUniqueInput[]
+  disconnect?: Prisma.cuestionarioWhereUniqueInput | Prisma.cuestionarioWhereUniqueInput[]
+  delete?: Prisma.cuestionarioWhereUniqueInput | Prisma.cuestionarioWhereUniqueInput[]
+  connect?: Prisma.cuestionarioWhereUniqueInput | Prisma.cuestionarioWhereUniqueInput[]
+  update?: Prisma.cuestionarioUpdateWithWhereUniqueWithoutTecnica_recoleccionInput | Prisma.cuestionarioUpdateWithWhereUniqueWithoutTecnica_recoleccionInput[]
+  updateMany?: Prisma.cuestionarioUpdateManyWithWhereWithoutTecnica_recoleccionInput | Prisma.cuestionarioUpdateManyWithWhereWithoutTecnica_recoleccionInput[]
+  deleteMany?: Prisma.cuestionarioScalarWhereInput | Prisma.cuestionarioScalarWhereInput[]
+}
+
+export type cuestionarioCreateNestedOneWithoutPregunta_cuestionarioInput = {
+  create?: Prisma.XOR<Prisma.cuestionarioCreateWithoutPregunta_cuestionarioInput, Prisma.cuestionarioUncheckedCreateWithoutPregunta_cuestionarioInput>
+  connectOrCreate?: Prisma.cuestionarioCreateOrConnectWithoutPregunta_cuestionarioInput
   connect?: Prisma.cuestionarioWhereUniqueInput
 }
 
-export type cuestionarioUpdateOneRequiredWithoutPreguntasNestedInput = {
-  create?: Prisma.XOR<Prisma.cuestionarioCreateWithoutPreguntasInput, Prisma.cuestionarioUncheckedCreateWithoutPreguntasInput>
-  connectOrCreate?: Prisma.cuestionarioCreateOrConnectWithoutPreguntasInput
-  upsert?: Prisma.cuestionarioUpsertWithoutPreguntasInput
+export type cuestionarioUpdateOneRequiredWithoutPregunta_cuestionarioNestedInput = {
+  create?: Prisma.XOR<Prisma.cuestionarioCreateWithoutPregunta_cuestionarioInput, Prisma.cuestionarioUncheckedCreateWithoutPregunta_cuestionarioInput>
+  connectOrCreate?: Prisma.cuestionarioCreateOrConnectWithoutPregunta_cuestionarioInput
+  upsert?: Prisma.cuestionarioUpsertWithoutPregunta_cuestionarioInput
   connect?: Prisma.cuestionarioWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.cuestionarioUpdateToOneWithWhereWithoutPreguntasInput, Prisma.cuestionarioUpdateWithoutPreguntasInput>, Prisma.cuestionarioUncheckedUpdateWithoutPreguntasInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.cuestionarioUpdateToOneWithWhereWithoutPregunta_cuestionarioInput, Prisma.cuestionarioUpdateWithoutPregunta_cuestionarioInput>, Prisma.cuestionarioUncheckedUpdateWithoutPregunta_cuestionarioInput>
 }
 
-export type cuestionarioCreateNestedManyWithoutTecnicaInput = {
-  create?: Prisma.XOR<Prisma.cuestionarioCreateWithoutTecnicaInput, Prisma.cuestionarioUncheckedCreateWithoutTecnicaInput> | Prisma.cuestionarioCreateWithoutTecnicaInput[] | Prisma.cuestionarioUncheckedCreateWithoutTecnicaInput[]
-  connectOrCreate?: Prisma.cuestionarioCreateOrConnectWithoutTecnicaInput | Prisma.cuestionarioCreateOrConnectWithoutTecnicaInput[]
-  createMany?: Prisma.cuestionarioCreateManyTecnicaInputEnvelope
-  connect?: Prisma.cuestionarioWhereUniqueInput | Prisma.cuestionarioWhereUniqueInput[]
+export type cuestionarioCreateNestedOneWithoutRespuesta_cuestionarioInput = {
+  create?: Prisma.XOR<Prisma.cuestionarioCreateWithoutRespuesta_cuestionarioInput, Prisma.cuestionarioUncheckedCreateWithoutRespuesta_cuestionarioInput>
+  connectOrCreate?: Prisma.cuestionarioCreateOrConnectWithoutRespuesta_cuestionarioInput
+  connect?: Prisma.cuestionarioWhereUniqueInput
 }
 
-export type cuestionarioUncheckedCreateNestedManyWithoutTecnicaInput = {
-  create?: Prisma.XOR<Prisma.cuestionarioCreateWithoutTecnicaInput, Prisma.cuestionarioUncheckedCreateWithoutTecnicaInput> | Prisma.cuestionarioCreateWithoutTecnicaInput[] | Prisma.cuestionarioUncheckedCreateWithoutTecnicaInput[]
-  connectOrCreate?: Prisma.cuestionarioCreateOrConnectWithoutTecnicaInput | Prisma.cuestionarioCreateOrConnectWithoutTecnicaInput[]
-  createMany?: Prisma.cuestionarioCreateManyTecnicaInputEnvelope
-  connect?: Prisma.cuestionarioWhereUniqueInput | Prisma.cuestionarioWhereUniqueInput[]
+export type cuestionarioUpdateOneRequiredWithoutRespuesta_cuestionarioNestedInput = {
+  create?: Prisma.XOR<Prisma.cuestionarioCreateWithoutRespuesta_cuestionarioInput, Prisma.cuestionarioUncheckedCreateWithoutRespuesta_cuestionarioInput>
+  connectOrCreate?: Prisma.cuestionarioCreateOrConnectWithoutRespuesta_cuestionarioInput
+  upsert?: Prisma.cuestionarioUpsertWithoutRespuesta_cuestionarioInput
+  connect?: Prisma.cuestionarioWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.cuestionarioUpdateToOneWithWhereWithoutRespuesta_cuestionarioInput, Prisma.cuestionarioUpdateWithoutRespuesta_cuestionarioInput>, Prisma.cuestionarioUncheckedUpdateWithoutRespuesta_cuestionarioInput>
 }
 
-export type cuestionarioUpdateManyWithoutTecnicaNestedInput = {
-  create?: Prisma.XOR<Prisma.cuestionarioCreateWithoutTecnicaInput, Prisma.cuestionarioUncheckedCreateWithoutTecnicaInput> | Prisma.cuestionarioCreateWithoutTecnicaInput[] | Prisma.cuestionarioUncheckedCreateWithoutTecnicaInput[]
-  connectOrCreate?: Prisma.cuestionarioCreateOrConnectWithoutTecnicaInput | Prisma.cuestionarioCreateOrConnectWithoutTecnicaInput[]
-  upsert?: Prisma.cuestionarioUpsertWithWhereUniqueWithoutTecnicaInput | Prisma.cuestionarioUpsertWithWhereUniqueWithoutTecnicaInput[]
-  createMany?: Prisma.cuestionarioCreateManyTecnicaInputEnvelope
-  set?: Prisma.cuestionarioWhereUniqueInput | Prisma.cuestionarioWhereUniqueInput[]
-  disconnect?: Prisma.cuestionarioWhereUniqueInput | Prisma.cuestionarioWhereUniqueInput[]
-  delete?: Prisma.cuestionarioWhereUniqueInput | Prisma.cuestionarioWhereUniqueInput[]
-  connect?: Prisma.cuestionarioWhereUniqueInput | Prisma.cuestionarioWhereUniqueInput[]
-  update?: Prisma.cuestionarioUpdateWithWhereUniqueWithoutTecnicaInput | Prisma.cuestionarioUpdateWithWhereUniqueWithoutTecnicaInput[]
-  updateMany?: Prisma.cuestionarioUpdateManyWithWhereWithoutTecnicaInput | Prisma.cuestionarioUpdateManyWithWhereWithoutTecnicaInput[]
-  deleteMany?: Prisma.cuestionarioScalarWhereInput | Prisma.cuestionarioScalarWhereInput[]
-}
-
-export type cuestionarioUncheckedUpdateManyWithoutTecnicaNestedInput = {
-  create?: Prisma.XOR<Prisma.cuestionarioCreateWithoutTecnicaInput, Prisma.cuestionarioUncheckedCreateWithoutTecnicaInput> | Prisma.cuestionarioCreateWithoutTecnicaInput[] | Prisma.cuestionarioUncheckedCreateWithoutTecnicaInput[]
-  connectOrCreate?: Prisma.cuestionarioCreateOrConnectWithoutTecnicaInput | Prisma.cuestionarioCreateOrConnectWithoutTecnicaInput[]
-  upsert?: Prisma.cuestionarioUpsertWithWhereUniqueWithoutTecnicaInput | Prisma.cuestionarioUpsertWithWhereUniqueWithoutTecnicaInput[]
-  createMany?: Prisma.cuestionarioCreateManyTecnicaInputEnvelope
-  set?: Prisma.cuestionarioWhereUniqueInput | Prisma.cuestionarioWhereUniqueInput[]
-  disconnect?: Prisma.cuestionarioWhereUniqueInput | Prisma.cuestionarioWhereUniqueInput[]
-  delete?: Prisma.cuestionarioWhereUniqueInput | Prisma.cuestionarioWhereUniqueInput[]
-  connect?: Prisma.cuestionarioWhereUniqueInput | Prisma.cuestionarioWhereUniqueInput[]
-  update?: Prisma.cuestionarioUpdateWithWhereUniqueWithoutTecnicaInput | Prisma.cuestionarioUpdateWithWhereUniqueWithoutTecnicaInput[]
-  updateMany?: Prisma.cuestionarioUpdateManyWithWhereWithoutTecnicaInput | Prisma.cuestionarioUpdateManyWithWhereWithoutTecnicaInput[]
-  deleteMany?: Prisma.cuestionarioScalarWhereInput | Prisma.cuestionarioScalarWhereInput[]
-}
-
-export type cuestionarioCreateNestedManyWithoutUsuarioInput = {
-  create?: Prisma.XOR<Prisma.cuestionarioCreateWithoutUsuarioInput, Prisma.cuestionarioUncheckedCreateWithoutUsuarioInput> | Prisma.cuestionarioCreateWithoutUsuarioInput[] | Prisma.cuestionarioUncheckedCreateWithoutUsuarioInput[]
-  connectOrCreate?: Prisma.cuestionarioCreateOrConnectWithoutUsuarioInput | Prisma.cuestionarioCreateOrConnectWithoutUsuarioInput[]
-  createMany?: Prisma.cuestionarioCreateManyUsuarioInputEnvelope
-  connect?: Prisma.cuestionarioWhereUniqueInput | Prisma.cuestionarioWhereUniqueInput[]
-}
-
-export type cuestionarioUncheckedCreateNestedManyWithoutUsuarioInput = {
-  create?: Prisma.XOR<Prisma.cuestionarioCreateWithoutUsuarioInput, Prisma.cuestionarioUncheckedCreateWithoutUsuarioInput> | Prisma.cuestionarioCreateWithoutUsuarioInput[] | Prisma.cuestionarioUncheckedCreateWithoutUsuarioInput[]
-  connectOrCreate?: Prisma.cuestionarioCreateOrConnectWithoutUsuarioInput | Prisma.cuestionarioCreateOrConnectWithoutUsuarioInput[]
-  createMany?: Prisma.cuestionarioCreateManyUsuarioInputEnvelope
-  connect?: Prisma.cuestionarioWhereUniqueInput | Prisma.cuestionarioWhereUniqueInput[]
-}
-
-export type cuestionarioUpdateManyWithoutUsuarioNestedInput = {
-  create?: Prisma.XOR<Prisma.cuestionarioCreateWithoutUsuarioInput, Prisma.cuestionarioUncheckedCreateWithoutUsuarioInput> | Prisma.cuestionarioCreateWithoutUsuarioInput[] | Prisma.cuestionarioUncheckedCreateWithoutUsuarioInput[]
-  connectOrCreate?: Prisma.cuestionarioCreateOrConnectWithoutUsuarioInput | Prisma.cuestionarioCreateOrConnectWithoutUsuarioInput[]
-  upsert?: Prisma.cuestionarioUpsertWithWhereUniqueWithoutUsuarioInput | Prisma.cuestionarioUpsertWithWhereUniqueWithoutUsuarioInput[]
-  createMany?: Prisma.cuestionarioCreateManyUsuarioInputEnvelope
-  set?: Prisma.cuestionarioWhereUniqueInput | Prisma.cuestionarioWhereUniqueInput[]
-  disconnect?: Prisma.cuestionarioWhereUniqueInput | Prisma.cuestionarioWhereUniqueInput[]
-  delete?: Prisma.cuestionarioWhereUniqueInput | Prisma.cuestionarioWhereUniqueInput[]
-  connect?: Prisma.cuestionarioWhereUniqueInput | Prisma.cuestionarioWhereUniqueInput[]
-  update?: Prisma.cuestionarioUpdateWithWhereUniqueWithoutUsuarioInput | Prisma.cuestionarioUpdateWithWhereUniqueWithoutUsuarioInput[]
-  updateMany?: Prisma.cuestionarioUpdateManyWithWhereWithoutUsuarioInput | Prisma.cuestionarioUpdateManyWithWhereWithoutUsuarioInput[]
-  deleteMany?: Prisma.cuestionarioScalarWhereInput | Prisma.cuestionarioScalarWhereInput[]
-}
-
-export type cuestionarioUncheckedUpdateManyWithoutUsuarioNestedInput = {
-  create?: Prisma.XOR<Prisma.cuestionarioCreateWithoutUsuarioInput, Prisma.cuestionarioUncheckedCreateWithoutUsuarioInput> | Prisma.cuestionarioCreateWithoutUsuarioInput[] | Prisma.cuestionarioUncheckedCreateWithoutUsuarioInput[]
-  connectOrCreate?: Prisma.cuestionarioCreateOrConnectWithoutUsuarioInput | Prisma.cuestionarioCreateOrConnectWithoutUsuarioInput[]
-  upsert?: Prisma.cuestionarioUpsertWithWhereUniqueWithoutUsuarioInput | Prisma.cuestionarioUpsertWithWhereUniqueWithoutUsuarioInput[]
-  createMany?: Prisma.cuestionarioCreateManyUsuarioInputEnvelope
-  set?: Prisma.cuestionarioWhereUniqueInput | Prisma.cuestionarioWhereUniqueInput[]
-  disconnect?: Prisma.cuestionarioWhereUniqueInput | Prisma.cuestionarioWhereUniqueInput[]
-  delete?: Prisma.cuestionarioWhereUniqueInput | Prisma.cuestionarioWhereUniqueInput[]
-  connect?: Prisma.cuestionarioWhereUniqueInput | Prisma.cuestionarioWhereUniqueInput[]
-  update?: Prisma.cuestionarioUpdateWithWhereUniqueWithoutUsuarioInput | Prisma.cuestionarioUpdateWithWhereUniqueWithoutUsuarioInput[]
-  updateMany?: Prisma.cuestionarioUpdateManyWithWhereWithoutUsuarioInput | Prisma.cuestionarioUpdateManyWithWhereWithoutUsuarioInput[]
-  deleteMany?: Prisma.cuestionarioScalarWhereInput | Prisma.cuestionarioScalarWhereInput[]
-}
-
-export type cuestionarioCreateWithoutPreguntasInput = {
+export type cuestionarioCreateWithoutStakeholderInput = {
   objetivo?: string | null
   audiencia_objetivo?: string | null
   responsable?: string | null
   metodo_distribucion?: string | null
   fecha_distribucion?: Date | string | null
   fecha_limite?: Date | string | null
-  respuestas_recibidas?: number
+  respuestas_recibidas?: number | null
   instrucciones?: string | null
   estatus?: string
-  tecnica: Prisma.tecnica_recoleccionCreateNestedOneWithoutCuestionarioInput
-  usuario: Prisma.usuarioCreateNestedOneWithoutCuestionarioInput
+  fecha_creacion?: Date | string | null
+  tecnica_recoleccion: Prisma.tecnica_recoleccionCreateNestedOneWithoutCuestionarioInput
+  pregunta_cuestionario?: Prisma.pregunta_cuestionarioCreateNestedManyWithoutCuestionarioInput
+  respuesta_cuestionario?: Prisma.respuesta_cuestionarioCreateNestedManyWithoutCuestionarioInput
 }
 
-export type cuestionarioUncheckedCreateWithoutPreguntasInput = {
+export type cuestionarioUncheckedCreateWithoutStakeholderInput = {
   id_cuestionario?: number
   id_tecnica: number
-  id_usuario: number
   objetivo?: string | null
   audiencia_objetivo?: string | null
   responsable?: string | null
   metodo_distribucion?: string | null
   fecha_distribucion?: Date | string | null
   fecha_limite?: Date | string | null
-  respuestas_recibidas?: number
+  respuestas_recibidas?: number | null
   instrucciones?: string | null
   estatus?: string
+  fecha_creacion?: Date | string | null
+  pregunta_cuestionario?: Prisma.pregunta_cuestionarioUncheckedCreateNestedManyWithoutCuestionarioInput
+  respuesta_cuestionario?: Prisma.respuesta_cuestionarioUncheckedCreateNestedManyWithoutCuestionarioInput
 }
 
-export type cuestionarioCreateOrConnectWithoutPreguntasInput = {
+export type cuestionarioCreateOrConnectWithoutStakeholderInput = {
   where: Prisma.cuestionarioWhereUniqueInput
-  create: Prisma.XOR<Prisma.cuestionarioCreateWithoutPreguntasInput, Prisma.cuestionarioUncheckedCreateWithoutPreguntasInput>
+  create: Prisma.XOR<Prisma.cuestionarioCreateWithoutStakeholderInput, Prisma.cuestionarioUncheckedCreateWithoutStakeholderInput>
 }
 
-export type cuestionarioUpsertWithoutPreguntasInput = {
-  update: Prisma.XOR<Prisma.cuestionarioUpdateWithoutPreguntasInput, Prisma.cuestionarioUncheckedUpdateWithoutPreguntasInput>
-  create: Prisma.XOR<Prisma.cuestionarioCreateWithoutPreguntasInput, Prisma.cuestionarioUncheckedCreateWithoutPreguntasInput>
-  where?: Prisma.cuestionarioWhereInput
-}
-
-export type cuestionarioUpdateToOneWithWhereWithoutPreguntasInput = {
-  where?: Prisma.cuestionarioWhereInput
-  data: Prisma.XOR<Prisma.cuestionarioUpdateWithoutPreguntasInput, Prisma.cuestionarioUncheckedUpdateWithoutPreguntasInput>
-}
-
-export type cuestionarioUpdateWithoutPreguntasInput = {
-  objetivo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  audiencia_objetivo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  responsable?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  metodo_distribucion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fecha_distribucion?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  fecha_limite?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  respuestas_recibidas?: Prisma.IntFieldUpdateOperationsInput | number
-  instrucciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  estatus?: Prisma.StringFieldUpdateOperationsInput | string
-  tecnica?: Prisma.tecnica_recoleccionUpdateOneRequiredWithoutCuestionarioNestedInput
-  usuario?: Prisma.usuarioUpdateOneRequiredWithoutCuestionarioNestedInput
-}
-
-export type cuestionarioUncheckedUpdateWithoutPreguntasInput = {
-  id_cuestionario?: Prisma.IntFieldUpdateOperationsInput | number
-  id_tecnica?: Prisma.IntFieldUpdateOperationsInput | number
-  id_usuario?: Prisma.IntFieldUpdateOperationsInput | number
-  objetivo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  audiencia_objetivo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  responsable?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  metodo_distribucion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fecha_distribucion?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  fecha_limite?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  respuestas_recibidas?: Prisma.IntFieldUpdateOperationsInput | number
-  instrucciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  estatus?: Prisma.StringFieldUpdateOperationsInput | string
-}
-
-export type cuestionarioCreateWithoutTecnicaInput = {
-  objetivo?: string | null
-  audiencia_objetivo?: string | null
-  responsable?: string | null
-  metodo_distribucion?: string | null
-  fecha_distribucion?: Date | string | null
-  fecha_limite?: Date | string | null
-  respuestas_recibidas?: number
-  instrucciones?: string | null
-  estatus?: string
-  usuario: Prisma.usuarioCreateNestedOneWithoutCuestionarioInput
-  preguntas?: Prisma.pregunta_cuestionarioCreateNestedManyWithoutCuestionarioInput
-}
-
-export type cuestionarioUncheckedCreateWithoutTecnicaInput = {
-  id_cuestionario?: number
-  id_usuario: number
-  objetivo?: string | null
-  audiencia_objetivo?: string | null
-  responsable?: string | null
-  metodo_distribucion?: string | null
-  fecha_distribucion?: Date | string | null
-  fecha_limite?: Date | string | null
-  respuestas_recibidas?: number
-  instrucciones?: string | null
-  estatus?: string
-  preguntas?: Prisma.pregunta_cuestionarioUncheckedCreateNestedManyWithoutCuestionarioInput
-}
-
-export type cuestionarioCreateOrConnectWithoutTecnicaInput = {
-  where: Prisma.cuestionarioWhereUniqueInput
-  create: Prisma.XOR<Prisma.cuestionarioCreateWithoutTecnicaInput, Prisma.cuestionarioUncheckedCreateWithoutTecnicaInput>
-}
-
-export type cuestionarioCreateManyTecnicaInputEnvelope = {
-  data: Prisma.cuestionarioCreateManyTecnicaInput | Prisma.cuestionarioCreateManyTecnicaInput[]
+export type cuestionarioCreateManyStakeholderInputEnvelope = {
+  data: Prisma.cuestionarioCreateManyStakeholderInput | Prisma.cuestionarioCreateManyStakeholderInput[]
   skipDuplicates?: boolean
 }
 
-export type cuestionarioUpsertWithWhereUniqueWithoutTecnicaInput = {
+export type cuestionarioUpsertWithWhereUniqueWithoutStakeholderInput = {
   where: Prisma.cuestionarioWhereUniqueInput
-  update: Prisma.XOR<Prisma.cuestionarioUpdateWithoutTecnicaInput, Prisma.cuestionarioUncheckedUpdateWithoutTecnicaInput>
-  create: Prisma.XOR<Prisma.cuestionarioCreateWithoutTecnicaInput, Prisma.cuestionarioUncheckedCreateWithoutTecnicaInput>
+  update: Prisma.XOR<Prisma.cuestionarioUpdateWithoutStakeholderInput, Prisma.cuestionarioUncheckedUpdateWithoutStakeholderInput>
+  create: Prisma.XOR<Prisma.cuestionarioCreateWithoutStakeholderInput, Prisma.cuestionarioUncheckedCreateWithoutStakeholderInput>
 }
 
-export type cuestionarioUpdateWithWhereUniqueWithoutTecnicaInput = {
+export type cuestionarioUpdateWithWhereUniqueWithoutStakeholderInput = {
   where: Prisma.cuestionarioWhereUniqueInput
-  data: Prisma.XOR<Prisma.cuestionarioUpdateWithoutTecnicaInput, Prisma.cuestionarioUncheckedUpdateWithoutTecnicaInput>
+  data: Prisma.XOR<Prisma.cuestionarioUpdateWithoutStakeholderInput, Prisma.cuestionarioUncheckedUpdateWithoutStakeholderInput>
 }
 
-export type cuestionarioUpdateManyWithWhereWithoutTecnicaInput = {
+export type cuestionarioUpdateManyWithWhereWithoutStakeholderInput = {
   where: Prisma.cuestionarioScalarWhereInput
-  data: Prisma.XOR<Prisma.cuestionarioUpdateManyMutationInput, Prisma.cuestionarioUncheckedUpdateManyWithoutTecnicaInput>
+  data: Prisma.XOR<Prisma.cuestionarioUpdateManyMutationInput, Prisma.cuestionarioUncheckedUpdateManyWithoutStakeholderInput>
 }
 
 export type cuestionarioScalarWhereInput = {
@@ -777,131 +750,243 @@ export type cuestionarioScalarWhereInput = {
   NOT?: Prisma.cuestionarioScalarWhereInput | Prisma.cuestionarioScalarWhereInput[]
   id_cuestionario?: Prisma.IntFilter<"cuestionario"> | number
   id_tecnica?: Prisma.IntFilter<"cuestionario"> | number
-  id_usuario?: Prisma.IntFilter<"cuestionario"> | number
+  id_stakeholder?: Prisma.IntNullableFilter<"cuestionario"> | number | null
   objetivo?: Prisma.StringNullableFilter<"cuestionario"> | string | null
   audiencia_objetivo?: Prisma.StringNullableFilter<"cuestionario"> | string | null
   responsable?: Prisma.StringNullableFilter<"cuestionario"> | string | null
   metodo_distribucion?: Prisma.StringNullableFilter<"cuestionario"> | string | null
   fecha_distribucion?: Prisma.DateTimeNullableFilter<"cuestionario"> | Date | string | null
   fecha_limite?: Prisma.DateTimeNullableFilter<"cuestionario"> | Date | string | null
-  respuestas_recibidas?: Prisma.IntFilter<"cuestionario"> | number
+  respuestas_recibidas?: Prisma.IntNullableFilter<"cuestionario"> | number | null
   instrucciones?: Prisma.StringNullableFilter<"cuestionario"> | string | null
   estatus?: Prisma.StringFilter<"cuestionario"> | string
+  fecha_creacion?: Prisma.DateTimeNullableFilter<"cuestionario"> | Date | string | null
 }
 
-export type cuestionarioCreateWithoutUsuarioInput = {
+export type cuestionarioCreateWithoutTecnica_recoleccionInput = {
   objetivo?: string | null
   audiencia_objetivo?: string | null
   responsable?: string | null
   metodo_distribucion?: string | null
   fecha_distribucion?: Date | string | null
   fecha_limite?: Date | string | null
-  respuestas_recibidas?: number
+  respuestas_recibidas?: number | null
   instrucciones?: string | null
   estatus?: string
-  tecnica: Prisma.tecnica_recoleccionCreateNestedOneWithoutCuestionarioInput
-  preguntas?: Prisma.pregunta_cuestionarioCreateNestedManyWithoutCuestionarioInput
+  fecha_creacion?: Date | string | null
+  stakeholder?: Prisma.stakeholderCreateNestedOneWithoutCuestionarioInput
+  pregunta_cuestionario?: Prisma.pregunta_cuestionarioCreateNestedManyWithoutCuestionarioInput
+  respuesta_cuestionario?: Prisma.respuesta_cuestionarioCreateNestedManyWithoutCuestionarioInput
 }
 
-export type cuestionarioUncheckedCreateWithoutUsuarioInput = {
+export type cuestionarioUncheckedCreateWithoutTecnica_recoleccionInput = {
   id_cuestionario?: number
-  id_tecnica: number
+  id_stakeholder?: number | null
   objetivo?: string | null
   audiencia_objetivo?: string | null
   responsable?: string | null
   metodo_distribucion?: string | null
   fecha_distribucion?: Date | string | null
   fecha_limite?: Date | string | null
-  respuestas_recibidas?: number
+  respuestas_recibidas?: number | null
   instrucciones?: string | null
   estatus?: string
-  preguntas?: Prisma.pregunta_cuestionarioUncheckedCreateNestedManyWithoutCuestionarioInput
+  fecha_creacion?: Date | string | null
+  pregunta_cuestionario?: Prisma.pregunta_cuestionarioUncheckedCreateNestedManyWithoutCuestionarioInput
+  respuesta_cuestionario?: Prisma.respuesta_cuestionarioUncheckedCreateNestedManyWithoutCuestionarioInput
 }
 
-export type cuestionarioCreateOrConnectWithoutUsuarioInput = {
+export type cuestionarioCreateOrConnectWithoutTecnica_recoleccionInput = {
   where: Prisma.cuestionarioWhereUniqueInput
-  create: Prisma.XOR<Prisma.cuestionarioCreateWithoutUsuarioInput, Prisma.cuestionarioUncheckedCreateWithoutUsuarioInput>
+  create: Prisma.XOR<Prisma.cuestionarioCreateWithoutTecnica_recoleccionInput, Prisma.cuestionarioUncheckedCreateWithoutTecnica_recoleccionInput>
 }
 
-export type cuestionarioCreateManyUsuarioInputEnvelope = {
-  data: Prisma.cuestionarioCreateManyUsuarioInput | Prisma.cuestionarioCreateManyUsuarioInput[]
+export type cuestionarioCreateManyTecnica_recoleccionInputEnvelope = {
+  data: Prisma.cuestionarioCreateManyTecnica_recoleccionInput | Prisma.cuestionarioCreateManyTecnica_recoleccionInput[]
   skipDuplicates?: boolean
 }
 
-export type cuestionarioUpsertWithWhereUniqueWithoutUsuarioInput = {
+export type cuestionarioUpsertWithWhereUniqueWithoutTecnica_recoleccionInput = {
   where: Prisma.cuestionarioWhereUniqueInput
-  update: Prisma.XOR<Prisma.cuestionarioUpdateWithoutUsuarioInput, Prisma.cuestionarioUncheckedUpdateWithoutUsuarioInput>
-  create: Prisma.XOR<Prisma.cuestionarioCreateWithoutUsuarioInput, Prisma.cuestionarioUncheckedCreateWithoutUsuarioInput>
+  update: Prisma.XOR<Prisma.cuestionarioUpdateWithoutTecnica_recoleccionInput, Prisma.cuestionarioUncheckedUpdateWithoutTecnica_recoleccionInput>
+  create: Prisma.XOR<Prisma.cuestionarioCreateWithoutTecnica_recoleccionInput, Prisma.cuestionarioUncheckedCreateWithoutTecnica_recoleccionInput>
 }
 
-export type cuestionarioUpdateWithWhereUniqueWithoutUsuarioInput = {
+export type cuestionarioUpdateWithWhereUniqueWithoutTecnica_recoleccionInput = {
   where: Prisma.cuestionarioWhereUniqueInput
-  data: Prisma.XOR<Prisma.cuestionarioUpdateWithoutUsuarioInput, Prisma.cuestionarioUncheckedUpdateWithoutUsuarioInput>
+  data: Prisma.XOR<Prisma.cuestionarioUpdateWithoutTecnica_recoleccionInput, Prisma.cuestionarioUncheckedUpdateWithoutTecnica_recoleccionInput>
 }
 
-export type cuestionarioUpdateManyWithWhereWithoutUsuarioInput = {
+export type cuestionarioUpdateManyWithWhereWithoutTecnica_recoleccionInput = {
   where: Prisma.cuestionarioScalarWhereInput
-  data: Prisma.XOR<Prisma.cuestionarioUpdateManyMutationInput, Prisma.cuestionarioUncheckedUpdateManyWithoutUsuarioInput>
+  data: Prisma.XOR<Prisma.cuestionarioUpdateManyMutationInput, Prisma.cuestionarioUncheckedUpdateManyWithoutTecnica_recoleccionInput>
 }
 
-export type cuestionarioCreateManyTecnicaInput = {
-  id_cuestionario?: number
-  id_usuario: number
+export type cuestionarioCreateWithoutPregunta_cuestionarioInput = {
   objetivo?: string | null
   audiencia_objetivo?: string | null
   responsable?: string | null
   metodo_distribucion?: string | null
   fecha_distribucion?: Date | string | null
   fecha_limite?: Date | string | null
-  respuestas_recibidas?: number
+  respuestas_recibidas?: number | null
   instrucciones?: string | null
   estatus?: string
+  fecha_creacion?: Date | string | null
+  stakeholder?: Prisma.stakeholderCreateNestedOneWithoutCuestionarioInput
+  tecnica_recoleccion: Prisma.tecnica_recoleccionCreateNestedOneWithoutCuestionarioInput
+  respuesta_cuestionario?: Prisma.respuesta_cuestionarioCreateNestedManyWithoutCuestionarioInput
 }
 
-export type cuestionarioUpdateWithoutTecnicaInput = {
+export type cuestionarioUncheckedCreateWithoutPregunta_cuestionarioInput = {
+  id_cuestionario?: number
+  id_tecnica: number
+  id_stakeholder?: number | null
+  objetivo?: string | null
+  audiencia_objetivo?: string | null
+  responsable?: string | null
+  metodo_distribucion?: string | null
+  fecha_distribucion?: Date | string | null
+  fecha_limite?: Date | string | null
+  respuestas_recibidas?: number | null
+  instrucciones?: string | null
+  estatus?: string
+  fecha_creacion?: Date | string | null
+  respuesta_cuestionario?: Prisma.respuesta_cuestionarioUncheckedCreateNestedManyWithoutCuestionarioInput
+}
+
+export type cuestionarioCreateOrConnectWithoutPregunta_cuestionarioInput = {
+  where: Prisma.cuestionarioWhereUniqueInput
+  create: Prisma.XOR<Prisma.cuestionarioCreateWithoutPregunta_cuestionarioInput, Prisma.cuestionarioUncheckedCreateWithoutPregunta_cuestionarioInput>
+}
+
+export type cuestionarioUpsertWithoutPregunta_cuestionarioInput = {
+  update: Prisma.XOR<Prisma.cuestionarioUpdateWithoutPregunta_cuestionarioInput, Prisma.cuestionarioUncheckedUpdateWithoutPregunta_cuestionarioInput>
+  create: Prisma.XOR<Prisma.cuestionarioCreateWithoutPregunta_cuestionarioInput, Prisma.cuestionarioUncheckedCreateWithoutPregunta_cuestionarioInput>
+  where?: Prisma.cuestionarioWhereInput
+}
+
+export type cuestionarioUpdateToOneWithWhereWithoutPregunta_cuestionarioInput = {
+  where?: Prisma.cuestionarioWhereInput
+  data: Prisma.XOR<Prisma.cuestionarioUpdateWithoutPregunta_cuestionarioInput, Prisma.cuestionarioUncheckedUpdateWithoutPregunta_cuestionarioInput>
+}
+
+export type cuestionarioUpdateWithoutPregunta_cuestionarioInput = {
   objetivo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   audiencia_objetivo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   responsable?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metodo_distribucion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fecha_distribucion?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   fecha_limite?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  respuestas_recibidas?: Prisma.IntFieldUpdateOperationsInput | number
+  respuestas_recibidas?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   instrucciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estatus?: Prisma.StringFieldUpdateOperationsInput | string
-  usuario?: Prisma.usuarioUpdateOneRequiredWithoutCuestionarioNestedInput
-  preguntas?: Prisma.pregunta_cuestionarioUpdateManyWithoutCuestionarioNestedInput
+  fecha_creacion?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  stakeholder?: Prisma.stakeholderUpdateOneWithoutCuestionarioNestedInput
+  tecnica_recoleccion?: Prisma.tecnica_recoleccionUpdateOneRequiredWithoutCuestionarioNestedInput
+  respuesta_cuestionario?: Prisma.respuesta_cuestionarioUpdateManyWithoutCuestionarioNestedInput
 }
 
-export type cuestionarioUncheckedUpdateWithoutTecnicaInput = {
+export type cuestionarioUncheckedUpdateWithoutPregunta_cuestionarioInput = {
   id_cuestionario?: Prisma.IntFieldUpdateOperationsInput | number
-  id_usuario?: Prisma.IntFieldUpdateOperationsInput | number
+  id_tecnica?: Prisma.IntFieldUpdateOperationsInput | number
+  id_stakeholder?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   objetivo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   audiencia_objetivo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   responsable?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metodo_distribucion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fecha_distribucion?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   fecha_limite?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  respuestas_recibidas?: Prisma.IntFieldUpdateOperationsInput | number
+  respuestas_recibidas?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   instrucciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estatus?: Prisma.StringFieldUpdateOperationsInput | string
-  preguntas?: Prisma.pregunta_cuestionarioUncheckedUpdateManyWithoutCuestionarioNestedInput
+  fecha_creacion?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  respuesta_cuestionario?: Prisma.respuesta_cuestionarioUncheckedUpdateManyWithoutCuestionarioNestedInput
 }
 
-export type cuestionarioUncheckedUpdateManyWithoutTecnicaInput = {
+export type cuestionarioCreateWithoutRespuesta_cuestionarioInput = {
+  objetivo?: string | null
+  audiencia_objetivo?: string | null
+  responsable?: string | null
+  metodo_distribucion?: string | null
+  fecha_distribucion?: Date | string | null
+  fecha_limite?: Date | string | null
+  respuestas_recibidas?: number | null
+  instrucciones?: string | null
+  estatus?: string
+  fecha_creacion?: Date | string | null
+  stakeholder?: Prisma.stakeholderCreateNestedOneWithoutCuestionarioInput
+  tecnica_recoleccion: Prisma.tecnica_recoleccionCreateNestedOneWithoutCuestionarioInput
+  pregunta_cuestionario?: Prisma.pregunta_cuestionarioCreateNestedManyWithoutCuestionarioInput
+}
+
+export type cuestionarioUncheckedCreateWithoutRespuesta_cuestionarioInput = {
+  id_cuestionario?: number
+  id_tecnica: number
+  id_stakeholder?: number | null
+  objetivo?: string | null
+  audiencia_objetivo?: string | null
+  responsable?: string | null
+  metodo_distribucion?: string | null
+  fecha_distribucion?: Date | string | null
+  fecha_limite?: Date | string | null
+  respuestas_recibidas?: number | null
+  instrucciones?: string | null
+  estatus?: string
+  fecha_creacion?: Date | string | null
+  pregunta_cuestionario?: Prisma.pregunta_cuestionarioUncheckedCreateNestedManyWithoutCuestionarioInput
+}
+
+export type cuestionarioCreateOrConnectWithoutRespuesta_cuestionarioInput = {
+  where: Prisma.cuestionarioWhereUniqueInput
+  create: Prisma.XOR<Prisma.cuestionarioCreateWithoutRespuesta_cuestionarioInput, Prisma.cuestionarioUncheckedCreateWithoutRespuesta_cuestionarioInput>
+}
+
+export type cuestionarioUpsertWithoutRespuesta_cuestionarioInput = {
+  update: Prisma.XOR<Prisma.cuestionarioUpdateWithoutRespuesta_cuestionarioInput, Prisma.cuestionarioUncheckedUpdateWithoutRespuesta_cuestionarioInput>
+  create: Prisma.XOR<Prisma.cuestionarioCreateWithoutRespuesta_cuestionarioInput, Prisma.cuestionarioUncheckedCreateWithoutRespuesta_cuestionarioInput>
+  where?: Prisma.cuestionarioWhereInput
+}
+
+export type cuestionarioUpdateToOneWithWhereWithoutRespuesta_cuestionarioInput = {
+  where?: Prisma.cuestionarioWhereInput
+  data: Prisma.XOR<Prisma.cuestionarioUpdateWithoutRespuesta_cuestionarioInput, Prisma.cuestionarioUncheckedUpdateWithoutRespuesta_cuestionarioInput>
+}
+
+export type cuestionarioUpdateWithoutRespuesta_cuestionarioInput = {
+  objetivo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  audiencia_objetivo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  responsable?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metodo_distribucion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fecha_distribucion?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fecha_limite?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  respuestas_recibidas?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  instrucciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  estatus?: Prisma.StringFieldUpdateOperationsInput | string
+  fecha_creacion?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  stakeholder?: Prisma.stakeholderUpdateOneWithoutCuestionarioNestedInput
+  tecnica_recoleccion?: Prisma.tecnica_recoleccionUpdateOneRequiredWithoutCuestionarioNestedInput
+  pregunta_cuestionario?: Prisma.pregunta_cuestionarioUpdateManyWithoutCuestionarioNestedInput
+}
+
+export type cuestionarioUncheckedUpdateWithoutRespuesta_cuestionarioInput = {
   id_cuestionario?: Prisma.IntFieldUpdateOperationsInput | number
-  id_usuario?: Prisma.IntFieldUpdateOperationsInput | number
+  id_tecnica?: Prisma.IntFieldUpdateOperationsInput | number
+  id_stakeholder?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   objetivo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   audiencia_objetivo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   responsable?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metodo_distribucion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fecha_distribucion?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   fecha_limite?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  respuestas_recibidas?: Prisma.IntFieldUpdateOperationsInput | number
+  respuestas_recibidas?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   instrucciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estatus?: Prisma.StringFieldUpdateOperationsInput | string
+  fecha_creacion?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pregunta_cuestionario?: Prisma.pregunta_cuestionarioUncheckedUpdateManyWithoutCuestionarioNestedInput
 }
 
-export type cuestionarioCreateManyUsuarioInput = {
+export type cuestionarioCreateManyStakeholderInput = {
   id_cuestionario?: number
   id_tecnica: number
   objetivo?: string | null
@@ -910,26 +995,29 @@ export type cuestionarioCreateManyUsuarioInput = {
   metodo_distribucion?: string | null
   fecha_distribucion?: Date | string | null
   fecha_limite?: Date | string | null
-  respuestas_recibidas?: number
+  respuestas_recibidas?: number | null
   instrucciones?: string | null
   estatus?: string
+  fecha_creacion?: Date | string | null
 }
 
-export type cuestionarioUpdateWithoutUsuarioInput = {
+export type cuestionarioUpdateWithoutStakeholderInput = {
   objetivo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   audiencia_objetivo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   responsable?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   metodo_distribucion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fecha_distribucion?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   fecha_limite?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  respuestas_recibidas?: Prisma.IntFieldUpdateOperationsInput | number
+  respuestas_recibidas?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   instrucciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estatus?: Prisma.StringFieldUpdateOperationsInput | string
-  tecnica?: Prisma.tecnica_recoleccionUpdateOneRequiredWithoutCuestionarioNestedInput
-  preguntas?: Prisma.pregunta_cuestionarioUpdateManyWithoutCuestionarioNestedInput
+  fecha_creacion?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  tecnica_recoleccion?: Prisma.tecnica_recoleccionUpdateOneRequiredWithoutCuestionarioNestedInput
+  pregunta_cuestionario?: Prisma.pregunta_cuestionarioUpdateManyWithoutCuestionarioNestedInput
+  respuesta_cuestionario?: Prisma.respuesta_cuestionarioUpdateManyWithoutCuestionarioNestedInput
 }
 
-export type cuestionarioUncheckedUpdateWithoutUsuarioInput = {
+export type cuestionarioUncheckedUpdateWithoutStakeholderInput = {
   id_cuestionario?: Prisma.IntFieldUpdateOperationsInput | number
   id_tecnica?: Prisma.IntFieldUpdateOperationsInput | number
   objetivo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -938,13 +1026,15 @@ export type cuestionarioUncheckedUpdateWithoutUsuarioInput = {
   metodo_distribucion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fecha_distribucion?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   fecha_limite?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  respuestas_recibidas?: Prisma.IntFieldUpdateOperationsInput | number
+  respuestas_recibidas?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   instrucciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estatus?: Prisma.StringFieldUpdateOperationsInput | string
-  preguntas?: Prisma.pregunta_cuestionarioUncheckedUpdateManyWithoutCuestionarioNestedInput
+  fecha_creacion?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pregunta_cuestionario?: Prisma.pregunta_cuestionarioUncheckedUpdateManyWithoutCuestionarioNestedInput
+  respuesta_cuestionario?: Prisma.respuesta_cuestionarioUncheckedUpdateManyWithoutCuestionarioNestedInput
 }
 
-export type cuestionarioUncheckedUpdateManyWithoutUsuarioInput = {
+export type cuestionarioUncheckedUpdateManyWithoutStakeholderInput = {
   id_cuestionario?: Prisma.IntFieldUpdateOperationsInput | number
   id_tecnica?: Prisma.IntFieldUpdateOperationsInput | number
   objetivo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -953,9 +1043,73 @@ export type cuestionarioUncheckedUpdateManyWithoutUsuarioInput = {
   metodo_distribucion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   fecha_distribucion?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   fecha_limite?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  respuestas_recibidas?: Prisma.IntFieldUpdateOperationsInput | number
+  respuestas_recibidas?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   instrucciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   estatus?: Prisma.StringFieldUpdateOperationsInput | string
+  fecha_creacion?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+}
+
+export type cuestionarioCreateManyTecnica_recoleccionInput = {
+  id_cuestionario?: number
+  id_stakeholder?: number | null
+  objetivo?: string | null
+  audiencia_objetivo?: string | null
+  responsable?: string | null
+  metodo_distribucion?: string | null
+  fecha_distribucion?: Date | string | null
+  fecha_limite?: Date | string | null
+  respuestas_recibidas?: number | null
+  instrucciones?: string | null
+  estatus?: string
+  fecha_creacion?: Date | string | null
+}
+
+export type cuestionarioUpdateWithoutTecnica_recoleccionInput = {
+  objetivo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  audiencia_objetivo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  responsable?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metodo_distribucion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fecha_distribucion?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fecha_limite?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  respuestas_recibidas?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  instrucciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  estatus?: Prisma.StringFieldUpdateOperationsInput | string
+  fecha_creacion?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  stakeholder?: Prisma.stakeholderUpdateOneWithoutCuestionarioNestedInput
+  pregunta_cuestionario?: Prisma.pregunta_cuestionarioUpdateManyWithoutCuestionarioNestedInput
+  respuesta_cuestionario?: Prisma.respuesta_cuestionarioUpdateManyWithoutCuestionarioNestedInput
+}
+
+export type cuestionarioUncheckedUpdateWithoutTecnica_recoleccionInput = {
+  id_cuestionario?: Prisma.IntFieldUpdateOperationsInput | number
+  id_stakeholder?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  objetivo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  audiencia_objetivo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  responsable?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metodo_distribucion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fecha_distribucion?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fecha_limite?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  respuestas_recibidas?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  instrucciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  estatus?: Prisma.StringFieldUpdateOperationsInput | string
+  fecha_creacion?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pregunta_cuestionario?: Prisma.pregunta_cuestionarioUncheckedUpdateManyWithoutCuestionarioNestedInput
+  respuesta_cuestionario?: Prisma.respuesta_cuestionarioUncheckedUpdateManyWithoutCuestionarioNestedInput
+}
+
+export type cuestionarioUncheckedUpdateManyWithoutTecnica_recoleccionInput = {
+  id_cuestionario?: Prisma.IntFieldUpdateOperationsInput | number
+  id_stakeholder?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  objetivo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  audiencia_objetivo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  responsable?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  metodo_distribucion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  fecha_distribucion?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  fecha_limite?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  respuestas_recibidas?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  instrucciones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  estatus?: Prisma.StringFieldUpdateOperationsInput | string
+  fecha_creacion?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 
@@ -964,11 +1118,13 @@ export type cuestionarioUncheckedUpdateManyWithoutUsuarioInput = {
  */
 
 export type CuestionarioCountOutputType = {
-  preguntas: number
+  pregunta_cuestionario: number
+  respuesta_cuestionario: number
 }
 
 export type CuestionarioCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  preguntas?: boolean | CuestionarioCountOutputTypeCountPreguntasArgs
+  pregunta_cuestionario?: boolean | CuestionarioCountOutputTypeCountPregunta_cuestionarioArgs
+  respuesta_cuestionario?: boolean | CuestionarioCountOutputTypeCountRespuesta_cuestionarioArgs
 }
 
 /**
@@ -984,15 +1140,22 @@ export type CuestionarioCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types
 /**
  * CuestionarioCountOutputType without action
  */
-export type CuestionarioCountOutputTypeCountPreguntasArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type CuestionarioCountOutputTypeCountPregunta_cuestionarioArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.pregunta_cuestionarioWhereInput
+}
+
+/**
+ * CuestionarioCountOutputType without action
+ */
+export type CuestionarioCountOutputTypeCountRespuesta_cuestionarioArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.respuesta_cuestionarioWhereInput
 }
 
 
 export type cuestionarioSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id_cuestionario?: boolean
   id_tecnica?: boolean
-  id_usuario?: boolean
+  id_stakeholder?: boolean
   objetivo?: boolean
   audiencia_objetivo?: boolean
   responsable?: boolean
@@ -1002,16 +1165,18 @@ export type cuestionarioSelect<ExtArgs extends runtime.Types.Extensions.Internal
   respuestas_recibidas?: boolean
   instrucciones?: boolean
   estatus?: boolean
-  tecnica?: boolean | Prisma.tecnica_recoleccionDefaultArgs<ExtArgs>
-  usuario?: boolean | Prisma.usuarioDefaultArgs<ExtArgs>
-  preguntas?: boolean | Prisma.cuestionario$preguntasArgs<ExtArgs>
+  fecha_creacion?: boolean
+  stakeholder?: boolean | Prisma.cuestionario$stakeholderArgs<ExtArgs>
+  tecnica_recoleccion?: boolean | Prisma.tecnica_recoleccionDefaultArgs<ExtArgs>
+  pregunta_cuestionario?: boolean | Prisma.cuestionario$pregunta_cuestionarioArgs<ExtArgs>
+  respuesta_cuestionario?: boolean | Prisma.cuestionario$respuesta_cuestionarioArgs<ExtArgs>
   _count?: boolean | Prisma.CuestionarioCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["cuestionario"]>
 
 export type cuestionarioSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id_cuestionario?: boolean
   id_tecnica?: boolean
-  id_usuario?: boolean
+  id_stakeholder?: boolean
   objetivo?: boolean
   audiencia_objetivo?: boolean
   responsable?: boolean
@@ -1021,14 +1186,15 @@ export type cuestionarioSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   respuestas_recibidas?: boolean
   instrucciones?: boolean
   estatus?: boolean
-  tecnica?: boolean | Prisma.tecnica_recoleccionDefaultArgs<ExtArgs>
-  usuario?: boolean | Prisma.usuarioDefaultArgs<ExtArgs>
+  fecha_creacion?: boolean
+  stakeholder?: boolean | Prisma.cuestionario$stakeholderArgs<ExtArgs>
+  tecnica_recoleccion?: boolean | Prisma.tecnica_recoleccionDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["cuestionario"]>
 
 export type cuestionarioSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id_cuestionario?: boolean
   id_tecnica?: boolean
-  id_usuario?: boolean
+  id_stakeholder?: boolean
   objetivo?: boolean
   audiencia_objetivo?: boolean
   responsable?: boolean
@@ -1038,14 +1204,15 @@ export type cuestionarioSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   respuestas_recibidas?: boolean
   instrucciones?: boolean
   estatus?: boolean
-  tecnica?: boolean | Prisma.tecnica_recoleccionDefaultArgs<ExtArgs>
-  usuario?: boolean | Prisma.usuarioDefaultArgs<ExtArgs>
+  fecha_creacion?: boolean
+  stakeholder?: boolean | Prisma.cuestionario$stakeholderArgs<ExtArgs>
+  tecnica_recoleccion?: boolean | Prisma.tecnica_recoleccionDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["cuestionario"]>
 
 export type cuestionarioSelectScalar = {
   id_cuestionario?: boolean
   id_tecnica?: boolean
-  id_usuario?: boolean
+  id_stakeholder?: boolean
   objetivo?: boolean
   audiencia_objetivo?: boolean
   responsable?: boolean
@@ -1055,44 +1222,48 @@ export type cuestionarioSelectScalar = {
   respuestas_recibidas?: boolean
   instrucciones?: boolean
   estatus?: boolean
+  fecha_creacion?: boolean
 }
 
-export type cuestionarioOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id_cuestionario" | "id_tecnica" | "id_usuario" | "objetivo" | "audiencia_objetivo" | "responsable" | "metodo_distribucion" | "fecha_distribucion" | "fecha_limite" | "respuestas_recibidas" | "instrucciones" | "estatus", ExtArgs["result"]["cuestionario"]>
+export type cuestionarioOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id_cuestionario" | "id_tecnica" | "id_stakeholder" | "objetivo" | "audiencia_objetivo" | "responsable" | "metodo_distribucion" | "fecha_distribucion" | "fecha_limite" | "respuestas_recibidas" | "instrucciones" | "estatus" | "fecha_creacion", ExtArgs["result"]["cuestionario"]>
 export type cuestionarioInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  tecnica?: boolean | Prisma.tecnica_recoleccionDefaultArgs<ExtArgs>
-  usuario?: boolean | Prisma.usuarioDefaultArgs<ExtArgs>
-  preguntas?: boolean | Prisma.cuestionario$preguntasArgs<ExtArgs>
+  stakeholder?: boolean | Prisma.cuestionario$stakeholderArgs<ExtArgs>
+  tecnica_recoleccion?: boolean | Prisma.tecnica_recoleccionDefaultArgs<ExtArgs>
+  pregunta_cuestionario?: boolean | Prisma.cuestionario$pregunta_cuestionarioArgs<ExtArgs>
+  respuesta_cuestionario?: boolean | Prisma.cuestionario$respuesta_cuestionarioArgs<ExtArgs>
   _count?: boolean | Prisma.CuestionarioCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type cuestionarioIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  tecnica?: boolean | Prisma.tecnica_recoleccionDefaultArgs<ExtArgs>
-  usuario?: boolean | Prisma.usuarioDefaultArgs<ExtArgs>
+  stakeholder?: boolean | Prisma.cuestionario$stakeholderArgs<ExtArgs>
+  tecnica_recoleccion?: boolean | Prisma.tecnica_recoleccionDefaultArgs<ExtArgs>
 }
 export type cuestionarioIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  tecnica?: boolean | Prisma.tecnica_recoleccionDefaultArgs<ExtArgs>
-  usuario?: boolean | Prisma.usuarioDefaultArgs<ExtArgs>
+  stakeholder?: boolean | Prisma.cuestionario$stakeholderArgs<ExtArgs>
+  tecnica_recoleccion?: boolean | Prisma.tecnica_recoleccionDefaultArgs<ExtArgs>
 }
 
 export type $cuestionarioPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "cuestionario"
   objects: {
-    tecnica: Prisma.$tecnica_recoleccionPayload<ExtArgs>
-    usuario: Prisma.$usuarioPayload<ExtArgs>
-    preguntas: Prisma.$pregunta_cuestionarioPayload<ExtArgs>[]
+    stakeholder: Prisma.$stakeholderPayload<ExtArgs> | null
+    tecnica_recoleccion: Prisma.$tecnica_recoleccionPayload<ExtArgs>
+    pregunta_cuestionario: Prisma.$pregunta_cuestionarioPayload<ExtArgs>[]
+    respuesta_cuestionario: Prisma.$respuesta_cuestionarioPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id_cuestionario: number
     id_tecnica: number
-    id_usuario: number
+    id_stakeholder: number | null
     objetivo: string | null
     audiencia_objetivo: string | null
     responsable: string | null
     metodo_distribucion: string | null
     fecha_distribucion: Date | null
     fecha_limite: Date | null
-    respuestas_recibidas: number
+    respuestas_recibidas: number | null
     instrucciones: string | null
     estatus: string
+    fecha_creacion: Date | null
   }, ExtArgs["result"]["cuestionario"]>
   composites: {}
 }
@@ -1487,9 +1658,10 @@ readonly fields: cuestionarioFieldRefs;
  */
 export interface Prisma__cuestionarioClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  tecnica<T extends Prisma.tecnica_recoleccionDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.tecnica_recoleccionDefaultArgs<ExtArgs>>): Prisma.Prisma__tecnica_recoleccionClient<runtime.Types.Result.GetResult<Prisma.$tecnica_recoleccionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  usuario<T extends Prisma.usuarioDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.usuarioDefaultArgs<ExtArgs>>): Prisma.Prisma__usuarioClient<runtime.Types.Result.GetResult<Prisma.$usuarioPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  preguntas<T extends Prisma.cuestionario$preguntasArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.cuestionario$preguntasArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$pregunta_cuestionarioPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  stakeholder<T extends Prisma.cuestionario$stakeholderArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.cuestionario$stakeholderArgs<ExtArgs>>): Prisma.Prisma__stakeholderClient<runtime.Types.Result.GetResult<Prisma.$stakeholderPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  tecnica_recoleccion<T extends Prisma.tecnica_recoleccionDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.tecnica_recoleccionDefaultArgs<ExtArgs>>): Prisma.Prisma__tecnica_recoleccionClient<runtime.Types.Result.GetResult<Prisma.$tecnica_recoleccionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  pregunta_cuestionario<T extends Prisma.cuestionario$pregunta_cuestionarioArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.cuestionario$pregunta_cuestionarioArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$pregunta_cuestionarioPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  respuesta_cuestionario<T extends Prisma.cuestionario$respuesta_cuestionarioArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.cuestionario$respuesta_cuestionarioArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$respuesta_cuestionarioPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1521,7 +1693,7 @@ export interface Prisma__cuestionarioClient<T, Null = never, ExtArgs extends run
 export interface cuestionarioFieldRefs {
   readonly id_cuestionario: Prisma.FieldRef<"cuestionario", 'Int'>
   readonly id_tecnica: Prisma.FieldRef<"cuestionario", 'Int'>
-  readonly id_usuario: Prisma.FieldRef<"cuestionario", 'Int'>
+  readonly id_stakeholder: Prisma.FieldRef<"cuestionario", 'Int'>
   readonly objetivo: Prisma.FieldRef<"cuestionario", 'String'>
   readonly audiencia_objetivo: Prisma.FieldRef<"cuestionario", 'String'>
   readonly responsable: Prisma.FieldRef<"cuestionario", 'String'>
@@ -1531,6 +1703,7 @@ export interface cuestionarioFieldRefs {
   readonly respuestas_recibidas: Prisma.FieldRef<"cuestionario", 'Int'>
   readonly instrucciones: Prisma.FieldRef<"cuestionario", 'String'>
   readonly estatus: Prisma.FieldRef<"cuestionario", 'String'>
+  readonly fecha_creacion: Prisma.FieldRef<"cuestionario", 'DateTime'>
 }
     
 
@@ -1932,9 +2105,28 @@ export type cuestionarioDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.
 }
 
 /**
- * cuestionario.preguntas
+ * cuestionario.stakeholder
  */
-export type cuestionario$preguntasArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type cuestionario$stakeholderArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the stakeholder
+   */
+  select?: Prisma.stakeholderSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the stakeholder
+   */
+  omit?: Prisma.stakeholderOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.stakeholderInclude<ExtArgs> | null
+  where?: Prisma.stakeholderWhereInput
+}
+
+/**
+ * cuestionario.pregunta_cuestionario
+ */
+export type cuestionario$pregunta_cuestionarioArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the pregunta_cuestionario
    */
@@ -1953,6 +2145,30 @@ export type cuestionario$preguntasArgs<ExtArgs extends runtime.Types.Extensions.
   take?: number
   skip?: number
   distinct?: Prisma.Pregunta_cuestionarioScalarFieldEnum | Prisma.Pregunta_cuestionarioScalarFieldEnum[]
+}
+
+/**
+ * cuestionario.respuesta_cuestionario
+ */
+export type cuestionario$respuesta_cuestionarioArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the respuesta_cuestionario
+   */
+  select?: Prisma.respuesta_cuestionarioSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the respuesta_cuestionario
+   */
+  omit?: Prisma.respuesta_cuestionarioOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.respuesta_cuestionarioInclude<ExtArgs> | null
+  where?: Prisma.respuesta_cuestionarioWhereInput
+  orderBy?: Prisma.respuesta_cuestionarioOrderByWithRelationInput | Prisma.respuesta_cuestionarioOrderByWithRelationInput[]
+  cursor?: Prisma.respuesta_cuestionarioWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.Respuesta_cuestionarioScalarFieldEnum | Prisma.Respuesta_cuestionarioScalarFieldEnum[]
 }
 
 /**

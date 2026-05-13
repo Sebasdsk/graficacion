@@ -12,6 +12,7 @@
     flex-direction: column;
     gap: .6rem;
     padding: 1rem;
+    overflow: hidden;
 }
 
 .flowtic-graphics-content h3 {

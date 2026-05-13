@@ -51,7 +51,8 @@ router.get('/:id', async (req: Request, res: Response) => {
       where: { id_observacion: Number(req.params.id) },
       include: {
         tecnica_recoleccion: true,
-        stakeholder: true
+        observacion_detalle: true,
+        stakeholder: true,
       }
     });
     if (!observacion) return res.status(404).json({ error: 'Observación no encontrada' });
@@ -65,38 +66,60 @@ router.get('/:id', async (req: Request, res: Response) => {
 router.put('/:id', async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const { id_stakeholder, ubicacion, fecha, duracion, hallazgos, observaciones } = req.body;
 
+    const {
+      id_stakeholder,
+      ubicacion,
+      fecha,
+      duracion,
+      hallazgos,
+      observaciones
+    } = req.body;
+
+    // Actualizar observación principal
     const observacion = await prisma.observacion.update({
       where: {
         id_observacion: Number(id)
       },
       data: {
-        id_stakeholder: Number(id_stakeholder),
+        id_stakeholder: id_stakeholder && id_stakeholder !== 0
+          ? Number(id_stakeholder) : null,
         ubicacion: ubicacion,
-        fecha: fecha,
-        duracion: duracion,
+        fecha: fecha ? new Date(fecha) : null,
+        duracion: Number(duracion),
         hallazgos: hallazgos
       }
     });
 
-    if (observaciones.lenght === 0) {
-      res.json({ observacion });
-    }
-
-    const observacionesDetalles = await prisma.observacion_detalle.createMany({
-      data: {
-        id_observacion: Number(observacion.id_observacion),
-        hora: observaciones.hora,
-        categoria: observaciones.categoria,
-        descripcion: observaciones.descripcion
+    // Eliminar detalles anteriores
+    await prisma.observacion_detalle.deleteMany({
+      where: {
+        id_observacion: Number(id)
       }
     });
 
-    res.json({ observacion, observacionesDetalles });
+    // Crear nuevos detalles
+    if (observaciones.length > 0) {
+      await prisma.observacion_detalle.createMany({
+        data: observaciones.map((obs: any) => ({
+          id_observacion: Number(id),
+          hora: obs.hora,
+          categoria: obs.categoria,
+          descripcion: obs.descripcion
+        }))
+      });
+    }
+
+    res.json({
+      ok: true,
+      observacion
+    });
 
   } catch (error: any) {
-    res.status(400).json({ error: error.message });
+    res.status(400).json({
+      error: error.message
+    });
+    console.log(error);
   }
 });
 

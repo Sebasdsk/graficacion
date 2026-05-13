@@ -7,7 +7,7 @@ export interface TipoTecnica {
 
 export interface Tecnica {
     id: number;
-    nombre: string;
+    titulo: string;
     descripcion: string;
     tipo: TipoTecnica;
     estatus: estatusTecnica

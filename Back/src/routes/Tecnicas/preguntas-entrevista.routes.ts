@@ -8,7 +8,6 @@ router.get('/:id_entrevista/preguntas', async (req: Request, res: Response) => {
   try {
     const preguntas = await prisma.pregunta_entrevista.findMany({
       where: { id_entrevista: Number(req.params.id_entrevista) },
-      orderBy: { orden_pregunta: 'asc' }
     });
     res.json(preguntas);
   } catch (error: any) {
@@ -24,7 +23,6 @@ router.post('/:id_entrevista/agregar_pregunta', async (req: Request, res: Respon
       data: {
         id_entrevista: Number(req.params.id_entrevista),
         pregunta,
-        orden_pregunta,
         respuesta: null
       }
     });
@@ -52,11 +50,6 @@ router.patch('/preguntas/:id_pregunta/guardar_respuesta', async (req: Request, r
 router.put('/modificar_pregunta/:id_pregunta', async (req: Request, res: Response) => {
   try {
     const { pregunta, orden_pregunta } = req.body;
-    const actualizada = await prisma.pregunta_entrevista.update({
-      where: { id_pregunta: Number(req.params.id_pregunta) },
-      data: { pregunta, orden_pregunta }
-    });
-    res.json(actualizada);
   } catch (error: any) {
     res.status(400).json({ error: error.message });
   }

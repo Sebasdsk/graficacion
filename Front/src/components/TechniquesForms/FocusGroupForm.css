@@ -9,6 +9,7 @@
     border: 1px solid var(--border-container);
     background: #ffff;
     border-radius: 15px;
+    margin-bottom: 1.2rem;
 }
 
 .focus-informacion-section h2,

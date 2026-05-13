@@ -13,6 +13,10 @@ import entrevistaRoutes from './routes/Tecnicas/entrevista.routes';
 import preguntasEntrevistaRoutes from './routes/Tecnicas/preguntas-entrevista.routes';
 import historiasUsuarioRoutes from './routes/Tecnicas/historias-usuario.routes';
 import observacionesRoutes from './routes/Tecnicas/observaciones.routes';
+import focusGroupRoutes from './routes/Tecnicas/focus-group.routes';
+import cuestionarioRoutes from './routes/Tecnicas/cuestionario.routes';
+import documentosRoutes from './routes/Tecnicas/documentos.routes';
+import seguimientoRoutes from './routes/Tecnicas/seguimiento.routes';
 import stakeholdersRoutes from './routes/stakeholders.routes';
 import diagramasUMLRoutes from './routes/umls.routes';
 
@@ -31,10 +35,14 @@ app.use('/api/proyectos', proyectosRoutes);
 app.use('/api/procesos', procesosRoutes);
 app.use('/api/roles', rolesRoutes);
 app.use('/api/tecnicas', tecnicasRoutes);
-app.use('/api/entrevista', entrevistaRoutes);
+app.use('/api/entrevistas', entrevistaRoutes);
 app.use('/api/preguntasEntrevista', preguntasEntrevistaRoutes);
 app.use('/api/historiasUsuario', historiasUsuarioRoutes);
 app.use('/api/observaciones', observacionesRoutes);
+app.use('/api/focusGroup', focusGroupRoutes);
+app.use('/api/cuestionarios', cuestionarioRoutes);
+app.use('/api/documentos', documentosRoutes);
+app.use('/api/seguimiento', seguimientoRoutes);
 app.use('/api/stakeholders', stakeholdersRoutes);
 app.use('/api/diagramasUML', diagramasUMLRoutes);
 

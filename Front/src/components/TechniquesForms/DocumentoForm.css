@@ -8,6 +8,7 @@
     border: 1px solid var(--border-container);
     background: #ffff;
     border-radius: 15px;
+    margin-bottom: 1.2rem;
 }
 
 .header-documento-section h2,

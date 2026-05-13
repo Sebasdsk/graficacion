@@ -17,7 +17,14 @@ router.get('/', async (req: Request, res: Response) => {
 router.get('/:id', async (req: Request, res: Response) => {
   try {
     const entrevista = await prisma.entrevista.findUnique({
-      where: { id_entrevista: Number(req.params.id) }
+      where: {
+        id_entrevista: Number(req.params.id) 
+      },
+      include: {
+        tecnica_recoleccion: true,
+        stakeholder: true,
+        pregunta_entrevista: true
+      }
     });
     if (!entrevista) return res.status(404).json({ error: 'Entrevista no encontrada' });
     res.json(entrevista);
@@ -27,19 +34,30 @@ router.get('/:id', async (req: Request, res: Response) => {
 });
 
 // Crear entrevista
-router.post('/crear_entrevista', async (req: Request, res: Response) => {
+router.post('/crear_entrevista/:id_subproceso', async (req: Request, res: Response) => {
   try {
-    const { id_tecnica, id_usuario, fecha_entrevista, duracion, estatus } = req.body;
-    const entrevista = await prisma.entrevista.create({
+    const { id_subproceso } = req.params;
+    const { titulo, descripcion } = req.body;
+
+    // 1. Crear técnica base
+    const tecnicaRecoleccion = await prisma.tecnica_recoleccion.create({
       data: {
-        id_tecnica,
-        id_usuario,
-        fecha_entrevista: fecha_entrevista ? new Date(fecha_entrevista) : null,
-        duracion: duracion ?? null,
-        estatus: estatus ?? 'Pendiente'
+        id_tecnica_catalogo: Number(1),
+        titulo: titulo,
+        descripcion: descripcion,
+        id_subproceso: Number(id_subproceso)
       }
     });
-    res.status(201).json(entrevista);
+
+    // 2. Crear entrevista
+    const entrevista = await prisma.entrevista.create({
+      data: {
+        id_tecnica: tecnicaRecoleccion.id_tecnica,
+        fecha_entrevista: null,
+        duracion: null,
+      }
+    });
+    res.status(201).json({ tecnicaRecoleccion, entrevista });
   } catch (error: any) {
     res.status(400).json({ error: error.message });
   }
@@ -48,15 +66,40 @@ router.post('/crear_entrevista', async (req: Request, res: Response) => {
 // Actualizar entrevista
 router.put('/actualizar_entrevista/:id', async (req: Request, res: Response) => {
   try {
-    const { fecha_entrevista, duracion, estatus } = req.body;
+    const { id } = req.params;
+    const { fecha_entrevista, duracion, id_stakeholder, pregunta_entrevista, notas } = req.body;
+
     const entrevista = await prisma.entrevista.update({
-      where: { id_entrevista: Number(req.params.id) },
-      data: { // Se usa el operador spread para solo enviar los campos del body
-        ...(fecha_entrevista && { fecha_entrevista: new Date(fecha_entrevista) }),
-        ...(duracion !== undefined && { duracion }),
-        ...(estatus && { estatus })
+      where: {
+        id_entrevista: Number(id)
+      },
+      data: {
+        id_stakeholder: id_stakeholder && id_stakeholder !== 0
+          ? Number(id_stakeholder) : null,
+        fecha_entrevista: fecha_entrevista ? new Date(fecha_entrevista): null,
+        duracion: Number(duracion),
+        notas: notas,
       }
     });
+
+    // Eliminar las preguntas anteriores
+    await prisma.pregunta_entrevista.deleteMany({
+      where: {
+        id_entrevista: Number(id)
+      }
+    });
+
+    // Crear las nuevas preguntas
+    if (pregunta_entrevista.length > 0) {
+      await prisma.pregunta_entrevista.createMany({
+        data: pregunta_entrevista.map((p: any) => ({
+          id_entrevista: Number(id),
+          pregunta: p.pregunta,
+          respuesta: p.respuesta
+        }))
+      });
+    }
+
     res.json(entrevista);
   } catch (error: any) {
     res.status(400).json({ error: error.message });

@@ -1,13 +1,17 @@
 import { Plus, Trash } from "@boxicons/react";
 import "./HistoriasUsuarioForm.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export interface CriterioAceptacion {
     id_criterio: number;
     texto: string;
 }
 
-export default function HistoriasUsuarioForm() {
+interface TecnicaProps {
+    tecnica: any;
+}
+
+export default function HistoriasUsuarioForm({ tecnica }: TecnicaProps) {
     const [tituloHistoria, setTituloHistoria] = useState("");
     const [como, setComo] = useState("");
     const [quiero, setQuiero] = useState("");
@@ -16,6 +20,9 @@ export default function HistoriasUsuarioForm() {
     const [storyPoints, setStoryPoints] = useState("");
 
     const [criteriosList, setCriteriosList] = useState<CriterioAceptacion[]>([]);
+
+    const token = localStorage.getItem("token");
+    const API_URL = import.meta.env.VITE_API_URL;
 
     // Función para agregar un nuevo criterio a la historia
     const agregarCriterio = () => {
@@ -28,8 +35,89 @@ export default function HistoriasUsuarioForm() {
         setCriteriosList(prev => prev.filter(c => c.id_criterio !== id));
     };
 
+    const getHistoriaUsuario = async () => {
+        try {
+            const response = await fetch(
+                `${API_URL}/historiasUsuario/${tecnica.historiaUsuarioData.id_historia_usario}`,
+                {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${token}`
+                    }
+                }
+            );
+
+            if (!response.ok) {
+                throw new Error("Error al obtener la historia de usuario");
+            }
+
+            const data = await response.json();
+            
+            // Cargar los datos en los estados
+            setTituloHistoria(data.titulo || "");
+            setComo(data.autor || "");
+            setQuiero(data.objetivo || "");
+            setParaQue(data.proposito || "");
+            
+            // Cargar criterios de aceptación
+            if (data.criterio_aceptacion && data.criterio_aceptacion.length > 0) {
+                const criteriosMapeados = data.criterio_aceptacion.map((c: any) => ({
+                    id_criterio: c.id_criterio,
+                    texto: c.descripcion
+                }));
+                setCriteriosList(criteriosMapeados);
+            }
+        } catch (err) {
+            console.error("Error en la petición:", err);
+        }
+    };
+
+    useEffect(() => {
+        getHistoriaUsuario();
+    }, []);
+
+    const handleSubmit = async () => {
+        const body = {
+            titulo: tituloHistoria,
+            autor: como,
+            objetivo: quiero,
+            proposito: paraQue,
+            criterios_aceptacion: criteriosList.map(c => ({
+                texto: c.texto,
+                descripcion: c.texto
+            }))
+        };
+
+        try {
+            const response = await fetch(
+                `${API_URL}/historiasUsuario/actualizar_historia/${tecnica.historiaUsuarioData.id_historia_usario}`,
+                {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${token}`
+                    },
+                    body: JSON.stringify(body)
+                }
+            );
+
+            if (!response.ok) {
+                throw new Error("Error al actualizar la historia de usuario");
+            }
+
+            const data = await response.json();
+            console.log("Historia actualizada:", data);
+            
+            // Opcional: Mostrar mensaje de éxito o recargar datos
+            await getHistoriaUsuario();
+        } catch (error) {
+            console.error("Error al guardar:", error);
+        }
+    };
+
     return (
-        <>
+        <form action={handleSubmit}>
             <section className="historia-usuario-section">
                 <header className="header-historia-section">
                     <h2>Historia de Usuario</h2>
@@ -148,6 +236,15 @@ export default function HistoriasUsuarioForm() {
                     ))}
                 </div>
             </section>
-        </>
+            <div className="buttons-techniques-section">
+                <button className="button-cancel-changes">Cancelar Cambios</button>
+                <button
+                    className="button-confirm-changes"
+                    type="submit"
+                >
+                    Guardar Cambios
+                </button>
+            </div>
+        </form>
     );
 }

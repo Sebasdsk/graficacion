@@ -127,3 +127,68 @@ export type historia_usuario = Prisma.historia_usuarioModel
  * 
  */
 export type observacion_detalle = Prisma.observacion_detalleModel
+/**
+ * Model analisis_documento
+ * 
+ */
+export type analisis_documento = Prisma.analisis_documentoModel
+/**
+ * Model cuestionario
+ * 
+ */
+export type cuestionario = Prisma.cuestionarioModel
+/**
+ * Model detalle_respuesta
+ * 
+ */
+export type detalle_respuesta = Prisma.detalle_respuestaModel
+/**
+ * Model etapa_proceso
+ * 
+ */
+export type etapa_proceso = Prisma.etapa_procesoModel
+/**
+ * Model focus_group
+ * 
+ */
+export type focus_group = Prisma.focus_groupModel
+/**
+ * Model hallazgo_documento
+ * 
+ */
+export type hallazgo_documento = Prisma.hallazgo_documentoModel
+/**
+ * Model idea_generada
+ * 
+ */
+export type idea_generada = Prisma.idea_generadaModel
+/**
+ * Model opcion_respuesta
+ * 
+ */
+export type opcion_respuesta = Prisma.opcion_respuestaModel
+/**
+ * Model participante_focus_group
+ * 
+ */
+export type participante_focus_group = Prisma.participante_focus_groupModel
+/**
+ * Model pregunta_cuestionario
+ * 
+ */
+export type pregunta_cuestionario = Prisma.pregunta_cuestionarioModel
+/**
+ * Model requisito_documento
+ * 
+ */
+export type requisito_documento = Prisma.requisito_documentoModel
+/**
+ * Model respuesta_cuestionario
+ * 
+ */
+export type respuesta_cuestionario = Prisma.respuesta_cuestionarioModel
+/**
+ * Model seguimiento_transaccional
+ * 
+ */
+export type seguimiento_transaccional = Prisma.seguimiento_transaccionalModel

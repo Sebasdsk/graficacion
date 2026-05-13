@@ -29,51 +29,48 @@ export type AggregateFocus_group = {
 export type Focus_groupAvgAggregateOutputType = {
   id_focus: number | null
   id_tecnica: number | null
-  id_usuario: number | null
+  id_stakeholder: number | null
   duracion: number | null
 }
 
 export type Focus_groupSumAggregateOutputType = {
   id_focus: number | null
   id_tecnica: number | null
-  id_usuario: number | null
+  id_stakeholder: number | null
   duracion: number | null
 }
 
 export type Focus_groupMinAggregateOutputType = {
   id_focus: number | null
   id_tecnica: number | null
-  id_usuario: number | null
+  id_stakeholder: number | null
   fecha: Date | null
   duracion: number | null
   estatus: string | null
   tema: string | null
   conclusiones: string | null
-  idea: string | null
 }
 
 export type Focus_groupMaxAggregateOutputType = {
   id_focus: number | null
   id_tecnica: number | null
-  id_usuario: number | null
+  id_stakeholder: number | null
   fecha: Date | null
   duracion: number | null
   estatus: string | null
   tema: string | null
   conclusiones: string | null
-  idea: string | null
 }
 
 export type Focus_groupCountAggregateOutputType = {
   id_focus: number
   id_tecnica: number
-  id_usuario: number
+  id_stakeholder: number
   fecha: number
   duracion: number
   estatus: number
   tema: number
   conclusiones: number
-  idea: number
   _all: number
 }
 
@@ -81,51 +78,48 @@ export type Focus_groupCountAggregateOutputType = {
 export type Focus_groupAvgAggregateInputType = {
   id_focus?: true
   id_tecnica?: true
-  id_usuario?: true
+  id_stakeholder?: true
   duracion?: true
 }
 
 export type Focus_groupSumAggregateInputType = {
   id_focus?: true
   id_tecnica?: true
-  id_usuario?: true
+  id_stakeholder?: true
   duracion?: true
 }
 
 export type Focus_groupMinAggregateInputType = {
   id_focus?: true
   id_tecnica?: true
-  id_usuario?: true
+  id_stakeholder?: true
   fecha?: true
   duracion?: true
   estatus?: true
   tema?: true
   conclusiones?: true
-  idea?: true
 }
 
 export type Focus_groupMaxAggregateInputType = {
   id_focus?: true
   id_tecnica?: true
-  id_usuario?: true
+  id_stakeholder?: true
   fecha?: true
   duracion?: true
   estatus?: true
   tema?: true
   conclusiones?: true
-  idea?: true
 }
 
 export type Focus_groupCountAggregateInputType = {
   id_focus?: true
   id_tecnica?: true
-  id_usuario?: true
+  id_stakeholder?: true
   fecha?: true
   duracion?: true
   estatus?: true
   tema?: true
   conclusiones?: true
-  idea?: true
   _all?: true
 }
 
@@ -218,13 +212,12 @@ export type focus_groupGroupByArgs<ExtArgs extends runtime.Types.Extensions.Inte
 export type Focus_groupGroupByOutputType = {
   id_focus: number
   id_tecnica: number
-  id_usuario: number
+  id_stakeholder: number | null
   fecha: Date | null
   duracion: number | null
   estatus: string
   tema: string
   conclusiones: string | null
-  idea: string | null
   _count: Focus_groupCountAggregateOutputType | null
   _avg: Focus_groupAvgAggregateOutputType | null
   _sum: Focus_groupSumAggregateOutputType | null
@@ -253,31 +246,31 @@ export type focus_groupWhereInput = {
   NOT?: Prisma.focus_groupWhereInput | Prisma.focus_groupWhereInput[]
   id_focus?: Prisma.IntFilter<"focus_group"> | number
   id_tecnica?: Prisma.IntFilter<"focus_group"> | number
-  id_usuario?: Prisma.IntFilter<"focus_group"> | number
+  id_stakeholder?: Prisma.IntNullableFilter<"focus_group"> | number | null
   fecha?: Prisma.DateTimeNullableFilter<"focus_group"> | Date | string | null
   duracion?: Prisma.IntNullableFilter<"focus_group"> | number | null
   estatus?: Prisma.StringFilter<"focus_group"> | string
   tema?: Prisma.StringFilter<"focus_group"> | string
   conclusiones?: Prisma.StringNullableFilter<"focus_group"> | string | null
-  idea?: Prisma.StringNullableFilter<"focus_group"> | string | null
-  tecnica?: Prisma.XOR<Prisma.Tecnica_recoleccionScalarRelationFilter, Prisma.tecnica_recoleccionWhereInput>
-  usuario?: Prisma.XOR<Prisma.UsuarioScalarRelationFilter, Prisma.usuarioWhereInput>
-  participantes?: Prisma.Participante_focus_groupListRelationFilter
+  stakeholder?: Prisma.XOR<Prisma.StakeholderNullableScalarRelationFilter, Prisma.stakeholderWhereInput> | null
+  tecnica_recoleccion?: Prisma.XOR<Prisma.Tecnica_recoleccionScalarRelationFilter, Prisma.tecnica_recoleccionWhereInput>
+  idea_generada?: Prisma.Idea_generadaListRelationFilter
+  participante_focus_group?: Prisma.Participante_focus_groupListRelationFilter
 }
 
 export type focus_groupOrderByWithRelationInput = {
   id_focus?: Prisma.SortOrder
   id_tecnica?: Prisma.SortOrder
-  id_usuario?: Prisma.SortOrder
+  id_stakeholder?: Prisma.SortOrderInput | Prisma.SortOrder
   fecha?: Prisma.SortOrderInput | Prisma.SortOrder
   duracion?: Prisma.SortOrderInput | Prisma.SortOrder
   estatus?: Prisma.SortOrder
   tema?: Prisma.SortOrder
   conclusiones?: Prisma.SortOrderInput | Prisma.SortOrder
-  idea?: Prisma.SortOrderInput | Prisma.SortOrder
-  tecnica?: Prisma.tecnica_recoleccionOrderByWithRelationInput
-  usuario?: Prisma.usuarioOrderByWithRelationInput
-  participantes?: Prisma.participante_focus_groupOrderByRelationAggregateInput
+  stakeholder?: Prisma.stakeholderOrderByWithRelationInput
+  tecnica_recoleccion?: Prisma.tecnica_recoleccionOrderByWithRelationInput
+  idea_generada?: Prisma.idea_generadaOrderByRelationAggregateInput
+  participante_focus_group?: Prisma.participante_focus_groupOrderByRelationAggregateInput
 }
 
 export type focus_groupWhereUniqueInput = Prisma.AtLeast<{
@@ -286,28 +279,27 @@ export type focus_groupWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.focus_groupWhereInput[]
   NOT?: Prisma.focus_groupWhereInput | Prisma.focus_groupWhereInput[]
   id_tecnica?: Prisma.IntFilter<"focus_group"> | number
-  id_usuario?: Prisma.IntFilter<"focus_group"> | number
+  id_stakeholder?: Prisma.IntNullableFilter<"focus_group"> | number | null
   fecha?: Prisma.DateTimeNullableFilter<"focus_group"> | Date | string | null
   duracion?: Prisma.IntNullableFilter<"focus_group"> | number | null
   estatus?: Prisma.StringFilter<"focus_group"> | string
   tema?: Prisma.StringFilter<"focus_group"> | string
   conclusiones?: Prisma.StringNullableFilter<"focus_group"> | string | null
-  idea?: Prisma.StringNullableFilter<"focus_group"> | string | null
-  tecnica?: Prisma.XOR<Prisma.Tecnica_recoleccionScalarRelationFilter, Prisma.tecnica_recoleccionWhereInput>
-  usuario?: Prisma.XOR<Prisma.UsuarioScalarRelationFilter, Prisma.usuarioWhereInput>
-  participantes?: Prisma.Participante_focus_groupListRelationFilter
+  stakeholder?: Prisma.XOR<Prisma.StakeholderNullableScalarRelationFilter, Prisma.stakeholderWhereInput> | null
+  tecnica_recoleccion?: Prisma.XOR<Prisma.Tecnica_recoleccionScalarRelationFilter, Prisma.tecnica_recoleccionWhereInput>
+  idea_generada?: Prisma.Idea_generadaListRelationFilter
+  participante_focus_group?: Prisma.Participante_focus_groupListRelationFilter
 }, "id_focus">
 
 export type focus_groupOrderByWithAggregationInput = {
   id_focus?: Prisma.SortOrder
   id_tecnica?: Prisma.SortOrder
-  id_usuario?: Prisma.SortOrder
+  id_stakeholder?: Prisma.SortOrderInput | Prisma.SortOrder
   fecha?: Prisma.SortOrderInput | Prisma.SortOrder
   duracion?: Prisma.SortOrderInput | Prisma.SortOrder
   estatus?: Prisma.SortOrder
   tema?: Prisma.SortOrder
   conclusiones?: Prisma.SortOrderInput | Prisma.SortOrder
-  idea?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.focus_groupCountOrderByAggregateInput
   _avg?: Prisma.focus_groupAvgOrderByAggregateInput
   _max?: Prisma.focus_groupMaxOrderByAggregateInput
@@ -321,13 +313,12 @@ export type focus_groupScalarWhereWithAggregatesInput = {
   NOT?: Prisma.focus_groupScalarWhereWithAggregatesInput | Prisma.focus_groupScalarWhereWithAggregatesInput[]
   id_focus?: Prisma.IntWithAggregatesFilter<"focus_group"> | number
   id_tecnica?: Prisma.IntWithAggregatesFilter<"focus_group"> | number
-  id_usuario?: Prisma.IntWithAggregatesFilter<"focus_group"> | number
+  id_stakeholder?: Prisma.IntNullableWithAggregatesFilter<"focus_group"> | number | null
   fecha?: Prisma.DateTimeNullableWithAggregatesFilter<"focus_group"> | Date | string | null
   duracion?: Prisma.IntNullableWithAggregatesFilter<"focus_group"> | number | null
   estatus?: Prisma.StringWithAggregatesFilter<"focus_group"> | string
   tema?: Prisma.StringWithAggregatesFilter<"focus_group"> | string
   conclusiones?: Prisma.StringNullableWithAggregatesFilter<"focus_group"> | string | null
-  idea?: Prisma.StringNullableWithAggregatesFilter<"focus_group"> | string | null
 }
 
 export type focus_groupCreateInput = {
@@ -336,23 +327,23 @@ export type focus_groupCreateInput = {
   estatus?: string
   tema: string
   conclusiones?: string | null
-  idea?: string | null
-  tecnica: Prisma.tecnica_recoleccionCreateNestedOneWithoutFocus_groupInput
-  usuario: Prisma.usuarioCreateNestedOneWithoutFocus_groupInput
-  participantes?: Prisma.participante_focus_groupCreateNestedManyWithoutFocus_groupInput
+  stakeholder?: Prisma.stakeholderCreateNestedOneWithoutFocus_groupInput
+  tecnica_recoleccion: Prisma.tecnica_recoleccionCreateNestedOneWithoutFocus_groupInput
+  idea_generada?: Prisma.idea_generadaCreateNestedManyWithoutFocus_groupInput
+  participante_focus_group?: Prisma.participante_focus_groupCreateNestedManyWithoutFocus_groupInput
 }
 
 export type focus_groupUncheckedCreateInput = {
   id_focus?: number
   id_tecnica: number
-  id_usuario: number
+  id_stakeholder?: number | null
   fecha?: Date | string | null
   duracion?: number | null
   estatus?: string
   tema: string
   conclusiones?: string | null
-  idea?: string | null
-  participantes?: Prisma.participante_focus_groupUncheckedCreateNestedManyWithoutFocus_groupInput
+  idea_generada?: Prisma.idea_generadaUncheckedCreateNestedManyWithoutFocus_groupInput
+  participante_focus_group?: Prisma.participante_focus_groupUncheckedCreateNestedManyWithoutFocus_groupInput
 }
 
 export type focus_groupUpdateInput = {
@@ -361,35 +352,34 @@ export type focus_groupUpdateInput = {
   estatus?: Prisma.StringFieldUpdateOperationsInput | string
   tema?: Prisma.StringFieldUpdateOperationsInput | string
   conclusiones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  idea?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  tecnica?: Prisma.tecnica_recoleccionUpdateOneRequiredWithoutFocus_groupNestedInput
-  usuario?: Prisma.usuarioUpdateOneRequiredWithoutFocus_groupNestedInput
-  participantes?: Prisma.participante_focus_groupUpdateManyWithoutFocus_groupNestedInput
+  stakeholder?: Prisma.stakeholderUpdateOneWithoutFocus_groupNestedInput
+  tecnica_recoleccion?: Prisma.tecnica_recoleccionUpdateOneRequiredWithoutFocus_groupNestedInput
+  idea_generada?: Prisma.idea_generadaUpdateManyWithoutFocus_groupNestedInput
+  participante_focus_group?: Prisma.participante_focus_groupUpdateManyWithoutFocus_groupNestedInput
 }
 
 export type focus_groupUncheckedUpdateInput = {
   id_focus?: Prisma.IntFieldUpdateOperationsInput | number
   id_tecnica?: Prisma.IntFieldUpdateOperationsInput | number
-  id_usuario?: Prisma.IntFieldUpdateOperationsInput | number
+  id_stakeholder?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   fecha?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   duracion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   estatus?: Prisma.StringFieldUpdateOperationsInput | string
   tema?: Prisma.StringFieldUpdateOperationsInput | string
   conclusiones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  idea?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  participantes?: Prisma.participante_focus_groupUncheckedUpdateManyWithoutFocus_groupNestedInput
+  idea_generada?: Prisma.idea_generadaUncheckedUpdateManyWithoutFocus_groupNestedInput
+  participante_focus_group?: Prisma.participante_focus_groupUncheckedUpdateManyWithoutFocus_groupNestedInput
 }
 
 export type focus_groupCreateManyInput = {
   id_focus?: number
   id_tecnica: number
-  id_usuario: number
+  id_stakeholder?: number | null
   fecha?: Date | string | null
   duracion?: number | null
   estatus?: string
   tema: string
   conclusiones?: string | null
-  idea?: string | null
 }
 
 export type focus_groupUpdateManyMutationInput = {
@@ -398,74 +388,17 @@ export type focus_groupUpdateManyMutationInput = {
   estatus?: Prisma.StringFieldUpdateOperationsInput | string
   tema?: Prisma.StringFieldUpdateOperationsInput | string
   conclusiones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  idea?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type focus_groupUncheckedUpdateManyInput = {
   id_focus?: Prisma.IntFieldUpdateOperationsInput | number
   id_tecnica?: Prisma.IntFieldUpdateOperationsInput | number
-  id_usuario?: Prisma.IntFieldUpdateOperationsInput | number
+  id_stakeholder?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   fecha?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   duracion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   estatus?: Prisma.StringFieldUpdateOperationsInput | string
   tema?: Prisma.StringFieldUpdateOperationsInput | string
   conclusiones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  idea?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-}
-
-export type focus_groupCountOrderByAggregateInput = {
-  id_focus?: Prisma.SortOrder
-  id_tecnica?: Prisma.SortOrder
-  id_usuario?: Prisma.SortOrder
-  fecha?: Prisma.SortOrder
-  duracion?: Prisma.SortOrder
-  estatus?: Prisma.SortOrder
-  tema?: Prisma.SortOrder
-  conclusiones?: Prisma.SortOrder
-  idea?: Prisma.SortOrder
-}
-
-export type focus_groupAvgOrderByAggregateInput = {
-  id_focus?: Prisma.SortOrder
-  id_tecnica?: Prisma.SortOrder
-  id_usuario?: Prisma.SortOrder
-  duracion?: Prisma.SortOrder
-}
-
-export type focus_groupMaxOrderByAggregateInput = {
-  id_focus?: Prisma.SortOrder
-  id_tecnica?: Prisma.SortOrder
-  id_usuario?: Prisma.SortOrder
-  fecha?: Prisma.SortOrder
-  duracion?: Prisma.SortOrder
-  estatus?: Prisma.SortOrder
-  tema?: Prisma.SortOrder
-  conclusiones?: Prisma.SortOrder
-  idea?: Prisma.SortOrder
-}
-
-export type focus_groupMinOrderByAggregateInput = {
-  id_focus?: Prisma.SortOrder
-  id_tecnica?: Prisma.SortOrder
-  id_usuario?: Prisma.SortOrder
-  fecha?: Prisma.SortOrder
-  duracion?: Prisma.SortOrder
-  estatus?: Prisma.SortOrder
-  tema?: Prisma.SortOrder
-  conclusiones?: Prisma.SortOrder
-  idea?: Prisma.SortOrder
-}
-
-export type focus_groupSumOrderByAggregateInput = {
-  id_focus?: Prisma.SortOrder
-  id_tecnica?: Prisma.SortOrder
-  id_usuario?: Prisma.SortOrder
-  duracion?: Prisma.SortOrder
-}
-
-export type Focus_groupScalarRelationFilter = {
-  is?: Prisma.focus_groupWhereInput
-  isNot?: Prisma.focus_groupWhereInput
 }
 
 export type Focus_groupListRelationFilter = {
@@ -478,213 +411,224 @@ export type focus_groupOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
-export type focus_groupCreateNestedOneWithoutParticipantesInput = {
-  create?: Prisma.XOR<Prisma.focus_groupCreateWithoutParticipantesInput, Prisma.focus_groupUncheckedCreateWithoutParticipantesInput>
-  connectOrCreate?: Prisma.focus_groupCreateOrConnectWithoutParticipantesInput
+export type focus_groupCountOrderByAggregateInput = {
+  id_focus?: Prisma.SortOrder
+  id_tecnica?: Prisma.SortOrder
+  id_stakeholder?: Prisma.SortOrder
+  fecha?: Prisma.SortOrder
+  duracion?: Prisma.SortOrder
+  estatus?: Prisma.SortOrder
+  tema?: Prisma.SortOrder
+  conclusiones?: Prisma.SortOrder
+}
+
+export type focus_groupAvgOrderByAggregateInput = {
+  id_focus?: Prisma.SortOrder
+  id_tecnica?: Prisma.SortOrder
+  id_stakeholder?: Prisma.SortOrder
+  duracion?: Prisma.SortOrder
+}
+
+export type focus_groupMaxOrderByAggregateInput = {
+  id_focus?: Prisma.SortOrder
+  id_tecnica?: Prisma.SortOrder
+  id_stakeholder?: Prisma.SortOrder
+  fecha?: Prisma.SortOrder
+  duracion?: Prisma.SortOrder
+  estatus?: Prisma.SortOrder
+  tema?: Prisma.SortOrder
+  conclusiones?: Prisma.SortOrder
+}
+
+export type focus_groupMinOrderByAggregateInput = {
+  id_focus?: Prisma.SortOrder
+  id_tecnica?: Prisma.SortOrder
+  id_stakeholder?: Prisma.SortOrder
+  fecha?: Prisma.SortOrder
+  duracion?: Prisma.SortOrder
+  estatus?: Prisma.SortOrder
+  tema?: Prisma.SortOrder
+  conclusiones?: Prisma.SortOrder
+}
+
+export type focus_groupSumOrderByAggregateInput = {
+  id_focus?: Prisma.SortOrder
+  id_tecnica?: Prisma.SortOrder
+  id_stakeholder?: Prisma.SortOrder
+  duracion?: Prisma.SortOrder
+}
+
+export type Focus_groupNullableScalarRelationFilter = {
+  is?: Prisma.focus_groupWhereInput | null
+  isNot?: Prisma.focus_groupWhereInput | null
+}
+
+export type Focus_groupScalarRelationFilter = {
+  is?: Prisma.focus_groupWhereInput
+  isNot?: Prisma.focus_groupWhereInput
+}
+
+export type focus_groupCreateNestedManyWithoutStakeholderInput = {
+  create?: Prisma.XOR<Prisma.focus_groupCreateWithoutStakeholderInput, Prisma.focus_groupUncheckedCreateWithoutStakeholderInput> | Prisma.focus_groupCreateWithoutStakeholderInput[] | Prisma.focus_groupUncheckedCreateWithoutStakeholderInput[]
+  connectOrCreate?: Prisma.focus_groupCreateOrConnectWithoutStakeholderInput | Prisma.focus_groupCreateOrConnectWithoutStakeholderInput[]
+  createMany?: Prisma.focus_groupCreateManyStakeholderInputEnvelope
+  connect?: Prisma.focus_groupWhereUniqueInput | Prisma.focus_groupWhereUniqueInput[]
+}
+
+export type focus_groupUncheckedCreateNestedManyWithoutStakeholderInput = {
+  create?: Prisma.XOR<Prisma.focus_groupCreateWithoutStakeholderInput, Prisma.focus_groupUncheckedCreateWithoutStakeholderInput> | Prisma.focus_groupCreateWithoutStakeholderInput[] | Prisma.focus_groupUncheckedCreateWithoutStakeholderInput[]
+  connectOrCreate?: Prisma.focus_groupCreateOrConnectWithoutStakeholderInput | Prisma.focus_groupCreateOrConnectWithoutStakeholderInput[]
+  createMany?: Prisma.focus_groupCreateManyStakeholderInputEnvelope
+  connect?: Prisma.focus_groupWhereUniqueInput | Prisma.focus_groupWhereUniqueInput[]
+}
+
+export type focus_groupUpdateManyWithoutStakeholderNestedInput = {
+  create?: Prisma.XOR<Prisma.focus_groupCreateWithoutStakeholderInput, Prisma.focus_groupUncheckedCreateWithoutStakeholderInput> | Prisma.focus_groupCreateWithoutStakeholderInput[] | Prisma.focus_groupUncheckedCreateWithoutStakeholderInput[]
+  connectOrCreate?: Prisma.focus_groupCreateOrConnectWithoutStakeholderInput | Prisma.focus_groupCreateOrConnectWithoutStakeholderInput[]
+  upsert?: Prisma.focus_groupUpsertWithWhereUniqueWithoutStakeholderInput | Prisma.focus_groupUpsertWithWhereUniqueWithoutStakeholderInput[]
+  createMany?: Prisma.focus_groupCreateManyStakeholderInputEnvelope
+  set?: Prisma.focus_groupWhereUniqueInput | Prisma.focus_groupWhereUniqueInput[]
+  disconnect?: Prisma.focus_groupWhereUniqueInput | Prisma.focus_groupWhereUniqueInput[]
+  delete?: Prisma.focus_groupWhereUniqueInput | Prisma.focus_groupWhereUniqueInput[]
+  connect?: Prisma.focus_groupWhereUniqueInput | Prisma.focus_groupWhereUniqueInput[]
+  update?: Prisma.focus_groupUpdateWithWhereUniqueWithoutStakeholderInput | Prisma.focus_groupUpdateWithWhereUniqueWithoutStakeholderInput[]
+  updateMany?: Prisma.focus_groupUpdateManyWithWhereWithoutStakeholderInput | Prisma.focus_groupUpdateManyWithWhereWithoutStakeholderInput[]
+  deleteMany?: Prisma.focus_groupScalarWhereInput | Prisma.focus_groupScalarWhereInput[]
+}
+
+export type focus_groupUncheckedUpdateManyWithoutStakeholderNestedInput = {
+  create?: Prisma.XOR<Prisma.focus_groupCreateWithoutStakeholderInput, Prisma.focus_groupUncheckedCreateWithoutStakeholderInput> | Prisma.focus_groupCreateWithoutStakeholderInput[] | Prisma.focus_groupUncheckedCreateWithoutStakeholderInput[]
+  connectOrCreate?: Prisma.focus_groupCreateOrConnectWithoutStakeholderInput | Prisma.focus_groupCreateOrConnectWithoutStakeholderInput[]
+  upsert?: Prisma.focus_groupUpsertWithWhereUniqueWithoutStakeholderInput | Prisma.focus_groupUpsertWithWhereUniqueWithoutStakeholderInput[]
+  createMany?: Prisma.focus_groupCreateManyStakeholderInputEnvelope
+  set?: Prisma.focus_groupWhereUniqueInput | Prisma.focus_groupWhereUniqueInput[]
+  disconnect?: Prisma.focus_groupWhereUniqueInput | Prisma.focus_groupWhereUniqueInput[]
+  delete?: Prisma.focus_groupWhereUniqueInput | Prisma.focus_groupWhereUniqueInput[]
+  connect?: Prisma.focus_groupWhereUniqueInput | Prisma.focus_groupWhereUniqueInput[]
+  update?: Prisma.focus_groupUpdateWithWhereUniqueWithoutStakeholderInput | Prisma.focus_groupUpdateWithWhereUniqueWithoutStakeholderInput[]
+  updateMany?: Prisma.focus_groupUpdateManyWithWhereWithoutStakeholderInput | Prisma.focus_groupUpdateManyWithWhereWithoutStakeholderInput[]
+  deleteMany?: Prisma.focus_groupScalarWhereInput | Prisma.focus_groupScalarWhereInput[]
+}
+
+export type focus_groupCreateNestedManyWithoutTecnica_recoleccionInput = {
+  create?: Prisma.XOR<Prisma.focus_groupCreateWithoutTecnica_recoleccionInput, Prisma.focus_groupUncheckedCreateWithoutTecnica_recoleccionInput> | Prisma.focus_groupCreateWithoutTecnica_recoleccionInput[] | Prisma.focus_groupUncheckedCreateWithoutTecnica_recoleccionInput[]
+  connectOrCreate?: Prisma.focus_groupCreateOrConnectWithoutTecnica_recoleccionInput | Prisma.focus_groupCreateOrConnectWithoutTecnica_recoleccionInput[]
+  createMany?: Prisma.focus_groupCreateManyTecnica_recoleccionInputEnvelope
+  connect?: Prisma.focus_groupWhereUniqueInput | Prisma.focus_groupWhereUniqueInput[]
+}
+
+export type focus_groupUncheckedCreateNestedManyWithoutTecnica_recoleccionInput = {
+  create?: Prisma.XOR<Prisma.focus_groupCreateWithoutTecnica_recoleccionInput, Prisma.focus_groupUncheckedCreateWithoutTecnica_recoleccionInput> | Prisma.focus_groupCreateWithoutTecnica_recoleccionInput[] | Prisma.focus_groupUncheckedCreateWithoutTecnica_recoleccionInput[]
+  connectOrCreate?: Prisma.focus_groupCreateOrConnectWithoutTecnica_recoleccionInput | Prisma.focus_groupCreateOrConnectWithoutTecnica_recoleccionInput[]
+  createMany?: Prisma.focus_groupCreateManyTecnica_recoleccionInputEnvelope
+  connect?: Prisma.focus_groupWhereUniqueInput | Prisma.focus_groupWhereUniqueInput[]
+}
+
+export type focus_groupUpdateManyWithoutTecnica_recoleccionNestedInput = {
+  create?: Prisma.XOR<Prisma.focus_groupCreateWithoutTecnica_recoleccionInput, Prisma.focus_groupUncheckedCreateWithoutTecnica_recoleccionInput> | Prisma.focus_groupCreateWithoutTecnica_recoleccionInput[] | Prisma.focus_groupUncheckedCreateWithoutTecnica_recoleccionInput[]
+  connectOrCreate?: Prisma.focus_groupCreateOrConnectWithoutTecnica_recoleccionInput | Prisma.focus_groupCreateOrConnectWithoutTecnica_recoleccionInput[]
+  upsert?: Prisma.focus_groupUpsertWithWhereUniqueWithoutTecnica_recoleccionInput | Prisma.focus_groupUpsertWithWhereUniqueWithoutTecnica_recoleccionInput[]
+  createMany?: Prisma.focus_groupCreateManyTecnica_recoleccionInputEnvelope
+  set?: Prisma.focus_groupWhereUniqueInput | Prisma.focus_groupWhereUniqueInput[]
+  disconnect?: Prisma.focus_groupWhereUniqueInput | Prisma.focus_groupWhereUniqueInput[]
+  delete?: Prisma.focus_groupWhereUniqueInput | Prisma.focus_groupWhereUniqueInput[]
+  connect?: Prisma.focus_groupWhereUniqueInput | Prisma.focus_groupWhereUniqueInput[]
+  update?: Prisma.focus_groupUpdateWithWhereUniqueWithoutTecnica_recoleccionInput | Prisma.focus_groupUpdateWithWhereUniqueWithoutTecnica_recoleccionInput[]
+  updateMany?: Prisma.focus_groupUpdateManyWithWhereWithoutTecnica_recoleccionInput | Prisma.focus_groupUpdateManyWithWhereWithoutTecnica_recoleccionInput[]
+  deleteMany?: Prisma.focus_groupScalarWhereInput | Prisma.focus_groupScalarWhereInput[]
+}
+
+export type focus_groupUncheckedUpdateManyWithoutTecnica_recoleccionNestedInput = {
+  create?: Prisma.XOR<Prisma.focus_groupCreateWithoutTecnica_recoleccionInput, Prisma.focus_groupUncheckedCreateWithoutTecnica_recoleccionInput> | Prisma.focus_groupCreateWithoutTecnica_recoleccionInput[] | Prisma.focus_groupUncheckedCreateWithoutTecnica_recoleccionInput[]
+  connectOrCreate?: Prisma.focus_groupCreateOrConnectWithoutTecnica_recoleccionInput | Prisma.focus_groupCreateOrConnectWithoutTecnica_recoleccionInput[]
+  upsert?: Prisma.focus_groupUpsertWithWhereUniqueWithoutTecnica_recoleccionInput | Prisma.focus_groupUpsertWithWhereUniqueWithoutTecnica_recoleccionInput[]
+  createMany?: Prisma.focus_groupCreateManyTecnica_recoleccionInputEnvelope
+  set?: Prisma.focus_groupWhereUniqueInput | Prisma.focus_groupWhereUniqueInput[]
+  disconnect?: Prisma.focus_groupWhereUniqueInput | Prisma.focus_groupWhereUniqueInput[]
+  delete?: Prisma.focus_groupWhereUniqueInput | Prisma.focus_groupWhereUniqueInput[]
+  connect?: Prisma.focus_groupWhereUniqueInput | Prisma.focus_groupWhereUniqueInput[]
+  update?: Prisma.focus_groupUpdateWithWhereUniqueWithoutTecnica_recoleccionInput | Prisma.focus_groupUpdateWithWhereUniqueWithoutTecnica_recoleccionInput[]
+  updateMany?: Prisma.focus_groupUpdateManyWithWhereWithoutTecnica_recoleccionInput | Prisma.focus_groupUpdateManyWithWhereWithoutTecnica_recoleccionInput[]
+  deleteMany?: Prisma.focus_groupScalarWhereInput | Prisma.focus_groupScalarWhereInput[]
+}
+
+export type focus_groupCreateNestedOneWithoutIdea_generadaInput = {
+  create?: Prisma.XOR<Prisma.focus_groupCreateWithoutIdea_generadaInput, Prisma.focus_groupUncheckedCreateWithoutIdea_generadaInput>
+  connectOrCreate?: Prisma.focus_groupCreateOrConnectWithoutIdea_generadaInput
   connect?: Prisma.focus_groupWhereUniqueInput
 }
 
-export type focus_groupUpdateOneRequiredWithoutParticipantesNestedInput = {
-  create?: Prisma.XOR<Prisma.focus_groupCreateWithoutParticipantesInput, Prisma.focus_groupUncheckedCreateWithoutParticipantesInput>
-  connectOrCreate?: Prisma.focus_groupCreateOrConnectWithoutParticipantesInput
-  upsert?: Prisma.focus_groupUpsertWithoutParticipantesInput
+export type focus_groupUpdateOneWithoutIdea_generadaNestedInput = {
+  create?: Prisma.XOR<Prisma.focus_groupCreateWithoutIdea_generadaInput, Prisma.focus_groupUncheckedCreateWithoutIdea_generadaInput>
+  connectOrCreate?: Prisma.focus_groupCreateOrConnectWithoutIdea_generadaInput
+  upsert?: Prisma.focus_groupUpsertWithoutIdea_generadaInput
+  disconnect?: Prisma.focus_groupWhereInput | boolean
+  delete?: Prisma.focus_groupWhereInput | boolean
   connect?: Prisma.focus_groupWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.focus_groupUpdateToOneWithWhereWithoutParticipantesInput, Prisma.focus_groupUpdateWithoutParticipantesInput>, Prisma.focus_groupUncheckedUpdateWithoutParticipantesInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.focus_groupUpdateToOneWithWhereWithoutIdea_generadaInput, Prisma.focus_groupUpdateWithoutIdea_generadaInput>, Prisma.focus_groupUncheckedUpdateWithoutIdea_generadaInput>
 }
 
-export type focus_groupCreateNestedManyWithoutTecnicaInput = {
-  create?: Prisma.XOR<Prisma.focus_groupCreateWithoutTecnicaInput, Prisma.focus_groupUncheckedCreateWithoutTecnicaInput> | Prisma.focus_groupCreateWithoutTecnicaInput[] | Prisma.focus_groupUncheckedCreateWithoutTecnicaInput[]
-  connectOrCreate?: Prisma.focus_groupCreateOrConnectWithoutTecnicaInput | Prisma.focus_groupCreateOrConnectWithoutTecnicaInput[]
-  createMany?: Prisma.focus_groupCreateManyTecnicaInputEnvelope
-  connect?: Prisma.focus_groupWhereUniqueInput | Prisma.focus_groupWhereUniqueInput[]
+export type focus_groupCreateNestedOneWithoutParticipante_focus_groupInput = {
+  create?: Prisma.XOR<Prisma.focus_groupCreateWithoutParticipante_focus_groupInput, Prisma.focus_groupUncheckedCreateWithoutParticipante_focus_groupInput>
+  connectOrCreate?: Prisma.focus_groupCreateOrConnectWithoutParticipante_focus_groupInput
+  connect?: Prisma.focus_groupWhereUniqueInput
 }
 
-export type focus_groupUncheckedCreateNestedManyWithoutTecnicaInput = {
-  create?: Prisma.XOR<Prisma.focus_groupCreateWithoutTecnicaInput, Prisma.focus_groupUncheckedCreateWithoutTecnicaInput> | Prisma.focus_groupCreateWithoutTecnicaInput[] | Prisma.focus_groupUncheckedCreateWithoutTecnicaInput[]
-  connectOrCreate?: Prisma.focus_groupCreateOrConnectWithoutTecnicaInput | Prisma.focus_groupCreateOrConnectWithoutTecnicaInput[]
-  createMany?: Prisma.focus_groupCreateManyTecnicaInputEnvelope
-  connect?: Prisma.focus_groupWhereUniqueInput | Prisma.focus_groupWhereUniqueInput[]
+export type focus_groupUpdateOneRequiredWithoutParticipante_focus_groupNestedInput = {
+  create?: Prisma.XOR<Prisma.focus_groupCreateWithoutParticipante_focus_groupInput, Prisma.focus_groupUncheckedCreateWithoutParticipante_focus_groupInput>
+  connectOrCreate?: Prisma.focus_groupCreateOrConnectWithoutParticipante_focus_groupInput
+  upsert?: Prisma.focus_groupUpsertWithoutParticipante_focus_groupInput
+  connect?: Prisma.focus_groupWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.focus_groupUpdateToOneWithWhereWithoutParticipante_focus_groupInput, Prisma.focus_groupUpdateWithoutParticipante_focus_groupInput>, Prisma.focus_groupUncheckedUpdateWithoutParticipante_focus_groupInput>
 }
 
-export type focus_groupUpdateManyWithoutTecnicaNestedInput = {
-  create?: Prisma.XOR<Prisma.focus_groupCreateWithoutTecnicaInput, Prisma.focus_groupUncheckedCreateWithoutTecnicaInput> | Prisma.focus_groupCreateWithoutTecnicaInput[] | Prisma.focus_groupUncheckedCreateWithoutTecnicaInput[]
-  connectOrCreate?: Prisma.focus_groupCreateOrConnectWithoutTecnicaInput | Prisma.focus_groupCreateOrConnectWithoutTecnicaInput[]
-  upsert?: Prisma.focus_groupUpsertWithWhereUniqueWithoutTecnicaInput | Prisma.focus_groupUpsertWithWhereUniqueWithoutTecnicaInput[]
-  createMany?: Prisma.focus_groupCreateManyTecnicaInputEnvelope
-  set?: Prisma.focus_groupWhereUniqueInput | Prisma.focus_groupWhereUniqueInput[]
-  disconnect?: Prisma.focus_groupWhereUniqueInput | Prisma.focus_groupWhereUniqueInput[]
-  delete?: Prisma.focus_groupWhereUniqueInput | Prisma.focus_groupWhereUniqueInput[]
-  connect?: Prisma.focus_groupWhereUniqueInput | Prisma.focus_groupWhereUniqueInput[]
-  update?: Prisma.focus_groupUpdateWithWhereUniqueWithoutTecnicaInput | Prisma.focus_groupUpdateWithWhereUniqueWithoutTecnicaInput[]
-  updateMany?: Prisma.focus_groupUpdateManyWithWhereWithoutTecnicaInput | Prisma.focus_groupUpdateManyWithWhereWithoutTecnicaInput[]
-  deleteMany?: Prisma.focus_groupScalarWhereInput | Prisma.focus_groupScalarWhereInput[]
-}
-
-export type focus_groupUncheckedUpdateManyWithoutTecnicaNestedInput = {
-  create?: Prisma.XOR<Prisma.focus_groupCreateWithoutTecnicaInput, Prisma.focus_groupUncheckedCreateWithoutTecnicaInput> | Prisma.focus_groupCreateWithoutTecnicaInput[] | Prisma.focus_groupUncheckedCreateWithoutTecnicaInput[]
-  connectOrCreate?: Prisma.focus_groupCreateOrConnectWithoutTecnicaInput | Prisma.focus_groupCreateOrConnectWithoutTecnicaInput[]
-  upsert?: Prisma.focus_groupUpsertWithWhereUniqueWithoutTecnicaInput | Prisma.focus_groupUpsertWithWhereUniqueWithoutTecnicaInput[]
-  createMany?: Prisma.focus_groupCreateManyTecnicaInputEnvelope
-  set?: Prisma.focus_groupWhereUniqueInput | Prisma.focus_groupWhereUniqueInput[]
-  disconnect?: Prisma.focus_groupWhereUniqueInput | Prisma.focus_groupWhereUniqueInput[]
-  delete?: Prisma.focus_groupWhereUniqueInput | Prisma.focus_groupWhereUniqueInput[]
-  connect?: Prisma.focus_groupWhereUniqueInput | Prisma.focus_groupWhereUniqueInput[]
-  update?: Prisma.focus_groupUpdateWithWhereUniqueWithoutTecnicaInput | Prisma.focus_groupUpdateWithWhereUniqueWithoutTecnicaInput[]
-  updateMany?: Prisma.focus_groupUpdateManyWithWhereWithoutTecnicaInput | Prisma.focus_groupUpdateManyWithWhereWithoutTecnicaInput[]
-  deleteMany?: Prisma.focus_groupScalarWhereInput | Prisma.focus_groupScalarWhereInput[]
-}
-
-export type focus_groupCreateNestedManyWithoutUsuarioInput = {
-  create?: Prisma.XOR<Prisma.focus_groupCreateWithoutUsuarioInput, Prisma.focus_groupUncheckedCreateWithoutUsuarioInput> | Prisma.focus_groupCreateWithoutUsuarioInput[] | Prisma.focus_groupUncheckedCreateWithoutUsuarioInput[]
-  connectOrCreate?: Prisma.focus_groupCreateOrConnectWithoutUsuarioInput | Prisma.focus_groupCreateOrConnectWithoutUsuarioInput[]
-  createMany?: Prisma.focus_groupCreateManyUsuarioInputEnvelope
-  connect?: Prisma.focus_groupWhereUniqueInput | Prisma.focus_groupWhereUniqueInput[]
-}
-
-export type focus_groupUncheckedCreateNestedManyWithoutUsuarioInput = {
-  create?: Prisma.XOR<Prisma.focus_groupCreateWithoutUsuarioInput, Prisma.focus_groupUncheckedCreateWithoutUsuarioInput> | Prisma.focus_groupCreateWithoutUsuarioInput[] | Prisma.focus_groupUncheckedCreateWithoutUsuarioInput[]
-  connectOrCreate?: Prisma.focus_groupCreateOrConnectWithoutUsuarioInput | Prisma.focus_groupCreateOrConnectWithoutUsuarioInput[]
-  createMany?: Prisma.focus_groupCreateManyUsuarioInputEnvelope
-  connect?: Prisma.focus_groupWhereUniqueInput | Prisma.focus_groupWhereUniqueInput[]
-}
-
-export type focus_groupUpdateManyWithoutUsuarioNestedInput = {
-  create?: Prisma.XOR<Prisma.focus_groupCreateWithoutUsuarioInput, Prisma.focus_groupUncheckedCreateWithoutUsuarioInput> | Prisma.focus_groupCreateWithoutUsuarioInput[] | Prisma.focus_groupUncheckedCreateWithoutUsuarioInput[]
-  connectOrCreate?: Prisma.focus_groupCreateOrConnectWithoutUsuarioInput | Prisma.focus_groupCreateOrConnectWithoutUsuarioInput[]
-  upsert?: Prisma.focus_groupUpsertWithWhereUniqueWithoutUsuarioInput | Prisma.focus_groupUpsertWithWhereUniqueWithoutUsuarioInput[]
-  createMany?: Prisma.focus_groupCreateManyUsuarioInputEnvelope
-  set?: Prisma.focus_groupWhereUniqueInput | Prisma.focus_groupWhereUniqueInput[]
-  disconnect?: Prisma.focus_groupWhereUniqueInput | Prisma.focus_groupWhereUniqueInput[]
-  delete?: Prisma.focus_groupWhereUniqueInput | Prisma.focus_groupWhereUniqueInput[]
-  connect?: Prisma.focus_groupWhereUniqueInput | Prisma.focus_groupWhereUniqueInput[]
-  update?: Prisma.focus_groupUpdateWithWhereUniqueWithoutUsuarioInput | Prisma.focus_groupUpdateWithWhereUniqueWithoutUsuarioInput[]
-  updateMany?: Prisma.focus_groupUpdateManyWithWhereWithoutUsuarioInput | Prisma.focus_groupUpdateManyWithWhereWithoutUsuarioInput[]
-  deleteMany?: Prisma.focus_groupScalarWhereInput | Prisma.focus_groupScalarWhereInput[]
-}
-
-export type focus_groupUncheckedUpdateManyWithoutUsuarioNestedInput = {
-  create?: Prisma.XOR<Prisma.focus_groupCreateWithoutUsuarioInput, Prisma.focus_groupUncheckedCreateWithoutUsuarioInput> | Prisma.focus_groupCreateWithoutUsuarioInput[] | Prisma.focus_groupUncheckedCreateWithoutUsuarioInput[]
-  connectOrCreate?: Prisma.focus_groupCreateOrConnectWithoutUsuarioInput | Prisma.focus_groupCreateOrConnectWithoutUsuarioInput[]
-  upsert?: Prisma.focus_groupUpsertWithWhereUniqueWithoutUsuarioInput | Prisma.focus_groupUpsertWithWhereUniqueWithoutUsuarioInput[]
-  createMany?: Prisma.focus_groupCreateManyUsuarioInputEnvelope
-  set?: Prisma.focus_groupWhereUniqueInput | Prisma.focus_groupWhereUniqueInput[]
-  disconnect?: Prisma.focus_groupWhereUniqueInput | Prisma.focus_groupWhereUniqueInput[]
-  delete?: Prisma.focus_groupWhereUniqueInput | Prisma.focus_groupWhereUniqueInput[]
-  connect?: Prisma.focus_groupWhereUniqueInput | Prisma.focus_groupWhereUniqueInput[]
-  update?: Prisma.focus_groupUpdateWithWhereUniqueWithoutUsuarioInput | Prisma.focus_groupUpdateWithWhereUniqueWithoutUsuarioInput[]
-  updateMany?: Prisma.focus_groupUpdateManyWithWhereWithoutUsuarioInput | Prisma.focus_groupUpdateManyWithWhereWithoutUsuarioInput[]
-  deleteMany?: Prisma.focus_groupScalarWhereInput | Prisma.focus_groupScalarWhereInput[]
-}
-
-export type focus_groupCreateWithoutParticipantesInput = {
+export type focus_groupCreateWithoutStakeholderInput = {
   fecha?: Date | string | null
   duracion?: number | null
   estatus?: string
   tema: string
   conclusiones?: string | null
-  idea?: string | null
-  tecnica: Prisma.tecnica_recoleccionCreateNestedOneWithoutFocus_groupInput
-  usuario: Prisma.usuarioCreateNestedOneWithoutFocus_groupInput
+  tecnica_recoleccion: Prisma.tecnica_recoleccionCreateNestedOneWithoutFocus_groupInput
+  idea_generada?: Prisma.idea_generadaCreateNestedManyWithoutFocus_groupInput
+  participante_focus_group?: Prisma.participante_focus_groupCreateNestedManyWithoutFocus_groupInput
 }
 
-export type focus_groupUncheckedCreateWithoutParticipantesInput = {
+export type focus_groupUncheckedCreateWithoutStakeholderInput = {
   id_focus?: number
   id_tecnica: number
-  id_usuario: number
   fecha?: Date | string | null
   duracion?: number | null
   estatus?: string
   tema: string
   conclusiones?: string | null
-  idea?: string | null
+  idea_generada?: Prisma.idea_generadaUncheckedCreateNestedManyWithoutFocus_groupInput
+  participante_focus_group?: Prisma.participante_focus_groupUncheckedCreateNestedManyWithoutFocus_groupInput
 }
 
-export type focus_groupCreateOrConnectWithoutParticipantesInput = {
+export type focus_groupCreateOrConnectWithoutStakeholderInput = {
   where: Prisma.focus_groupWhereUniqueInput
-  create: Prisma.XOR<Prisma.focus_groupCreateWithoutParticipantesInput, Prisma.focus_groupUncheckedCreateWithoutParticipantesInput>
+  create: Prisma.XOR<Prisma.focus_groupCreateWithoutStakeholderInput, Prisma.focus_groupUncheckedCreateWithoutStakeholderInput>
 }
 
-export type focus_groupUpsertWithoutParticipantesInput = {
-  update: Prisma.XOR<Prisma.focus_groupUpdateWithoutParticipantesInput, Prisma.focus_groupUncheckedUpdateWithoutParticipantesInput>
-  create: Prisma.XOR<Prisma.focus_groupCreateWithoutParticipantesInput, Prisma.focus_groupUncheckedCreateWithoutParticipantesInput>
-  where?: Prisma.focus_groupWhereInput
-}
-
-export type focus_groupUpdateToOneWithWhereWithoutParticipantesInput = {
-  where?: Prisma.focus_groupWhereInput
-  data: Prisma.XOR<Prisma.focus_groupUpdateWithoutParticipantesInput, Prisma.focus_groupUncheckedUpdateWithoutParticipantesInput>
-}
-
-export type focus_groupUpdateWithoutParticipantesInput = {
-  fecha?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  duracion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  estatus?: Prisma.StringFieldUpdateOperationsInput | string
-  tema?: Prisma.StringFieldUpdateOperationsInput | string
-  conclusiones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  idea?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  tecnica?: Prisma.tecnica_recoleccionUpdateOneRequiredWithoutFocus_groupNestedInput
-  usuario?: Prisma.usuarioUpdateOneRequiredWithoutFocus_groupNestedInput
-}
-
-export type focus_groupUncheckedUpdateWithoutParticipantesInput = {
-  id_focus?: Prisma.IntFieldUpdateOperationsInput | number
-  id_tecnica?: Prisma.IntFieldUpdateOperationsInput | number
-  id_usuario?: Prisma.IntFieldUpdateOperationsInput | number
-  fecha?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  duracion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  estatus?: Prisma.StringFieldUpdateOperationsInput | string
-  tema?: Prisma.StringFieldUpdateOperationsInput | string
-  conclusiones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  idea?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-}
-
-export type focus_groupCreateWithoutTecnicaInput = {
-  fecha?: Date | string | null
-  duracion?: number | null
-  estatus?: string
-  tema: string
-  conclusiones?: string | null
-  idea?: string | null
-  usuario: Prisma.usuarioCreateNestedOneWithoutFocus_groupInput
-  participantes?: Prisma.participante_focus_groupCreateNestedManyWithoutFocus_groupInput
-}
-
-export type focus_groupUncheckedCreateWithoutTecnicaInput = {
-  id_focus?: number
-  id_usuario: number
-  fecha?: Date | string | null
-  duracion?: number | null
-  estatus?: string
-  tema: string
-  conclusiones?: string | null
-  idea?: string | null
-  participantes?: Prisma.participante_focus_groupUncheckedCreateNestedManyWithoutFocus_groupInput
-}
-
-export type focus_groupCreateOrConnectWithoutTecnicaInput = {
-  where: Prisma.focus_groupWhereUniqueInput
-  create: Prisma.XOR<Prisma.focus_groupCreateWithoutTecnicaInput, Prisma.focus_groupUncheckedCreateWithoutTecnicaInput>
-}
-
-export type focus_groupCreateManyTecnicaInputEnvelope = {
-  data: Prisma.focus_groupCreateManyTecnicaInput | Prisma.focus_groupCreateManyTecnicaInput[]
+export type focus_groupCreateManyStakeholderInputEnvelope = {
+  data: Prisma.focus_groupCreateManyStakeholderInput | Prisma.focus_groupCreateManyStakeholderInput[]
   skipDuplicates?: boolean
 }
 
-export type focus_groupUpsertWithWhereUniqueWithoutTecnicaInput = {
+export type focus_groupUpsertWithWhereUniqueWithoutStakeholderInput = {
   where: Prisma.focus_groupWhereUniqueInput
-  update: Prisma.XOR<Prisma.focus_groupUpdateWithoutTecnicaInput, Prisma.focus_groupUncheckedUpdateWithoutTecnicaInput>
-  create: Prisma.XOR<Prisma.focus_groupCreateWithoutTecnicaInput, Prisma.focus_groupUncheckedCreateWithoutTecnicaInput>
+  update: Prisma.XOR<Prisma.focus_groupUpdateWithoutStakeholderInput, Prisma.focus_groupUncheckedUpdateWithoutStakeholderInput>
+  create: Prisma.XOR<Prisma.focus_groupCreateWithoutStakeholderInput, Prisma.focus_groupUncheckedCreateWithoutStakeholderInput>
 }
 
-export type focus_groupUpdateWithWhereUniqueWithoutTecnicaInput = {
+export type focus_groupUpdateWithWhereUniqueWithoutStakeholderInput = {
   where: Prisma.focus_groupWhereUniqueInput
-  data: Prisma.XOR<Prisma.focus_groupUpdateWithoutTecnicaInput, Prisma.focus_groupUncheckedUpdateWithoutTecnicaInput>
+  data: Prisma.XOR<Prisma.focus_groupUpdateWithoutStakeholderInput, Prisma.focus_groupUncheckedUpdateWithoutStakeholderInput>
 }
 
-export type focus_groupUpdateManyWithWhereWithoutTecnicaInput = {
+export type focus_groupUpdateManyWithWhereWithoutStakeholderInput = {
   where: Prisma.focus_groupScalarWhereInput
-  data: Prisma.XOR<Prisma.focus_groupUpdateManyMutationInput, Prisma.focus_groupUncheckedUpdateManyWithoutTecnicaInput>
+  data: Prisma.XOR<Prisma.focus_groupUpdateManyMutationInput, Prisma.focus_groupUncheckedUpdateManyWithoutStakeholderInput>
 }
 
 export type focus_groupScalarWhereInput = {
@@ -693,110 +637,188 @@ export type focus_groupScalarWhereInput = {
   NOT?: Prisma.focus_groupScalarWhereInput | Prisma.focus_groupScalarWhereInput[]
   id_focus?: Prisma.IntFilter<"focus_group"> | number
   id_tecnica?: Prisma.IntFilter<"focus_group"> | number
-  id_usuario?: Prisma.IntFilter<"focus_group"> | number
+  id_stakeholder?: Prisma.IntNullableFilter<"focus_group"> | number | null
   fecha?: Prisma.DateTimeNullableFilter<"focus_group"> | Date | string | null
   duracion?: Prisma.IntNullableFilter<"focus_group"> | number | null
   estatus?: Prisma.StringFilter<"focus_group"> | string
   tema?: Prisma.StringFilter<"focus_group"> | string
   conclusiones?: Prisma.StringNullableFilter<"focus_group"> | string | null
-  idea?: Prisma.StringNullableFilter<"focus_group"> | string | null
 }
 
-export type focus_groupCreateWithoutUsuarioInput = {
+export type focus_groupCreateWithoutTecnica_recoleccionInput = {
   fecha?: Date | string | null
   duracion?: number | null
   estatus?: string
   tema: string
   conclusiones?: string | null
-  idea?: string | null
-  tecnica: Prisma.tecnica_recoleccionCreateNestedOneWithoutFocus_groupInput
-  participantes?: Prisma.participante_focus_groupCreateNestedManyWithoutFocus_groupInput
+  stakeholder?: Prisma.stakeholderCreateNestedOneWithoutFocus_groupInput
+  idea_generada?: Prisma.idea_generadaCreateNestedManyWithoutFocus_groupInput
+  participante_focus_group?: Prisma.participante_focus_groupCreateNestedManyWithoutFocus_groupInput
 }
 
-export type focus_groupUncheckedCreateWithoutUsuarioInput = {
+export type focus_groupUncheckedCreateWithoutTecnica_recoleccionInput = {
   id_focus?: number
-  id_tecnica: number
+  id_stakeholder?: number | null
   fecha?: Date | string | null
   duracion?: number | null
   estatus?: string
   tema: string
   conclusiones?: string | null
-  idea?: string | null
-  participantes?: Prisma.participante_focus_groupUncheckedCreateNestedManyWithoutFocus_groupInput
+  idea_generada?: Prisma.idea_generadaUncheckedCreateNestedManyWithoutFocus_groupInput
+  participante_focus_group?: Prisma.participante_focus_groupUncheckedCreateNestedManyWithoutFocus_groupInput
 }
 
-export type focus_groupCreateOrConnectWithoutUsuarioInput = {
+export type focus_groupCreateOrConnectWithoutTecnica_recoleccionInput = {
   where: Prisma.focus_groupWhereUniqueInput
-  create: Prisma.XOR<Prisma.focus_groupCreateWithoutUsuarioInput, Prisma.focus_groupUncheckedCreateWithoutUsuarioInput>
+  create: Prisma.XOR<Prisma.focus_groupCreateWithoutTecnica_recoleccionInput, Prisma.focus_groupUncheckedCreateWithoutTecnica_recoleccionInput>
 }
 
-export type focus_groupCreateManyUsuarioInputEnvelope = {
-  data: Prisma.focus_groupCreateManyUsuarioInput | Prisma.focus_groupCreateManyUsuarioInput[]
+export type focus_groupCreateManyTecnica_recoleccionInputEnvelope = {
+  data: Prisma.focus_groupCreateManyTecnica_recoleccionInput | Prisma.focus_groupCreateManyTecnica_recoleccionInput[]
   skipDuplicates?: boolean
 }
 
-export type focus_groupUpsertWithWhereUniqueWithoutUsuarioInput = {
+export type focus_groupUpsertWithWhereUniqueWithoutTecnica_recoleccionInput = {
   where: Prisma.focus_groupWhereUniqueInput
-  update: Prisma.XOR<Prisma.focus_groupUpdateWithoutUsuarioInput, Prisma.focus_groupUncheckedUpdateWithoutUsuarioInput>
-  create: Prisma.XOR<Prisma.focus_groupCreateWithoutUsuarioInput, Prisma.focus_groupUncheckedCreateWithoutUsuarioInput>
+  update: Prisma.XOR<Prisma.focus_groupUpdateWithoutTecnica_recoleccionInput, Prisma.focus_groupUncheckedUpdateWithoutTecnica_recoleccionInput>
+  create: Prisma.XOR<Prisma.focus_groupCreateWithoutTecnica_recoleccionInput, Prisma.focus_groupUncheckedCreateWithoutTecnica_recoleccionInput>
 }
 
-export type focus_groupUpdateWithWhereUniqueWithoutUsuarioInput = {
+export type focus_groupUpdateWithWhereUniqueWithoutTecnica_recoleccionInput = {
   where: Prisma.focus_groupWhereUniqueInput
-  data: Prisma.XOR<Prisma.focus_groupUpdateWithoutUsuarioInput, Prisma.focus_groupUncheckedUpdateWithoutUsuarioInput>
+  data: Prisma.XOR<Prisma.focus_groupUpdateWithoutTecnica_recoleccionInput, Prisma.focus_groupUncheckedUpdateWithoutTecnica_recoleccionInput>
 }
 
-export type focus_groupUpdateManyWithWhereWithoutUsuarioInput = {
+export type focus_groupUpdateManyWithWhereWithoutTecnica_recoleccionInput = {
   where: Prisma.focus_groupScalarWhereInput
-  data: Prisma.XOR<Prisma.focus_groupUpdateManyMutationInput, Prisma.focus_groupUncheckedUpdateManyWithoutUsuarioInput>
+  data: Prisma.XOR<Prisma.focus_groupUpdateManyMutationInput, Prisma.focus_groupUncheckedUpdateManyWithoutTecnica_recoleccionInput>
 }
 
-export type focus_groupCreateManyTecnicaInput = {
-  id_focus?: number
-  id_usuario: number
+export type focus_groupCreateWithoutIdea_generadaInput = {
   fecha?: Date | string | null
   duracion?: number | null
   estatus?: string
   tema: string
   conclusiones?: string | null
-  idea?: string | null
+  stakeholder?: Prisma.stakeholderCreateNestedOneWithoutFocus_groupInput
+  tecnica_recoleccion: Prisma.tecnica_recoleccionCreateNestedOneWithoutFocus_groupInput
+  participante_focus_group?: Prisma.participante_focus_groupCreateNestedManyWithoutFocus_groupInput
 }
 
-export type focus_groupUpdateWithoutTecnicaInput = {
+export type focus_groupUncheckedCreateWithoutIdea_generadaInput = {
+  id_focus?: number
+  id_tecnica: number
+  id_stakeholder?: number | null
+  fecha?: Date | string | null
+  duracion?: number | null
+  estatus?: string
+  tema: string
+  conclusiones?: string | null
+  participante_focus_group?: Prisma.participante_focus_groupUncheckedCreateNestedManyWithoutFocus_groupInput
+}
+
+export type focus_groupCreateOrConnectWithoutIdea_generadaInput = {
+  where: Prisma.focus_groupWhereUniqueInput
+  create: Prisma.XOR<Prisma.focus_groupCreateWithoutIdea_generadaInput, Prisma.focus_groupUncheckedCreateWithoutIdea_generadaInput>
+}
+
+export type focus_groupUpsertWithoutIdea_generadaInput = {
+  update: Prisma.XOR<Prisma.focus_groupUpdateWithoutIdea_generadaInput, Prisma.focus_groupUncheckedUpdateWithoutIdea_generadaInput>
+  create: Prisma.XOR<Prisma.focus_groupCreateWithoutIdea_generadaInput, Prisma.focus_groupUncheckedCreateWithoutIdea_generadaInput>
+  where?: Prisma.focus_groupWhereInput
+}
+
+export type focus_groupUpdateToOneWithWhereWithoutIdea_generadaInput = {
+  where?: Prisma.focus_groupWhereInput
+  data: Prisma.XOR<Prisma.focus_groupUpdateWithoutIdea_generadaInput, Prisma.focus_groupUncheckedUpdateWithoutIdea_generadaInput>
+}
+
+export type focus_groupUpdateWithoutIdea_generadaInput = {
   fecha?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   duracion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   estatus?: Prisma.StringFieldUpdateOperationsInput | string
   tema?: Prisma.StringFieldUpdateOperationsInput | string
   conclusiones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  idea?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  usuario?: Prisma.usuarioUpdateOneRequiredWithoutFocus_groupNestedInput
-  participantes?: Prisma.participante_focus_groupUpdateManyWithoutFocus_groupNestedInput
+  stakeholder?: Prisma.stakeholderUpdateOneWithoutFocus_groupNestedInput
+  tecnica_recoleccion?: Prisma.tecnica_recoleccionUpdateOneRequiredWithoutFocus_groupNestedInput
+  participante_focus_group?: Prisma.participante_focus_groupUpdateManyWithoutFocus_groupNestedInput
 }
 
-export type focus_groupUncheckedUpdateWithoutTecnicaInput = {
+export type focus_groupUncheckedUpdateWithoutIdea_generadaInput = {
   id_focus?: Prisma.IntFieldUpdateOperationsInput | number
-  id_usuario?: Prisma.IntFieldUpdateOperationsInput | number
+  id_tecnica?: Prisma.IntFieldUpdateOperationsInput | number
+  id_stakeholder?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   fecha?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   duracion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   estatus?: Prisma.StringFieldUpdateOperationsInput | string
   tema?: Prisma.StringFieldUpdateOperationsInput | string
   conclusiones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  idea?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  participantes?: Prisma.participante_focus_groupUncheckedUpdateManyWithoutFocus_groupNestedInput
+  participante_focus_group?: Prisma.participante_focus_groupUncheckedUpdateManyWithoutFocus_groupNestedInput
 }
 
-export type focus_groupUncheckedUpdateManyWithoutTecnicaInput = {
+export type focus_groupCreateWithoutParticipante_focus_groupInput = {
+  fecha?: Date | string | null
+  duracion?: number | null
+  estatus?: string
+  tema: string
+  conclusiones?: string | null
+  stakeholder?: Prisma.stakeholderCreateNestedOneWithoutFocus_groupInput
+  tecnica_recoleccion: Prisma.tecnica_recoleccionCreateNestedOneWithoutFocus_groupInput
+  idea_generada?: Prisma.idea_generadaCreateNestedManyWithoutFocus_groupInput
+}
+
+export type focus_groupUncheckedCreateWithoutParticipante_focus_groupInput = {
+  id_focus?: number
+  id_tecnica: number
+  id_stakeholder?: number | null
+  fecha?: Date | string | null
+  duracion?: number | null
+  estatus?: string
+  tema: string
+  conclusiones?: string | null
+  idea_generada?: Prisma.idea_generadaUncheckedCreateNestedManyWithoutFocus_groupInput
+}
+
+export type focus_groupCreateOrConnectWithoutParticipante_focus_groupInput = {
+  where: Prisma.focus_groupWhereUniqueInput
+  create: Prisma.XOR<Prisma.focus_groupCreateWithoutParticipante_focus_groupInput, Prisma.focus_groupUncheckedCreateWithoutParticipante_focus_groupInput>
+}
+
+export type focus_groupUpsertWithoutParticipante_focus_groupInput = {
+  update: Prisma.XOR<Prisma.focus_groupUpdateWithoutParticipante_focus_groupInput, Prisma.focus_groupUncheckedUpdateWithoutParticipante_focus_groupInput>
+  create: Prisma.XOR<Prisma.focus_groupCreateWithoutParticipante_focus_groupInput, Prisma.focus_groupUncheckedCreateWithoutParticipante_focus_groupInput>
+  where?: Prisma.focus_groupWhereInput
+}
+
+export type focus_groupUpdateToOneWithWhereWithoutParticipante_focus_groupInput = {
+  where?: Prisma.focus_groupWhereInput
+  data: Prisma.XOR<Prisma.focus_groupUpdateWithoutParticipante_focus_groupInput, Prisma.focus_groupUncheckedUpdateWithoutParticipante_focus_groupInput>
+}
+
+export type focus_groupUpdateWithoutParticipante_focus_groupInput = {
+  fecha?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  duracion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  estatus?: Prisma.StringFieldUpdateOperationsInput | string
+  tema?: Prisma.StringFieldUpdateOperationsInput | string
+  conclusiones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stakeholder?: Prisma.stakeholderUpdateOneWithoutFocus_groupNestedInput
+  tecnica_recoleccion?: Prisma.tecnica_recoleccionUpdateOneRequiredWithoutFocus_groupNestedInput
+  idea_generada?: Prisma.idea_generadaUpdateManyWithoutFocus_groupNestedInput
+}
+
+export type focus_groupUncheckedUpdateWithoutParticipante_focus_groupInput = {
   id_focus?: Prisma.IntFieldUpdateOperationsInput | number
-  id_usuario?: Prisma.IntFieldUpdateOperationsInput | number
+  id_tecnica?: Prisma.IntFieldUpdateOperationsInput | number
+  id_stakeholder?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   fecha?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   duracion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   estatus?: Prisma.StringFieldUpdateOperationsInput | string
   tema?: Prisma.StringFieldUpdateOperationsInput | string
   conclusiones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  idea?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  idea_generada?: Prisma.idea_generadaUncheckedUpdateManyWithoutFocus_groupNestedInput
 }
 
-export type focus_groupCreateManyUsuarioInput = {
+export type focus_groupCreateManyStakeholderInput = {
   id_focus?: number
   id_tecnica: number
   fecha?: Date | string | null
@@ -804,21 +826,20 @@ export type focus_groupCreateManyUsuarioInput = {
   estatus?: string
   tema: string
   conclusiones?: string | null
-  idea?: string | null
 }
 
-export type focus_groupUpdateWithoutUsuarioInput = {
+export type focus_groupUpdateWithoutStakeholderInput = {
   fecha?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   duracion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   estatus?: Prisma.StringFieldUpdateOperationsInput | string
   tema?: Prisma.StringFieldUpdateOperationsInput | string
   conclusiones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  idea?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  tecnica?: Prisma.tecnica_recoleccionUpdateOneRequiredWithoutFocus_groupNestedInput
-  participantes?: Prisma.participante_focus_groupUpdateManyWithoutFocus_groupNestedInput
+  tecnica_recoleccion?: Prisma.tecnica_recoleccionUpdateOneRequiredWithoutFocus_groupNestedInput
+  idea_generada?: Prisma.idea_generadaUpdateManyWithoutFocus_groupNestedInput
+  participante_focus_group?: Prisma.participante_focus_groupUpdateManyWithoutFocus_groupNestedInput
 }
 
-export type focus_groupUncheckedUpdateWithoutUsuarioInput = {
+export type focus_groupUncheckedUpdateWithoutStakeholderInput = {
   id_focus?: Prisma.IntFieldUpdateOperationsInput | number
   id_tecnica?: Prisma.IntFieldUpdateOperationsInput | number
   fecha?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -826,11 +847,11 @@ export type focus_groupUncheckedUpdateWithoutUsuarioInput = {
   estatus?: Prisma.StringFieldUpdateOperationsInput | string
   tema?: Prisma.StringFieldUpdateOperationsInput | string
   conclusiones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  idea?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  participantes?: Prisma.participante_focus_groupUncheckedUpdateManyWithoutFocus_groupNestedInput
+  idea_generada?: Prisma.idea_generadaUncheckedUpdateManyWithoutFocus_groupNestedInput
+  participante_focus_group?: Prisma.participante_focus_groupUncheckedUpdateManyWithoutFocus_groupNestedInput
 }
 
-export type focus_groupUncheckedUpdateManyWithoutUsuarioInput = {
+export type focus_groupUncheckedUpdateManyWithoutStakeholderInput = {
   id_focus?: Prisma.IntFieldUpdateOperationsInput | number
   id_tecnica?: Prisma.IntFieldUpdateOperationsInput | number
   fecha?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -838,7 +859,49 @@ export type focus_groupUncheckedUpdateManyWithoutUsuarioInput = {
   estatus?: Prisma.StringFieldUpdateOperationsInput | string
   tema?: Prisma.StringFieldUpdateOperationsInput | string
   conclusiones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  idea?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+}
+
+export type focus_groupCreateManyTecnica_recoleccionInput = {
+  id_focus?: number
+  id_stakeholder?: number | null
+  fecha?: Date | string | null
+  duracion?: number | null
+  estatus?: string
+  tema: string
+  conclusiones?: string | null
+}
+
+export type focus_groupUpdateWithoutTecnica_recoleccionInput = {
+  fecha?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  duracion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  estatus?: Prisma.StringFieldUpdateOperationsInput | string
+  tema?: Prisma.StringFieldUpdateOperationsInput | string
+  conclusiones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stakeholder?: Prisma.stakeholderUpdateOneWithoutFocus_groupNestedInput
+  idea_generada?: Prisma.idea_generadaUpdateManyWithoutFocus_groupNestedInput
+  participante_focus_group?: Prisma.participante_focus_groupUpdateManyWithoutFocus_groupNestedInput
+}
+
+export type focus_groupUncheckedUpdateWithoutTecnica_recoleccionInput = {
+  id_focus?: Prisma.IntFieldUpdateOperationsInput | number
+  id_stakeholder?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fecha?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  duracion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  estatus?: Prisma.StringFieldUpdateOperationsInput | string
+  tema?: Prisma.StringFieldUpdateOperationsInput | string
+  conclusiones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  idea_generada?: Prisma.idea_generadaUncheckedUpdateManyWithoutFocus_groupNestedInput
+  participante_focus_group?: Prisma.participante_focus_groupUncheckedUpdateManyWithoutFocus_groupNestedInput
+}
+
+export type focus_groupUncheckedUpdateManyWithoutTecnica_recoleccionInput = {
+  id_focus?: Prisma.IntFieldUpdateOperationsInput | number
+  id_stakeholder?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  fecha?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  duracion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  estatus?: Prisma.StringFieldUpdateOperationsInput | string
+  tema?: Prisma.StringFieldUpdateOperationsInput | string
+  conclusiones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 
@@ -847,11 +910,13 @@ export type focus_groupUncheckedUpdateManyWithoutUsuarioInput = {
  */
 
 export type Focus_groupCountOutputType = {
-  participantes: number
+  idea_generada: number
+  participante_focus_group: number
 }
 
 export type Focus_groupCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  participantes?: boolean | Focus_groupCountOutputTypeCountParticipantesArgs
+  idea_generada?: boolean | Focus_groupCountOutputTypeCountIdea_generadaArgs
+  participante_focus_group?: boolean | Focus_groupCountOutputTypeCountParticipante_focus_groupArgs
 }
 
 /**
@@ -867,7 +932,14 @@ export type Focus_groupCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.
 /**
  * Focus_groupCountOutputType without action
  */
-export type Focus_groupCountOutputTypeCountParticipantesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type Focus_groupCountOutputTypeCountIdea_generadaArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.idea_generadaWhereInput
+}
+
+/**
+ * Focus_groupCountOutputType without action
+ */
+export type Focus_groupCountOutputTypeCountParticipante_focus_groupArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.participante_focus_groupWhereInput
 }
 
@@ -875,92 +947,90 @@ export type Focus_groupCountOutputTypeCountParticipantesArgs<ExtArgs extends run
 export type focus_groupSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id_focus?: boolean
   id_tecnica?: boolean
-  id_usuario?: boolean
+  id_stakeholder?: boolean
   fecha?: boolean
   duracion?: boolean
   estatus?: boolean
   tema?: boolean
   conclusiones?: boolean
-  idea?: boolean
-  tecnica?: boolean | Prisma.tecnica_recoleccionDefaultArgs<ExtArgs>
-  usuario?: boolean | Prisma.usuarioDefaultArgs<ExtArgs>
-  participantes?: boolean | Prisma.focus_group$participantesArgs<ExtArgs>
+  stakeholder?: boolean | Prisma.focus_group$stakeholderArgs<ExtArgs>
+  tecnica_recoleccion?: boolean | Prisma.tecnica_recoleccionDefaultArgs<ExtArgs>
+  idea_generada?: boolean | Prisma.focus_group$idea_generadaArgs<ExtArgs>
+  participante_focus_group?: boolean | Prisma.focus_group$participante_focus_groupArgs<ExtArgs>
   _count?: boolean | Prisma.Focus_groupCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["focus_group"]>
 
 export type focus_groupSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id_focus?: boolean
   id_tecnica?: boolean
-  id_usuario?: boolean
+  id_stakeholder?: boolean
   fecha?: boolean
   duracion?: boolean
   estatus?: boolean
   tema?: boolean
   conclusiones?: boolean
-  idea?: boolean
-  tecnica?: boolean | Prisma.tecnica_recoleccionDefaultArgs<ExtArgs>
-  usuario?: boolean | Prisma.usuarioDefaultArgs<ExtArgs>
+  stakeholder?: boolean | Prisma.focus_group$stakeholderArgs<ExtArgs>
+  tecnica_recoleccion?: boolean | Prisma.tecnica_recoleccionDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["focus_group"]>
 
 export type focus_groupSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id_focus?: boolean
   id_tecnica?: boolean
-  id_usuario?: boolean
+  id_stakeholder?: boolean
   fecha?: boolean
   duracion?: boolean
   estatus?: boolean
   tema?: boolean
   conclusiones?: boolean
-  idea?: boolean
-  tecnica?: boolean | Prisma.tecnica_recoleccionDefaultArgs<ExtArgs>
-  usuario?: boolean | Prisma.usuarioDefaultArgs<ExtArgs>
+  stakeholder?: boolean | Prisma.focus_group$stakeholderArgs<ExtArgs>
+  tecnica_recoleccion?: boolean | Prisma.tecnica_recoleccionDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["focus_group"]>
 
 export type focus_groupSelectScalar = {
   id_focus?: boolean
   id_tecnica?: boolean
-  id_usuario?: boolean
+  id_stakeholder?: boolean
   fecha?: boolean
   duracion?: boolean
   estatus?: boolean
   tema?: boolean
   conclusiones?: boolean
-  idea?: boolean
 }
 
-export type focus_groupOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id_focus" | "id_tecnica" | "id_usuario" | "fecha" | "duracion" | "estatus" | "tema" | "conclusiones" | "idea", ExtArgs["result"]["focus_group"]>
+export type focus_groupOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id_focus" | "id_tecnica" | "id_stakeholder" | "fecha" | "duracion" | "estatus" | "tema" | "conclusiones", ExtArgs["result"]["focus_group"]>
 export type focus_groupInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  tecnica?: boolean | Prisma.tecnica_recoleccionDefaultArgs<ExtArgs>
-  usuario?: boolean | Prisma.usuarioDefaultArgs<ExtArgs>
-  participantes?: boolean | Prisma.focus_group$participantesArgs<ExtArgs>
+  stakeholder?: boolean | Prisma.focus_group$stakeholderArgs<ExtArgs>
+  tecnica_recoleccion?: boolean | Prisma.tecnica_recoleccionDefaultArgs<ExtArgs>
+  idea_generada?: boolean | Prisma.focus_group$idea_generadaArgs<ExtArgs>
+  participante_focus_group?: boolean | Prisma.focus_group$participante_focus_groupArgs<ExtArgs>
   _count?: boolean | Prisma.Focus_groupCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type focus_groupIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  tecnica?: boolean | Prisma.tecnica_recoleccionDefaultArgs<ExtArgs>
-  usuario?: boolean | Prisma.usuarioDefaultArgs<ExtArgs>
+  stakeholder?: boolean | Prisma.focus_group$stakeholderArgs<ExtArgs>
+  tecnica_recoleccion?: boolean | Prisma.tecnica_recoleccionDefaultArgs<ExtArgs>
 }
 export type focus_groupIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  tecnica?: boolean | Prisma.tecnica_recoleccionDefaultArgs<ExtArgs>
-  usuario?: boolean | Prisma.usuarioDefaultArgs<ExtArgs>
+  stakeholder?: boolean | Prisma.focus_group$stakeholderArgs<ExtArgs>
+  tecnica_recoleccion?: boolean | Prisma.tecnica_recoleccionDefaultArgs<ExtArgs>
 }
 
 export type $focus_groupPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "focus_group"
   objects: {
-    tecnica: Prisma.$tecnica_recoleccionPayload<ExtArgs>
-    usuario: Prisma.$usuarioPayload<ExtArgs>
-    participantes: Prisma.$participante_focus_groupPayload<ExtArgs>[]
+    stakeholder: Prisma.$stakeholderPayload<ExtArgs> | null
+    tecnica_recoleccion: Prisma.$tecnica_recoleccionPayload<ExtArgs>
+    idea_generada: Prisma.$idea_generadaPayload<ExtArgs>[]
+    participante_focus_group: Prisma.$participante_focus_groupPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id_focus: number
     id_tecnica: number
-    id_usuario: number
+    id_stakeholder: number | null
     fecha: Date | null
     duracion: number | null
     estatus: string
     tema: string
     conclusiones: string | null
-    idea: string | null
   }, ExtArgs["result"]["focus_group"]>
   composites: {}
 }
@@ -1355,9 +1425,10 @@ readonly fields: focus_groupFieldRefs;
  */
 export interface Prisma__focus_groupClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  tecnica<T extends Prisma.tecnica_recoleccionDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.tecnica_recoleccionDefaultArgs<ExtArgs>>): Prisma.Prisma__tecnica_recoleccionClient<runtime.Types.Result.GetResult<Prisma.$tecnica_recoleccionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  usuario<T extends Prisma.usuarioDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.usuarioDefaultArgs<ExtArgs>>): Prisma.Prisma__usuarioClient<runtime.Types.Result.GetResult<Prisma.$usuarioPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  participantes<T extends Prisma.focus_group$participantesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.focus_group$participantesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$participante_focus_groupPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  stakeholder<T extends Prisma.focus_group$stakeholderArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.focus_group$stakeholderArgs<ExtArgs>>): Prisma.Prisma__stakeholderClient<runtime.Types.Result.GetResult<Prisma.$stakeholderPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  tecnica_recoleccion<T extends Prisma.tecnica_recoleccionDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.tecnica_recoleccionDefaultArgs<ExtArgs>>): Prisma.Prisma__tecnica_recoleccionClient<runtime.Types.Result.GetResult<Prisma.$tecnica_recoleccionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  idea_generada<T extends Prisma.focus_group$idea_generadaArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.focus_group$idea_generadaArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$idea_generadaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  participante_focus_group<T extends Prisma.focus_group$participante_focus_groupArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.focus_group$participante_focus_groupArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$participante_focus_groupPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1389,13 +1460,12 @@ export interface Prisma__focus_groupClient<T, Null = never, ExtArgs extends runt
 export interface focus_groupFieldRefs {
   readonly id_focus: Prisma.FieldRef<"focus_group", 'Int'>
   readonly id_tecnica: Prisma.FieldRef<"focus_group", 'Int'>
-  readonly id_usuario: Prisma.FieldRef<"focus_group", 'Int'>
+  readonly id_stakeholder: Prisma.FieldRef<"focus_group", 'Int'>
   readonly fecha: Prisma.FieldRef<"focus_group", 'DateTime'>
   readonly duracion: Prisma.FieldRef<"focus_group", 'Int'>
   readonly estatus: Prisma.FieldRef<"focus_group", 'String'>
   readonly tema: Prisma.FieldRef<"focus_group", 'String'>
   readonly conclusiones: Prisma.FieldRef<"focus_group", 'String'>
-  readonly idea: Prisma.FieldRef<"focus_group", 'String'>
 }
     
 
@@ -1797,9 +1867,52 @@ export type focus_groupDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.I
 }
 
 /**
- * focus_group.participantes
+ * focus_group.stakeholder
  */
-export type focus_group$participantesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type focus_group$stakeholderArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the stakeholder
+   */
+  select?: Prisma.stakeholderSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the stakeholder
+   */
+  omit?: Prisma.stakeholderOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.stakeholderInclude<ExtArgs> | null
+  where?: Prisma.stakeholderWhereInput
+}
+
+/**
+ * focus_group.idea_generada
+ */
+export type focus_group$idea_generadaArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the idea_generada
+   */
+  select?: Prisma.idea_generadaSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the idea_generada
+   */
+  omit?: Prisma.idea_generadaOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.idea_generadaInclude<ExtArgs> | null
+  where?: Prisma.idea_generadaWhereInput
+  orderBy?: Prisma.idea_generadaOrderByWithRelationInput | Prisma.idea_generadaOrderByWithRelationInput[]
+  cursor?: Prisma.idea_generadaWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.Idea_generadaScalarFieldEnum | Prisma.Idea_generadaScalarFieldEnum[]
+}
+
+/**
+ * focus_group.participante_focus_group
+ */
+export type focus_group$participante_focus_groupArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the participante_focus_group
    */

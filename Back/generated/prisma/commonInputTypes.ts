@@ -194,6 +194,23 @@ export type BoolNullableWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedBoolNullableFilter<$PrismaModel>
 }
 
+export type Enumtipo_preguntaNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.tipo_pregunta | Prisma.Enumtipo_preguntaFieldRefInput<$PrismaModel> | null
+  in?: $Enums.tipo_pregunta[] | Prisma.ListEnumtipo_preguntaFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.tipo_pregunta[] | Prisma.ListEnumtipo_preguntaFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumtipo_preguntaNullableFilter<$PrismaModel> | $Enums.tipo_pregunta | null
+}
+
+export type Enumtipo_preguntaNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.tipo_pregunta | Prisma.Enumtipo_preguntaFieldRefInput<$PrismaModel> | null
+  in?: $Enums.tipo_pregunta[] | Prisma.ListEnumtipo_preguntaFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.tipo_pregunta[] | Prisma.ListEnumtipo_preguntaFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumtipo_preguntaNullableWithAggregatesFilter<$PrismaModel> | $Enums.tipo_pregunta | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumtipo_preguntaNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumtipo_preguntaNullableFilter<$PrismaModel>
+}
+
 export type NestedIntFilter<$PrismaModel = never> = {
   equals?: number | Prisma.IntFieldRefInput<$PrismaModel>
   in?: number[] | Prisma.ListIntFieldRefInput<$PrismaModel>
@@ -385,6 +402,23 @@ export type NestedBoolNullableWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
   _min?: Prisma.NestedBoolNullableFilter<$PrismaModel>
   _max?: Prisma.NestedBoolNullableFilter<$PrismaModel>
+}
+
+export type NestedEnumtipo_preguntaNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.tipo_pregunta | Prisma.Enumtipo_preguntaFieldRefInput<$PrismaModel> | null
+  in?: $Enums.tipo_pregunta[] | Prisma.ListEnumtipo_preguntaFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.tipo_pregunta[] | Prisma.ListEnumtipo_preguntaFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumtipo_preguntaNullableFilter<$PrismaModel> | $Enums.tipo_pregunta | null
+}
+
+export type NestedEnumtipo_preguntaNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.tipo_pregunta | Prisma.Enumtipo_preguntaFieldRefInput<$PrismaModel> | null
+  in?: $Enums.tipo_pregunta[] | Prisma.ListEnumtipo_preguntaFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.tipo_pregunta[] | Prisma.ListEnumtipo_preguntaFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumtipo_preguntaNullableWithAggregatesFilter<$PrismaModel> | $Enums.tipo_pregunta | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumtipo_preguntaNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumtipo_preguntaNullableFilter<$PrismaModel>
 }
 
 

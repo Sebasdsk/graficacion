@@ -3,55 +3,40 @@ import { prisma } from '../../../lib/prisma';
 
 const router = Router();
 
-// Se crea la tecnica y el cuestionario
-router.post('/', async (req: Request, res: Response) => {
+// Crear tecnica de cuestionario
+router.post('/:id_subproceso', async (req: Request, res: Response) => {
   try {
-    const {
-      detalle, codigo_orden, id_subproceso, id_stakeholder, id_usuario,
-      objetivo, audiencia_objetivo, responsable, metodo_distribucion,
-      fecha_distribucion, fecha_limite, instrucciones, estatus
-    } = req.body;
- 
-    const resultado = await prisma.$transaction(async (tx) => {
-      const tecnica = await tx.tecnica_recoleccion.create({
-        data: {
-          tipo: 'Cuestionario',
-          detalle: detalle ?? null,
-          codigo_orden,
-          id_subproceso,
-          id_stakeholder: id_stakeholder ?? null
-        }
-      });
- 
-      const cuestionario = await tx.cuestionario.create({
-        data: {
-          id_tecnica: tecnica.id_tecnica,
-          id_usuario,
-          objetivo: objetivo ?? null,
-          audiencia_objetivo: audiencia_objetivo ?? null,
-          responsable: responsable ?? null,
-          metodo_distribucion: metodo_distribucion ?? null,
-          fecha_distribucion: fecha_distribucion ? new Date(fecha_distribucion) : null,
-          fecha_limite: fecha_limite ? new Date(fecha_limite) : null,
-          instrucciones: instrucciones ?? null,
-          estatus: estatus ?? 'Pendiente'
-        }
-      });
- 
-      return { tecnica, cuestionario };
+    const { id_subproceso } = req.params;
+    const { titulo, descripcion } = req.body;
+
+    // Crea la técnica base
+    const tecnicaRecoleccion = await prisma.tecnica_recoleccion.create({
+      data: {
+        id_tecnica_catalogo: Number(4),
+        titulo: titulo,
+        descripcion: descripcion,
+        id_subproceso: Number(id_subproceso)
+      }
     });
- 
-    res.status(201).json(resultado);
+
+    // Crea el cuestionario en automático
+    const cuestionario = await prisma.cuestionario.create({
+      data: {
+        id_tecnica: Number(tecnicaRecoleccion.id_tecnica)
+      }
+    });
+
+    res.status(201).json({ tecnicaRecoleccion, cuestionario });
   } catch (error: any) {
     res.status(400).json({ error: error.message });
   }
 });
 
-// Todos los cuestionarios
+// Todas los cuestionarios
 router.get('/', async (req: Request, res: Response) => {
   try {
     const cuestionarios = await prisma.cuestionario.findMany({
-      include: { tecnica: true }
+      include: { tecnica_recoleccion: true }
     });
     res.json(cuestionarios);
   } catch (error: any) {
@@ -59,12 +44,21 @@ router.get('/', async (req: Request, res: Response) => {
   }
 });
 
-// Por ID
+// Obtener cuestionario por su id
 router.get('/:id', async (req: Request, res: Response) => {
   try {
     const cuestionario = await prisma.cuestionario.findUnique({
       where: { id_cuestionario: Number(req.params.id) },
-      include: { tecnica: true, preguntas: true }
+      include: {
+        tecnica_recoleccion: true,
+        respuesta_cuestionario: true,
+        pregunta_cuestionario: {
+          orderBy: { orden_pregunta: 'asc' },
+          include: {
+            opcion_respuesta: true
+          }
+        }
+      }
     });
     if (!cuestionario) return res.status(404).json({ error: 'Cuestionario no encontrado' });
     res.json(cuestionario);
@@ -73,137 +67,87 @@ router.get('/:id', async (req: Request, res: Response) => {
   }
 });
 
-// Actualizar cuestionario
+// Actualizar cuestionario (info general + preguntas con sus opciones)
 router.put('/:id', async (req: Request, res: Response) => {
   try {
+    const { id } = req.params;
     const {
       objetivo, audiencia_objetivo, responsable, metodo_distribucion,
-      fecha_distribucion, fecha_limite, respuestas_recibidas, instrucciones, estatus
+      fecha_distribucion, fecha_limite, respuestas_recibidas,
+      instrucciones, estatus, preguntas
     } = req.body;
- 
-    const cuestionario = await prisma.cuestionario.update({
-      where: { id_cuestionario: Number(req.params.id) },
+
+    // Actualizar información general del cuestionario
+    await prisma.cuestionario.update({
+      where: { id_cuestionario: Number(id) },
       data: {
-        ...(objetivo && { objetivo }),
-        ...(audiencia_objetivo && { audiencia_objetivo }),
-        ...(responsable && { responsable }),
-        ...(metodo_distribucion && { metodo_distribucion }),
+        ...(objetivo !== undefined && { objetivo }),
+        ...(audiencia_objetivo !== undefined && { audiencia_objetivo }),
+        ...(responsable !== undefined && { responsable }),
+        ...(metodo_distribucion !== undefined && { metodo_distribucion }),
         ...(fecha_distribucion && { fecha_distribucion: new Date(fecha_distribucion) }),
         ...(fecha_limite && { fecha_limite: new Date(fecha_limite) }),
-        ...(respuestas_recibidas !== undefined && { respuestas_recibidas }),
-        ...(instrucciones && { instrucciones }),
-        ...(estatus && { estatus })
+        ...(respuestas_recibidas !== undefined && { respuestas_recibidas: Number(respuestas_recibidas) }),
+        ...(instrucciones !== undefined && { instrucciones }),
+        ...(estatus !== undefined && { estatus })
       }
     });
-    res.json(cuestionario);
-  } catch (error: any) {
-    res.status(400).json({ error: error.message });
-  }
-});
 
-// Eliminar cuestionario y su técnica de recolección
-router.delete('/:id', async (req: Request, res: Response) => {
-  try {
-    const id_cuestionario = Number(req.params.id);
-    const cuestionarioExistente = await prisma.cuestionario.findUnique({
-      where: { id_cuestionario }
-    });
+    // Actualizar preguntas (delete old + create new)
+    if (preguntas !== undefined) {
+      // Elimina todas las preguntas anteriores (opciones se eliminan en cascada)
+      await prisma.pregunta_cuestionario.deleteMany({
+        where: { id_cuestionario: Number(id) }
+      });
 
-    if (!cuestionarioExistente) {
-      return res.status(404).json({ error: 'Cuestionario no encontrado' });
+      // Crea las nuevas preguntas con sus opciones
+      for (let i = 0; i < preguntas.length; i++) {
+        const p = preguntas[i];
+
+        // Mapear tipo del frontend al enum de Prisma
+        const tipoPregunta =
+          p.tipo === 'Opción Múltiple' ? 'opcion_multiple' :
+            p.tipo === 'Escala' ? 'escala' :
+              'texto_libre';
+
+        await prisma.pregunta_cuestionario.create({
+          data: {
+            id_cuestionario: Number(id),
+            orden_pregunta: i + 1,
+            pregunta: p.textoPregunta,
+            tipo_pregunta: tipoPregunta as any,
+            ...(p.tipo === 'Escala' && {
+              valor_minimo: Number(p.escalaMin),
+              valor_maximo: Number(p.escalaMax),
+              etiqueta_minima: p.etiquetaMin || null,
+              etiqueta_maxima: p.etiquetaMax || null
+            }),
+            ...(p.tipo === 'Opción Múltiple' && p.opciones?.length > 0 && {
+              opcion_respuesta: {
+                create: p.opciones.map((op: any) => ({
+                  texto_opcion: op.texto
+                }))
+              }
+            })
+          }
+        });
+      }
     }
 
-    await prisma.$transaction(async (tx: any) => {
-      await tx.cuestionario.delete({
-        where: { id_cuestionario }
-      });
-
-      await tx.tecnica_recoleccion.delete({
-        where: { id_tecnica: cuestionarioExistente.id_tecnica }
-      });
-    });
-
-    res.json({ message: 'Cuestionario y tecnica eliminados correctamente' });
-  } catch (error: any) {
-    console.error("Error al eliminar cuestionario:", error);
-    res.status(500).json({ error: error.message });
-  }
-});
-
-// ------ Preguntas del cuestionario
-
-router.get('/:id_cuestionario/preguntas', async (req: Request, res: Response) => {
-  try {
-    const preguntas = await prisma.pregunta_cuestionario.findMany({
-      where: { id_cuestionario: Number(req.params.id_cuestionario) },
-      orderBy: { orden_pregunta: 'asc' }
-    });
-    res.json(preguntas);
-  } catch (error: any) {
-    res.status(500).json({ error: error.message });
-  }
-});
-
-// Agregar pregunta al cuestionario
-router.post('/:id_cuestionario/preguntas', async (req: Request, res: Response) => {
-  try {
-    const { pregunta, tipo_pregunta, orden_pregunta } = req.body;
-    const nueva = await prisma.pregunta_cuestionario.create({
-      data: {
-        id_cuestionario: Number(req.params.id_cuestionario),
-        pregunta,
-        tipo_pregunta,
-        orden_pregunta,
-        respuesta: null
+    // Devolver el cuestionario actualizado con todas sus relaciones
+    const cuestionarioActualizado = await prisma.cuestionario.findUnique({
+      where: { id_cuestionario: Number(id) },
+      include: {
+        pregunta_cuestionario: {
+          orderBy: { orden_pregunta: 'asc' },
+          include: { opcion_respuesta: true }
+        }
       }
     });
-    res.status(201).json(nueva);
+
+    res.json(cuestionarioActualizado);
   } catch (error: any) {
     res.status(400).json({ error: error.message });
-  }
-});
-
-// Actualizar pregunta
-router.put('/preguntas/:id_pregunta', async (req: Request, res: Response) => {
-  try {
-    const { pregunta, tipo_pregunta, orden_pregunta } = req.body;
-    const actualizada = await prisma.pregunta_cuestionario.update({
-      where: { id_pregunta: Number(req.params.id_pregunta) },
-      data: {
-        ...(pregunta && { pregunta }),
-        ...(tipo_pregunta && { tipo_pregunta }),
-        ...(orden_pregunta !== undefined && { orden_pregunta })
-      }
-    });
-    res.json(actualizada);
-  } catch (error: any) {
-    res.status(400).json({ error: error.message });
-  }
-});
-
-// Actualizar respuesta
-router.patch('/preguntas/:id_pregunta/respuesta', async (req: Request, res: Response) => {
-  try {
-    const { respuesta } = req.body;
-    const actualizada = await prisma.pregunta_cuestionario.update({
-      where: { id_pregunta: Number(req.params.id_pregunta) },
-      data: { respuesta }
-    });
-    res.json(actualizada);
-  } catch (error: any) {
-    res.status(400).json({ error: error.message });
-  }
-});
-
-// Eliminar pregunta
-router.delete('/preguntas/:id_pregunta', async (req: Request, res: Response) => {
-  try {
-    await prisma.pregunta_cuestionario.delete({
-      where: { id_pregunta: Number(req.params.id_pregunta) }
-    });
-    res.json({ message: 'Pregunta eliminada' });
-  } catch (error: any) {
-    res.status(500).json({ error: error.message });
   }
 });
 
