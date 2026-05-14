@@ -33,7 +33,8 @@
 }
 
 .input-container-seguimiento input,
-.input-container-seguimiento textarea {
+.input-container-seguimiento textarea,
+.input-container-seguimiento select {
     padding: .6rem;
     border-radius: 10px;
     border: 1px solid var(--border-container);

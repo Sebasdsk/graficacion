@@ -15,7 +15,7 @@ router.post('/:id_subproceso', async (req: Request, res: Response) => {
         id_tecnica_catalogo: Number(7), // 7 = Seguimiento Transaccional
         titulo: titulo,
         descripcion: descripcion,
-        id_subproceso: Number(id_subproceso)
+        id_subproceso: Number(id_subproceso),
       }
     });
 
@@ -70,6 +70,8 @@ router.put('/:id', async (req: Request, res: Response) => {
     const { id } = req.params;
     const { descripcion_flujo, etapas } = req.body;
 
+    console.log(etapas);
+
     const seguimiento = await prisma.seguimiento_transaccional.update({
       where: {
         id_seguimiento: Number(id)
@@ -90,6 +92,7 @@ router.put('/:id', async (req: Request, res: Response) => {
         await prisma.etapa_proceso.createMany({
           data: etapas.map((e: any) => ({
             id_seguimiento: Number(id),
+            id_rol: Number(e.id_rol),
             nombre_etapa: e.nombre || "",
             descripcion: e.descripcion || "",
             entradas: e.entradas || "",
