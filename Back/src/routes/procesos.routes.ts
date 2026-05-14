@@ -38,6 +38,9 @@ router.post('/crear_proceso', verifyToken, async (req: any, res: Response) => {
                 descripcion,
                 id_proyecto: Number(id_proyecto),
                 id_rol: Number(id_rol)
+            },
+            include: {
+                rol: true
             }
         });
 

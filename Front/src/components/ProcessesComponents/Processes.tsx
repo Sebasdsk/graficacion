@@ -190,7 +190,7 @@ function Process({ id_proceso, nombre, descripcion, rol, subprocesos, setSelecte
             </header>
             <div className="rol-participante">
                 <small>Rol participante:</small>
-                {rol.nombre}
+                {rol?.nombre || "Sin rol asignado"}
             </div>
             <div className="process-body">
                 <SubprocessList
