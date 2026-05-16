@@ -1,11 +1,13 @@
 import { Plus, Trash } from "@boxicons/react";
 import "./SeguimientoForm.css";
 import { useEffect, useState } from "react";
+import type { Rol } from "../../Types/Roles";
+import { useParams } from "react-router";
 
 interface Etapa {
     id_etapa: number;
     nombre: string;
-    rolResponsable: string;
+    id_rol: number;
     descripcion: string;
     entradas: string;
     salidas: string;
@@ -18,8 +20,11 @@ interface TecnicaProps {
 }
 
 export default function SeguimientoForm({ tecnica }: TecnicaProps) {
+    const { id_project } = useParams();
     const [descripcionFlujo, setDescripcionFlujo] = useState("");
+    const [rolSeleccionado, setRolSeleccionado] = useState<number | null>(null);
     const [etapas, setEtapas] = useState<Etapa[]>([]);
+    const [roles, setRoles] = useState<Rol[]>([]);
 
     const token = localStorage.getItem("token");
     const API_URL = import.meta.env.VITE_API_URL;
@@ -30,7 +35,7 @@ export default function SeguimientoForm({ tecnica }: TecnicaProps) {
         const nuevaEtapa: Etapa = {
             id_etapa: nuevoId,
             nombre: "",
-            rolResponsable: "",
+            id_rol: 0,
             descripcion: "",
             entradas: "",
             salidas: "",
@@ -48,6 +53,30 @@ export default function SeguimientoForm({ tecnica }: TecnicaProps) {
     // Función que actualiza un campo específico de una etapa por su id
     const actualizarEtapa = (id: number, campo: keyof Etapa, valor: string) => {
         setEtapas(etapas.map(e => e.id_etapa === id ? { ...e, [campo]: valor } : e));
+    };
+
+    const getRoles = async () => {
+        const token = localStorage.getItem("token");
+        const API_URL = import.meta.env.VITE_API_URL;
+
+        try {
+            const response = await fetch(`${API_URL}/roles/proyecto/${id_project}`, {
+                method: "GET",
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error("Error al obtener los roles y stakeholders.");
+            }
+
+            const data = await response.json();
+            setRoles(data);
+        } catch (err) {
+            console.error(err);
+        }
     };
 
     // Obtener los datos del seguimiento desde el backend
@@ -75,7 +104,7 @@ export default function SeguimientoForm({ tecnica }: TecnicaProps) {
                 const etapasMapeadas: Etapa[] = data.etapa_proceso.map((e: any) => ({
                     id_etapa: e.id_etapa,
                     nombre: e.nombre_etapa || "",
-                    rolResponsable: "", // En la DB es un id_rol, el UI usa texto
+                    id_rol: setRolSeleccionado(e.id_rol),
                     descripcion: e.descripcion || "",
                     entradas: e.entradas || "",
                     salidas: e.salidas || "",
@@ -96,6 +125,7 @@ export default function SeguimientoForm({ tecnica }: TecnicaProps) {
             descripcion_flujo: descripcionFlujo,
             etapas: etapas.map(e => ({
                 nombre: e.nombre,
+                id_rol: rolSeleccionado,
                 descripcion: e.descripcion,
                 entradas: e.entradas,
                 salidas: e.salidas,
@@ -130,6 +160,7 @@ export default function SeguimientoForm({ tecnica }: TecnicaProps) {
     };
 
     useEffect(() => {
+        getRoles();
         getSeguimiento();
     }, []);
 
@@ -193,12 +224,19 @@ export default function SeguimientoForm({ tecnica }: TecnicaProps) {
                                     </div>
                                     <div className="input-container-seguimiento">
                                         <label>Rol Responsable (Opcional)</label>
-                                        <input
-                                            type="text"
-                                            placeholder="Ej: Gerente de Operaciones"
-                                            value={etapa.rolResponsable}
-                                            onChange={(e) => actualizarEtapa(etapa.id_etapa, "rolResponsable", e.target.value)}
-                                        />
+                                        <select
+                                            name="roles"
+                                            id="roles-select"
+                                            value={rolSeleccionado || ""}
+                                            onChange={(e) => setRolSeleccionado(Number(e.target.value))}
+                                        >
+                                            <option value="">-- Selecciona un rol --</option>
+                                            {roles.length > 0 && roles.map(r => (
+                                                <option key={r.id_rol} value={r.id_rol}>
+                                                    {r.nombre}
+                                                </option>
+                                            ))}
+                                        </select>
                                     </div>
                                 </div>
                                 <div className="input-container-seguimiento">

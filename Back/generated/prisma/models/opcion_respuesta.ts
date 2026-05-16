@@ -204,16 +204,16 @@ export type opcion_respuestaWhereInput = {
   id_opcion?: Prisma.IntFilter<"opcion_respuesta"> | number
   id_pregunta?: Prisma.IntFilter<"opcion_respuesta"> | number
   texto_opcion?: Prisma.StringFilter<"opcion_respuesta"> | string
-  detalle_respuesta?: Prisma.Detalle_respuestaListRelationFilter
   pregunta_cuestionario?: Prisma.XOR<Prisma.Pregunta_cuestionarioScalarRelationFilter, Prisma.pregunta_cuestionarioWhereInput>
+  respuesta_cuestionario?: Prisma.Respuesta_cuestionarioListRelationFilter
 }
 
 export type opcion_respuestaOrderByWithRelationInput = {
   id_opcion?: Prisma.SortOrder
   id_pregunta?: Prisma.SortOrder
   texto_opcion?: Prisma.SortOrder
-  detalle_respuesta?: Prisma.detalle_respuestaOrderByRelationAggregateInput
   pregunta_cuestionario?: Prisma.pregunta_cuestionarioOrderByWithRelationInput
+  respuesta_cuestionario?: Prisma.respuesta_cuestionarioOrderByRelationAggregateInput
 }
 
 export type opcion_respuestaWhereUniqueInput = Prisma.AtLeast<{
@@ -223,8 +223,8 @@ export type opcion_respuestaWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.opcion_respuestaWhereInput | Prisma.opcion_respuestaWhereInput[]
   id_pregunta?: Prisma.IntFilter<"opcion_respuesta"> | number
   texto_opcion?: Prisma.StringFilter<"opcion_respuesta"> | string
-  detalle_respuesta?: Prisma.Detalle_respuestaListRelationFilter
   pregunta_cuestionario?: Prisma.XOR<Prisma.Pregunta_cuestionarioScalarRelationFilter, Prisma.pregunta_cuestionarioWhereInput>
+  respuesta_cuestionario?: Prisma.Respuesta_cuestionarioListRelationFilter
 }, "id_opcion">
 
 export type opcion_respuestaOrderByWithAggregationInput = {
@@ -249,28 +249,28 @@ export type opcion_respuestaScalarWhereWithAggregatesInput = {
 
 export type opcion_respuestaCreateInput = {
   texto_opcion: string
-  detalle_respuesta?: Prisma.detalle_respuestaCreateNestedManyWithoutOpcion_respuestaInput
   pregunta_cuestionario: Prisma.pregunta_cuestionarioCreateNestedOneWithoutOpcion_respuestaInput
+  respuesta_cuestionario?: Prisma.respuesta_cuestionarioCreateNestedManyWithoutOpcion_respuestaInput
 }
 
 export type opcion_respuestaUncheckedCreateInput = {
   id_opcion?: number
   id_pregunta: number
   texto_opcion: string
-  detalle_respuesta?: Prisma.detalle_respuestaUncheckedCreateNestedManyWithoutOpcion_respuestaInput
+  respuesta_cuestionario?: Prisma.respuesta_cuestionarioUncheckedCreateNestedManyWithoutOpcion_respuestaInput
 }
 
 export type opcion_respuestaUpdateInput = {
   texto_opcion?: Prisma.StringFieldUpdateOperationsInput | string
-  detalle_respuesta?: Prisma.detalle_respuestaUpdateManyWithoutOpcion_respuestaNestedInput
   pregunta_cuestionario?: Prisma.pregunta_cuestionarioUpdateOneRequiredWithoutOpcion_respuestaNestedInput
+  respuesta_cuestionario?: Prisma.respuesta_cuestionarioUpdateManyWithoutOpcion_respuestaNestedInput
 }
 
 export type opcion_respuestaUncheckedUpdateInput = {
   id_opcion?: Prisma.IntFieldUpdateOperationsInput | number
   id_pregunta?: Prisma.IntFieldUpdateOperationsInput | number
   texto_opcion?: Prisma.StringFieldUpdateOperationsInput | string
-  detalle_respuesta?: Prisma.detalle_respuestaUncheckedUpdateManyWithoutOpcion_respuestaNestedInput
+  respuesta_cuestionario?: Prisma.respuesta_cuestionarioUncheckedUpdateManyWithoutOpcion_respuestaNestedInput
 }
 
 export type opcion_respuestaCreateManyInput = {
@@ -287,11 +287,6 @@ export type opcion_respuestaUncheckedUpdateManyInput = {
   id_opcion?: Prisma.IntFieldUpdateOperationsInput | number
   id_pregunta?: Prisma.IntFieldUpdateOperationsInput | number
   texto_opcion?: Prisma.StringFieldUpdateOperationsInput | string
-}
-
-export type Opcion_respuestaNullableScalarRelationFilter = {
-  is?: Prisma.opcion_respuestaWhereInput | null
-  isNot?: Prisma.opcion_respuestaWhereInput | null
 }
 
 export type opcion_respuestaCountOrderByAggregateInput = {
@@ -332,20 +327,9 @@ export type opcion_respuestaOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
-export type opcion_respuestaCreateNestedOneWithoutDetalle_respuestaInput = {
-  create?: Prisma.XOR<Prisma.opcion_respuestaCreateWithoutDetalle_respuestaInput, Prisma.opcion_respuestaUncheckedCreateWithoutDetalle_respuestaInput>
-  connectOrCreate?: Prisma.opcion_respuestaCreateOrConnectWithoutDetalle_respuestaInput
-  connect?: Prisma.opcion_respuestaWhereUniqueInput
-}
-
-export type opcion_respuestaUpdateOneWithoutDetalle_respuestaNestedInput = {
-  create?: Prisma.XOR<Prisma.opcion_respuestaCreateWithoutDetalle_respuestaInput, Prisma.opcion_respuestaUncheckedCreateWithoutDetalle_respuestaInput>
-  connectOrCreate?: Prisma.opcion_respuestaCreateOrConnectWithoutDetalle_respuestaInput
-  upsert?: Prisma.opcion_respuestaUpsertWithoutDetalle_respuestaInput
-  disconnect?: Prisma.opcion_respuestaWhereInput | boolean
-  delete?: Prisma.opcion_respuestaWhereInput | boolean
-  connect?: Prisma.opcion_respuestaWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.opcion_respuestaUpdateToOneWithWhereWithoutDetalle_respuestaInput, Prisma.opcion_respuestaUpdateWithoutDetalle_respuestaInput>, Prisma.opcion_respuestaUncheckedUpdateWithoutDetalle_respuestaInput>
+export type Opcion_respuestaNullableScalarRelationFilter = {
+  is?: Prisma.opcion_respuestaWhereInput | null
+  isNot?: Prisma.opcion_respuestaWhereInput | null
 }
 
 export type opcion_respuestaCreateNestedManyWithoutPregunta_cuestionarioInput = {
@@ -390,53 +374,31 @@ export type opcion_respuestaUncheckedUpdateManyWithoutPregunta_cuestionarioNeste
   deleteMany?: Prisma.opcion_respuestaScalarWhereInput | Prisma.opcion_respuestaScalarWhereInput[]
 }
 
-export type opcion_respuestaCreateWithoutDetalle_respuestaInput = {
-  texto_opcion: string
-  pregunta_cuestionario: Prisma.pregunta_cuestionarioCreateNestedOneWithoutOpcion_respuestaInput
+export type opcion_respuestaCreateNestedOneWithoutRespuesta_cuestionarioInput = {
+  create?: Prisma.XOR<Prisma.opcion_respuestaCreateWithoutRespuesta_cuestionarioInput, Prisma.opcion_respuestaUncheckedCreateWithoutRespuesta_cuestionarioInput>
+  connectOrCreate?: Prisma.opcion_respuestaCreateOrConnectWithoutRespuesta_cuestionarioInput
+  connect?: Prisma.opcion_respuestaWhereUniqueInput
 }
 
-export type opcion_respuestaUncheckedCreateWithoutDetalle_respuestaInput = {
-  id_opcion?: number
-  id_pregunta: number
-  texto_opcion: string
-}
-
-export type opcion_respuestaCreateOrConnectWithoutDetalle_respuestaInput = {
-  where: Prisma.opcion_respuestaWhereUniqueInput
-  create: Prisma.XOR<Prisma.opcion_respuestaCreateWithoutDetalle_respuestaInput, Prisma.opcion_respuestaUncheckedCreateWithoutDetalle_respuestaInput>
-}
-
-export type opcion_respuestaUpsertWithoutDetalle_respuestaInput = {
-  update: Prisma.XOR<Prisma.opcion_respuestaUpdateWithoutDetalle_respuestaInput, Prisma.opcion_respuestaUncheckedUpdateWithoutDetalle_respuestaInput>
-  create: Prisma.XOR<Prisma.opcion_respuestaCreateWithoutDetalle_respuestaInput, Prisma.opcion_respuestaUncheckedCreateWithoutDetalle_respuestaInput>
-  where?: Prisma.opcion_respuestaWhereInput
-}
-
-export type opcion_respuestaUpdateToOneWithWhereWithoutDetalle_respuestaInput = {
-  where?: Prisma.opcion_respuestaWhereInput
-  data: Prisma.XOR<Prisma.opcion_respuestaUpdateWithoutDetalle_respuestaInput, Prisma.opcion_respuestaUncheckedUpdateWithoutDetalle_respuestaInput>
-}
-
-export type opcion_respuestaUpdateWithoutDetalle_respuestaInput = {
-  texto_opcion?: Prisma.StringFieldUpdateOperationsInput | string
-  pregunta_cuestionario?: Prisma.pregunta_cuestionarioUpdateOneRequiredWithoutOpcion_respuestaNestedInput
-}
-
-export type opcion_respuestaUncheckedUpdateWithoutDetalle_respuestaInput = {
-  id_opcion?: Prisma.IntFieldUpdateOperationsInput | number
-  id_pregunta?: Prisma.IntFieldUpdateOperationsInput | number
-  texto_opcion?: Prisma.StringFieldUpdateOperationsInput | string
+export type opcion_respuestaUpdateOneWithoutRespuesta_cuestionarioNestedInput = {
+  create?: Prisma.XOR<Prisma.opcion_respuestaCreateWithoutRespuesta_cuestionarioInput, Prisma.opcion_respuestaUncheckedCreateWithoutRespuesta_cuestionarioInput>
+  connectOrCreate?: Prisma.opcion_respuestaCreateOrConnectWithoutRespuesta_cuestionarioInput
+  upsert?: Prisma.opcion_respuestaUpsertWithoutRespuesta_cuestionarioInput
+  disconnect?: Prisma.opcion_respuestaWhereInput | boolean
+  delete?: Prisma.opcion_respuestaWhereInput | boolean
+  connect?: Prisma.opcion_respuestaWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.opcion_respuestaUpdateToOneWithWhereWithoutRespuesta_cuestionarioInput, Prisma.opcion_respuestaUpdateWithoutRespuesta_cuestionarioInput>, Prisma.opcion_respuestaUncheckedUpdateWithoutRespuesta_cuestionarioInput>
 }
 
 export type opcion_respuestaCreateWithoutPregunta_cuestionarioInput = {
   texto_opcion: string
-  detalle_respuesta?: Prisma.detalle_respuestaCreateNestedManyWithoutOpcion_respuestaInput
+  respuesta_cuestionario?: Prisma.respuesta_cuestionarioCreateNestedManyWithoutOpcion_respuestaInput
 }
 
 export type opcion_respuestaUncheckedCreateWithoutPregunta_cuestionarioInput = {
   id_opcion?: number
   texto_opcion: string
-  detalle_respuesta?: Prisma.detalle_respuestaUncheckedCreateNestedManyWithoutOpcion_respuestaInput
+  respuesta_cuestionario?: Prisma.respuesta_cuestionarioUncheckedCreateNestedManyWithoutOpcion_respuestaInput
 }
 
 export type opcion_respuestaCreateOrConnectWithoutPregunta_cuestionarioInput = {
@@ -474,6 +436,44 @@ export type opcion_respuestaScalarWhereInput = {
   texto_opcion?: Prisma.StringFilter<"opcion_respuesta"> | string
 }
 
+export type opcion_respuestaCreateWithoutRespuesta_cuestionarioInput = {
+  texto_opcion: string
+  pregunta_cuestionario: Prisma.pregunta_cuestionarioCreateNestedOneWithoutOpcion_respuestaInput
+}
+
+export type opcion_respuestaUncheckedCreateWithoutRespuesta_cuestionarioInput = {
+  id_opcion?: number
+  id_pregunta: number
+  texto_opcion: string
+}
+
+export type opcion_respuestaCreateOrConnectWithoutRespuesta_cuestionarioInput = {
+  where: Prisma.opcion_respuestaWhereUniqueInput
+  create: Prisma.XOR<Prisma.opcion_respuestaCreateWithoutRespuesta_cuestionarioInput, Prisma.opcion_respuestaUncheckedCreateWithoutRespuesta_cuestionarioInput>
+}
+
+export type opcion_respuestaUpsertWithoutRespuesta_cuestionarioInput = {
+  update: Prisma.XOR<Prisma.opcion_respuestaUpdateWithoutRespuesta_cuestionarioInput, Prisma.opcion_respuestaUncheckedUpdateWithoutRespuesta_cuestionarioInput>
+  create: Prisma.XOR<Prisma.opcion_respuestaCreateWithoutRespuesta_cuestionarioInput, Prisma.opcion_respuestaUncheckedCreateWithoutRespuesta_cuestionarioInput>
+  where?: Prisma.opcion_respuestaWhereInput
+}
+
+export type opcion_respuestaUpdateToOneWithWhereWithoutRespuesta_cuestionarioInput = {
+  where?: Prisma.opcion_respuestaWhereInput
+  data: Prisma.XOR<Prisma.opcion_respuestaUpdateWithoutRespuesta_cuestionarioInput, Prisma.opcion_respuestaUncheckedUpdateWithoutRespuesta_cuestionarioInput>
+}
+
+export type opcion_respuestaUpdateWithoutRespuesta_cuestionarioInput = {
+  texto_opcion?: Prisma.StringFieldUpdateOperationsInput | string
+  pregunta_cuestionario?: Prisma.pregunta_cuestionarioUpdateOneRequiredWithoutOpcion_respuestaNestedInput
+}
+
+export type opcion_respuestaUncheckedUpdateWithoutRespuesta_cuestionarioInput = {
+  id_opcion?: Prisma.IntFieldUpdateOperationsInput | number
+  id_pregunta?: Prisma.IntFieldUpdateOperationsInput | number
+  texto_opcion?: Prisma.StringFieldUpdateOperationsInput | string
+}
+
 export type opcion_respuestaCreateManyPregunta_cuestionarioInput = {
   id_opcion?: number
   texto_opcion: string
@@ -481,13 +481,13 @@ export type opcion_respuestaCreateManyPregunta_cuestionarioInput = {
 
 export type opcion_respuestaUpdateWithoutPregunta_cuestionarioInput = {
   texto_opcion?: Prisma.StringFieldUpdateOperationsInput | string
-  detalle_respuesta?: Prisma.detalle_respuestaUpdateManyWithoutOpcion_respuestaNestedInput
+  respuesta_cuestionario?: Prisma.respuesta_cuestionarioUpdateManyWithoutOpcion_respuestaNestedInput
 }
 
 export type opcion_respuestaUncheckedUpdateWithoutPregunta_cuestionarioInput = {
   id_opcion?: Prisma.IntFieldUpdateOperationsInput | number
   texto_opcion?: Prisma.StringFieldUpdateOperationsInput | string
-  detalle_respuesta?: Prisma.detalle_respuestaUncheckedUpdateManyWithoutOpcion_respuestaNestedInput
+  respuesta_cuestionario?: Prisma.respuesta_cuestionarioUncheckedUpdateManyWithoutOpcion_respuestaNestedInput
 }
 
 export type opcion_respuestaUncheckedUpdateManyWithoutPregunta_cuestionarioInput = {
@@ -501,11 +501,11 @@ export type opcion_respuestaUncheckedUpdateManyWithoutPregunta_cuestionarioInput
  */
 
 export type Opcion_respuestaCountOutputType = {
-  detalle_respuesta: number
+  respuesta_cuestionario: number
 }
 
 export type Opcion_respuestaCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  detalle_respuesta?: boolean | Opcion_respuestaCountOutputTypeCountDetalle_respuestaArgs
+  respuesta_cuestionario?: boolean | Opcion_respuestaCountOutputTypeCountRespuesta_cuestionarioArgs
 }
 
 /**
@@ -521,8 +521,8 @@ export type Opcion_respuestaCountOutputTypeDefaultArgs<ExtArgs extends runtime.T
 /**
  * Opcion_respuestaCountOutputType without action
  */
-export type Opcion_respuestaCountOutputTypeCountDetalle_respuestaArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.detalle_respuestaWhereInput
+export type Opcion_respuestaCountOutputTypeCountRespuesta_cuestionarioArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.respuesta_cuestionarioWhereInput
 }
 
 
@@ -530,8 +530,8 @@ export type opcion_respuestaSelect<ExtArgs extends runtime.Types.Extensions.Inte
   id_opcion?: boolean
   id_pregunta?: boolean
   texto_opcion?: boolean
-  detalle_respuesta?: boolean | Prisma.opcion_respuesta$detalle_respuestaArgs<ExtArgs>
   pregunta_cuestionario?: boolean | Prisma.pregunta_cuestionarioDefaultArgs<ExtArgs>
+  respuesta_cuestionario?: boolean | Prisma.opcion_respuesta$respuesta_cuestionarioArgs<ExtArgs>
   _count?: boolean | Prisma.Opcion_respuestaCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["opcion_respuesta"]>
 
@@ -557,8 +557,8 @@ export type opcion_respuestaSelectScalar = {
 
 export type opcion_respuestaOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id_opcion" | "id_pregunta" | "texto_opcion", ExtArgs["result"]["opcion_respuesta"]>
 export type opcion_respuestaInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  detalle_respuesta?: boolean | Prisma.opcion_respuesta$detalle_respuestaArgs<ExtArgs>
   pregunta_cuestionario?: boolean | Prisma.pregunta_cuestionarioDefaultArgs<ExtArgs>
+  respuesta_cuestionario?: boolean | Prisma.opcion_respuesta$respuesta_cuestionarioArgs<ExtArgs>
   _count?: boolean | Prisma.Opcion_respuestaCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type opcion_respuestaIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -571,8 +571,8 @@ export type opcion_respuestaIncludeUpdateManyAndReturn<ExtArgs extends runtime.T
 export type $opcion_respuestaPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "opcion_respuesta"
   objects: {
-    detalle_respuesta: Prisma.$detalle_respuestaPayload<ExtArgs>[]
     pregunta_cuestionario: Prisma.$pregunta_cuestionarioPayload<ExtArgs>
+    respuesta_cuestionario: Prisma.$respuesta_cuestionarioPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id_opcion: number
@@ -972,8 +972,8 @@ readonly fields: opcion_respuestaFieldRefs;
  */
 export interface Prisma__opcion_respuestaClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  detalle_respuesta<T extends Prisma.opcion_respuesta$detalle_respuestaArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.opcion_respuesta$detalle_respuestaArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$detalle_respuestaPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   pregunta_cuestionario<T extends Prisma.pregunta_cuestionarioDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.pregunta_cuestionarioDefaultArgs<ExtArgs>>): Prisma.Prisma__pregunta_cuestionarioClient<runtime.Types.Result.GetResult<Prisma.$pregunta_cuestionarioPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  respuesta_cuestionario<T extends Prisma.opcion_respuesta$respuesta_cuestionarioArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.opcion_respuesta$respuesta_cuestionarioArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$respuesta_cuestionarioPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1407,27 +1407,27 @@ export type opcion_respuestaDeleteManyArgs<ExtArgs extends runtime.Types.Extensi
 }
 
 /**
- * opcion_respuesta.detalle_respuesta
+ * opcion_respuesta.respuesta_cuestionario
  */
-export type opcion_respuesta$detalle_respuestaArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type opcion_respuesta$respuesta_cuestionarioArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the detalle_respuesta
+   * Select specific fields to fetch from the respuesta_cuestionario
    */
-  select?: Prisma.detalle_respuestaSelect<ExtArgs> | null
+  select?: Prisma.respuesta_cuestionarioSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the detalle_respuesta
+   * Omit specific fields from the respuesta_cuestionario
    */
-  omit?: Prisma.detalle_respuestaOmit<ExtArgs> | null
+  omit?: Prisma.respuesta_cuestionarioOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.detalle_respuestaInclude<ExtArgs> | null
-  where?: Prisma.detalle_respuestaWhereInput
-  orderBy?: Prisma.detalle_respuestaOrderByWithRelationInput | Prisma.detalle_respuestaOrderByWithRelationInput[]
-  cursor?: Prisma.detalle_respuestaWhereUniqueInput
+  include?: Prisma.respuesta_cuestionarioInclude<ExtArgs> | null
+  where?: Prisma.respuesta_cuestionarioWhereInput
+  orderBy?: Prisma.respuesta_cuestionarioOrderByWithRelationInput | Prisma.respuesta_cuestionarioOrderByWithRelationInput[]
+  cursor?: Prisma.respuesta_cuestionarioWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.Detalle_respuestaScalarFieldEnum | Prisma.Detalle_respuestaScalarFieldEnum[]
+  distinct?: Prisma.Respuesta_cuestionarioScalarFieldEnum | Prisma.Respuesta_cuestionarioScalarFieldEnum[]
 }
 
 /**

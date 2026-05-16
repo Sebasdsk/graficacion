@@ -36,7 +36,8 @@
 }
 
 .process-name,
-.process-description {
+.process-description,
+.process-roles {
     display: flex;
     flex-direction: column;
     gap: .4rem;

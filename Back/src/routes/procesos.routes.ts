@@ -14,7 +14,8 @@ router.get('/proyecto/:id_proyecto', verifyToken, async (req: any, res: Response
                 id_proyecto: Number(id_proyecto)
             },
             include: {
-                subproceso: true 
+                subproceso: true,
+                rol: true
             },
         });
 
@@ -37,6 +38,9 @@ router.post('/crear_proceso', verifyToken, async (req: any, res: Response) => {
                 descripcion,
                 id_proyecto: Number(id_proyecto),
                 id_rol: Number(id_rol)
+            },
+            include: {
+                rol: true
             }
         });
 

@@ -1,8 +1,12 @@
+import type { Rol } from "./Roles";
+
 export interface Proceso {
     id_proceso: number;
     nombre: string;
     descripcion: string;
     subproceso: Subproceso[];
+    id_rol: string;
+    rol: Rol;
 }
 
 export interface Subproceso {

@@ -197,7 +197,6 @@ model stakeholder {
   focus_group              focus_group[]
   observacion              observacion[]
   participante_focus_group participante_focus_group[]
-  respuesta_cuestionario   respuesta_cuestionario[]
   rol                      rol?                       @relation(fields: [id_rol], references: [id_rol], onDelete: NoAction, onUpdate: NoAction, map: "fk_stakeholder_rol")
   tecnica_recoleccion      tecnica_recoleccion[]
 }
@@ -317,18 +316,6 @@ model cuestionario {
   respuesta_cuestionario respuesta_cuestionario[]
 }
 
-model detalle_respuesta {
-  id_detalle_respuesta   Int                    @id @default(autoincrement())
-  id_respuesta           Int
-  id_pregunta            Int
-  respuesta_texto        String?
-  respuesta_numero       Int?
-  id_opcion              Int?
-  opcion_respuesta       opcion_respuesta?      @relation(fields: [id_opcion], references: [id_opcion], onUpdate: NoAction, map: "fk_detalle_opcion")
-  pregunta_cuestionario  pregunta_cuestionario  @relation(fields: [id_pregunta], references: [id_pregunta], onDelete: Cascade, onUpdate: NoAction, map: "fk_detalle_pregunta")
-  respuesta_cuestionario respuesta_cuestionario @relation(fields: [id_respuesta], references: [id_respuesta], onDelete: Cascade, onUpdate: NoAction, map: "fk_detalle_respuesta")
-}
-
 model etapa_proceso {
   id_etapa                  Int                       @id @default(autoincrement())
   id_seguimiento            Int
@@ -375,11 +362,11 @@ model idea_generada {
 }
 
 model opcion_respuesta {
-  id_opcion             Int                   @id @default(autoincrement())
-  id_pregunta           Int
-  texto_opcion          String                @db.VarChar(200)
-  detalle_respuesta     detalle_respuesta[]
-  pregunta_cuestionario pregunta_cuestionario @relation(fields: [id_pregunta], references: [id_pregunta], onDelete: Cascade, onUpdate: NoAction, map: "fk_opcion_pregunta")
+  id_opcion              Int                      @id @default(autoincrement())
+  id_pregunta            Int
+  texto_opcion           String                   @db.VarChar(200)
+  pregunta_cuestionario  pregunta_cuestionario    @relation(fields: [id_pregunta], references: [id_pregunta], onDelete: Cascade, onUpdate: NoAction, map: "fk_opcion_pregunta")
+  respuesta_cuestionario respuesta_cuestionario[]
 }
 
 model participante_focus_group {
@@ -391,18 +378,18 @@ model participante_focus_group {
 }
 
 model pregunta_cuestionario {
-  id_pregunta       Int                 @id @default(autoincrement())
-  id_cuestionario   Int
-  orden_pregunta    Int
-  pregunta          String
-  tipo_pregunta     tipo_pregunta?      @default(texto_libre)
-  valor_minimo      Int?
-  valor_maximo      Int?
-  etiqueta_minima   String?             @db.VarChar(100)
-  etiqueta_maxima   String?             @db.VarChar(100)
-  detalle_respuesta detalle_respuesta[]
-  opcion_respuesta  opcion_respuesta[]
-  cuestionario      cuestionario        @relation(fields: [id_cuestionario], references: [id_cuestionario], onDelete: Cascade, onUpdate: NoAction, map: "fk_pregunta_cuestionario")
+  id_pregunta            Int                      @id @default(autoincrement())
+  id_cuestionario        Int
+  orden_pregunta         Int
+  pregunta               String
+  tipo_pregunta          tipo_pregunta?           @default(texto_libre)
+  valor_minimo           Int?
+  valor_maximo           Int?
+  etiqueta_minima        String?                  @db.VarChar(100)
+  etiqueta_maxima        String?                  @db.VarChar(100)
+  opcion_respuesta       opcion_respuesta[]
+  cuestionario           cuestionario             @relation(fields: [id_cuestionario], references: [id_cuestionario], onDelete: Cascade, onUpdate: NoAction, map: "fk_pregunta_cuestionario")
+  respuesta_cuestionario respuesta_cuestionario[]
 }
 
 model requisito_documento {
@@ -414,13 +401,16 @@ model requisito_documento {
 }
 
 model respuesta_cuestionario {
-  id_respuesta      Int                 @id @default(autoincrement())
-  id_cuestionario   Int
-  id_stakeholder    Int
-  fecha_respuesta   DateTime?           @default(now()) @db.Timestamp(6)
-  detalle_respuesta detalle_respuesta[]
-  cuestionario      cuestionario        @relation(fields: [id_cuestionario], references: [id_cuestionario], onDelete: Cascade, onUpdate: NoAction, map: "fk_respuesta_cuestionario")
-  stakeholder       stakeholder         @relation(fields: [id_stakeholder], references: [id_stakeholder], onDelete: Cascade, onUpdate: NoAction, map: "fk_respuesta_stakeholder")
+  id_respuesta          Int                   @id @default(autoincrement())
+  id_cuestionario       Int
+  id_pregunta           Int
+  id_opcion             Int?
+  respuesta_texto       String?
+  respuesta_numero      Int?
+  fecha_respuesta       DateTime?             @default(now()) @db.Timestamp(6)
+  cuestionario          cuestionario          @relation(fields: [id_cuestionario], references: [id_cuestionario], onDelete: Cascade, onUpdate: NoAction, map: "fk_respuesta_cuestionario")
+  opcion_respuesta      opcion_respuesta?     @relation(fields: [id_opcion], references: [id_opcion], onUpdate: NoAction, map: "fk_respuesta_opcion")
+  pregunta_cuestionario pregunta_cuestionario @relation(fields: [id_pregunta], references: [id_pregunta], onDelete: Cascade, onUpdate: NoAction, map: "fk_respuesta_pregunta")
 }
 
 model seguimiento_transaccional {

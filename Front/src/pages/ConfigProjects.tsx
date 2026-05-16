@@ -219,7 +219,10 @@ function ProjectSideBar({ option, setOption, totalRoles, totalProcesos, totalSta
                 <h2>FLOWTIC</h2>
             </header>
             <div className="button-container">
-                <button className="button-dashboard">
+                <button
+                    className="button-dashboard"
+                    onClick={() => navigate(-1)}
+                >
                     <DashboardAlt /> Dashboard
                 </button>
             </div>

@@ -19,6 +19,10 @@ interface PreguntaCuestionario {
     etiquetaMin: string;
     etiquetaMax: string;
     contraido: boolean;
+    // Respuestas
+    respuestaTexto?: string;
+    respuestaNumero?: number;   
+    idOpcionSeleccionada?: number;
 }
 
 interface TecnicaProps {
@@ -69,7 +73,11 @@ export default function CuestionarioForm({ tecnica }: TecnicaProps) {
             escalaMax: 5,
             etiquetaMin: "",
             etiquetaMax: "",
-            contraido: false
+            contraido: false,
+            // Respuestas
+            respuestaTexto: "",
+            respuestaNumero: undefined,
+            idOpcionSeleccionada: undefined
         };
         setPreguntas([...preguntas, nuevaPregunta]);
     };
@@ -161,7 +169,6 @@ export default function CuestionarioForm({ tecnica }: TecnicaProps) {
             }
 
             const data = await response.json();
-            console.log("Cuestionario data:", data);
 
             // Cargar información general
             setInfoGeneral({
@@ -175,31 +182,78 @@ export default function CuestionarioForm({ tecnica }: TecnicaProps) {
                 instrucciones: data.instrucciones || ""
             });
 
-            // Cargar preguntas con sus opciones
-            if (data.pregunta_cuestionario && data.pregunta_cuestionario.length > 0) {
-                const preguntasMapeadas: PreguntaCuestionario[] = data.pregunta_cuestionario.map((p: any, index: number) => ({
-                    id_pregunta: p.id_pregunta,
-                    textoPregunta: p.pregunta || "",
-                    tipo: mapTipoPregunta(p.tipo_pregunta),
-                    opciones: (p.opcion_respuesta || []).map((op: any, i: number) => ({
-                        id: i + 1,
-                        texto: op.texto_opcion
-                    })),
-                    escalaMin: p.valor_minimo ?? 1,
-                    escalaMax: p.valor_maximo ?? 5,
-                    etiquetaMin: p.etiqueta_minima || "",
-                    etiquetaMax: p.etiqueta_maxima || "",
-                    contraido: false
-                }));
-                setPreguntas(preguntasMapeadas);
-            }
+            const preguntasMapeadas: PreguntaCuestionario[] =
+                data.pregunta_cuestionario.map((p: any) => {
+                    // Obtener primera respuesta
+                    const respuesta =
+                        p.respuesta_cuestionario?.[0];
+                    return {
+                        id_pregunta: p.id_pregunta,
+                        textoPregunta: p.pregunta || "",
+                        tipo: mapTipoPregunta(p.tipo_pregunta),
+                        opciones: (p.opcion_respuesta || []).map((op: any) => ({
+                            id: op.id_opcion,
+                            texto: op.texto_opcion
+                        })),
+                        escalaMin: p.valor_minimo ?? 1,
+                        escalaMax: p.valor_maximo ?? 5,
+                        etiquetaMin: p.etiqueta_minima || "",
+                        etiquetaMax: p.etiqueta_maxima || "",
+                        contraido: false,
+                        // RESPUESTAS
+                        respuestaTexto: respuesta?.respuesta_texto || "",
+                        respuestaNumero: respuesta?.respuesta_numero || undefined,
+                        idOpcionSeleccionada: respuesta?.id_opcion || undefined
+                    };
+                });
+
+            setPreguntas(preguntasMapeadas);
         } catch (err) {
             console.error("Error en la petición:", err);
         }
     };
 
+    // Método para guardar las respuestas
+    const guardarRespuestas = async () => {
+        const body = {
+            respuestas: preguntas.map(p => ({
+                id_pregunta: p.id_pregunta,
+                respuesta_texto: p.respuestaTexto || null,
+                respuesta_numero: p.respuestaNumero ?? null,
+                id_opcion: p.idOpcionSeleccionada ?? null
+            }))
+        };
+        console.log(body);
+        try {
+            const response = await fetch(
+                `${API_URL}/cuestionarios/${tecnica.cuestionarioData.id_cuestionario}/responder`,
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${token}`
+                    },
+                    body: JSON.stringify(body)
+                }
+            );
+            if (!response.ok) {
+                throw new Error("Error al guardar respuestas");
+            }
+
+            const data = await response.json();
+            console.log("Respuestas guardadas:", data);
+
+            // Recargar cuestionario
+            await getCuestionario();
+        } catch (error) {
+            console.error(error);
+        }
+
+    };
+
     // Guardar los cambios del cuestionario
-    const handleSubmit = async () => {
+    const handleSubmit = async (e?: React.FormEvent) => {
+        if (e) e.preventDefault();
         const body = {
             objetivo: infoGeneral.objetivo,
             audiencia_objetivo: infoGeneral.audiencia,
@@ -210,15 +264,21 @@ export default function CuestionarioForm({ tecnica }: TecnicaProps) {
             respuestas_recibidas: infoGeneral.respuestasRecibidas,
             instrucciones: infoGeneral.instrucciones,
             preguntas: preguntas.map(p => ({
+                id_pregunta: p.id_pregunta,
                 textoPregunta: p.textoPregunta,
                 tipo: p.tipo,
                 escalaMin: p.escalaMin,
                 escalaMax: p.escalaMax,
                 etiquetaMin: p.etiquetaMin,
                 etiquetaMax: p.etiquetaMax,
-                opciones: p.opciones
-            }))
+                opciones: p.opciones.map(o => ({
+                    id_opcion: o.id,
+                    texto: o.texto
+                })),
+            })) 
         };
+
+        console.log(body);
 
         try {
             const response = await fetch(
@@ -252,7 +312,7 @@ export default function CuestionarioForm({ tecnica }: TecnicaProps) {
     }, []);
 
     return (
-        <form action={handleSubmit}>
+        <form onSubmit={handleSubmit}>
             <section className="cuestionario-informacion-section">
                 <header className="header-cuestionario-section">
                     <h2>Información General del Cuestionario</h2>
@@ -408,6 +468,22 @@ export default function CuestionarioForm({ tecnica }: TecnicaProps) {
                                         </select>
                                     </div>
 
+                                    {p.tipo === "Texto Libre" && (
+                                        <div className="input-container-cuestionario">
+                                            <label>Respuesta</label>
+                                            <textarea
+                                                placeholder="Escribe tu respuesta"
+                                                value={p.respuestaTexto || ""}
+                                                onChange={(e) =>
+                                                    actualizarPregunta(
+                                                        p.id_pregunta,
+                                                        "respuestaTexto",
+                                                        e.target.value
+                                                    )
+                                                }
+                                            />
+                                        </div>
+                                    )}
                                     {p.tipo === "Opción Múltiple" && (
                                         <div className="pregunta-opciones-container">
                                             <div className="header-opciones">
@@ -438,6 +514,26 @@ export default function CuestionarioForm({ tecnica }: TecnicaProps) {
                                                     </button>
                                                 </div>
                                             ))}
+                                            <div className="respuesta-opciones">
+                                                <label>Selecciona una opción</label>
+                                                {p.opciones.map((op) => (
+                                                    <label key={op.id} className="radio-option">
+                                                        <input
+                                                            type="radio"
+                                                            name={`pregunta-${p.id_pregunta}`}
+                                                            checked={p.idOpcionSeleccionada === op.id}
+                                                            onChange={() =>
+                                                                actualizarPregunta(
+                                                                    p.id_pregunta,
+                                                                    "idOpcionSeleccionada",
+                                                                    op.id
+                                                                )
+                                                            }
+                                                        />
+                                                        {op.texto}
+                                                    </label>
+                                                ))}
+                                            </div>
                                         </div>
                                     )}
 
@@ -481,12 +577,37 @@ export default function CuestionarioForm({ tecnica }: TecnicaProps) {
                                                     />
                                                 </div>
                                             </div>
+                                            <div className="input-container-cuestionario">
+                                                <label>Respuesta</label>
+                                                <input
+                                                    type="number"
+                                                    min={p.escalaMin}
+                                                    max={p.escalaMax}
+                                                    value={p.respuestaNumero || ""}
+                                                    onChange={(e) =>
+                                                        actualizarPregunta(
+                                                            p.id_pregunta,
+                                                            "respuestaNumero",
+                                                            Number(e.target.value)
+                                                        )
+                                                    }
+                                                />
+                                            </div>
                                         </div>
                                     )}
                                 </div>
                             )}
                         </article>
                     ))}
+                    {preguntas.length > 0 && (
+                        <button
+                            className="button-confirm-responses"
+                            type="button"
+                            onClick={guardarRespuestas}
+                        >
+                            Guardar Respuestas
+                        </button>
+                    )}
                 </div>
             </section>
             <div className="buttons-techniques-section">
