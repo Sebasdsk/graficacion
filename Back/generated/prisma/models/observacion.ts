@@ -601,71 +601,6 @@ export type observacionCreateWithoutTecnica_recoleccionInput = {
   observacion_detalle?: Prisma.observacion_detalleCreateNestedManyWithoutObservacionInput
 }
 
-export type observacionUncheckedCreateWithoutStakeholderInput = {
-  id_observacion?: number
-  id_tecnica: number
-  id_usuario: number
-  ubicacion?: string | null
-  fecha?: Date | string | null
-  duracion?: number | null
-  hallazgos_conclusiones?: string | null
-  nota?: string | null
-  estatus?: string
-}
-
-export type observacionCreateOrConnectWithoutStakeholderInput = {
-  where: Prisma.observacionWhereUniqueInput
-  create: Prisma.XOR<Prisma.observacionCreateWithoutStakeholderInput, Prisma.observacionUncheckedCreateWithoutStakeholderInput>
-}
-
-export type observacionCreateManyStakeholderInputEnvelope = {
-  data: Prisma.observacionCreateManyStakeholderInput | Prisma.observacionCreateManyStakeholderInput[]
-  skipDuplicates?: boolean
-}
-
-export type observacionUpsertWithWhereUniqueWithoutStakeholderInput = {
-  where: Prisma.observacionWhereUniqueInput
-  update: Prisma.XOR<Prisma.observacionUpdateWithoutStakeholderInput, Prisma.observacionUncheckedUpdateWithoutStakeholderInput>
-  create: Prisma.XOR<Prisma.observacionCreateWithoutStakeholderInput, Prisma.observacionUncheckedCreateWithoutStakeholderInput>
-}
-
-export type observacionUpdateWithWhereUniqueWithoutStakeholderInput = {
-  where: Prisma.observacionWhereUniqueInput
-  data: Prisma.XOR<Prisma.observacionUpdateWithoutStakeholderInput, Prisma.observacionUncheckedUpdateWithoutStakeholderInput>
-}
-
-export type observacionUpdateManyWithWhereWithoutStakeholderInput = {
-  where: Prisma.observacionScalarWhereInput
-  data: Prisma.XOR<Prisma.observacionUpdateManyMutationInput, Prisma.observacionUncheckedUpdateManyWithoutStakeholderInput>
-}
-
-export type observacionScalarWhereInput = {
-  AND?: Prisma.observacionScalarWhereInput | Prisma.observacionScalarWhereInput[]
-  OR?: Prisma.observacionScalarWhereInput[]
-  NOT?: Prisma.observacionScalarWhereInput | Prisma.observacionScalarWhereInput[]
-  id_observacion?: Prisma.IntFilter<"observacion"> | number
-  id_tecnica?: Prisma.IntFilter<"observacion"> | number
-  id_usuario?: Prisma.IntFilter<"observacion"> | number
-  id_stakeholder?: Prisma.IntNullableFilter<"observacion"> | number | null
-  ubicacion?: Prisma.StringNullableFilter<"observacion"> | string | null
-  fecha?: Prisma.DateTimeNullableFilter<"observacion"> | Date | string | null
-  duracion?: Prisma.IntNullableFilter<"observacion"> | number | null
-  hallazgos_conclusiones?: Prisma.StringNullableFilter<"observacion"> | string | null
-  nota?: Prisma.StringNullableFilter<"observacion"> | string | null
-  estatus?: Prisma.StringFilter<"observacion"> | string
-}
-
-export type observacionCreateWithoutTecnica_recoleccionInput = {
-  ubicacion?: string | null
-  fecha?: Date | string | null
-  duracion?: number | null
-  hallazgos_conclusiones?: string | null
-  nota?: string | null
-  estatus?: string
-  usuario: Prisma.usuarioCreateNestedOneWithoutObservacionInput
-  stakeholder?: Prisma.stakeholderCreateNestedOneWithoutObservacionInput
-}
-
 export type observacionUncheckedCreateWithoutTecnica_recoleccionInput = {
   id_observacion?: number
   ubicacion?: string | null
@@ -791,53 +726,6 @@ export type observacionUncheckedUpdateManyWithoutStakeholderInput = {
   duracion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   hallazgos?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   id_tecnica?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-}
-
-export type observacionCreateManyStakeholderInput = {
-  id_observacion?: number
-  id_tecnica: number
-  id_usuario: number
-  ubicacion?: string | null
-  fecha?: Date | string | null
-  duracion?: number | null
-  hallazgos_conclusiones?: string | null
-  nota?: string | null
-  estatus?: string
-}
-
-export type observacionUpdateWithoutStakeholderInput = {
-  ubicacion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fecha?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  duracion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  hallazgos_conclusiones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  nota?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  estatus?: Prisma.StringFieldUpdateOperationsInput | string
-  tecnica_recoleccion?: Prisma.tecnica_recoleccionUpdateOneRequiredWithoutObservacionNestedInput
-  usuario?: Prisma.usuarioUpdateOneRequiredWithoutObservacionNestedInput
-}
-
-export type observacionUncheckedUpdateWithoutStakeholderInput = {
-  id_observacion?: Prisma.IntFieldUpdateOperationsInput | number
-  id_tecnica?: Prisma.IntFieldUpdateOperationsInput | number
-  id_usuario?: Prisma.IntFieldUpdateOperationsInput | number
-  ubicacion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fecha?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  duracion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  hallazgos_conclusiones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  nota?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  estatus?: Prisma.StringFieldUpdateOperationsInput | string
-}
-
-export type observacionUncheckedUpdateManyWithoutStakeholderInput = {
-  id_observacion?: Prisma.IntFieldUpdateOperationsInput | number
-  id_tecnica?: Prisma.IntFieldUpdateOperationsInput | number
-  id_usuario?: Prisma.IntFieldUpdateOperationsInput | number
-  ubicacion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  fecha?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  duracion?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  hallazgos_conclusiones?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  nota?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  estatus?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type observacionCreateManyTecnica_recoleccionInput = {

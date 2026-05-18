@@ -63,62 +63,6 @@ model pregunta_entrevista {
   entrevista    entrevista @relation(fields: [id_entrevista], references: [id_entrevista], onDelete: Cascade)
 }
 
-model cuestionario {
-  id_cuestionario       Int       @id @default(autoincrement())
-  id_tecnica            Int
-  id_usuario            Int
-  objetivo              String?   @db.Text
-  audiencia_objetivo    String?   @db.Text
-  responsable           String?   @db.VarChar(100)
-  metodo_distribucion   String?   @db.VarChar(100)
-  fecha_distribucion    DateTime? @db.Date
-  fecha_limite          DateTime? @db.Date
-  respuestas_recibidas  Int       @default(0)
-  instrucciones         String?   @db.Text
-  estatus               String    @default("Pendiente") @db.VarChar(20)
-
-  tecnica   tecnica_recoleccion  @relation(fields: [id_tecnica], references: [id_tecnica], onDelete: Cascade)
-  usuario   usuario              @relation(fields: [id_usuario], references: [id_usuario])
-  preguntas pregunta_cuestionario[]
-}
-
-model pregunta_cuestionario {
-  id_pregunta     Int     @id @default(autoincrement())
-  id_cuestionario Int
-  orden_pregunta  Int
-  tipo_pregunta   String  @db.VarChar(20) 
-  pregunta        String  @db.Text
-  respuesta       String? @db.Text
-
-  cuestionario cuestionario @relation(fields: [id_cuestionario], references: [id_cuestionario], onDelete: Cascade)
-}
-
-model focus_group {
-  id_focus    Int       @id @default(autoincrement())
-  id_tecnica  Int
-  id_usuario  Int
-  fecha       DateTime? @db.Date
-  duracion    Int?                        // en minutos
-  estatus     String    @default("Planificada") @db.VarChar(20)
-  tema        String    @db.VarChar(200)
-  conclusiones  String?   @db.Text
-  idea        String?   @db.VarChar(50)
-
-  tecnica      tecnica_recoleccion          @relation(fields: [id_tecnica], references: [id_tecnica], onDelete: Cascade)
-  usuario      usuario                      @relation(fields: [id_usuario], references: [id_usuario])
-  participantes participante_focus_group[]
-}
-
-model participante_focus_group {
-  id_participante Int     @id @default(autoincrement())
-  id_focus        Int
-  id_stakeholder  Int
-  contribuciones  String? @db.Text
-
-  focus_group  focus_group @relation(fields: [id_focus], references: [id_focus], onDelete: Cascade)
-  stakeholder  stakeholder @relation(fields: [id_stakeholder], references: [id_stakeholder], onDelete: Cascade)
-}
-
 model proceso {
   id_proceso  Int          @id @default(autoincrement())
   nombre      String       @db.VarChar(50)

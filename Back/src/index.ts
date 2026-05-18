@@ -19,6 +19,7 @@ import documentosRoutes from './routes/Tecnicas/documentos.routes';
 import seguimientoRoutes from './routes/Tecnicas/seguimiento.routes';
 import stakeholdersRoutes from './routes/stakeholders.routes';
 import diagramasUMLRoutes from './routes/umls.routes';
+import previewRoutes from './routes/Specs.routes';
 
 dotenv.config();
 
@@ -45,6 +46,7 @@ app.use('/api/documentos', documentosRoutes);
 app.use('/api/seguimiento', seguimientoRoutes);
 app.use('/api/stakeholders', stakeholdersRoutes);
 app.use('/api/diagramasUML', diagramasUMLRoutes);
+app.use('/api/specs', previewRoutes);
 
 const PORT = process.env.PORT || 3000;
 

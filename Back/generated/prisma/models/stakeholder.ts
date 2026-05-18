@@ -235,8 +235,6 @@ export type stakeholderWhereInput = {
   participante_focus_group?: Prisma.Participante_focus_groupListRelationFilter
   rol?: Prisma.XOR<Prisma.RolNullableScalarRelationFilter, Prisma.rolWhereInput> | null
   tecnica_recoleccion?: Prisma.Tecnica_recoleccionListRelationFilter
-  participacione?: Prisma.Participante_focus_groupListRelationFilter
-  observacion?: Prisma.ObservacionListRelationFilter
 }
 
 export type stakeholderOrderByWithRelationInput = {
@@ -253,8 +251,6 @@ export type stakeholderOrderByWithRelationInput = {
   participante_focus_group?: Prisma.participante_focus_groupOrderByRelationAggregateInput
   rol?: Prisma.rolOrderByWithRelationInput
   tecnica_recoleccion?: Prisma.tecnica_recoleccionOrderByRelationAggregateInput
-  participacione?: Prisma.participante_focus_groupOrderByRelationAggregateInput
-  observacion?: Prisma.observacionOrderByRelationAggregateInput
 }
 
 export type stakeholderWhereUniqueInput = Prisma.AtLeast<{
@@ -274,8 +270,6 @@ export type stakeholderWhereUniqueInput = Prisma.AtLeast<{
   participante_focus_group?: Prisma.Participante_focus_groupListRelationFilter
   rol?: Prisma.XOR<Prisma.RolNullableScalarRelationFilter, Prisma.rolWhereInput> | null
   tecnica_recoleccion?: Prisma.Tecnica_recoleccionListRelationFilter
-  participacione?: Prisma.Participante_focus_groupListRelationFilter
-  observacion?: Prisma.ObservacionListRelationFilter
 }, "id_stakeholder">
 
 export type stakeholderOrderByWithAggregationInput = {
@@ -316,8 +310,6 @@ export type stakeholderCreateInput = {
   participante_focus_group?: Prisma.participante_focus_groupCreateNestedManyWithoutStakeholderInput
   rol?: Prisma.rolCreateNestedOneWithoutStakeholderInput
   tecnica_recoleccion?: Prisma.tecnica_recoleccionCreateNestedManyWithoutStakeholderInput
-  participacione?: Prisma.participante_focus_groupCreateNestedManyWithoutStakeholderInput
-  observacion?: Prisma.observacionCreateNestedManyWithoutStakeholderInput
 }
 
 export type stakeholderUncheckedCreateInput = {
@@ -333,8 +325,6 @@ export type stakeholderUncheckedCreateInput = {
   observacion?: Prisma.observacionUncheckedCreateNestedManyWithoutStakeholderInput
   participante_focus_group?: Prisma.participante_focus_groupUncheckedCreateNestedManyWithoutStakeholderInput
   tecnica_recoleccion?: Prisma.tecnica_recoleccionUncheckedCreateNestedManyWithoutStakeholderInput
-  participacione?: Prisma.participante_focus_groupUncheckedCreateNestedManyWithoutStakeholderInput
-  observacion?: Prisma.observacionUncheckedCreateNestedManyWithoutStakeholderInput
 }
 
 export type stakeholderUpdateInput = {
@@ -349,8 +339,6 @@ export type stakeholderUpdateInput = {
   participante_focus_group?: Prisma.participante_focus_groupUpdateManyWithoutStakeholderNestedInput
   rol?: Prisma.rolUpdateOneWithoutStakeholderNestedInput
   tecnica_recoleccion?: Prisma.tecnica_recoleccionUpdateManyWithoutStakeholderNestedInput
-  participacione?: Prisma.participante_focus_groupUpdateManyWithoutStakeholderNestedInput
-  observacion?: Prisma.observacionUpdateManyWithoutStakeholderNestedInput
 }
 
 export type stakeholderUncheckedUpdateInput = {
@@ -366,8 +354,6 @@ export type stakeholderUncheckedUpdateInput = {
   observacion?: Prisma.observacionUncheckedUpdateManyWithoutStakeholderNestedInput
   participante_focus_group?: Prisma.participante_focus_groupUncheckedUpdateManyWithoutStakeholderNestedInput
   tecnica_recoleccion?: Prisma.tecnica_recoleccionUncheckedUpdateManyWithoutStakeholderNestedInput
-  participacione?: Prisma.participante_focus_groupUncheckedUpdateManyWithoutStakeholderNestedInput
-  observacion?: Prisma.observacionUncheckedUpdateManyWithoutStakeholderNestedInput
 }
 
 export type stakeholderCreateManyInput = {
@@ -739,8 +725,6 @@ export type stakeholderCreateWithoutRolInput = {
   observacion?: Prisma.observacionCreateNestedManyWithoutStakeholderInput
   participante_focus_group?: Prisma.participante_focus_groupCreateNestedManyWithoutStakeholderInput
   tecnica_recoleccion?: Prisma.tecnica_recoleccionCreateNestedManyWithoutStakeholderInput
-  participacione?: Prisma.participante_focus_groupCreateNestedManyWithoutStakeholderInput
-  observacion?: Prisma.observacionCreateNestedManyWithoutStakeholderInput
 }
 
 export type stakeholderUncheckedCreateWithoutRolInput = {
@@ -755,8 +739,6 @@ export type stakeholderUncheckedCreateWithoutRolInput = {
   observacion?: Prisma.observacionUncheckedCreateNestedManyWithoutStakeholderInput
   participante_focus_group?: Prisma.participante_focus_groupUncheckedCreateNestedManyWithoutStakeholderInput
   tecnica_recoleccion?: Prisma.tecnica_recoleccionUncheckedCreateNestedManyWithoutStakeholderInput
-  participacione?: Prisma.participante_focus_groupUncheckedCreateNestedManyWithoutStakeholderInput
-  observacion?: Prisma.observacionUncheckedCreateNestedManyWithoutStakeholderInput
 }
 
 export type stakeholderCreateOrConnectWithoutRolInput = {
@@ -808,8 +790,6 @@ export type stakeholderCreateWithoutTecnica_recoleccionInput = {
   observacion?: Prisma.observacionCreateNestedManyWithoutStakeholderInput
   participante_focus_group?: Prisma.participante_focus_groupCreateNestedManyWithoutStakeholderInput
   rol?: Prisma.rolCreateNestedOneWithoutStakeholderInput
-  participacione?: Prisma.participante_focus_groupCreateNestedManyWithoutStakeholderInput
-  observacion?: Prisma.observacionCreateNestedManyWithoutStakeholderInput
 }
 
 export type stakeholderUncheckedCreateWithoutTecnica_recoleccionInput = {
@@ -853,8 +833,6 @@ export type stakeholderUpdateWithoutTecnica_recoleccionInput = {
   observacion?: Prisma.observacionUpdateManyWithoutStakeholderNestedInput
   participante_focus_group?: Prisma.participante_focus_groupUpdateManyWithoutStakeholderNestedInput
   rol?: Prisma.rolUpdateOneWithoutStakeholderNestedInput
-  participacione?: Prisma.participante_focus_groupUpdateManyWithoutStakeholderNestedInput
-  observacion?: Prisma.observacionUpdateManyWithoutStakeholderNestedInput
 }
 
 export type stakeholderUncheckedUpdateWithoutTecnica_recoleccionInput = {
@@ -1100,8 +1078,6 @@ export type stakeholderUpdateWithoutRolInput = {
   observacion?: Prisma.observacionUpdateManyWithoutStakeholderNestedInput
   participante_focus_group?: Prisma.participante_focus_groupUpdateManyWithoutStakeholderNestedInput
   tecnica_recoleccion?: Prisma.tecnica_recoleccionUpdateManyWithoutStakeholderNestedInput
-  participacione?: Prisma.participante_focus_groupUpdateManyWithoutStakeholderNestedInput
-  observacion?: Prisma.observacionUpdateManyWithoutStakeholderNestedInput
 }
 
 export type stakeholderUncheckedUpdateWithoutRolInput = {
@@ -1116,8 +1092,6 @@ export type stakeholderUncheckedUpdateWithoutRolInput = {
   observacion?: Prisma.observacionUncheckedUpdateManyWithoutStakeholderNestedInput
   participante_focus_group?: Prisma.participante_focus_groupUncheckedUpdateManyWithoutStakeholderNestedInput
   tecnica_recoleccion?: Prisma.tecnica_recoleccionUncheckedUpdateManyWithoutStakeholderNestedInput
-  participacione?: Prisma.participante_focus_groupUncheckedUpdateManyWithoutStakeholderNestedInput
-  observacion?: Prisma.observacionUncheckedUpdateManyWithoutStakeholderNestedInput
 }
 
 export type stakeholderUncheckedUpdateManyWithoutRolInput = {
@@ -1140,8 +1114,6 @@ export type StakeholderCountOutputType = {
   observacion: number
   participante_focus_group: number
   tecnica_recoleccion: number
-  participacione: number
-  observacion: number
 }
 
 export type StakeholderCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1151,8 +1123,6 @@ export type StakeholderCountOutputTypeSelect<ExtArgs extends runtime.Types.Exten
   observacion?: boolean | StakeholderCountOutputTypeCountObservacionArgs
   participante_focus_group?: boolean | StakeholderCountOutputTypeCountParticipante_focus_groupArgs
   tecnica_recoleccion?: boolean | StakeholderCountOutputTypeCountTecnica_recoleccionArgs
-  participacione?: boolean | StakeholderCountOutputTypeCountParticipacioneArgs
-  observacion?: boolean | StakeholderCountOutputTypeCountObservacionArgs
 }
 
 /**
@@ -1207,20 +1177,6 @@ export type StakeholderCountOutputTypeCountTecnica_recoleccionArgs<ExtArgs exten
   where?: Prisma.tecnica_recoleccionWhereInput
 }
 
-/**
- * StakeholderCountOutputType without action
- */
-export type StakeholderCountOutputTypeCountParticipacioneArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.participante_focus_groupWhereInput
-}
-
-/**
- * StakeholderCountOutputType without action
- */
-export type StakeholderCountOutputTypeCountObservacionArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.observacionWhereInput
-}
-
 
 export type stakeholderSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id_stakeholder?: boolean
@@ -1236,8 +1192,6 @@ export type stakeholderSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   participante_focus_group?: boolean | Prisma.stakeholder$participante_focus_groupArgs<ExtArgs>
   rol?: boolean | Prisma.stakeholder$rolArgs<ExtArgs>
   tecnica_recoleccion?: boolean | Prisma.stakeholder$tecnica_recoleccionArgs<ExtArgs>
-  participacione?: boolean | Prisma.stakeholder$participacioneArgs<ExtArgs>
-  observacion?: boolean | Prisma.stakeholder$observacionArgs<ExtArgs>
   _count?: boolean | Prisma.StakeholderCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["stakeholder"]>
 
@@ -1279,8 +1233,6 @@ export type stakeholderInclude<ExtArgs extends runtime.Types.Extensions.Internal
   participante_focus_group?: boolean | Prisma.stakeholder$participante_focus_groupArgs<ExtArgs>
   rol?: boolean | Prisma.stakeholder$rolArgs<ExtArgs>
   tecnica_recoleccion?: boolean | Prisma.stakeholder$tecnica_recoleccionArgs<ExtArgs>
-  participacione?: boolean | Prisma.stakeholder$participacioneArgs<ExtArgs>
-  observacion?: boolean | Prisma.stakeholder$observacionArgs<ExtArgs>
   _count?: boolean | Prisma.StakeholderCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type stakeholderIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1300,8 +1252,6 @@ export type $stakeholderPayload<ExtArgs extends runtime.Types.Extensions.Interna
     participante_focus_group: Prisma.$participante_focus_groupPayload<ExtArgs>[]
     rol: Prisma.$rolPayload<ExtArgs> | null
     tecnica_recoleccion: Prisma.$tecnica_recoleccionPayload<ExtArgs>[]
-    participacione: Prisma.$participante_focus_groupPayload<ExtArgs>[]
-    observacion: Prisma.$observacionPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id_stakeholder: number
@@ -1711,8 +1661,6 @@ export interface Prisma__stakeholderClient<T, Null = never, ExtArgs extends runt
   participante_focus_group<T extends Prisma.stakeholder$participante_focus_groupArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.stakeholder$participante_focus_groupArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$participante_focus_groupPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   rol<T extends Prisma.stakeholder$rolArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.stakeholder$rolArgs<ExtArgs>>): Prisma.Prisma__rolClient<runtime.Types.Result.GetResult<Prisma.$rolPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   tecnica_recoleccion<T extends Prisma.stakeholder$tecnica_recoleccionArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.stakeholder$tecnica_recoleccionArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$tecnica_recoleccionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  participacione<T extends Prisma.stakeholder$participacioneArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.stakeholder$participacioneArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$participante_focus_groupPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  observacion<T extends Prisma.stakeholder$observacionArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.stakeholder$observacionArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$observacionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2309,54 +2257,6 @@ export type stakeholder$tecnica_recoleccionArgs<ExtArgs extends runtime.Types.Ex
   take?: number
   skip?: number
   distinct?: Prisma.Tecnica_recoleccionScalarFieldEnum | Prisma.Tecnica_recoleccionScalarFieldEnum[]
-}
-
-/**
- * stakeholder.participacione
- */
-export type stakeholder$participacioneArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the participante_focus_group
-   */
-  select?: Prisma.participante_focus_groupSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the participante_focus_group
-   */
-  omit?: Prisma.participante_focus_groupOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.participante_focus_groupInclude<ExtArgs> | null
-  where?: Prisma.participante_focus_groupWhereInput
-  orderBy?: Prisma.participante_focus_groupOrderByWithRelationInput | Prisma.participante_focus_groupOrderByWithRelationInput[]
-  cursor?: Prisma.participante_focus_groupWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.Participante_focus_groupScalarFieldEnum | Prisma.Participante_focus_groupScalarFieldEnum[]
-}
-
-/**
- * stakeholder.observacion
- */
-export type stakeholder$observacionArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the observacion
-   */
-  select?: Prisma.observacionSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the observacion
-   */
-  omit?: Prisma.observacionOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.observacionInclude<ExtArgs> | null
-  where?: Prisma.observacionWhereInput
-  orderBy?: Prisma.observacionOrderByWithRelationInput | Prisma.observacionOrderByWithRelationInput[]
-  cursor?: Prisma.observacionWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.ObservacionScalarFieldEnum | Prisma.ObservacionScalarFieldEnum[]
 }
 
 /**

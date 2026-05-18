@@ -239,46 +239,6 @@ export interface PrismaClient<
   get pregunta_entrevista(): Prisma.pregunta_entrevistaDelegate<ExtArgs, { omit: OmitOpts }>;
 
   /**
-   * `prisma.cuestionario`: Exposes CRUD operations for the **cuestionario** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more Cuestionarios
-    * const cuestionarios = await prisma.cuestionario.findMany()
-    * ```
-    */
-  get cuestionario(): Prisma.cuestionarioDelegate<ExtArgs, { omit: OmitOpts }>;
-
-  /**
-   * `prisma.pregunta_cuestionario`: Exposes CRUD operations for the **pregunta_cuestionario** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more Pregunta_cuestionarios
-    * const pregunta_cuestionarios = await prisma.pregunta_cuestionario.findMany()
-    * ```
-    */
-  get pregunta_cuestionario(): Prisma.pregunta_cuestionarioDelegate<ExtArgs, { omit: OmitOpts }>;
-
-  /**
-   * `prisma.focus_group`: Exposes CRUD operations for the **focus_group** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more Focus_groups
-    * const focus_groups = await prisma.focus_group.findMany()
-    * ```
-    */
-  get focus_group(): Prisma.focus_groupDelegate<ExtArgs, { omit: OmitOpts }>;
-
-  /**
-   * `prisma.participante_focus_group`: Exposes CRUD operations for the **participante_focus_group** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more Participante_focus_groups
-    * const participante_focus_groups = await prisma.participante_focus_group.findMany()
-    * ```
-    */
-  get participante_focus_group(): Prisma.participante_focus_groupDelegate<ExtArgs, { omit: OmitOpts }>;
-
-  /**
    * `prisma.proceso`: Exposes CRUD operations for the **proceso** model.
     * Example usage:
     * ```ts
