@@ -52,6 +52,7 @@ export default function UMLs() {
     const [edges, setEdges] = useState<Edge[]>(initialEdges);
     const [roles, setRoles] = useState<Rol[]>([]);
     const [procesos, setProcesos] = useState<Proceso[]>([]);
+    const [initialized, setInitialized] = useState<boolean>(false);
     const reactFlow = useReactFlow(); // Esto para obtener información sobre el flujo de ReactFlow
 
     const API_URL = import.meta.env.VITE_API_URL;
@@ -266,6 +267,7 @@ export default function UMLs() {
             setNodes(flow.nodes || []); // Actualiza los nodos
             setEdges(flow.edges || []); // Actualiza las conexiones
             reactFlow.setViewport(flow.viewport || { x: 0, y: 0, zoom: 1 }); // Actualiza la vista
+            setInitialized(true);
         } catch (error) {
             console.error("Error fetching diagramas:", error);
         }
@@ -295,7 +297,7 @@ export default function UMLs() {
             if (!response.ok) {
                 throw new Error(`Error al guardar el diagrama: ${response.statusText}`);
             }
-            alert("Diagrama guardado correctamente");
+            alert("Diagrama guardado correctamente")
 
         } catch (error) {
             console.error("Error al guardar el diagrama:", error);
@@ -307,6 +309,40 @@ export default function UMLs() {
         getDiagram();
     }, []);
 
+    useEffect(() => {
+        if (!initialized) {
+            return
+        }
+        const autoSaveDiagram = async () => {
+        const token = localStorage.getItem("token");
+
+        const headers = {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+        };
+
+        try {
+            const flowData = reactFlow.toObject();
+            
+            const response = await fetch(`${API_URL}/diagramasUML/actualizar_uml/${id_diagrama}`, {
+                method: "PUT",
+                headers,
+                body: JSON.stringify({
+                    diagrama: JSON.stringify(flowData) // string para el campo TEXT de la BD
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error(`Error al guardar el diagrama: ${response.statusText}`);
+            }
+
+        } catch (error) {
+            console.error("Error al guardar el diagrama:", error);
+        }
+    };
+
+        autoSaveDiagram();
+    }, [nodes, edges]);
     // Obtener los subprocesos de los procesos
     const subprocesosFlattened = procesos.flatMap(p => p.subproceso);
 
